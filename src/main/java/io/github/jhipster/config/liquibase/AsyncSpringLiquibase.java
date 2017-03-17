@@ -57,19 +57,18 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
                 .SPRING_PROFILE_HEROKU)) {
                 taskExecutor.execute(() -> {
                     try {
-                        logger.warn("Starting Liquibase asynchronously, your database might not be ready at startup!");
+                        logger.warn("Scheduling background DB setup via Liquibase; the database will not be ready until DB setup finishes");
                         initDb();
                     } catch (LiquibaseException e) {
-                        logger.error("Liquibase could not start correctly, your database is NOT ready: {}", e
-                            .getMessage(), e);
+                        logger.error("Error scheduling DB setup via Liquibase; the database will not become ready, reason:", e);
                     }
                 });
             } else {
-                logger.debug("Starting Liquibase synchronously");
+                logger.debug("Starting DB setup via Liquibase");
                 initDb();
             }
         } else {
-            logger.debug("Liquibase is disabled");
+            logger.debug("DB setup via Liquibase is disabled");
         }
     }
 
@@ -78,6 +77,6 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
         watch.start();
         super.afterPropertiesSet();
         watch.stop();
-        logger.debug("Started Liquibase in {} ms", watch.getTotalTimeMillis());
+        logger.debug("DB setup via Liquibase finished in {} ms", watch.getTotalTimeMillis());
     }
 }
