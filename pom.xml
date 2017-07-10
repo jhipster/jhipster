@@ -17,6 +17,7 @@
 
 	<properties>
 		<io.github.jhipster_jhipster-dependencies.version>${project.version}</io.github.jhipster_jhipster-dependencies.version>
+		<org.springframework.cloud_spring-cloud-dependencies.version>Dalston.RELEASE</org.springframework.cloud_spring-cloud-dependencies.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -24,6 +25,13 @@
 				<groupId>io.github.jhipster</groupId>
 				<artifactId>jhipster-dependencies</artifactId>
 				<version>${io.github.jhipster_jhipster-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${org.springframework.cloud_spring-cloud-dependencies.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -200,6 +208,7 @@
 			<artifactId>spring-boot-starter-cloud-connectors</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
