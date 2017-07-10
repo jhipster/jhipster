@@ -33,7 +33,7 @@
 			</googleSearch>
 			<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
 			<gitHub>
-				<projectId>jhipster/jhipster-parent</projectId>
+				<projectId>jhipster/jhipster</projectId>
 				<ribbonOrientation>right</ribbonOrientation>
 				<ribbonColor>green</ribbonColor>
 			</gitHub>
