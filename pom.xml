@@ -4,9 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>jhipster-corp</artifactId>
+		<artifactId>jhipster-org</artifactId>
 		<groupId>io.github.jhipster</groupId>
 		<version>1.1.9-SNAPSHOT</version>
+		<relativePath>.mvn/org/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>jhipster</artifactId>
@@ -15,8 +16,6 @@
 	<description>Server-side library used by applications created with the JHipster generator, see https://jhipster.github.io/ for more information on JHipster</description>
 
 	<properties>
-		
-		<org.springframework.cloud_spring-cloud-dependencies.version>Dalston.RELEASE</org.springframework.cloud_spring-cloud-dependencies.version>
 		<io.github.jhipster_jhipster-dependencies.version>${project.version}</io.github.jhipster_jhipster-dependencies.version>
 	</properties>
 	<dependencyManagement>
@@ -28,17 +27,8 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${org.springframework.cloud_spring-cloud-dependencies.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-
 	<dependencies>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
@@ -216,12 +206,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -230,30 +218,22 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<!-- Force alphabetical order to have a reproducible build -->
-					<runOrder>alphabetical</runOrder>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-
 			</plugin>
 			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
-
 			</plugin>
 		</plugins>
 	</build>

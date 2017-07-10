@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>io.github.jhipster</groupId>
+		<artifactId>jhipster-plugins</artifactId>
+		<version>1.1.9-SNAPSHOT</version>
+		<relativePath>../plugins/pom.xml</relativePath>
+	</parent>
+	<artifactId>jhipster-org</artifactId>
+	<packaging>pom</packaging>
+	<name>Jhipster corporate pom</name>
+	<description>Jhipster corporate pom: containing company info and default values for jhipster ecosystem</description>
+	<ciManagement>
+		<system>travis</system>
+		<url>https://travis-ci.org/jhipster</url>
+	</ciManagement>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/jhipster/generator-jhipster/issues</url>
+	</issueManagement>
+	<organization>
+		<name>jhipster</name>
+		<url>https://jhipster.github.io/</url>
+	</organization>
+	<mailingLists>
+		<mailingList>
+			<name>Jhipster developer discussion list</name>
+			<subscribe>jhipster-dev+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>jhipster-dev+unsubscribe@googlegroups.com</unsubscribe>
+			<post>jhipster-dev@googlegroups.com</post>
+			<archive>https://groups.google.com/forum/#!forum/jhipster-dev</archive>
+		</mailingList>
+	</mailingLists>
+	<inceptionYear>2013</inceptionYear>
+
+	<properties>
+		<project.license>apache_v2</project.license>
+	</properties>
+	<licenses>
+		<license>
+			<name>Apache Licence 2.0</name>
+			<distribution>repo</distribution>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>releases</id>
+			<name>Sonatype OSS Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/</url>
+		</repository>
+		<site>
+			<id>github-pages</id>
+			<name>Github GH Pages</name>
+			<!-- please override it in the child pom -->
+			<url>scm:git:git@github.com:jhipster/${project.artifactId}.git</url>
+		</site>
+	</distributionManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.rat</groupId>
+				<artifactId>apache-rat-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
