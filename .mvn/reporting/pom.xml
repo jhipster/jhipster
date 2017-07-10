@@ -91,6 +91,6 @@
 	</reporting>
 
 	<modules>
-		<module>jhipster-plugins</module>
+		<module>../plugins</module>
 	</modules>
 </project>

@@ -17,9 +17,9 @@
 	<url>https://github.com/jhipster/jhipster</url>
 	<!-- please override it in the child pom -->
 	<scm>
-		<connection>scm:git:git@github.com:jhipster/jhipster-parent.git</connection>
-		<developerConnection>scm:git:git@github.com:jhipster/jhipster-parent.git</developerConnection>
-		<url>https://github.com/jhipster/jhipster-parent</url>
+		<connection>scm:git:git@github.com:jhipster/jhipster.git</connection>
+		<developerConnection>scm:git:git@github.com:jhipster/jhipster.git</developerConnection>
+		<url>https://github.com/jhipster/jhipster</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -38,12 +38,11 @@
 		<site>
 			<id>github-pages</id>
 			<name>Github GH Pages</name>
-			<url>scm:git:git@github.com:jhipster/jhipster-parent.git</url>
+			<url>scm:git:git@github.com:jhipster/jhipster.git</url>
 		</site>
 	</distributionManagement>
 	<modules>
-		<module>jhipster-reporting</module>
-		<module>jhipster-dependencies</module>
+		<module>../reporting</module>
 	</modules>
 
 	<properties>

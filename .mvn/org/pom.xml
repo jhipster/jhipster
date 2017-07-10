@@ -11,6 +11,9 @@
 	<packaging>pom</packaging>
 	<name>Jhipster corporate pom</name>
 	<description>Jhipster corporate pom: containing company info and default values for jhipster ecosystem</description>
+	<modules>
+	<module>../..</module>
+	</modules>
 	<ciManagement>
 		<system>travis</system>
 		<url>https://travis-ci.org/jhipster</url>

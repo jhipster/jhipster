@@ -12,7 +12,7 @@
 	<name>Jhipster plugins</name>
 	<description>Plugin management for jhipster projects</description>
 	<modules>
-		<module>jhipster-org</module>
+		<module>../org</module>
 	</modules>
 	<properties>
 
