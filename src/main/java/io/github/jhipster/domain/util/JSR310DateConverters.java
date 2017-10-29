@@ -82,6 +82,28 @@ public final class JSR310DateConverters {
         }
     }
 
+    public static class StringToZonedDateTimeConverter implements Converter<String, ZonedDateTime> {
+        public static final StringToZonedDateTimeConverter INSTANCE = new StringToZonedDateTimeConverter();
+
+        private StringToZonedDateTimeConverter() {
+        }
+
+        public ZonedDateTime convert(String source) {
+            return source == null ? null : ZonedDateTime.parse(source);
+        }
+    }
+
+    public static class ZonedDateTimeToStringConverter implements Converter<ZonedDateTime, String> {
+        public static final ZonedDateTimeToStringConverter INSTANCE = new ZonedDateTimeToStringConverter();
+
+        private ZonedDateTimeToStringConverter() {
+        }
+
+        public String convert(ZonedDateTime source) {
+            return source == null ? null : source.toString();
+        }
+    }
+
     public static class LocalDateTimeToDateConverter implements Converter<LocalDateTime, Date> {
 
         public static final LocalDateTimeToDateConverter INSTANCE = new LocalDateTimeToDateConverter();
