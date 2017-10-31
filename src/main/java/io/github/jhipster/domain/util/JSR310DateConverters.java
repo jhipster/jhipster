@@ -82,25 +82,25 @@ public final class JSR310DateConverters {
         }
     }
 
-    public static class StringToZonedDateTimeConverter implements Converter<String, ZonedDateTime> {
-        public static final StringToZonedDateTimeConverter INSTANCE = new StringToZonedDateTimeConverter();
+    public static class LongToZonedDateTimeConverter implements Converter<Long, ZonedDateTime> {
+        public static final LongToZonedDateTimeConverter INSTANCE = new LongToZonedDateTimeConverter();
 
-        private StringToZonedDateTimeConverter() {
+        private LongToZonedDateTimeConverter() {
         }
 
-        public ZonedDateTime convert(String source) {
-            return source == null ? null : ZonedDateTime.parse(source);
+        public ZonedDateTime convert(Long source) {
+            return source == null ? null : ZonedDateTime.ofInstant(Instant.ofEpochMilli(source), ZoneOffset.UTC);
         }
     }
 
-    public static class ZonedDateTimeToStringConverter implements Converter<ZonedDateTime, String> {
-        public static final ZonedDateTimeToStringConverter INSTANCE = new ZonedDateTimeToStringConverter();
+    public static class ZonedDateTimeToLongConverter implements Converter<ZonedDateTime, Long> {
+        public static final ZonedDateTimeToLongConverter INSTANCE = new ZonedDateTimeToLongConverter();
 
-        private ZonedDateTimeToStringConverter() {
+        private ZonedDateTimeToLongConverter() {
         }
 
-        public String convert(ZonedDateTime source) {
-            return source == null ? null : source.toString();
+        public Long convert(ZonedDateTime source) {
+            return source == null ? null : source.toInstant().toEpochMilli();
         }
     }
 
