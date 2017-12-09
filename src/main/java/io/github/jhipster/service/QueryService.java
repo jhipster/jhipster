@@ -21,6 +21,7 @@ package io.github.jhipster.service;
 
 import java.util.Collection;
 import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -144,7 +145,7 @@ public abstract class QueryService<ENTITY> {
         } else if (filter.getIn() != null) {
             return valueIn(reference, valueField, filter.getIn());
         } else if (filter.getSpecified() != null) {
-            return byFieldSpecified(reference, filter.getSpecified());
+            return byReferringEntitiesFieldSpecified(reference, filter.getSpecified());
         }
         return null;
     }
@@ -197,6 +198,12 @@ public abstract class QueryService<ENTITY> {
     protected Specification<ENTITY> likeUpperSpecification(SingularAttribute<? super ENTITY, String> field, final
     String value) {
         return (root, query, builder) -> builder.like(builder.upper(root.get(field)), wrapLikeQuery(value));
+    }
+
+    protected <X> Specification<ENTITY> byReferringEntitiesFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
+        specified) {
+        return specified ? (root, query, builder) -> builder.isNotNull(root.join(field, JoinType.LEFT)) : (root, query, builder) ->
+            builder.isNull(root.join(field, JoinType.LEFT));
     }
 
     protected <X> Specification<ENTITY> byFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
