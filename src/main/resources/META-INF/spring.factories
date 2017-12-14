@@ -1,5 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.github.jhipster.config.apidoc.SwaggerConfiguration,\
+  io.github.jhipster.config.apidoc.SwaggerAutoConfiguration,\
+  io.github.jhipster.config.apidoc.SwaggerPluginAutoConfiguration,\
   io.github.jhipster.config.metrics.GraphiteRegistry,\
   io.github.jhipster.config.metrics.PrometheusRegistry,\
   io.github.jhipster.config.JHipsterProperties,\

@@ -19,48 +19,84 @@
 
 package io.github.jhipster.config.apidoc;
 
-import com.fasterxml.classmate.TypeResolver;
 import io.github.jhipster.config.JHipsterProperties;
+import io.github.jhipster.config.apidoc.customizer.BuildInSwaggerCustomizer;
+import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringBootVersion;
+import org.springframework.boot.actuate.autoconfigure.ManagementServerProperties;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;
-import springfox.documentation.schema.TypeNameExtractor;
+import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.DispatcherServlet;
+import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
+import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.servlet.Servlet;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_SWAGGER;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * Springfox Swagger configuration.
- *
+ * <p>
  * Warning! When having a lot of REST endpoints, Springfox can become a performance issue. In that case, you can use a
  * specific Spring profile for this class, so that only front-end developers have access to the Swagger view.
  */
-@Deprecated
-public class SwaggerConfiguration {
+@Configuration
+@ConditionalOnWebApplication
+@ConditionalOnClass({
+    ApiInfo.class,
+    BeanValidatorPluginsConfiguration.class,
+    Servlet.class,
+    DispatcherServlet.class
+})
+@Profile(SPRING_PROFILE_SWAGGER)
+@AutoConfigureAfter(JHipsterProperties.class)
+@EnableSwagger2
+@Import(BeanValidatorPluginsConfiguration.class)
+public class SwaggerAutoConfiguration {
 
     public static final String STARTING_MESSAGE = "Starting Swagger";
     public static final String STARTED_MESSAGE = "Started Swagger in {} ms";
-    public static final String MANAGEMENT_TITLE_SUFFIX = "management API";
+    public static final String MANAGEMENT_TITLE_SUFFIX = "Management API";
     public static final String MANAGEMENT_GROUP_NAME = "management";
     public static final String MANAGEMENT_DESCRIPTION = "Management endpoints documentation";
 
-    private final Logger log = LoggerFactory.getLogger(SwaggerConfiguration.class);
+    private final Logger log = LoggerFactory.getLogger(SwaggerAutoConfiguration.class);
 
     private final JHipsterProperties.Swagger properties;
 
-    public SwaggerConfiguration(JHipsterProperties jHipsterProperties) {
+    public SwaggerAutoConfiguration(JHipsterProperties jHipsterProperties) {
         this.properties = jHipsterProperties.getSwagger();
+    }
+
+    @Bean
+    public BuildInSwaggerCustomizer buildInSwaggerCustomizer(
+        ObjectProvider<AlternateTypeRule[]> alternateTypeRulesProviders) {
+        AlternateTypeRule[] alternateTypeRules = alternateTypeRulesProviders.getIfAvailable();
+        if (alternateTypeRules == null) {
+            alternateTypeRules = new AlternateTypeRule[]{};
+        }
+        return new BuildInSwaggerCustomizer(alternateTypeRules);
     }
 
     /**
@@ -69,13 +105,14 @@ public class SwaggerConfiguration {
      * @return the Swagger Springfox configuration
      */
     @Bean
-    public Docket swaggerSpringfoxApiDocket() {
+    @ConditionalOnMissingBean(name = "swaggerSpringfoxApiDocket")
+    public Docket swaggerSpringfoxApiDocket(ObjectProvider<SwaggerCustomizer[]> swaggerCustomizerProviders) {
         log.debug(STARTING_MESSAGE);
         StopWatch watch = new StopWatch();
         watch.start();
         Contact contact = new Contact(
             properties.getContactName(),
-            properties.getContactUrl(),
+            properties.getContactUrl (),
             properties.getContactEmail());
 
         ApiInfo apiInfo = new ApiInfo(
@@ -88,16 +125,18 @@ public class SwaggerConfiguration {
             properties.getLicenseUrl(),
             new ArrayList<>());
 
-        Docket docket = createDocket()
-            .host(properties.getHost())
+        Docket docket = createDocket().host(properties.getHost())
             .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
-            .apiInfo(apiInfo)
-            .forCodeGeneration(true)
-            .directModelSubstitute(ByteBuffer.class, String.class)
-            .genericModelSubstitutes(ResponseEntity.class)
-            .select()
-            .paths(regex(properties.getDefaultIncludePattern()))
-            .build();
+            .apiInfo(apiInfo);
+
+        SwaggerCustomizer[] swaggerCustomizers = swaggerCustomizerProviders.getIfAvailable();
+        if (swaggerCustomizers != null) {
+            for (SwaggerCustomizer customizer : swaggerCustomizers) {
+                customizer.customize(docket);
+            }
+        }
+
+        docket = docket.select().paths(regex(properties.getDefaultIncludePattern())).build();
         watch.stop();
         log.debug(STARTED_MESSAGE, watch.getTotalTimeMillis());
         return docket;
@@ -108,33 +147,38 @@ public class SwaggerConfiguration {
      *
      * @param appName               the application name
      * @param managementContextPath the path to access management endpoints
-     * @param appVersion            the application version
      * @return the Swagger Springfox configuration
      */
     @Bean
-    public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name}") String appName,
-        @Value("${management.context-path}") String managementContextPath,
-        @Value("${info.project.version}") String appVersion) {
+    @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.ManagementServerProperties")
+    @ConditionalOnProperty("management.context-path")
+    @ConditionalOnExpression("'${management.context-path}'.length() > 0")
+    @ConditionalOnBean(ManagementServerProperties.class)
+    @ConditionalOnMissingBean(name = "swaggerSpringfoxManagementDocket")
+    public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name:spring}") String appName,
+                                                   @Value("${management.context-path}") String managementContextPath) {
+        ApiInfo apiInfo = new ApiInfo(
+            StringUtils.capitalize(appName) + " " + MANAGEMENT_TITLE_SUFFIX,
+            MANAGEMENT_DESCRIPTION,
+            properties.getVersion(),
+            "",
+            ApiInfo.DEFAULT_CONTACT,
+            "",
+            "",
+            new ArrayList<>()
+        );
 
         return createDocket()
-            .apiInfo(new ApiInfo(appName + " " + MANAGEMENT_TITLE_SUFFIX, MANAGEMENT_DESCRIPTION,
-                appVersion, "", ApiInfo.DEFAULT_CONTACT, "", "", new ArrayList<>()))
+            .apiInfo(apiInfo)
             .groupName(MANAGEMENT_GROUP_NAME)
             .host(properties.getHost())
             .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
             .forCodeGeneration(true)
-            .directModelSubstitute(java.nio.ByteBuffer.class, String.class)
+            .directModelSubstitute(ByteBuffer.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)
             .select()
             .paths(regex(managementContextPath + ".*"))
             .build();
-    }
-
-    @Bean
-    PageableParameterBuilderPlugin pageableParameterBuilderPlugin(TypeNameExtractor nameExtractor,
-        TypeResolver resolver) {
-
-        return new PageableParameterBuilderPlugin(nameExtractor, resolver);
     }
 
     protected Docket createDocket() {
