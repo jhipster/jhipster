@@ -26,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringBootVersion;
-import org.springframework.boot.actuate.autoconfigure.ManagementServerProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.context.annotation.Bean;
@@ -153,7 +151,6 @@ public class SwaggerAutoConfiguration {
     @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.ManagementServerProperties")
     @ConditionalOnProperty("management.context-path")
     @ConditionalOnExpression("'${management.context-path}'.length() > 0")
-    @ConditionalOnBean(ManagementServerProperties.class)
     @ConditionalOnMissingBean(name = "swaggerSpringfoxManagementDocket")
     public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name:spring}") String appName,
                                                    @Value("${management.context-path}") String managementContextPath) {
