@@ -21,12 +21,10 @@ package io.github.jhipster.config.apidoc.customizer;
 
 import io.github.jhipster.config.JHipsterProperties;
 import org.springframework.core.Ordered;
-import org.springframework.http.ResponseEntity;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spring.web.plugins.Docket;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -74,8 +72,6 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
             .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
             .apiInfo(apiInfo)
             .forCodeGeneration(true)
-            .directModelSubstitute(ByteBuffer.class, String.class)
-            .genericModelSubstitutes(ResponseEntity.class)
             .select()
             .paths(regex(properties.getDefaultIncludePattern()))
             .build();

@@ -19,11 +19,11 @@
 
 package io.github.jhipster.config.apidoc;
 
+import com.fasterxml.classmate.TypeResolver;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.JHipsterProperties.Swagger;
-import io.github.jhipster.config.NullObjectProvider;
 import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
 import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import io.github.jhipster.test.LogbackRecorder;
@@ -36,6 +36,7 @@ import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -100,7 +101,11 @@ public class SwaggerAutoConfigurationTest {
     @Test
     public void testSwaggerSpringfoxApiDocket() {
         List<SwaggerCustomizer> customizers = Lists.newArrayList(new JHipsterSwaggerCustomizer(properties));
-        Docket docket = config.swaggerSpringfoxApiDocket(customizers, new NullObjectProvider<>());
+        List<AlternateTypeRule> rules = Lists.newArrayList(
+            config.responseEntityAlternateTypeRule(new TypeResolver()),
+            config.byteBufferAlternateTypeRule(new TypeResolver())
+        );
+        Docket docket = config.swaggerSpringfoxApiDocket(customizers, rules);
 
         verify(docket, never()).groupName(anyString());
         verify(docket).host(properties.getHost());
