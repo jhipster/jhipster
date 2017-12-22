@@ -101,11 +101,11 @@ public class SwaggerAutoConfigurationTest {
     @Test
     public void testSwaggerSpringfoxApiDocket() {
         List<SwaggerCustomizer> customizers = Lists.newArrayList(new JHipsterSwaggerCustomizer(properties));
-        List<AlternateTypeRule> rules = Lists.newArrayList(
+        AlternateTypeRule[] rules = {
             config.responseEntityAlternateTypeRule(new TypeResolver()),
             config.byteBufferAlternateTypeRule(new TypeResolver())
-        );
-        Docket docket = config.swaggerSpringfoxApiDocket(customizers, rules);
+        };
+        Docket docket = config.swaggerSpringfoxApiDocket(customizers, Arrays.asList(rules));
 
         verify(docket, never()).groupName(anyString());
         verify(docket).host(properties.getHost());
@@ -125,8 +125,7 @@ public class SwaggerAutoConfigurationTest {
         assertThat(info.getVendorExtensions()).isEmpty();
 
         verify(docket).forCodeGeneration(true);
-        verify(docket).directModelSubstitute(ByteBuffer.class, String.class);
-        verify(docket).genericModelSubstitutes(ResponseEntity.class);
+        verify(docket).alternateTypeRules(rules);
 
         verify(docket).select();
         verify(builder).paths(pathsCaptor.capture());
