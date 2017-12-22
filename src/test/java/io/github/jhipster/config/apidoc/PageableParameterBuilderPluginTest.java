@@ -19,33 +19,33 @@
 
 package io.github.jhipster.config.apidoc;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-
-import java.lang.reflect.Method;
-import java.util.LinkedList;
-import java.util.List;
-
+import com.fasterxml.classmate.TypeResolver;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Pageable;
 import org.springframework.plugin.core.SimplePluginRegistry;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.method.HandlerMethod;
-
-import com.fasterxml.classmate.TypeResolver;
-
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.OperationBuilder;
 import springfox.documentation.schema.TypeNameExtractor;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.schema.TypeNameProviderPlugin;
-import springfox.documentation.spi.service.contexts.*;
+import springfox.documentation.spi.service.contexts.DocumentationContext;
+import springfox.documentation.spi.service.contexts.OperationContext;
+import springfox.documentation.spi.service.contexts.RequestMappingContext;
 import springfox.documentation.spring.web.WebMvcRequestHandler;
+
+import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for io.github.jhipster.config.apidoc.PageableParameterBuilderPlugin.
@@ -67,7 +67,7 @@ public class PageableParameterBuilderPluginTest {
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        Method method = this.getClass().getMethod("test", new Class<?>[] { Pageable.class, Integer.class });
+        Method method = this.getClass().getMethod("test", Pageable.class, Integer.class);
         RequestHandler handler = new WebMvcRequestHandler(null, new HandlerMethod(this, method));
         DocumentationContext docContext = mock(DocumentationContext.class);
         RequestMappingContext reqContext = new RequestMappingContext(docContext, handler);
@@ -104,21 +104,21 @@ public class PageableParameterBuilderPluginTest {
 
         Parameter parameter0 = parameters.get(0);
         assertThat(parameter0.getParamType()).isEqualTo(PageableParameterBuilderPlugin.PAGE_TYPE);
-        assertThat(parameter0.getName()).isEqualTo(PageableParameterBuilderPlugin.PAGE_NAME);
+        assertThat(parameter0.getName()).isEqualTo(PageableParameterBuilderPlugin.DEFAULT_PAGE_NAME);
         assertThat(parameter0.getDescription()).isEqualTo(PageableParameterBuilderPlugin.PAGE_DESCRIPTION);
         assertThat(parameter0.getModelRef().getType()).isEqualTo("int");
         assertThat(parameter0.isAllowMultiple()).isEqualTo(false);
 
         Parameter parameter1 = parameters.get(1);
         assertThat(parameter1.getParamType()).isEqualTo(PageableParameterBuilderPlugin.SIZE_TYPE);
-        assertThat(parameter1.getName()).isEqualTo(PageableParameterBuilderPlugin.SIZE_NAME);
+        assertThat(parameter1.getName()).isEqualTo(PageableParameterBuilderPlugin.DEFAULT_SIZE_NAME);
         assertThat(parameter1.getDescription()).isEqualTo(PageableParameterBuilderPlugin.SIZE_DESCRIPTION);
         assertThat(parameter1.getModelRef().getType()).isEqualTo("int");
         assertThat(parameter1.isAllowMultiple()).isEqualTo(false);
 
         Parameter parameter2 = parameters.get(2);
         assertThat(parameter2.getParamType()).isEqualTo(PageableParameterBuilderPlugin.SORT_TYPE);
-        assertThat(parameter2.getName()).isEqualTo(PageableParameterBuilderPlugin.SORT_NAME);
+        assertThat(parameter2.getName()).isEqualTo(PageableParameterBuilderPlugin.DEFAULT_SORT_NAME);
         assertThat(parameter2.getDescription()).isEqualTo(PageableParameterBuilderPlugin.SORT_DESCRIPTION);
         assertThat(parameter2.getModelRef().getType()).isEqualTo("List");
         assertThat(parameter2.getModelRef().getItemType()).isEqualTo("string");
