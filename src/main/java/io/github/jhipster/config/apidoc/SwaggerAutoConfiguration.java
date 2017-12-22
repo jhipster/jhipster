@@ -103,11 +103,11 @@ public class SwaggerAutoConfiguration {
 
         Docket docket = createDocket();
 
-        // Apply all customizers
+        // Apply all SwaggerCustomizers.
         swaggerCustomizers.forEach(customizer -> customizer.customize(docket));
 
-        // Add AlternateTypeRules if available in spring bean factory.
-        // Also you can add them in a customizer bean above.
+        // Add all AlternateTypeRules.
+        // Also you can add you rules in a customizer bean above.
         docket.alternateTypeRules(alternateTypeRules.toArray(new AlternateTypeRule[alternateTypeRules.size()]));
 
         watch.stop();
