@@ -20,9 +20,11 @@
 package io.github.jhipster.config.apidoc;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.JHipsterProperties.Swagger;
-import io.github.jhipster.config.apidoc.customizer.BuildInSwaggerCustomizer;
+import io.github.jhipster.config.NullObjectProvider;
+import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
 import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
@@ -32,8 +34,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import springfox.documentation.service.ApiInfo;
@@ -99,28 +99,8 @@ public class SwaggerAutoConfigurationTest {
 
     @Test
     public void testSwaggerSpringfoxApiDocket() {
-        SwaggerCustomizer customizer = new BuildInSwaggerCustomizer();
-        Docket docket = config.swaggerSpringfoxApiDocket(new ObjectProvider<SwaggerCustomizer[]>() {
-            @Override
-            public SwaggerCustomizer[] getObject(Object... args) throws BeansException {
-                return new SwaggerCustomizer[]{customizer};
-            }
-
-            @Override
-            public SwaggerCustomizer[] getIfAvailable() throws BeansException {
-                return new SwaggerCustomizer[]{customizer};
-            }
-
-            @Override
-            public SwaggerCustomizer[] getIfUnique() throws BeansException {
-                return new SwaggerCustomizer[]{customizer};
-            }
-
-            @Override
-            public SwaggerCustomizer[] getObject() throws BeansException {
-                return new SwaggerCustomizer[]{customizer};
-            }
-        });
+        List<SwaggerCustomizer> customizers = Lists.newArrayList(new JHipsterSwaggerCustomizer(properties));
+        Docket docket = config.swaggerSpringfoxApiDocket(customizers, new NullObjectProvider<>());
 
         verify(docket, never()).groupName(anyString());
         verify(docket).host(properties.getHost());

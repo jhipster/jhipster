@@ -20,7 +20,7 @@
 package io.github.jhipster.config.apidoc;
 
 import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.config.apidoc.customizer.BuildInSwaggerCustomizer;
+import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
 import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,16 +39,13 @@ import org.springframework.web.servlet.DispatcherServlet;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.Servlet;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_SWAGGER;
 import static springfox.documentation.builders.PathSelectors.regex;
@@ -87,14 +84,14 @@ public class SwaggerAutoConfiguration {
         this.properties = jHipsterProperties.getSwagger();
     }
 
+    /**
+     * JHipster Swagger Customizer
+     *
+     * @return the Swagger Customizer of JHipster
+     */
     @Bean
-    public BuildInSwaggerCustomizer buildInSwaggerCustomizer(
-        ObjectProvider<AlternateTypeRule[]> alternateTypeRulesProviders) {
-        AlternateTypeRule[] alternateTypeRules = alternateTypeRulesProviders.getIfAvailable();
-        if (alternateTypeRules == null) {
-            alternateTypeRules = new AlternateTypeRule[]{};
-        }
-        return new BuildInSwaggerCustomizer(alternateTypeRules);
+    public JHipsterSwaggerCustomizer jHipsterSwaggerCustomizer() {
+        return new JHipsterSwaggerCustomizer(properties);
     }
 
     /**
@@ -104,37 +101,21 @@ public class SwaggerAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "swaggerSpringfoxApiDocket")
-    public Docket swaggerSpringfoxApiDocket(ObjectProvider<SwaggerCustomizer[]> swaggerCustomizerProviders) {
+    public Docket swaggerSpringfoxApiDocket(List<SwaggerCustomizer> swaggerCustomizers,
+                                            ObjectProvider<AlternateTypeRule[]> alternateTypeRulesProviders) {
         log.debug(STARTING_MESSAGE);
         StopWatch watch = new StopWatch();
         watch.start();
-        Contact contact = new Contact(
-            properties.getContactName(),
-            properties.getContactUrl (),
-            properties.getContactEmail());
 
-        ApiInfo apiInfo = new ApiInfo(
-            properties.getTitle(),
-            properties.getDescription(),
-            properties.getVersion(),
-            properties.getTermsOfServiceUrl(),
-            contact,
-            properties.getLicense(),
-            properties.getLicenseUrl(),
-            new ArrayList<>());
+        Docket docket = createDocket();
 
-        Docket docket = createDocket().host(properties.getHost())
-            .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
-            .apiInfo(apiInfo);
+        // Apply all customizers
+        swaggerCustomizers.forEach(customizer -> customizer.customize(docket));
 
-        SwaggerCustomizer[] swaggerCustomizers = swaggerCustomizerProviders.getIfAvailable();
-        if (swaggerCustomizers != null) {
-            for (SwaggerCustomizer customizer : swaggerCustomizers) {
-                customizer.customize(docket);
-            }
-        }
+        // Add AlternateTypeRules if available in spring bean factory.
+        // Also you can add them in a customizer bean above.
+        Optional.ofNullable(alternateTypeRulesProviders.getIfAvailable()).ifPresent(docket::alternateTypeRules);
 
-        docket = docket.select().paths(regex(properties.getDefaultIncludePattern())).build();
         watch.stop();
         log.debug(STARTED_MESSAGE, watch.getTotalTimeMillis());
         return docket;
@@ -152,7 +133,7 @@ public class SwaggerAutoConfiguration {
     @ConditionalOnProperty("management.context-path")
     @ConditionalOnExpression("'${management.context-path}'.length() > 0")
     @ConditionalOnMissingBean(name = "swaggerSpringfoxManagementDocket")
-    public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name:spring}") String appName,
+    public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name:application}") String appName,
                                                    @Value("${management.context-path}") String managementContextPath) {
         ApiInfo apiInfo = new ApiInfo(
             StringUtils.capitalize(appName) + " " + MANAGEMENT_TITLE_SUFFIX,

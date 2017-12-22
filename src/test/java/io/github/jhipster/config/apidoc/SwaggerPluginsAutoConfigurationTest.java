@@ -34,16 +34,16 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SwaggerPluginAutoConfigurationTest {
+public class SwaggerPluginsAutoConfigurationTest {
 
-    private SwaggerPluginAutoConfiguration.SpringPagePluginConfiguration pagePluginConfig;
+    private SwaggerPluginsAutoConfiguration.SpringPagePluginConfiguration pagePluginConfig;
     private LogbackRecorder recorder;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        pagePluginConfig = new SwaggerPluginAutoConfiguration.SpringPagePluginConfiguration();
+        pagePluginConfig = new SwaggerPluginsAutoConfiguration.SpringPagePluginConfiguration();
 
         recorder = LogbackRecorder.forClass(SwaggerAutoConfiguration.class).reset().capture("ALL");
     }

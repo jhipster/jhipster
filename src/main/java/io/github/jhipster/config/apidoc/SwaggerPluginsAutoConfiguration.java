@@ -32,14 +32,13 @@ import springfox.documentation.schema.TypeNameExtractor;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * @author jearton
- * @since 2017/12/14 1:01
+ * Register Springfox plugins.
  */
 @Configuration
 @ConditionalOnWebApplication
 @ConditionalOnBean(Docket.class)
 @AutoConfigureAfter(SwaggerAutoConfiguration.class)
-public class SwaggerPluginAutoConfiguration {
+public class SwaggerPluginsAutoConfiguration {
 
     @Configuration
     @ConditionalOnClass(Pageable.class)

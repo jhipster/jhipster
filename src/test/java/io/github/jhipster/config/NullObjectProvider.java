@@ -17,21 +17,36 @@
  * limitations under the License.
  */
 
-package io.github.jhipster.config.apidoc.customizer;
+package io.github.jhipster.config;
 
-import springfox.documentation.spring.web.plugins.Docket;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectProvider;
 
-/**
- * Callback interface that can be implemented by beans wishing to further customize the
- * {@link Docket} in Springfox.
- */
-@FunctionalInterface
-public interface SwaggerCustomizer {
+import javax.annotation.Nullable;
 
-    /**
-     * Customize the Springfox Docket.
-     *
-     * @param docket the Docket to customize
-     */
-    void customize(Docket docket);
+public class NullObjectProvider<T> implements ObjectProvider<T> {
+
+    @Nullable
+    @Override
+    public T getObject(Object... args) throws BeansException {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public T getIfAvailable() throws BeansException {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public T getIfUnique() throws BeansException {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public T getObject() throws BeansException {
+        return null;
+    }
 }
