@@ -19,12 +19,12 @@
 
 package io.github.jhipster.config.apidoc;
 
-import com.fasterxml.classmate.TypeResolver;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
 import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.*;
@@ -38,8 +38,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.schema.AlternateTypeRule;
-import springfox.documentation.schema.AlternateTypeRules;
-import springfox.documentation.schema.WildcardType;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -51,8 +49,6 @@ import java.util.*;
 
 import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_SWAGGER;
 import static springfox.documentation.builders.PathSelectors.regex;
-import static springfox.documentation.schema.AlternateTypeRules.DIRECT_SUBSTITUTION_RULE_ORDER;
-import static springfox.documentation.schema.AlternateTypeRules.GENERIC_SUBSTITUTION_RULE_ORDER;
 
 /**
  * Springfox Swagger configuration.
@@ -96,19 +92,19 @@ public class SwaggerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(name = "swaggerSpringfoxApiDocket")
     public Docket swaggerSpringfoxApiDocket(List<SwaggerCustomizer> swaggerCustomizers,
-                                            List<AlternateTypeRule> alternateTypeRules) {
+                                            ObjectProvider<AlternateTypeRule[]> alternateTypeRules) {
         log.debug(STARTING_MESSAGE);
         StopWatch watch = new StopWatch();
         watch.start();
 
         Docket docket = createDocket();
 
-        // Apply all SwaggerCustomizers.
+        // Apply all SwaggerCustomizers orderly.
         swaggerCustomizers.forEach(customizer -> customizer.customize(docket));
 
-        // Add all AlternateTypeRules.
+        // Add all AlternateTypeRules if available in spring bean factory.
         // Also you can add you rules in a customizer bean above.
-        docket.alternateTypeRules(alternateTypeRules.toArray(new AlternateTypeRule[alternateTypeRules.size()]));
+        Optional.ofNullable(alternateTypeRules.getIfAvailable()).ifPresent(docket::alternateTypeRules);
 
         watch.stop();
         log.debug(STARTED_MESSAGE, watch.getTotalTimeMillis());
@@ -123,22 +119,6 @@ public class SwaggerAutoConfiguration {
     @Bean
     public JHipsterSwaggerCustomizer jHipsterSwaggerCustomizer() {
         return new JHipsterSwaggerCustomizer(properties);
-    }
-
-    @Bean
-    public AlternateTypeRule responseEntityAlternateTypeRule(TypeResolver typeResolver) {
-        return AlternateTypeRules.newRule(
-            typeResolver.resolve(ResponseEntity.class, WildcardType.class),
-            typeResolver.resolve(WildcardType.class),
-            GENERIC_SUBSTITUTION_RULE_ORDER);
-    }
-
-    @Bean
-    public AlternateTypeRule byteBufferAlternateTypeRule(TypeResolver typeResolver) {
-        return AlternateTypeRules.newRule(
-            typeResolver.resolve(ByteBuffer.class),
-            typeResolver.resolve(String.class),
-            DIRECT_SUBSTITUTION_RULE_ORDER);
     }
 
     /**

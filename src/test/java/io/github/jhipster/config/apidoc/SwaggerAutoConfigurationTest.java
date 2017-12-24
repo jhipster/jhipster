@@ -19,7 +19,6 @@
 
 package io.github.jhipster.config.apidoc;
 
-import com.fasterxml.classmate.TypeResolver;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import io.github.jhipster.config.JHipsterProperties;
@@ -34,13 +33,15 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -101,11 +102,7 @@ public class SwaggerAutoConfigurationTest {
     @Test
     public void testSwaggerSpringfoxApiDocket() {
         List<SwaggerCustomizer> customizers = Lists.newArrayList(new JHipsterSwaggerCustomizer(properties));
-        AlternateTypeRule[] rules = {
-            config.responseEntityAlternateTypeRule(new TypeResolver()),
-            config.byteBufferAlternateTypeRule(new TypeResolver())
-        };
-        Docket docket = config.swaggerSpringfoxApiDocket(customizers, Arrays.asList(rules));
+        Docket docket = config.swaggerSpringfoxApiDocket(customizers, new NullProvider<>());
 
         verify(docket, never()).groupName(anyString());
         verify(docket).host(properties.getHost());
@@ -125,7 +122,8 @@ public class SwaggerAutoConfigurationTest {
         assertThat(info.getVendorExtensions()).isEmpty();
 
         verify(docket).forCodeGeneration(true);
-        verify(docket).alternateTypeRules(rules);
+        verify(docket).directModelSubstitute(ByteBuffer.class, String.class);
+        verify(docket).genericModelSubstitutes(ResponseEntity.class);
 
         verify(docket).select();
         verify(builder).paths(pathsCaptor.capture());
@@ -182,5 +180,32 @@ public class SwaggerAutoConfigurationTest {
         assertThat(paths.apply("/foo/api")).isEqualTo(true);
 
         verify(builder).build();
+    }
+
+    static class NullProvider<T> implements ObjectProvider<T> {
+
+        @Nullable
+        @Override
+        public T getObject(Object... args) throws BeansException {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public T getIfAvailable() throws BeansException {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public T getIfUnique() throws BeansException {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public T getObject() throws BeansException {
+            return null;
+        }
     }
 }
