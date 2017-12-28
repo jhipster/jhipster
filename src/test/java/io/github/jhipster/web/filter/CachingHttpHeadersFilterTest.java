@@ -23,8 +23,8 @@ import static io.github.jhipster.web.filter.CachingHttpHeadersFilter.DEFAULT_DAY
 import static io.github.jhipster.web.filter.CachingHttpHeadersFilter.LAST_MODIFIED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 

@@ -23,8 +23,8 @@ import static io.github.jhipster.security.AjaxAuthenticationFailureHandler.UNAUT
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
