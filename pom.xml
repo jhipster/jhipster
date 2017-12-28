@@ -4,7 +4,7 @@
 
     <groupId>io.github.jhipster</groupId>
     <artifactId>jhipster</artifactId>
-    <version>1.3.0</version>
+    <version>1.4.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JHipster core library</name>
     <description>Server-side library used by applications created with the JHipster generator, see http://www.jhipster.tech/ for more information on JHipster</description>
@@ -68,8 +68,30 @@
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
 
         <!-- Dependency versions -->
-        <jhipster-dependencies.version>0.1.1</jhipster-dependencies.version>
+        <jhipster-dependencies.version>0.2.0-SNAPSHOT</jhipster-dependencies.version>
     </properties>
+
+    <!-- TODO To remove after final Spring Boot 2 release -->
+    <repositories>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
