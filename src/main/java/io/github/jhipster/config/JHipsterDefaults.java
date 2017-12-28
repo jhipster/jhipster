@@ -144,20 +144,6 @@ public interface JHipsterDefaults {
             boolean enabled = true;
         }
 
-        interface Graphite {
-
-            boolean enabled = false;
-            String host = "localhost";
-            int port = 2003;
-            String prefix = "jhipsterApplication";
-        }
-
-        interface Prometheus {
-
-            boolean enabled = false;
-            String endpoint = "/prometheusMetrics";
-        }
-
         interface Logs {
 
             boolean enabled = false;
@@ -174,11 +160,6 @@ public interface JHipsterDefaults {
             String host = "localhost";
             int port = 5000;
             int queueSize = 512;
-        }
-
-        interface SpectatorMetrics {
-
-            boolean enabled = false;
         }
     }
 

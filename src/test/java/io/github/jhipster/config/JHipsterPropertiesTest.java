@@ -519,66 +519,6 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testMetricsGraphiteEnabled() {
-        JHipsterProperties.Metrics.Graphite obj = properties.getMetrics().getGraphite();
-        boolean val = JHipsterDefaults.Metrics.Graphite.enabled;
-        assertThat(obj.isEnabled()).isEqualTo(val);
-        val = !val;
-        obj.setEnabled(val);
-        assertThat(obj.isEnabled()).isEqualTo(val);
-    }
-
-    @Test
-    public void testMetricsGraphiteHost() {
-        JHipsterProperties.Metrics.Graphite obj = properties.getMetrics().getGraphite();
-        String val = JHipsterDefaults.Metrics.Graphite.host;
-        assertThat(obj.getHost()).isEqualTo(val);
-        val = "1" + val;
-        obj.setHost(val);
-        assertThat(obj.getHost()).isEqualTo(val);
-    }
-
-    @Test
-    public void testMetricsGraphitePort() {
-        JHipsterProperties.Metrics.Graphite obj = properties.getMetrics().getGraphite();
-        int val = JHipsterDefaults.Metrics.Graphite.port;
-        assertThat(obj.getPort()).isEqualTo(val);
-        val++;
-        obj.setPort(val);
-        assertThat(obj.getPort()).isEqualTo(val);
-    }
-
-    @Test
-    public void testMetricsGraphitePrefix() {
-        JHipsterProperties.Metrics.Graphite obj = properties.getMetrics().getGraphite();
-        String val = JHipsterDefaults.Metrics.Graphite.prefix;
-        assertThat(obj.getPrefix()).isEqualTo(val);
-        val = "1" + val;
-        obj.setPrefix(val);
-        assertThat(obj.getPrefix()).isEqualTo(val);
-    }
-
-    @Test
-    public void testMetricsPrometheusEnabled() {
-        JHipsterProperties.Metrics.Prometheus obj = properties.getMetrics().getPrometheus();
-        boolean val = JHipsterDefaults.Metrics.Prometheus.enabled;
-        assertThat(obj.isEnabled()).isEqualTo(val);
-        val = !val;
-        obj.setEnabled(val);
-        assertThat(obj.isEnabled()).isEqualTo(val);
-    }
-
-    @Test
-    public void testMetricsPrometheusEndpoint() {
-        JHipsterProperties.Metrics.Prometheus obj = properties.getMetrics().getPrometheus();
-        String val = JHipsterDefaults.Metrics.Prometheus.endpoint;
-        assertThat(obj.getEndpoint()).isEqualTo(val);
-        val = "1" + val;
-        obj.setEndpoint(val);
-        assertThat(obj.getEndpoint()).isEqualTo(val);
-    }
-
-    @Test
     public void testMetricsLogsEnabled() {
         JHipsterProperties.Metrics.Logs obj = properties.getMetrics().getLogs();
         boolean val = JHipsterDefaults.Metrics.Logs.enabled;
@@ -636,16 +576,6 @@ public class JHipsterPropertiesTest {
         val++;
         obj.setQueueSize(val);
         assertThat(obj.getQueueSize()).isEqualTo(val);
-    }
-
-    @Test
-    public void testLoggingSpectatorMetricsEnabled() {
-        JHipsterProperties.Logging.SpectatorMetrics obj = properties.getLogging().getSpectatorMetrics();
-        boolean val = JHipsterDefaults.Logging.SpectatorMetrics.enabled;
-        assertThat(obj.isEnabled()).isEqualTo(val);
-        val = !val;
-        obj.setEnabled(val);
-        assertThat(obj.isEnabled()).isEqualTo(val);
     }
 
     @Test
