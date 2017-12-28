@@ -121,7 +121,7 @@ public class SwaggerConfiguration {
      */
     @Bean
     public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name}") String appName,
-        @Value("${management.context-path}") String managementContextPath,
+        @Value("${management.endpoints.web.base-path}") String managementContextPath,
         @Value("${info.project.version}") String appVersion) {
 
         return createDocket()
