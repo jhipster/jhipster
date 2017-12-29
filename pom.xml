@@ -81,6 +81,14 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>jhipster-snapshot</id>
+            <name>JHipster Snapshots</name>
+            <url>https://jhipster.jfrog.io/jhipster/libs-snapshot-local</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
