@@ -4,7 +4,7 @@
 
     <groupId>io.github.jhipster</groupId>
     <artifactId>jhipster</artifactId>
-    <version>1.4.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JHipster core library</name>
     <description>Server-side library used by applications created with the JHipster generator, see http://www.jhipster.tech/ for more information on JHipster</description>
@@ -68,7 +68,7 @@
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
 
         <!-- Dependency versions -->
-        <jhipster-dependencies.version>0.2.0-SNAPSHOT</jhipster-dependencies.version>
+        <jhipster-dependencies.version>2.0.0-SNAPSHOT</jhipster-dependencies.version>
     </properties>
 
     <!-- TODO To remove after final Spring Boot 2 release -->
@@ -261,15 +261,28 @@
         </dependency>
     </dependencies>
 
+    <!-- TODO To remove after final Spring Boot 2 release -->
+    <!--
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
+    -->
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>jhipster-snapshots</name>
+            <url>https://jhipster.jfrog.io/jhipster/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <plugins>
+            <!-- TODO To remove after final Spring Boot 2 release -->
+            <!--
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -281,6 +294,7 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -307,6 +321,8 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- TODO To remove after final Spring Boot 2 release -->
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -321,6 +337,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
