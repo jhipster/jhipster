@@ -291,7 +291,7 @@
             </dependency>
             <dependency>
                 <groupId>com.oracle.jdbc</groupId>
-                <artifactId>ojdbc7</artifactId>
+                <artifactId>ojdbc8</artifactId>
                 <version>${oracle-jdbc.version}</version>
                 <!-- More information at https://blogs.oracle.com/dev2dev/entry/how_to_get_oracle_jdbc -->
             </dependency>
