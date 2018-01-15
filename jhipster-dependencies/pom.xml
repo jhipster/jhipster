@@ -96,7 +96,8 @@
         <!-- The netflix version should match the one in
         https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
         <spring-cloud-netflix.version>2.0.0.M5</spring-cloud-netflix.version>
-        <spring-cloud-stream.version>Elmhurst.M3</spring-cloud-stream.version>
+        <spring-cloud-stream.version>Elmhurst.BUILD-SNAPSHOT</spring-cloud-stream.version>
+        <spring-security-oauth2-autoconfigure.version>2.0.0.BUILD-SNAPSHOT</spring-security-oauth2-autoconfigure.version>
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
         <spring-social-facebook.version>2.0.3.RELEASE</spring-social-facebook.version>
         <springfox.version>2.7.0</springfox.version>
@@ -397,6 +398,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>org.springframework.security.oauth.boot</groupId>
+                <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+                <version>${spring-security-oauth2-autoconfigure.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.social</groupId>
                 <artifactId>spring-social-google</artifactId>
                 <version>${spring-social-google.version}</version>
@@ -425,12 +431,13 @@
 
             <!-- BOM imports last so we (could) selectively override deps above -->
             <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-bom</artifactId>
-                <version>${infinispan.version}</version>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-stream-dependencies</artifactId>
+                <version>${spring-cloud-stream.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -438,10 +445,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-stream-dependencies</artifactId>
-                <version>${spring-cloud-stream.version}</version>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-bom</artifactId>
+                <version>${infinispan.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
