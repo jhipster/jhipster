@@ -87,7 +87,7 @@
         <mongobee.version>0.13</mongobee.version>
         <mssql-jdbc.version>6.2.2.jre8</mssql-jdbc.version>
         <oracle-jdbc.version>12.2.0.1</oracle-jdbc.version>
-        <problem-spring-web.version>0.22.0</problem-spring-web.version>
+        <problem-spring-web.version>0.22.1</problem-spring-web.version>
         <prometheus-simpleclient.version>0.1.0</prometheus-simpleclient.version>
         <!-- The spring-boot version should match the one in
         https://github.com/spring-io/platform/blob/v${project.parent.version}/platform-bom/pom.xml -->
