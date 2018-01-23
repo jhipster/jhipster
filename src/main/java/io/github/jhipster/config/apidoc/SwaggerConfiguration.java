@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 the original author or authors from the JHipster project.
+ * Copyright 2016-2018 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see http://www.jhipster.tech/
  * for more information.
@@ -122,8 +122,7 @@ public class SwaggerConfiguration {
     @Bean
     public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name}") String appName,
         @Value("${management.endpoints.web.base-path}") String managementContextPath,
-        @Value("${info.project.version}") String appVersion) {
-
+        @Value("${build.version:}") String appVersion) {
         return createDocket()
             .apiInfo(new ApiInfo(appName + " " + MANAGEMENT_TITLE_SUFFIX, MANAGEMENT_DESCRIPTION,
                 appVersion, "", ApiInfo.DEFAULT_CONTACT, "", "", new ArrayList<>()))
