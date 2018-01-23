@@ -629,24 +629,6 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testRibbonDisplayOnActiveProfiles() {
-        JHipsterProperties.Ribbon obj = properties.getRibbon();
-        String[] def = JHipsterDefaults.Ribbon.displayOnActiveProfiles;
-        ArrayList<String> val;
-        if (def != null) {
-            val = newArrayList(def);
-            assertThat(obj.getDisplayOnActiveProfiles()).containsExactlyElementsOf(newArrayList(val));
-        } else {
-            assertThat(obj.getDisplayOnActiveProfiles()).isNull();
-            def = new String[1];
-            val = new ArrayList<>(1);
-        }
-        val.add("1");
-        obj.setDisplayOnActiveProfiles(val.toArray(def));
-        assertThat(obj.getDisplayOnActiveProfiles()).containsExactlyElementsOf(newArrayList(val));
-    }
-
-    @Test
     public void testRegistryPassword() {
         JHipsterProperties.Registry obj = properties.getRegistry();
         String val = JHipsterDefaults.Registry.password;
