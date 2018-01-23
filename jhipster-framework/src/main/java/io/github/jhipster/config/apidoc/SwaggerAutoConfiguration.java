@@ -129,6 +129,7 @@ public class SwaggerAutoConfiguration {
      * @return the Swagger Springfox configuration
      */
     @Bean
+<<<<<<< HEAD:src/main/java/io/github/jhipster/config/apidoc/SwaggerAutoConfiguration.java
     @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.ManagementServerProperties")
     @ConditionalOnProperty("management.endpoints.web.base-path")
     @ConditionalOnExpression("'${management.endpoints.web.base-path}'.length() > 0")
@@ -147,6 +148,11 @@ public class SwaggerAutoConfiguration {
             new ArrayList<>()
         );
 
+=======
+    public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name}") String appName,
+        @Value("${management.endpoints.web.base-path}") String managementContextPath,
+        @Value("${build.version:}") String appVersion) {
+>>>>>>> add git.properties and build-info.properties as config property sources:src/main/java/io/github/jhipster/config/apidoc/SwaggerConfiguration.java
         return createDocket()
             .apiInfo(apiInfo)
             .groupName(MANAGEMENT_GROUP_NAME)
