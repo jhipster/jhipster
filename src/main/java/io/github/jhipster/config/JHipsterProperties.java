@@ -56,8 +56,6 @@ public class JHipsterProperties {
 
     private final Gateway gateway = new Gateway();
 
-    private final Ribbon ribbon = new Ribbon();
-
     private final Registry registry = new Registry();
 
     public Async getAsync() {
@@ -106,10 +104,6 @@ public class JHipsterProperties {
 
     public Gateway getGateway() {
         return gateway;
-    }
-
-    public Ribbon getRibbon() {
-        return ribbon;
     }
 
     public static class Async {
@@ -845,19 +839,6 @@ public class JHipsterProperties {
             public void setDurationInSeconds(int durationInSeconds) {
                 this.durationInSeconds = durationInSeconds;
             }
-        }
-    }
-
-    public static class Ribbon {
-
-        private String[] displayOnActiveProfiles = JHipsterDefaults.Ribbon.displayOnActiveProfiles;
-
-        public String[] getDisplayOnActiveProfiles() {
-            return displayOnActiveProfiles;
-        }
-
-        public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
-            this.displayOnActiveProfiles = displayOnActiveProfiles;
         }
     }
 
