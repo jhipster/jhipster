@@ -63,7 +63,7 @@
         <cassandra-driver.version>3.3.2</cassandra-driver.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
         <couchmove.version>1.0.1</couchmove.version>
-        <couchbase-testcontainer.version>1.1</couchbase-testcontainer.version>
+        <couchbase-testcontainer.version>1.11</couchbase-testcontainer.version>
         <couchbase-client.version>2.5.4</couchbase-client.version>
         <cucumber.version>1.2.5</cucumber.version>
         <dropwizard-metrics.version>3.2.5</dropwizard-metrics.version>
