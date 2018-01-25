@@ -1,0 +1,9 @@
+{"properties": [
+    {
+        "name": "management.info.active-profiles.enabled",
+        "type": "java.lang.Boolean",
+        "description": "Enable active-profiles info.",
+        "defaultValue": true
+    }
+]}
+

@@ -3,4 +3,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   io.github.jhipster.config.apidoc.SwaggerPluginsAutoConfiguration,\
   io.github.jhipster.config.JHipsterProperties,\
   io.github.jhipster.security.uaa.UaaAutoConfiguration,\
+  io.github.jhipster.config.info.JHipsterInfoContributorConfiguration,\
   io.github.jhipster.security.ssl.UndertowSSLConfiguration
