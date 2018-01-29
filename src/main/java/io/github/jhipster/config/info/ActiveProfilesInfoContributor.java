@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class ActiveProfilesInfoContributor  implements InfoContributor {
 
-    private static final String ACTIVE_PROFILES = "active-profiles";
+    private static final String ACTIVE_PROFILES = "activeProfiles";
     private final List<String> profiles;
 
     public ActiveProfilesInfoContributor(ConfigurableEnvironment environment) {
