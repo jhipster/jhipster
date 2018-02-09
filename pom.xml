@@ -275,12 +275,6 @@
             <artifactId>spring-boot-starter-cloud-connectors</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- Spring Cloud -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
 
     <!-- TODO To remove after final Spring Boot 2 release -->
