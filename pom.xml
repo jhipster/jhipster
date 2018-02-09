@@ -68,23 +68,31 @@
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
 
         <!-- Dependency versions -->
-        <jhipster-dependencies.version>2.0.0-20171229.052139-1</jhipster-dependencies.version>
+        <jhipster-dependencies.version>2.0.0-20180208.143852-18</jhipster-dependencies.version>
     </properties>
 
     <!-- TODO To remove after final Spring Boot 2 release -->
     <repositories>
         <repository>
-            <id>spring-snapshot</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
+            <id>jhipster-snapshot</id>
+            <name>JHipster Snapshots</name>
+            <url>https://dl.bintray.com/jhipster/maven</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
         </repository>
         <repository>
-            <id>jhipster-snapshot</id>
-            <name>JHipster Snapshots</name>
-            <url>https://dl.bintray.com/jhipster/maven</url>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -225,7 +233,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-ribbon</artifactId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -265,6 +273,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cloud-connectors</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Spring Cloud -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>
