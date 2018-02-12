@@ -92,10 +92,10 @@
         <!-- The spring-boot version should match the one in
         https://github.com/spring-io/platform/blob/v${project.parent.version}/platform-bom/pom.xml -->
         <spring-boot.version>2.0.0.RC1</spring-boot.version>
-        <spring.cloud.version>Finchley.M5</spring.cloud.version>
+        <spring.cloud.version>Finchley.M6</spring.cloud.version>
         <!-- The netflix version should match the one in
         https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
-        <spring-cloud-netflix.version>2.0.0.M5</spring-cloud-netflix.version>
+        <spring-cloud-netflix.version>2.0.0.M6</spring-cloud-netflix.version>
         <spring.cloud.stream.version>Elmhurst.M4</spring.cloud.stream.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.BUILD-SNAPSHOT</spring-security-oauth2-autoconfigure.version>
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
@@ -695,7 +695,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-netflix-zuul</artifactId>
-                <version>2.0.0.BUILD-SNAPSHOT</version>
+                <version>${spring-cloud-netflix.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security.oauth.boot</groupId>
