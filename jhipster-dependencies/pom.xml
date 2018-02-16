@@ -59,6 +59,7 @@
 
         <!-- Dependency versions -->
         <assertj.version>3.8.0</assertj.version>
+        <aws-java-sdk-ssm.version>1.11.247</aws-java-sdk-ssm.version>
         <bucket4j.version>3.0.2</bucket4j.version>
         <cassandra-driver.version>3.4.0</cassandra-driver.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
@@ -233,6 +234,11 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-ssm</artifactId>
+                <version>${aws-java-sdk-ssm.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.sabomichal</groupId>
