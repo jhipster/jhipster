@@ -98,6 +98,7 @@
         https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
         <spring-cloud-netflix.version>2.0.0.M6</spring-cloud-netflix.version>
         <spring-cloud-stream.version>Elmhurst.M4</spring-cloud-stream.version>
+        <spring-data-releasetrain.version>Kay-SR3</spring-data-releasetrain.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.BUILD-SNAPSHOT</spring-security-oauth2-autoconfigure.version>
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
         <spring-social-facebook.version>2.0.3.RELEASE</spring-social-facebook.version>
@@ -748,6 +749,14 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-releasetrain</artifactId>
+                <version>${spring-data-releasetrain.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
