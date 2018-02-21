@@ -20,7 +20,7 @@
 package io.github.jhipster.config.apidoc;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -41,6 +41,7 @@ import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.JHipsterProperties.Swagger;
 import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
+import springfox.documentation.schema.JacksonEnumTypeDeterminer;
 import springfox.documentation.schema.TypeNameExtractor;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.schema.TypeNameProviderPlugin;
@@ -182,7 +183,7 @@ public class SwaggerConfigurationTest {
     public void testPageableParameterBuilderPlugin() {
         TypeResolver resolver = new TypeResolver();
         List<TypeNameProviderPlugin> plugins = new LinkedList<>();
-        TypeNameExtractor extractor = new TypeNameExtractor(resolver, SimplePluginRegistry.create(plugins));
+        TypeNameExtractor extractor = new TypeNameExtractor(resolver, SimplePluginRegistry.create(plugins), new JacksonEnumTypeDeterminer());
         PageableParameterBuilderPlugin plugin = config.pageableParameterBuilderPlugin(extractor, resolver);
         assertThat(plugin.getResolver()).isEqualTo(resolver);
         assertThat(plugin.getNameExtractor()).isEqualTo(extractor);

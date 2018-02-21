@@ -683,25 +683,13 @@ public class JHipsterProperties {
 
         private final Jmx jmx = new Jmx();
 
-        private final Graphite graphite = new Graphite();
-
-        private final Prometheus prometheus = new Prometheus();
-
         private final Logs logs = new Logs();
 
         public Jmx getJmx() {
             return jmx;
         }
 
-        public Graphite getGraphite() {
-            return graphite;
-        }
-
-        public Prometheus getPrometheus() {
-            return prometheus;
-        }
-
-        public Logs getLogs() {
+         public Logs getLogs() {
             return logs;
         }
 
@@ -715,72 +703,6 @@ public class JHipsterProperties {
 
             public void setEnabled(boolean enabled) {
                 this.enabled = enabled;
-            }
-        }
-
-        public static class Graphite {
-
-            private boolean enabled = JHipsterDefaults.Metrics.Graphite.enabled;
-
-            private String host = JHipsterDefaults.Metrics.Graphite.host;
-
-            private int port = JHipsterDefaults.Metrics.Graphite.port;
-
-            private String prefix = JHipsterDefaults.Metrics.Graphite.prefix;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-
-            public String getHost() {
-                return host;
-            }
-
-            public void setHost(String host) {
-                this.host = host;
-            }
-
-            public int getPort() {
-                return port;
-            }
-
-            public void setPort(int port) {
-                this.port = port;
-            }
-
-            public String getPrefix() {
-                return prefix;
-            }
-
-            public void setPrefix(String prefix) {
-                this.prefix = prefix;
-            }
-        }
-
-        public static class Prometheus {
-
-            private boolean enabled = JHipsterDefaults.Metrics.Prometheus.enabled;
-
-            private String endpoint = JHipsterDefaults.Metrics.Prometheus.endpoint;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-
-            public String getEndpoint() {
-                return endpoint;
-            }
-
-            public void setEndpoint(String endpoint) {
-                this.endpoint = endpoint;
             }
         }
 
@@ -856,25 +778,6 @@ public class JHipsterProperties {
 
             public void setQueueSize(int queueSize) {
                 this.queueSize = queueSize;
-            }
-        }
-
-        private final SpectatorMetrics spectatorMetrics = new SpectatorMetrics();
-
-        public SpectatorMetrics getSpectatorMetrics() {
-            return spectatorMetrics;
-        }
-
-        public static class SpectatorMetrics {
-
-            private boolean enabled = JHipsterDefaults.Logging.SpectatorMetrics.enabled;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
             }
         }
     }

@@ -22,7 +22,7 @@ package io.github.jhipster.security.uaa;
 import static io.github.jhipster.security.uaa.LoadBalancedResourceDetails.EXCEPTION_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.net.URI;
@@ -53,7 +53,7 @@ public class LoadBalancedResourceDetailsTest {
 
             @Override
             public URI answer(InvocationOnMock invocation) throws Throwable {
-                return invocation.getArgumentAt(1, URI.class);
+                return invocation.getArgument(1);
             }
 
         }).when(client).reconstructURI(any(), any());

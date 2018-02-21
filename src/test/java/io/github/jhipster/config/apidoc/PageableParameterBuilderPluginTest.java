@@ -40,12 +40,14 @@ import com.fasterxml.classmate.TypeResolver;
 
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.OperationBuilder;
+import springfox.documentation.schema.JacksonEnumTypeDeterminer;
 import springfox.documentation.schema.TypeNameExtractor;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.schema.TypeNameProviderPlugin;
 import springfox.documentation.spi.service.contexts.*;
 import springfox.documentation.spring.web.WebMvcRequestHandler;
+import springfox.documentation.spring.web.readers.operation.HandlerMethodResolver;
 
 /**
  * Unit tests for io.github.jhipster.config.apidoc.PageableParameterBuilderPlugin.
@@ -66,17 +68,17 @@ public class PageableParameterBuilderPluginTest {
     @Before
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
-
         Method method = this.getClass().getMethod("test", new Class<?>[] { Pageable.class, Integer.class });
-        RequestHandler handler = new WebMvcRequestHandler(null, new HandlerMethod(this, method));
+        resolver = new TypeResolver();
+        RequestHandler handler = new WebMvcRequestHandler(new HandlerMethodResolver(resolver), null, new HandlerMethod(this, method));
         DocumentationContext docContext = mock(DocumentationContext.class);
         RequestMappingContext reqContext = new RequestMappingContext(docContext, handler);
         builder = spy(new OperationBuilder(null));
         context = new OperationContext(builder, RequestMethod.GET, reqContext, 0);
 
-        resolver = new TypeResolver();
+
         List<TypeNameProviderPlugin> plugins = new LinkedList<>();
-        extractor = new TypeNameExtractor(resolver, SimplePluginRegistry.create(plugins));
+        extractor = new TypeNameExtractor(resolver, SimplePluginRegistry.create(plugins), new JacksonEnumTypeDeterminer());
         plugin = new PageableParameterBuilderPlugin(extractor, resolver);
     }
 

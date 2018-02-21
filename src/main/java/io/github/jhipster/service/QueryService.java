@@ -25,7 +25,6 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.jhipster.service.filter.*;
@@ -99,7 +98,7 @@ public abstract class QueryService<ENTITY> {
             return valueIn(field, filter.getIn());
         }
 
-        Specifications<ENTITY> result = Specifications.where(null);
+        Specification<ENTITY> result = Specification.where(null);
         if (filter.getSpecified() != null) {
             result = result.and(byFieldSpecified(field, filter.getSpecified()));
         }
