@@ -56,7 +56,6 @@ env:
     - JHIPSTER=ms-micro-eureka
     - JHIPSTER=ms-micro-consul
     - JHIPSTER=react-default
-    - JHIPSTER=ng1-default
 
 before_install:
   - jdk_switcher use oraclejdk8
