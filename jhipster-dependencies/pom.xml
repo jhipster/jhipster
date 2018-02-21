@@ -736,7 +736,7 @@
                 </exclusions>
             </dependency>
 
-            <!-- BOM imports last so we (could) selectively override deps above -->
+            <!-- BOM imports last so we (could) selectively override dependencies above -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-stream-dependencies</artifactId>
