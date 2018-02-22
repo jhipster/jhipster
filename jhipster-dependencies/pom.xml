@@ -95,7 +95,7 @@
         <spring.cloud.version>Finchley.BUILD-SNAPSHOT</spring.cloud.version>
         <!-- The netflix version should match the one in
         https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
-        <spring-cloud-netflix.version>2.0.0.M6</spring-cloud-netflix.version>
+        <spring-cloud-netflix.version>2.0.0.BUILD-SNAPSHOT</spring-cloud-netflix.version>
         <spring-cloud-stream.version>Elmhurst.M4</spring-cloud-stream.version>
         <spring-data-releasetrain.version>Kay-SR3</spring-data-releasetrain.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.BUILD-SNAPSHOT</spring-security-oauth2-autoconfigure.version>
