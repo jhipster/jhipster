@@ -92,13 +92,13 @@
         <!-- The spring-boot version should match the one in
         https://github.com/spring-io/platform/blob/v${project.parent.version}/platform-bom/pom.xml -->
         <spring-boot.version>2.0.0.RC2</spring-boot.version>
-        <spring-cloud.version>Finchley.BUILD-SNAPSHOT</spring-cloud.version>
+        <spring-cloud.version>Finchley.M7</spring-cloud.version>
         <!-- The netflix version should match the one in
         https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
-        <spring-cloud-netflix.version>2.0.0.BUILD-SNAPSHOT</spring-cloud-netflix.version>
+        <spring-cloud-netflix.version>2.0.0.M7</spring-cloud-netflix.version>
         <spring-cloud-stream.version>Elmhurst.RC1</spring-cloud-stream.version>
         <spring-data-releasetrain.version>Kay-SR4</spring-data-releasetrain.version>
-        <spring-security-oauth2-autoconfigure.version>2.0.0.BUILD-SNAPSHOT</spring-security-oauth2-autoconfigure.version>
+        <spring-security-oauth2-autoconfigure.version>2.0.0.RC2</spring-security-oauth2-autoconfigure.version>
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
         <spring-social-facebook.version>2.0.3.RELEASE</spring-social-facebook.version>
         <springfox.version>2.8.0</springfox.version>
