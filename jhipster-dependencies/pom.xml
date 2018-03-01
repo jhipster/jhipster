@@ -100,7 +100,7 @@
         <spring-data-releasetrain.version>Kay-SR4</spring-data-releasetrain.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.RC2</spring-security-oauth2-autoconfigure.version>
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
-        <spring-social-facebook.version>2.0.3.RELEASE</spring-social-facebook.version>
+        <spring-social-facebook.version>3.0.0.M1</spring-social-facebook.version>
         <springfox.version>2.8.0</springfox.version>
     </properties>
 
