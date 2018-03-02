@@ -655,4 +655,14 @@ public class JHipsterPropertiesTest {
         obj.setPassword(val);
         assertThat(obj.getPassword()).isEqualTo(val);
     }
+
+    @Test
+    public void testHttpUseUndertowUserCipherSuitesOrder(){
+        JHipsterProperties.Http obj = properties.getHttp();
+        boolean val = JHipsterDefaults.Http.useUndertowUserCipherSuitesOrder;
+        assertThat(obj.isUseUndertowUserCipherSuitesOrder()).isEqualTo(val);
+        val = !val;
+        obj.setUseUndertowUserCipherSuitesOrder(val);
+        assertThat(obj.isUseUndertowUserCipherSuitesOrder()).isEqualTo(val);
+    }
 }
