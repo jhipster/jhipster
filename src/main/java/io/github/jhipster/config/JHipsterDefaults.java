@@ -36,7 +36,7 @@ public interface JHipsterDefaults {
 
         Version version = Version.V_1_1;
 
-        boolean useUndertowUserCipherSuitesOrder = false;
+        boolean useUndertowUserCipherSuitesOrder = true;
 
         interface Cache {
 
