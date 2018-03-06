@@ -60,7 +60,7 @@
         <!-- Dependency versions -->
         <assertj.version>3.8.0</assertj.version>
         <aws-java-sdk-ssm.version>1.11.247</aws-java-sdk-ssm.version>
-        <bucket4j.version>3.0.2</bucket4j.version>
+        <bucket4j.version>3.1.1</bucket4j.version>
         <cassandra-driver.version>3.4.0</cassandra-driver.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
         <couchmove.version>1.0.1</couchmove.version>
@@ -69,10 +69,10 @@
         <cucumber.version>1.2.5</cucumber.version>
         <dropwizard-metrics.version>3.2.5</dropwizard-metrics.version>
         <guava.version>23.5-jre</guava.version>
-        <hazelcast.version>3.9.1</hazelcast.version>
-        <hazelcast-hibernate52.version>1.2.2</hazelcast-hibernate52.version>
+        <hazelcast.version>3.9.3</hazelcast.version>
+        <hazelcast-hibernate52.version>1.2.3</hazelcast-hibernate52.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
-        <hibernate.version>5.2.12.Final</hibernate.version>
+        <hibernate.version>5.2.14.Final</hibernate.version>
         <hikaricp.version>2.7.8</hikaricp.version>
         <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.4.Final</infinispan-cloud.version>
