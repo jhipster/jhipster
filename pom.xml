@@ -68,7 +68,7 @@
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
 
         <!-- Dependency versions -->
-        <jhipster-dependencies.version>2.0.0-20180221.210049-26</jhipster-dependencies.version>
+        <jhipster-dependencies.version>2.0.0-20180306.231251-38</jhipster-dependencies.version>
     </properties>
 
     <!-- TODO To remove after final Spring Boot 2 release -->
