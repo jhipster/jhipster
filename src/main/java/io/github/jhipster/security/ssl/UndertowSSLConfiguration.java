@@ -16,16 +16,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package io.github.jhipster.security.ssl;
 
-import io.github.jhipster.config.JHipsterProperties;
-import io.undertow.UndertowOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.context.annotation.Configuration;
+
+import io.github.jhipster.config.JHipsterProperties;
+import io.undertow.UndertowOptions;
 
 /**
  * SSL config for Undertow
@@ -34,11 +36,12 @@ import org.springframework.context.annotation.Configuration;
  * Allow to achieve perfect forward secrecy.
  * Can only be activated with HTTPS and a cipher suite defined by the user (server.ssl.ciphers).
  *
- * @see <a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices#25-use-forward-secrecy" target="_blank">More explanation on perfect forward secrecy</a>
+ * @see
+ * <a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices#25-use-forward-secrecy" target="_blank">More explanation on perfect forward secrecy</a>
  */
 @Configuration
-@ConditionalOnClass({UndertowServletWebServerFactory.class})
-@ConditionalOnProperty({"server.ssl.ciphers", "server.ssl.key-store"})
+@ConditionalOnClass({ UndertowServletWebServerFactory.class })
+@ConditionalOnProperty({ "server.ssl.ciphers", "server.ssl.key-store" })
 public class UndertowSSLConfiguration {
 
     private final UndertowServletWebServerFactory factory;
@@ -47,7 +50,8 @@ public class UndertowSSLConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(UndertowSSLConfiguration.class);
 
-    public UndertowSSLConfiguration(UndertowServletWebServerFactory undertowServletWebServerFactory, JHipsterProperties jHipsterProperties) {
+    public UndertowSSLConfiguration(UndertowServletWebServerFactory undertowServletWebServerFactory,
+        JHipsterProperties jHipsterProperties) {
         this.factory = undertowServletWebServerFactory;
         this.jHipsterProperties = jHipsterProperties;
 
@@ -58,7 +62,8 @@ public class UndertowSSLConfiguration {
         log.info("Configuring Undertow");
         if (jHipsterProperties.getHttp().isUseUndertowUserCipherSuitesOrder()) {
             log.info("Setting user cipher suite order to true");
-            factory.addBuilderCustomizers(builder -> builder.setSocketOption(UndertowOptions.SSL_USER_CIPHER_SUITES_ORDER, Boolean.TRUE));
+            factory.addBuilderCustomizers(builder -> builder.setSocketOption(UndertowOptions
+                .SSL_USER_CIPHER_SUITES_ORDER, Boolean.TRUE));
         }
     }
 }
