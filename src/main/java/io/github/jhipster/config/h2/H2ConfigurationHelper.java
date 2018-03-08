@@ -17,177 +17,64 @@
  * limitations under the License.
  */
 
-package io.github.jhipster.config;
+package io.github.jhipster.config.h2;
 
-import java.util.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.sql.SQLException;
+import javax.servlet.*;
 
-import io.github.jhipster.config.JHipsterProperties.Http.Version;
+/**
+ * Utility class to configure H2 in development.
+ *
+ * We don't want to include H2 when we are packaging for the "prod" profile and won't
+ * actually need it, so we have to load / invoke things at runtime through reflection.
+ */
+public class H2ConfigurationHelper {
 
-public interface JHipsterDefaults {
+    public static Object createServer() throws SQLException {
+        try {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            Class<?> serverClass = Class.forName("org.h2.tools.Server", true, loader);
+            Method createServer = serverClass.getMethod("createTcpServer", String[].class);
+            return createServer.invoke(null, new Object[] { new String[] { "-tcp", "-tcpAllowOthers" } });
 
-    interface Async {
+        } catch (ClassNotFoundException | LinkageError e) {
+            throw new RuntimeException("Failed to load and initialize org.h2.tools.Server", e);
 
-        int corePoolSize = 2;
-        int maxPoolSize = 50;
-        int queueCapacity = 10000;
-    }
+        } catch (SecurityException | NoSuchMethodException e) {
+            throw new RuntimeException("Failed to get method org.h2.tools.Server.createTcpServer()", e);
 
-    interface Http {
+        } catch (IllegalAccessException | IllegalArgumentException e) {
+            throw new RuntimeException("Failed to invoke org.h2.tools.Server.createTcpServer()", e);
 
-        Version version = Version.V_1_1;
-
-        interface Cache {
-
-            int timeToLiveInDays = 1461; // 4 years (including leap day)
-        }
-    }
-
-    interface Cache {
-
-        interface Hazelcast {
-
-            int timeToLiveSeconds = 3600; // 1 hour
-            int backupCount = 1;
-
-            interface ManagementCenter {
-
-                boolean enabled = false;
-                int updateInterval = 3;
-                String url = "";
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getTargetException();
+            if (t instanceof SQLException) {
+                throw (SQLException) t;
             }
-        }
-
-        interface Ehcache {
-
-            int timeToLiveSeconds = 3600; // 1 hour
-            long maxEntries = 100;
-        }
-
-        interface Infinispan {
-
-            String configFile = "default-configs/default-jgroups-tcp.xml";
-            boolean statsEnabled = false;
-
-            interface Local {
-
-                long timeToLiveSeconds = 60; // 1 minute
-                long maxEntries = 100;
-            }
-
-            interface Distributed {
-
-                long timeToLiveSeconds = 60; // 1 minute
-                long maxEntries = 100;
-                int instanceCount = 1;
-            }
-
-            interface Replicated {
-
-                long timeToLiveSeconds = 60; // 1 minute
-                long maxEntries = 100;
-            }
+            throw new RuntimeException("Unchecked exception in org.h2.tools.Server.createTcpServer()", t);
         }
     }
 
-    interface Mail {
+    public static void initH2Console(ServletContext servletContext) {
+        try {
+            // We don't want to include H2 when we are packaging for the "prod" profile and won't
+            // actually need it, so we have to load / invoke things at runtime through reflection.
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            Class<?> servletClass = Class.forName("org.h2.server.web.WebServlet", true, loader);
+            Servlet servlet = (Servlet) servletClass.newInstance();
 
-        String from = "";
-        String baseUrl = "";
-    }
+            ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", servlet);
+            h2ConsoleServlet.addMapping("/h2-console/*");
+            h2ConsoleServlet.setInitParameter("-properties", "src/main/resources/");
+            h2ConsoleServlet.setLoadOnStartup(1);
 
-    interface Security {
+        } catch (ClassNotFoundException | LinkageError e) {
+            throw new RuntimeException("Failed to load and initialize org.h2.server.web.WebServlet", e);
 
-        interface ClientAuthorization {
-
-            String accessTokenUri = null;
-            String tokenServiceId = null;
-            String clientId = null;
-            String clientSecret = null;
+        } catch (IllegalAccessException | InstantiationException e) {
+            throw new RuntimeException("Failed to instantiate org.h2.server.web.WebServlet", e);
         }
-
-        interface Authentication {
-
-            interface Jwt {
-
-                String secret = null;
-                long tokenValidityInSeconds = 1800; // 0.5 hour
-                long tokenValidityInSecondsForRememberMe = 2592000; // 30 hours;
-            }
-        }
-
-        interface RememberMe {
-
-            String key = null;
-        }
-    }
-
-    interface Swagger {
-
-        String title = "Application API";
-        String description = "API documentation";
-        String version = "0.0.1";
-        String termsOfServiceUrl = null;
-        String contactName = null;
-        String contactUrl = null;
-        String contactEmail = null;
-        String license = null;
-        String licenseUrl = null;
-        String defaultIncludePattern = "/api/.*";
-        String host = null;
-        String[] protocols = {};
-    }
-
-    interface Metrics {
-
-        interface Jmx {
-
-            boolean enabled = true;
-        }
-
-        interface Logs {
-
-            boolean enabled = false;
-            long reportFrequency = 60;
-
-        }
-    }
-
-    interface Logging {
-
-        interface Logstash {
-
-            boolean enabled = false;
-            String host = "localhost";
-            int port = 5000;
-            int queueSize = 512;
-        }
-    }
-
-    interface Social {
-
-        String redirectAfterSignIn = "/#/home";
-    }
-
-    interface Gateway {
-
-        Map<String, List<String>> authorizedMicroservicesEndpoints = new LinkedHashMap<>();
-
-        interface RateLimiting {
-
-            boolean enabled = false;
-            long limit = 100_000L;
-            int durationInSeconds = 3_600;
-
-        }
-    }
-
-    interface Ribbon {
-
-        String[] displayOnActiveProfiles = null;
-    }
-
-    interface Registry {
-
-        String password = null;
     }
 }
