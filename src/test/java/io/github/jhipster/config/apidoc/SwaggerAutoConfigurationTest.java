@@ -28,30 +28,32 @@ import static org.mockito.Mockito.when;
 
 import java.nio.ByteBuffer;
 import java.util.*;
+import javax.annotation.Nullable;
 
 import org.junit.*;
 import org.mockito.*;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.http.ResponseEntity;
-import org.springframework.plugin.core.SimplePluginRegistry;
+import org.springframework.util.StringUtils;
 
-import com.fasterxml.classmate.TypeResolver;
 import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
 
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.JHipsterProperties.Swagger;
+import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
+import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
-import springfox.documentation.schema.JacksonEnumTypeDeterminer;
-import springfox.documentation.schema.TypeNameExtractor;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.schema.TypeNameProviderPlugin;
 import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
 
-public class SwaggerConfigurationTest {
+public class SwaggerAutoConfigurationTest {
 
     private Swagger properties;
-    private SwaggerConfiguration config;
+    private SwaggerAutoConfiguration config;
     private ApiSelectorBuilder builder;
     private LogbackRecorder recorder;
 
@@ -79,7 +81,7 @@ public class SwaggerConfigurationTest {
         properties.setLicense("free as in beer");
         properties.setLicenseUrl("http://test.host.org/license");
 
-        config = new SwaggerConfiguration(jHipsterProperties) {
+        config = new SwaggerAutoConfiguration(jHipsterProperties) {
             @Override
             protected Docket createDocket() {
                 Docket docket = spy(super.createDocket());
@@ -88,7 +90,7 @@ public class SwaggerConfigurationTest {
             }
         };
 
-        recorder = LogbackRecorder.forClass(SwaggerConfiguration.class).reset().capture("ALL");
+        recorder = LogbackRecorder.forClass(SwaggerAutoConfiguration.class).reset().capture("ALL");
     }
 
     @After
@@ -98,7 +100,8 @@ public class SwaggerConfigurationTest {
 
     @Test
     public void testSwaggerSpringfoxApiDocket() {
-        Docket docket = config.swaggerSpringfoxApiDocket();
+        List<SwaggerCustomizer> customizers = Lists.newArrayList(new JHipsterSwaggerCustomizer(properties));
+        Docket docket = config.swaggerSpringfoxApiDocket(customizers, new NullProvider<>());
 
         verify(docket, never()).groupName(anyString());
         verify(docket).host(properties.getHost());
@@ -134,29 +137,28 @@ public class SwaggerConfigurationTest {
 
         Event event0 = events.get(0);
         assertThat(event0.getLevel()).isEqualTo("DEBUG");
-        assertThat(event0.getMessage()).isEqualTo(SwaggerConfiguration.STARTING_MESSAGE);
+        assertThat(event0.getMessage()).isEqualTo(SwaggerAutoConfiguration.STARTING_MESSAGE);
         assertThat(event0.getThrown()).isNull();
 
         Event event1 = events.get(1);
         assertThat(event1.getLevel()).isEqualTo("DEBUG");
-        assertThat(event1.getMessage()).isEqualTo(SwaggerConfiguration.STARTED_MESSAGE);
+        assertThat(event1.getMessage()).isEqualTo(SwaggerAutoConfiguration.STARTED_MESSAGE);
         assertThat(event1.getThrown()).isNull();
     }
 
     @Test
     public void testSwaggerSpringfoxManagementDocket() {
-        Docket docket = config.swaggerSpringfoxManagementDocket(properties.getTitle(), "/foo/", properties.getVersion
-            ());
+        Docket docket = config.swaggerSpringfoxManagementDocket(properties.getTitle(), "/foo/");
 
-        verify(docket).groupName(SwaggerConfiguration.MANAGEMENT_GROUP_NAME);
+        verify(docket).groupName(SwaggerAutoConfiguration.MANAGEMENT_GROUP_NAME);
         verify(docket).host(properties.getHost());
         verify(docket).protocols(new HashSet<>(Arrays.asList(properties.getProtocols())));
 
         verify(docket).apiInfo(infoCaptor.capture());
         ApiInfo info = infoCaptor.getValue();
-        assertThat(info.getTitle()).isEqualTo(properties.getTitle() + " " + SwaggerConfiguration
-            .MANAGEMENT_TITLE_SUFFIX);
-        assertThat(info.getDescription()).isEqualTo(SwaggerConfiguration.MANAGEMENT_DESCRIPTION);
+        assertThat(info.getTitle()).isEqualTo(StringUtils.capitalize(properties.getTitle()) + " " +
+            SwaggerAutoConfiguration.MANAGEMENT_TITLE_SUFFIX);
+        assertThat(info.getDescription()).isEqualTo(SwaggerAutoConfiguration.MANAGEMENT_DESCRIPTION);
         assertThat(info.getVersion()).isEqualTo(properties.getVersion());
         assertThat(info.getTermsOfServiceUrl()).isEqualTo("");
         assertThat(info.getContact().getName()).isEqualTo(ApiInfo.DEFAULT_CONTACT.getName());
@@ -179,13 +181,30 @@ public class SwaggerConfigurationTest {
         verify(builder).build();
     }
 
-    @Test
-    public void testPageableParameterBuilderPlugin() {
-        TypeResolver resolver = new TypeResolver();
-        List<TypeNameProviderPlugin> plugins = new LinkedList<>();
-        TypeNameExtractor extractor = new TypeNameExtractor(resolver, SimplePluginRegistry.create(plugins), new JacksonEnumTypeDeterminer());
-        PageableParameterBuilderPlugin plugin = config.pageableParameterBuilderPlugin(extractor, resolver);
-        assertThat(plugin.getResolver()).isEqualTo(resolver);
-        assertThat(plugin.getNameExtractor()).isEqualTo(extractor);
+    static class NullProvider<T> implements ObjectProvider<T> {
+
+        @Nullable
+        @Override
+        public T getObject(Object... args) throws BeansException {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public T getIfAvailable() throws BeansException {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public T getIfUnique() throws BeansException {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public T getObject() throws BeansException {
+            return null;
+        }
     }
 }

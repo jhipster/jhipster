@@ -70,15 +70,15 @@ public class PageableParameterBuilderPluginTest {
         MockitoAnnotations.initMocks(this);
         Method method = this.getClass().getMethod("test", new Class<?>[] { Pageable.class, Integer.class });
         resolver = new TypeResolver();
-        RequestHandler handler = new WebMvcRequestHandler(new HandlerMethodResolver(resolver), null, new HandlerMethod(this, method));
+        RequestHandler handler = new WebMvcRequestHandler(new HandlerMethodResolver(resolver), null, new
+            HandlerMethod(this, method));
         DocumentationContext docContext = mock(DocumentationContext.class);
         RequestMappingContext reqContext = new RequestMappingContext(docContext, handler);
         builder = spy(new OperationBuilder(null));
         context = new OperationContext(builder, RequestMethod.GET, reqContext, 0);
-
-
         List<TypeNameProviderPlugin> plugins = new LinkedList<>();
-        extractor = new TypeNameExtractor(resolver, SimplePluginRegistry.create(plugins), new JacksonEnumTypeDeterminer());
+        extractor = new TypeNameExtractor(resolver, SimplePluginRegistry.create(plugins), new
+            JacksonEnumTypeDeterminer());
         plugin = new PageableParameterBuilderPlugin(extractor, resolver);
     }
 
@@ -106,21 +106,21 @@ public class PageableParameterBuilderPluginTest {
 
         Parameter parameter0 = parameters.get(0);
         assertThat(parameter0.getParamType()).isEqualTo(PageableParameterBuilderPlugin.PAGE_TYPE);
-        assertThat(parameter0.getName()).isEqualTo(PageableParameterBuilderPlugin.PAGE_NAME);
+        assertThat(parameter0.getName()).isEqualTo(PageableParameterBuilderPlugin.DEFAULT_PAGE_NAME);
         assertThat(parameter0.getDescription()).isEqualTo(PageableParameterBuilderPlugin.PAGE_DESCRIPTION);
         assertThat(parameter0.getModelRef().getType()).isEqualTo("int");
         assertThat(parameter0.isAllowMultiple()).isEqualTo(false);
 
         Parameter parameter1 = parameters.get(1);
         assertThat(parameter1.getParamType()).isEqualTo(PageableParameterBuilderPlugin.SIZE_TYPE);
-        assertThat(parameter1.getName()).isEqualTo(PageableParameterBuilderPlugin.SIZE_NAME);
+        assertThat(parameter1.getName()).isEqualTo(PageableParameterBuilderPlugin.DEFAULT_SIZE_NAME);
         assertThat(parameter1.getDescription()).isEqualTo(PageableParameterBuilderPlugin.SIZE_DESCRIPTION);
         assertThat(parameter1.getModelRef().getType()).isEqualTo("int");
         assertThat(parameter1.isAllowMultiple()).isEqualTo(false);
 
         Parameter parameter2 = parameters.get(2);
         assertThat(parameter2.getParamType()).isEqualTo(PageableParameterBuilderPlugin.SORT_TYPE);
-        assertThat(parameter2.getName()).isEqualTo(PageableParameterBuilderPlugin.SORT_NAME);
+        assertThat(parameter2.getName()).isEqualTo(PageableParameterBuilderPlugin.DEFAULT_SORT_NAME);
         assertThat(parameter2.getDescription()).isEqualTo(PageableParameterBuilderPlugin.SORT_DESCRIPTION);
         assertThat(parameter2.getModelRef().getType()).isEqualTo("List");
         assertThat(parameter2.getModelRef().getItemType()).isEqualTo("string");
