@@ -30,11 +30,14 @@ import io.github.jhipster.config.JHipsterProperties;
 import io.undertow.UndertowOptions;
 
 /**
- * SSL config for Undertow
+ * SSL configuration for Undertow.
  * <p>
- * SSL_USER_CIPHER_SUITES_ORDER : It will force the cipher suite define by the user.
- * Allow to achieve perfect forward secrecy.
- * Can only be activated with HTTPS and a cipher suite defined by the user (server.ssl.ciphers).
+ * SSL_USER_CIPHER_SUITES_ORDER : It will force the cipher suite defined by the user,
+ * allowing to achieve perfect forward secrecy.
+ * This can only be activated with HTTPS and a cipher suite defined by the user (server.ssl.ciphers).
+ * <p>
+ * Please note that when using JHipster, you can use the `server.ssl.ciphers` property that is commented out
+ * in your `application-prod.yml` file, and which is ready to work with this configuration.
  *
  * @see
  * <a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices#25-use-forward-secrecy" target="_blank">More explanation on perfect forward secrecy</a>
