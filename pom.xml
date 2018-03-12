@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.jhipster</groupId>
+    <artifactId>jhipster</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>JHipster server-side modules</name>
+
+    <scm>
+        <connection>scm:git:https://github.com/jhipster/jhipster/</connection>
+        <url>https://github.com/jhipster/jhipster/</url>
+        <tag>jhipster-2.0.0-SNAPSHOT</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <modules>
+        <module>jhipster-dependencies</module>
+        <module>jhipster-server</module>
+    </modules>
+
+</project>
