@@ -62,7 +62,6 @@
         <guava.version>23.5-jre</guava.version>
         <jhipster-server.version>2.0.0-20180313.135500-1</jhipster-server.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
-        <infinispan-cloud.version>9.1.4.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
         <jjwt.version>0.9.0</jjwt.version>
         <liquibase-mssql.version>1.6.2</liquibase-mssql.version>
@@ -206,7 +205,8 @@
             <dependency>
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-cloud</artifactId>
-                <version>${infinispan-cloud.version}</version>
+                <version>${infinispan.version}</version>
+                <!-- TODO check if this exclusion is still needed -->
                 <exclusions>
                     <exclusion>
                         <groupId>io.undertow</groupId>
