@@ -55,7 +55,6 @@
         <!-- Dependency versions -->
         <aws-java-sdk-ssm.version>1.11.247</aws-java-sdk-ssm.version>
         <bucket4j.version>3.1.1</bucket4j.version>
-        <cassandra-driver.version>3.4.0</cassandra-driver.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
         <couchmove.version>1.0.1</couchmove.version>
         <couchbase-testcontainer.version>1.11</couchbase-testcontainer.version>
@@ -175,11 +174,6 @@
                 <groupId>com.github.vladimir-bukhtoyarov</groupId>
                 <artifactId>bucket4j-jcache</artifactId>
                 <version>${bucket4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.datastax.cassandra</groupId>
-                <artifactId>cassandra-driver-core</artifactId>
-                <version>${cassandra-driver.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.datastax.cassandra</groupId>
