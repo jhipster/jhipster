@@ -33,7 +33,7 @@ env:
 
     # if JHIPSTER_BRANCH value is release, use the release from NPM
     - JHIPSTER_REPO=https://github.com/jhipster/generator-jhipster.git
-    - JHIPSTER_BRANCH=single-repo
+    - JHIPSTER_BRANCH=master
 
   matrix:
     - JHIPSTER=ngx-default PROFILE=prod PROTRACTOR=1
