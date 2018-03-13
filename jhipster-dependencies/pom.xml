@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>
-        <version>Cairo-BUILD-SNAPSHOT</version>
+        <version>Cairo-RC1</version>
         <relativePath />
     </parent>
 
@@ -114,6 +114,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <!-- Need this for milestones / release-candidates of Spring modules: -->
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -122,6 +123,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <!-- Need this for snapshots of Spring modules:
         <repository>
             <id>spring-snapshot</id>
             <name>Spring Snapshots</name>
@@ -130,8 +132,10 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+         -->
     </repositories>
     <pluginRepositories>
+        <!-- Need this for milestones / release-candidates of Spring plugins: -->
         <pluginRepository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -140,6 +144,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
+        <!-- Need this for snapshots of Spring plugins:
         <pluginRepository>
             <id>spring-snapshot</id>
             <name>Spring Snapshots</name>
@@ -148,6 +153,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
+        -->
     </pluginRepositories>
 
     <dependencyManagement>
