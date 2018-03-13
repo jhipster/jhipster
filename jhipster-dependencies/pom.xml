@@ -64,6 +64,7 @@
         <cucumber.version>1.2.5</cucumber.version>
         <dropwizard-metrics.version>3.2.5</dropwizard-metrics.version>
         <guava.version>23.5-jre</guava.version>
+        <jhipster-server.version>2.0.0-SNAPSHOT</jhipster-server.version>
         <hazelcast.version>3.9.3</hazelcast.version>
         <hazelcast-hibernate52.version>1.2.3</hazelcast-hibernate52.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
@@ -249,8 +250,8 @@
             </dependency>
             <dependency>
                 <groupId>io.github.jhipster</groupId>
-                <artifactId>jhipster-server</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
+                <artifactId>jhipster</artifactId>
+                <version>${jhipster-server.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
