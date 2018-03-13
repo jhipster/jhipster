@@ -63,7 +63,6 @@
         <jhipster-server.version>2.0.0-20180313.135500-1</jhipster-server.version>
         <hazelcast-hibernate52.version>1.2.3</hazelcast-hibernate52.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
-        <hibernate.version>5.2.14.Final</hibernate.version>
         <hikaricp.version>2.7.8</hikaricp.version>
         <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.4.Final</infinispan-cloud.version>
@@ -211,16 +210,6 @@
                 <groupId>com.hazelcast</groupId>
                 <artifactId>hazelcast-wm</artifactId>
                 <version>${hazelcast-wm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-infinispan</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-jcache</artifactId>
-                <version>${hibernate.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.infinispan</groupId>
