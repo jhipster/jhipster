@@ -85,6 +85,8 @@ public class SwaggerAutoConfiguration {
     /**
      * Springfox configuration for the API Swagger docs.
      *
+     * @param swaggerCustomizers Swagger customizers
+     * @param alternateTypeRules alternate type rules
      * @return the Swagger Springfox configuration
      */
     @Bean
