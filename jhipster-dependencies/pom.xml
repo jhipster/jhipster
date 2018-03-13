@@ -62,7 +62,6 @@
         <guava.version>23.5-jre</guava.version>
         <jhipster-server.version>2.0.0-20180313.135500-1</jhipster-server.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
-        <hikaricp.version>2.7.8</hikaricp.version>
         <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.4.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
