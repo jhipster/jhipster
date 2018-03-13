@@ -62,7 +62,7 @@
         <guava.version>23.5-jre</guava.version>
         <jhipster-server.version>2.0.0-20180313.135500-1</jhipster-server.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
-        <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
+        <infinispan-spring-boot-starter-embedded.version>2.0.0.Alpha1</infinispan-spring-boot-starter-embedded.version>
         <jjwt.version>0.9.0</jjwt.version>
         <liquibase-mssql.version>1.6.2</liquibase-mssql.version>
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
@@ -216,8 +216,8 @@
             </dependency>
             <dependency>
                 <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-spring-boot-starter</artifactId>
-                <version>${infinispan-spring-boot-starter.version}</version>
+                <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
+                <version>${infinispan-spring-boot-starter-embedded.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.jhipster</groupId>
