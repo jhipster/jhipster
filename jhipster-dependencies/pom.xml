@@ -59,7 +59,6 @@
         <couchmove.version>1.0.1</couchmove.version>
         <couchbase-testcontainer.version>1.11</couchbase-testcontainer.version>
         <cucumber.version>1.2.5</cucumber.version>
-        <dropwizard-metrics.version>3.2.6</dropwizard-metrics.version>
         <guava.version>24.0-jre</guava.version>
         <jhipster-server.version>2.0.0-20180313.135500-1</jhipster-server.version>
         <hazelcast.version>3.9.3</hazelcast.version>
@@ -291,27 +290,7 @@
             </dependency>
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-annotation</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>metrics-jcache</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-json</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-jvm</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-servlet</artifactId>
                 <version>${dropwizard-metrics.version}</version>
             </dependency>
             <dependency>
@@ -334,11 +313,6 @@
                 <groupId>com.github.differentway</groupId>
                 <artifactId>couchmove</artifactId>
                 <version>${couchmove.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.couchbase.client</groupId>
-                <artifactId>java-client</artifactId>
-                <version>${couchbase-client.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.microsoft.sqlserver</groupId>
