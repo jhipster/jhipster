@@ -61,7 +61,6 @@
         <cucumber.version>1.2.5</cucumber.version>
         <guava.version>24.0-jre</guava.version>
         <jhipster-server.version>2.0.0-20180313.135500-1</jhipster-server.version>
-        <hazelcast-hibernate52.version>1.2.3</hazelcast-hibernate52.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
         <hikaricp.version>2.7.8</hikaricp.version>
         <infinispan.version>9.1.6.Final</infinispan.version>
@@ -200,11 +199,6 @@
                 <groupId>info.cukes</groupId>
                 <artifactId>cucumber-spring</artifactId>
                 <version>${cucumber.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hazelcast</groupId>
-                <artifactId>hazelcast-hibernate52</artifactId>
-                <version>${hazelcast-hibernate52.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.hazelcast</groupId>
