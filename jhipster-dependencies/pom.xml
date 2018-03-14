@@ -53,7 +53,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- Dependency versions -->
-        <aws-java-sdk-ssm.version>1.11.247</aws-java-sdk-ssm.version>
+        <aws-java-sdk-ssm.version>1.11.293</aws-java-sdk-ssm.version>
         <bucket4j.version>3.1.1</bucket4j.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
         <couchmove.version>1.0.1</couchmove.version>
