@@ -84,7 +84,7 @@
         <spring-cloud-stream.version>Elmhurst.RC3</spring-cloud-stream.version>
         <spring-data-releasetrain.version>Kay-SR5</spring-data-releasetrain.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.RELEASE</spring-security-oauth2-autoconfigure.version>
-        <spring-social-facebook.version>3.0.0.M1</spring-social-facebook.version>
+        <spring-social-facebook.version>3.0.0.M3</spring-social-facebook.version>
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
         <springfox.version>2.8.0</springfox.version>
 
