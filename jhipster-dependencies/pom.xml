@@ -59,7 +59,7 @@
         <couchmove.version>1.0.1</couchmove.version>
         <couchbase-testcontainer.version>1.11</couchbase-testcontainer.version>
         <cucumber.version>1.2.5</cucumber.version>
-        <guava.version>23.5-jre</guava.version>
+        <guava.version>24.0-jre</guava.version>
         <jhipster-server.version>2.0.0-20180313.135500-1</jhipster-server.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
         <infinispan-spring-boot-starter-embedded.version>2.0.0.Alpha1</infinispan-spring-boot-starter-embedded.version>
