@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>
-        <version>Cairo-BUILD-SNAPSHOT</version>
+        <version>Cairo-RC1</version>
         <relativePath />
     </parent>
 
@@ -53,37 +53,27 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- Dependency versions -->
-        <assertj.version>3.8.0</assertj.version>
-        <aws-java-sdk-ssm.version>1.11.247</aws-java-sdk-ssm.version>
+        <aws-java-sdk-ssm.version>1.11.293</aws-java-sdk-ssm.version>
         <bucket4j.version>3.1.1</bucket4j.version>
-        <cassandra-driver.version>3.4.0</cassandra-driver.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
         <couchmove.version>1.0.1</couchmove.version>
         <couchbase-testcontainer.version>1.11</couchbase-testcontainer.version>
-        <couchbase-client.version>2.5.4</couchbase-client.version>
         <cucumber.version>1.2.5</cucumber.version>
-        <dropwizard-metrics.version>3.2.5</dropwizard-metrics.version>
-        <guava.version>23.5-jre</guava.version>
-        <jhipster-server.version>2.0.0-20180313.135500-1</jhipster-server.version>
-        <hazelcast.version>3.9.3</hazelcast.version>
-        <hazelcast-hibernate52.version>1.2.3</hazelcast-hibernate52.version>
+        <guava.version>24.0-jre</guava.version>
+        <jhipster-server.version>2.0.0-SNAPSHOT</jhipster-server.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
-        <hibernate.version>5.2.14.Final</hibernate.version>
-        <hikaricp.version>2.7.8</hikaricp.version>
-        <infinispan.version>8.2.5.Final</infinispan.version>
-        <infinispan-cloud.version>9.1.4.Final</infinispan-cloud.version>
-        <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
+        <infinispan-spring-boot-starter-embedded.version>2.0.0.Alpha1</infinispan-spring-boot-starter-embedded.version>
         <jjwt.version>0.9.0</jjwt.version>
         <liquibase-mssql.version>1.6.2</liquibase-mssql.version>
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
-        <logstash-logback-encoder.version>4.11</logstash-logback-encoder.version>
-        <lz4-java.version>1.4.0</lz4-java.version>
+        <logstash-logback-encoder.version>5.0</logstash-logback-encoder.version>
+        <lz4-java.version>1.4.1</lz4-java.version>
         <metrics-spring.version>3.1.3</metrics-spring.version>
         <mongobee.version>0.13</mongobee.version>
-        <mssql-jdbc.version>6.2.2.jre8</mssql-jdbc.version>
+        <mssql-jdbc.version>6.4.0.jre8</mssql-jdbc.version>
         <oracle-jdbc.version>12.2.0.1</oracle-jdbc.version>
         <problem-spring-web.version>0.22.2</problem-spring-web.version>
-        <prometheus-simpleclient.version>0.1.0</prometheus-simpleclient.version>
+        <prometheus-simpleclient.version>0.3.0</prometheus-simpleclient.version>
         <!-- The spring-boot version should match the one in
         https://github.com/spring-io/platform/blob/v${project.parent.version}/platform-bom/pom.xml -->
         <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
@@ -94,7 +84,7 @@
         <spring-cloud-stream.version>Elmhurst.RC3</spring-cloud-stream.version>
         <spring-data-releasetrain.version>Kay-SR5</spring-data-releasetrain.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.RELEASE</spring-security-oauth2-autoconfigure.version>
-        <spring-social-facebook.version>3.0.0.M1</spring-social-facebook.version>
+        <spring-social-facebook.version>3.0.0.M3</spring-social-facebook.version>
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
         <springfox.version>2.8.0</springfox.version>
 
@@ -107,16 +97,11 @@
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
 
         <!-- Plugin versions -->
-        <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
-        <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>2.4</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
-        <sonar-maven-plugin.version>3.3.0.603</sonar-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+        <sonar-maven-plugin.version>3.4.0.905</sonar-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
     </properties>
 
     <!-- TODO To remove after final Spring Boot 2 release -->
@@ -129,6 +114,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <!-- Need this for milestones / release-candidates of Spring modules: -->
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -137,6 +123,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <!-- Need this for snapshots of Spring modules:
         <repository>
             <id>spring-snapshot</id>
             <name>Spring Snapshots</name>
@@ -145,8 +132,10 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+         -->
     </repositories>
     <pluginRepositories>
+        <!-- Need this for milestones / release-candidates of Spring plugins: -->
         <pluginRepository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -155,6 +144,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
+        <!-- Need this for snapshots of Spring plugins:
         <pluginRepository>
             <id>spring-snapshot</id>
             <name>Spring Snapshots</name>
@@ -163,6 +153,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
+        -->
     </pluginRepositories>
 
     <dependencyManagement>
@@ -176,11 +167,6 @@
                 <groupId>com.github.vladimir-bukhtoyarov</groupId>
                 <artifactId>bucket4j-jcache</artifactId>
                 <version>${bucket4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.datastax.cassandra</groupId>
-                <artifactId>cassandra-driver-core</artifactId>
-                <version>${cassandra-driver.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.datastax.cassandra</groupId>
@@ -214,28 +200,14 @@
             </dependency>
             <dependency>
                 <groupId>com.hazelcast</groupId>
-                <artifactId>hazelcast-hibernate52</artifactId>
-                <version>${hazelcast-hibernate52.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hazelcast</groupId>
                 <artifactId>hazelcast-wm</artifactId>
                 <version>${hazelcast-wm.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-infinispan</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-jcache</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-cloud</artifactId>
-                <version>${infinispan-cloud.version}</version>
+                <version>${infinispan.version}</version>
+                <!-- TODO check if this exclusion is still needed -->
                 <exclusions>
                     <exclusion>
                         <groupId>io.undertow</groupId>
@@ -245,8 +217,8 @@
             </dependency>
             <dependency>
                 <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-spring-boot-starter</artifactId>
-                <version>${infinispan-spring-boot-starter.version}</version>
+                <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
+                <version>${infinispan-spring-boot-starter-embedded.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.jhipster</groupId>
@@ -299,27 +271,7 @@
             </dependency>
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-annotation</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>metrics-jcache</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-json</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-jvm</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-servlet</artifactId>
                 <version>${dropwizard-metrics.version}</version>
             </dependency>
             <dependency>
@@ -342,11 +294,6 @@
                 <groupId>com.github.differentway</groupId>
                 <artifactId>couchmove</artifactId>
                 <version>${couchmove.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.couchbase.client</groupId>
-                <artifactId>java-client</artifactId>
-                <version>${couchbase-client.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.microsoft.sqlserver</groupId>
