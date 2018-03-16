@@ -11,34 +11,33 @@ ls -al "$HOME"
 #-------------------------------------------------------------------------------
 cd "$HOME"
 if [[ "$TRAVIS_REPO_SLUG" == *"/jhipster" ]]; then
-  echo "TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG"
-  echo "No need to clone jhipster: use local version"
+    echo "TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG"
+    echo "No need to clone jhipster: use local version"
 
-  cd "$TRAVIS_BUILD_DIR"
+    cd "$TRAVIS_BUILD_DIR"
     
-  if [[ $VERSION == '' ]]; then
-    VERSION=0.0.0-TRAVIS
-  fi
+    if [[ $VERSION == '' ]]; then
+        VERSION=0.0.0-TRAVIS
+    fi
 
-  # artifact version of jhipster-parent
-  sed -i '/<artifactId>jhipster-parent<\/artifactId>/{$!{N;s/<version>.*<\/version>/<version>'$VERSION'<\/version>/1}}' pom.xml
+    # artifact version of jhipster-parent
+    sed -i '/<artifactId>jhipster-parent<\/artifactId>/{$!{N;s/<version>.*<\/version>/<version>'$VERSION'<\/version>/1}}' pom.xml
 
-  # artifact version of jhipster-dependencies
-  sed -i '/<artifactId>jhipster-dependencies<\/artifactId>/{$!{N;s/<version>.*<\/version>/<version>'$VERSION'<\/version>/1}}' jhipster-dependencies/pom.xml
+    # artifact version of jhipster-dependencies
+    sed -i '/<artifactId>jhipster-dependencies<\/artifactId>/{$!{N;s/<version>.*<\/version>/<version>'$VERSION'<\/version>/1}}' jhipster-dependencies/pom.xml
 
-  # jhipster-server.version property in jhipster-dependencies
-  sed -i 's/<jhipster-server.version>.*<\/jhipster-server.version>/<jhipster-server.version>'$VERSION'<\/jhipster-server.version>/1' jhipster-dependencies/pom.xml
+    # jhipster-server.version property in jhipster-dependencies
+    sed -i 's/<jhipster-server.version>.*<\/jhipster-server.version>/<jhipster-server.version>'$VERSION'<\/jhipster-server.version>/1' jhipster-dependencies/pom.xml
 
-  # parent version of jhipster-server
-  sed -i '/<artifactId>jhipster-dependencies<\/artifactId>/{$!{N;s/<version>.*<\/version>/<version>'$VERSION'<\/version>/1}}' jhipster-server/pom.xml
+    # parent version of jhipster-server
+    sed -i '/<artifactId>jhipster-dependencies<\/artifactId>/{$!{N;s/<version>.*<\/version>/<version>'$VERSION'<\/version>/1}}' jhipster-server/pom.xml
 
-  # artifact version of jhipster-server
-  sed -i '/<artifactId>jhipster<\/artifactId>/{$!{N;s/<version>.*<\/version>/<version>'$VERSION'<\/version>/1}}' jhipster-server/pom.xml
+    # artifact version of jhipster-server
+    sed -i '/<artifactId>jhipster<\/artifactId>/{$!{N;s/<version>.*<\/version>/<version>'$VERSION'<\/version>/1}}' jhipster-server/pom.xml
 
-
-  ./mvnw clean install -Dgpg.skip=true
-  ls -al ~/.m2/repository/io/github/jhipster/jhipster-dependencies/
-  ls -al ~/.m2/repository/io/github/jhipster/jhipster/
+    ./mvnw clean install -Dgpg.skip=true
+    ls -al ~/.m2/repository/io/github/jhipster/jhipster-dependencies/
+    ls -al ~/.m2/repository/io/github/jhipster/jhipster/
 
 elif [[ "$JHIPSTER_LIB_BRANCH" == "release" ]]; then
     echo "No need to clone jhipster: use release version"
