@@ -5,6 +5,7 @@ if [[ $VERSION == '' ]]; then
 fi
 
 # jhipster-dependencies.version in generated pom.xml or gradle.properties
+cd "$APP_FOLDER"
 if [[ -a mvnw ]]; then
     sed -i 's/<jhipster-dependencies.version>.*<\/jhipster-dependencies.version>/<jhipster-dependencies.version>'$VERSION'<\/jhipster-dependencies.version>/1' pom.xml
     cat pom.xml | grep \<jhipster-dependencies.version\>
