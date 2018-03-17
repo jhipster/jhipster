@@ -20,7 +20,7 @@ cache:
 env:
   global:
     # this version is used for testing with Travis
-    - VERSION=0.0.0-TRAVIS
+    - JHIPSTER_VERSION=0.0.0-TRAVIS
     - PROFILE=dev
     - RUN_APP=1
     - PROTRACTOR=0
