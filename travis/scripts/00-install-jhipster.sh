@@ -19,8 +19,9 @@ if [[ "$TRAVIS_REPO_SLUG" == *"/jhipster" ]]; then
     travis/scripts/00-replace-version-jhipster.sh
 
     ./mvnw clean install -Dgpg.skip=true
-    ls -al ~/.m2/repository/io/github/jhipster/jhipster-dependencies/
     ls -al ~/.m2/repository/io/github/jhipster/jhipster/
+    ls -al ~/.m2/repository/io/github/jhipster/jhipster-dependencies/
+    ls -al ~/.m2/repository/io/github/jhipster/jhipster-parent/
 
 elif [[ "$JHIPSTER_LIB_BRANCH" == "release" ]]; then
     echo "No need to clone jhipster: use release version"
@@ -37,8 +38,9 @@ else
     git --no-pager log -n 10 --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
     ./mvnw clean install -Dgpg.skip=true
-    ls -al ~/.m2/repository/io/github/jhipster/jhipster-dependencies/
     ls -al ~/.m2/repository/io/github/jhipster/jhipster/
+    ls -al ~/.m2/repository/io/github/jhipster/jhipster-dependencies/
+    ls -al ~/.m2/repository/io/github/jhipster/jhipster-parent/
 fi
 
 #-------------------------------------------------------------------------------
