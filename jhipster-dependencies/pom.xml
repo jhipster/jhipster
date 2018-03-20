@@ -37,9 +37,6 @@
         </developer>
         <!-- The JHipster core team is listed at http://www.jhipster.tech/team/ -->
     </developers>
-    <scm>
-        <tag>jhipster-2.0.0-SNAPSHOT</tag>
-    </scm>
 
     <properties>
         <!-- Build properties -->
@@ -60,7 +57,7 @@
         <couchbase-testcontainer.version>1.11</couchbase-testcontainer.version>
         <cucumber.version>1.2.5</cucumber.version>
         <guava.version>24.0-jre</guava.version>
-        <jhipster-server.version>2.0.0-20180315.150251-3</jhipster-server.version>
+        <jhipster-server.version>2.0.0-SNAPSHOT</jhipster-server.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
         <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.6.Final</infinispan-cloud.version>
@@ -108,14 +105,6 @@
 
     <!-- TODO To remove after final Spring Boot 2 release -->
     <repositories>
-        <repository>
-            <id>jhipster-snapshot</id>
-            <name>JHipster Snapshots</name>
-            <url>https://dl.bintray.com/jhipster/maven</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -724,22 +713,15 @@
         </dependencies>
     </dependencyManagement>
 
-    <!-- TODO To remove after final Spring Boot 2 release -->
-    <!--
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
-    </distributionManagement>
-    -->
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>jhipster-snapshots</name>
-            <url>https://jhipster.jfrog.io/jhipster/libs-snapshot-local</url>
-        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
     <build>
@@ -885,8 +867,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
-            <!-- TODO To remove after final Spring Boot 2 release -->
-            <!--
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -895,7 +875,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
             </plugin>
-            -->
         </plugins>
     </build>
 </project>

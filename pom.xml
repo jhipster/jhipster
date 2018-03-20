@@ -8,10 +8,14 @@
     <packaging>pom</packaging>
     <name>JHipster server-side parent project</name>
 
+    <properties>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+    </properties>
+
     <scm>
         <connection>scm:git:https://github.com/jhipster/jhipster/</connection>
         <url>https://github.com/jhipster/jhipster/</url>
-        <tag>jhipster-2.0.0-SNAPSHOT</tag>
     </scm>
 
     <distributionManagement>
@@ -19,6 +23,10 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
     <modules>
