@@ -19,15 +19,17 @@
 
 package io.github.jhipster.service;
 
-import java.util.Collection;
-import javax.persistence.criteria.CriteriaBuilder.In;
-import javax.persistence.metamodel.SetAttribute;
-import javax.persistence.metamodel.SingularAttribute;
-
+import io.github.jhipster.service.filter.Filter;
+import io.github.jhipster.service.filter.RangeFilter;
+import io.github.jhipster.service.filter.StringFilter;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.filter.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.persistence.metamodel.SetAttribute;
+import javax.persistence.metamodel.SingularAttribute;
+import java.util.Collection;
 
 /**
  * Base service for constructing and executing complex queries.
@@ -149,6 +151,53 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
+     * Helper function to return a specification for filtering on one-to-one or many-to-one reference. Where equality, less
+     * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
+     * supported. Usage:
+     * <pre>
+     *   Specification&lt;Employee&gt; specByProjectId = buildReferringEntitySpecification(criteria.getProjectId(),
+     * Employee_.project, Project_.id);
+     *   Specification&lt;Employee&gt; specByProjectName = buildReferringEntitySpecification(criteria.getProjectName(),
+     * Employee_.project, Project_.name);
+     * </pre>
+     *
+     * @param filter     the filter object which contains a value, which needs to match or a flag if nullness is
+     *                   checked.
+     * @param reference  the attribute of the static metamodel for the referring entity.
+     * @param valueField the attribute of the static metamodel of the referred entity, where the equality should be
+     *                   checked.
+     * @param <OTHER>    The type of the referenced entity.
+     * @param <X>        The type of the attribute which is filtered.
+     * @return a Specification
+     */
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(final RangeFilter<X> filter,
+                                                                                                               final SingularAttribute<? super ENTITY, OTHER> reference,
+                                                                                                               final SingularAttribute<OTHER, X> valueField) {
+        if (filter.getEquals() != null) {
+            return equalsSpecification(reference, valueField, filter.getEquals());
+        } else if (filter.getIn() != null) {
+            return valueIn(reference, valueField, filter.getIn());
+        }
+        Specification<ENTITY> result = Specification.where(null);
+        if (filter.getSpecified() != null) {
+            result = result.and(byFieldSpecified(reference, filter.getSpecified()));
+        }
+        if (filter.getGreaterThan() != null) {
+            result = result.and(greaterThan(reference, valueField, filter.getGreaterThan()));
+        }
+        if (filter.getGreaterOrEqualThan() != null) {
+            result = result.and(greaterThanOrEqualTo(reference, valueField, filter.getGreaterOrEqualThan()));
+        }
+        if (filter.getLessThan() != null) {
+            result = result.and(lessThan(reference, valueField, filter.getLessThan()));
+        }
+        if (filter.getLessOrEqualThan() != null) {
+            result = result.and(lessThanOrEqualTo(reference, valueField, filter.getLessOrEqualThan()));
+        }
+        return result;
+    }
+
+    /**
      * Helper function to return a specification for filtering on one-to-many or many-to-many reference. Usage:
      * <pre>
      *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(criteria.getEmployeId(),
@@ -175,6 +224,53 @@ public abstract class QueryService<ENTITY> {
             return byFieldSpecified(reference, filter.getSpecified());
         }
         return null;
+    }
+
+    /**
+     * Helper function to return a specification for filtering on one-to-many or many-to-many reference. Where equality, less
+     * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
+     * supported. Usage:
+     * <pre>
+     *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(criteria.getEmployeId(),
+     * Project_.employees, Employee_.id);
+     *   Specification&lt;Employee&gt; specByEmployeeName = buildReferringEntitySpecification(criteria.getEmployeName(),
+     * Project_.project, Project_.name);
+     * </pre>
+     *
+     * @param filter     the filter object which contains a value, which needs to match or a flag if emptiness is
+     *                   checked.
+     * @param reference  the attribute of the static metamodel for the referring entity.
+     * @param valueField the attribute of the static metamodel of the referred entity, where the equality should be
+     *                   checked.
+     * @param <OTHER>    The type of the referenced entity.
+     * @param <X>        The type of the attribute which is filtered.
+     * @return a Specification
+     */
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(final RangeFilter<X> filter,
+                                                                                                               final SetAttribute<ENTITY, OTHER> reference,
+                                                                                                               final SingularAttribute<OTHER, X> valueField) {
+        if (filter.getEquals() != null) {
+            return equalsSetSpecification(reference, valueField, filter.getEquals());
+        } else if (filter.getIn() != null) {
+            return valueIn(reference, valueField, filter.getIn());
+        }
+        Specification<ENTITY> result = Specification.where(null);
+        if (filter.getSpecified() != null) {
+            result = result.and(byFieldSpecified(reference, filter.getSpecified()));
+        }
+        if (filter.getGreaterThan() != null) {
+            result = result.and(greaterThan(reference, valueField, filter.getGreaterThan()));
+        }
+        if (filter.getGreaterOrEqualThan() != null) {
+            result = result.and(greaterThanOrEqualTo(reference, valueField, filter.getGreaterOrEqualThan()));
+        }
+        if (filter.getLessThan() != null) {
+            result = result.and(lessThan(reference, valueField, filter.getLessThan()));
+        }
+        if (filter.getLessOrEqualThan() != null) {
+            result = result.and(lessThanOrEqualTo(reference, valueField, filter.getLessOrEqualThan()));
+        }
+        return result;
     }
 
     protected <X> Specification<ENTITY> equalsSpecification(SingularAttribute<? super ENTITY, X> field, final X value) {
@@ -255,4 +351,47 @@ public abstract class QueryService<ENTITY> {
         return "%" + txt.toUpperCase() + '%';
     }
 
+
+    protected <OTHER, X> Specification<ENTITY> valueIn(final SetAttribute<? super ENTITY, OTHER> reference,
+                                                       final SingularAttribute<OTHER, X> valueField, final Collection<X> values) {
+        return (root, query, builder) -> {
+            CriteriaBuilder.In<X> in = builder.in(root.join(reference).get(valueField));
+            for (X value : values) {
+                in = in.value(value);
+            }
+            return in;
+        };
+    }
+
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> greaterThan(final SingularAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
+        return (root, query, builder) -> builder.greaterThan(root.get(reference).get(valueField), value);
+    }
+
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> greaterThan(final SetAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
+        return (root, query, builder) -> builder.greaterThan(root.join(reference).get(valueField), value);
+    }
+
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> greaterThanOrEqualTo(final SingularAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
+        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get(reference).get(valueField), value);
+    }
+
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> greaterThanOrEqualTo(final SetAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
+        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.join(reference).get(valueField), value);
+    }
+
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> lessThan(final SingularAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
+        return (root, query, builder) -> builder.lessThan(root.get(reference).get(valueField), value);
+    }
+
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> lessThan(final SetAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
+        return (root, query, builder) -> builder.lessThan(root.join(reference).get(valueField), value);
+    }
+
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> lessThanOrEqualTo(final SingularAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.get(reference).get(valueField), value);
+    }
+
+    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> lessThanOrEqualTo(final SetAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.join(reference).get(valueField), value);
+    }
 }
