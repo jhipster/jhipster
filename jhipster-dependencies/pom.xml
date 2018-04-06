@@ -83,8 +83,6 @@
         <spring-cloud-netflix.version>2.0.0.M7</spring-cloud-netflix.version>
         <spring-cloud-stream.version>Elmhurst.RC3</spring-cloud-stream.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.RELEASE</spring-security-oauth2-autoconfigure.version>
-        <spring-social-facebook.version>3.0.0.M3</spring-social-facebook.version>
-        <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
         <springfox.version>2.8.0</springfox.version>
 
         <!-- Sonar properties -->
@@ -655,16 +653,6 @@
                 <groupId>org.springframework.security.oauth.boot</groupId>
                 <artifactId>spring-security-oauth2-autoconfigure</artifactId>
                 <version>${spring-security-oauth2-autoconfigure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-google</artifactId>
-                <version>${spring-social-google.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-facebook</artifactId>
-                <version>${spring-social-facebook.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
