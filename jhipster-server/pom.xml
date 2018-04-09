@@ -14,7 +14,7 @@
     <version>2.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JHipster server-side library</name>
-    <description>Server-side library used by applications created with the JHipster generator, see http://www.jhipster.tech/ for more information on JHipster</description>
+    <description>Server-side library used by applications created with the JHipster generator, see https://www.jhipster.tech/ for more information on JHipster</description>
     <url>https://github.com/jhipster/jhipster</url>
 
     <licenses>
@@ -26,7 +26,7 @@
     </licenses>
     <organization>
         <name>JHipster</name>
-        <url>http://www.jhipster.tech/</url>
+        <url>https://www.jhipster.tech/</url>
     </organization>
     <developers>
         <developer>
@@ -34,9 +34,9 @@
             <name>Julien Dubois</name>
             <url>http://www.julien-dubois.com/</url>
             <organization>JHipster</organization>
-            <organizationUrl>http://www.jhipster.tech/</organizationUrl>
+            <organizationUrl>https://www.jhipster.tech/</organizationUrl>
         </developer>
-        <!-- The JHipster core team is listed at http://www.jhipster.tech/team/ -->
+        <!-- The JHipster core team is listed at https://www.jhipster.tech/team/ -->
     </developers>
 
     <properties>

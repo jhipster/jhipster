@@ -1,7 +1,7 @@
 /*
  * Copyright 2016-2018 the original author or authors from the JHipster project.
  *
- * This file is part of the JHipster project, see http://www.jhipster.tech/
+ * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ package io.github.jhipster.config;
  */
 public interface JHipsterConstants {
 
-    // Spring profiles for development, test and production, see http://www.jhipster.tech/profiles/
+    // Spring profiles for development, test and production, see https://www.jhipster.tech/profiles/
     String SPRING_PROFILE_DEVELOPMENT = "dev";
     String SPRING_PROFILE_TEST = "test";
     String SPRING_PROFILE_PRODUCTION = "prod";
