@@ -82,6 +82,7 @@
         https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
         <spring-cloud-netflix.version>2.0.0.M7</spring-cloud-netflix.version>
         <spring-cloud-stream.version>Elmhurst.RELEASE</spring-cloud-stream.version>
+        <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.2.1.RELEASE</spring-security-oauth.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.RELEASE</spring-security-oauth2-autoconfigure.version>
         <springfox.version>2.8.0</springfox.version>
@@ -659,6 +660,11 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-netflix-spectator</artifactId>
                 <version>${spring-cloud-netflix.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>${spring-security-jwt.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security.oauth</groupId>
