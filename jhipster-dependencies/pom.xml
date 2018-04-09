@@ -56,6 +56,7 @@
         <couchmove.version>1.0.1</couchmove.version>
         <couchbase-testcontainer.version>1.11</couchbase-testcontainer.version>
         <cucumber.version>1.2.5</cucumber.version>
+        <commons-io.version>2.6</commons-io.version>
         <guava.version>24.1-jre</guava.version>
         <jhipster-server.version>2.0.0-SNAPSHOT</jhipster-server.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
@@ -154,6 +155,11 @@
                         <artifactId>slf4j-log4j12</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
             <dependency>
                 <groupId>info.cukes</groupId>
