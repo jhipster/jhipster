@@ -166,6 +166,11 @@
                 <version>${cucumber.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.hazelcast</groupId>
                 <artifactId>hazelcast-wm</artifactId>
                 <version>${hazelcast-wm.version}</version>
