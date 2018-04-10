@@ -54,7 +54,7 @@
         <bucket4j.version>3.1.1</bucket4j.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
         <couchmove.version>1.0.1</couchmove.version>
-        <couchbase-testcontainer.version>1.11</couchbase-testcontainer.version>
+        <couchbase-testcontainer.version>1.12</couchbase-testcontainer.version>
         <cucumber.version>1.2.5</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>24.1-jre</guava.version>
