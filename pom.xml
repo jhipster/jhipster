@@ -6,7 +6,7 @@
     <artifactId>jhipster-parent</artifactId>
     <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JHipster server-side parent project</name>
+    <name>JHipster server-side parent POM</name>
 
     <properties>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
@@ -31,7 +31,7 @@
 
     <modules>
         <module>jhipster-dependencies</module>
-        <module>jhipster-server</module>
+        <module>jhipster-framework</module>
     </modules>
 
 </project>
