@@ -72,6 +72,8 @@ else
     fi
     git --no-pager log -n 10 --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
+    "$TRAVIS_BUILD_DIR"/travis/scripts/00-replace-version-generator.sh
+
     yarn install
     yarn global add file:"$HOME"/generator-jhipster
 fi
