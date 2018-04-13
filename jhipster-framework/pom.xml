@@ -9,13 +9,11 @@
         <relativePath>../jhipster-dependencies/pom.xml</relativePath>
     </parent>
 
-    <groupId>io.github.jhipster</groupId>
-    <artifactId>jhipster</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <artifactId>jhipster-framework</artifactId>
     <packaging>jar</packaging>
-    <name>JHipster server-side library</name>
+    <name>JHipster server-side framework</name>
     <description>Server-side library used by applications created with the JHipster generator, see https://www.jhipster.tech/ for more information on JHipster</description>
-    <url>https://github.com/jhipster/jhipster</url>
+    <url>https://github.com/jhipster/jhipster/</url>
 
     <licenses>
         <license>
