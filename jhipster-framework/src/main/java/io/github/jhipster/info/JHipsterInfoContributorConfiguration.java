@@ -36,7 +36,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 public class JHipsterInfoContributorConfiguration {
 
     @Bean
-    @ConditionalOnEnabledInfoContributor("active-profiles")
+    @ConditionalOnEnabledInfoContributor("management.info.active-profiles.enabled")
     public ActiveProfilesInfoContributor activeProfilesInfoContributor(
         ConfigurableEnvironment environment) {
         return new ActiveProfilesInfoContributor(environment);
