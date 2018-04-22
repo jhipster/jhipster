@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import java.util.Collection;
@@ -296,13 +297,27 @@ public abstract class QueryService<ENTITY> {
 
     protected <X> Specification<ENTITY> byFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
         specified) {
-        return specified ? (root, query, builder) -> builder.isNotNull(root.get(field)) : (root, query, builder) ->
-            builder.isNull(root.get(field));
+        if(isFieldAnReferringEntity(field)) {
+            return byReferringEntitiesFieldSpecified(field, specified);
+        }else {
+            return specified ? (root, query, builder) -> builder.isNotNull(root.get(field)) : (root, query, builder) ->
+                builder.isNull(root.get(field));
+        }
+    }
+
+    private boolean isFieldAnReferringEntity(SingularAttribute<? super ENTITY, ?> field) {
+        return field.getType().getJavaType().isInstance(field.getJavaMember().getDeclaringClass()) ? false : true;
     }
 
     protected <X> Specification<ENTITY> byFieldSpecified(SetAttribute<ENTITY, X> field, final boolean specified) {
         return specified ? (root, query, builder) -> builder.isNotEmpty(root.get(field)) : (root, query, builder) ->
             builder.isEmpty(root.get(field));
+    }
+
+    protected <X> Specification<ENTITY> byReferringEntitiesFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
+        specified) {
+        return specified ? (root, query, builder) -> builder.isNotNull(root.join(field, JoinType.LEFT)) : (root, query, builder) ->
+            builder.isNull(root.join(field, JoinType.LEFT));
     }
 
     protected <X> Specification<ENTITY> valueIn(SingularAttribute<? super ENTITY, X> field, final Collection<X>
