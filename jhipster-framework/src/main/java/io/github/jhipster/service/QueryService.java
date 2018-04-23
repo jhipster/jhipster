@@ -297,16 +297,12 @@ public abstract class QueryService<ENTITY> {
 
     protected <X> Specification<ENTITY> byFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
         specified) {
-        if(isFieldAnReferringEntity(field)) {
+        if(field.isAssociation()) {
             return byReferringEntitiyFieldSpecified(field, specified);
         }else {
             return specified ? (root, query, builder) -> builder.isNotNull(root.get(field)) : (root, query, builder) ->
                 builder.isNull(root.get(field));
         }
-    }
-
-    private boolean isFieldAnReferringEntity(SingularAttribute<? super ENTITY, ?> field) {
-        return field.getType().getJavaType().isInstance(field.getJavaMember().getDeclaringClass()) ? false : true;
     }
 
     protected <X> Specification<ENTITY> byFieldSpecified(SetAttribute<ENTITY, X> field, final boolean specified) {
