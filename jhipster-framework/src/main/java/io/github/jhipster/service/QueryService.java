@@ -181,7 +181,7 @@ public abstract class QueryService<ENTITY> {
         }
         Specification<ENTITY> result = Specification.where(null);
         if (filter.getSpecified() != null) {
-            result = result.and(byFieldSpecified(reference, filter.getSpecified()));
+            result = result.and(byReferringEntityFieldSpecified(reference, filter.getSpecified()));
         }
         if (filter.getGreaterThan() != null) {
             result = result.and(greaterThan(reference, valueField, filter.getGreaterThan()));
@@ -297,12 +297,8 @@ public abstract class QueryService<ENTITY> {
 
     protected <X> Specification<ENTITY> byFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
         specified) {
-        if(field.isAssociation()) {
-            return byReferringEntitiyFieldSpecified(field, specified);
-        }else {
-            return specified ? (root, query, builder) -> builder.isNotNull(root.get(field)) : (root, query, builder) ->
-                builder.isNull(root.get(field));
-        }
+        return specified ? (root, query, builder) -> builder.isNotNull(root.get(field)) : (root, query, builder) ->
+            builder.isNull(root.get(field));
     }
 
     protected <X> Specification<ENTITY> byFieldSpecified(SetAttribute<ENTITY, X> field, final boolean specified) {
@@ -310,7 +306,7 @@ public abstract class QueryService<ENTITY> {
             builder.isEmpty(root.get(field));
     }
 
-    protected <X> Specification<ENTITY> byReferringEntitiyFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
+    protected <X> Specification<ENTITY> byReferringEntityFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
         specified) {
         return specified ? (root, query, builder) -> builder.isNotNull(root.join(field, JoinType.LEFT)) : (root, query, builder) ->
             builder.isNull(root.join(field, JoinType.LEFT));
