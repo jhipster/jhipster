@@ -24,14 +24,22 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.web.cors.CorsConfiguration;
 
 /**
  * Properties specific to JHipster.
  *
  * <p> Properties are configured in the application.yml file. </p>
+ * <p> This class also load properties in the Spring Environment from the git.properties and META-INF/build-info.properties
+ * files if they are found in the classpath.</p>
  */
 @ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = false)
+@PropertySources({
+    @PropertySource(value = "classpath:git.properties", ignoreResourceNotFound = true),
+    @PropertySource(value = "classpath:META-INF/build-info.properties", ignoreResourceNotFound = true)
+})
 public class JHipsterProperties {
 
     private final Async async = new Async();
@@ -55,8 +63,6 @@ public class JHipsterProperties {
     private final Social social = new Social();
 
     private final Gateway gateway = new Gateway();
-
-    private final Ribbon ribbon = new Ribbon();
 
     private final Registry registry = new Registry();
 
@@ -106,10 +112,6 @@ public class JHipsterProperties {
 
     public Gateway getGateway() {
         return gateway;
-    }
-
-    public Ribbon getRibbon() {
-        return ribbon;
     }
 
     public static class Async {
@@ -858,19 +860,6 @@ public class JHipsterProperties {
             public void setDurationInSeconds(int durationInSeconds) {
                 this.durationInSeconds = durationInSeconds;
             }
-        }
-    }
-
-    public static class Ribbon {
-
-        private String[] displayOnActiveProfiles = JHipsterDefaults.Ribbon.displayOnActiveProfiles;
-
-        public String[] getDisplayOnActiveProfiles() {
-            return displayOnActiveProfiles;
-        }
-
-        public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
-            this.displayOnActiveProfiles = displayOnActiveProfiles;
         }
     }
 
