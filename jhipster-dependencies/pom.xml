@@ -66,6 +66,7 @@
         <spring-cloud.version>Finchley.RC1</spring-cloud.version>
         <!-- The netflix version should match the one in
         https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
+        <spring-cloud-netflix.version>2.0.0.RC1</spring-cloud-netflix.version>
         <spring-cloud-stream.version>Elmhurst.RELEASE</spring-cloud-stream.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.3.2.RELEASE</spring-security-oauth.version>
