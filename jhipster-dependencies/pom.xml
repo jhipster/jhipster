@@ -39,17 +39,17 @@
 
     <properties>
         <!-- Dependency versions -->
-        <aws-java-sdk.version>1.11.313</aws-java-sdk.version>
+        <aws-java-sdk.version>1.11.319</aws-java-sdk.version>
         <bucket4j.version>3.1.1</bucket4j.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
-        <couchmove.version>1.0.1</couchmove.version>
+        <couchmove.version>1.0.2</couchmove.version>
         <couchbase-testcontainer.version>1.12</couchbase-testcontainer.version>
         <cucumber.version>1.2.5</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>24.1-jre</guava.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
         <infinispan.version>8.2.5.Final</infinispan.version>
-        <infinispan-cloud.version>9.1.6.Final</infinispan-cloud.version>
+        <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
         <jjwt.version>0.9.0</jjwt.version>
         <liquibase-mssql.version>1.6.3</liquibase-mssql.version>
@@ -60,16 +60,16 @@
         <mongobee.version>0.13</mongobee.version>
         <mssql-jdbc.version>6.4.0.jre8</mssql-jdbc.version>
         <oracle-jdbc.version>12.2.0.1</oracle-jdbc.version>
-        <problem-spring-web.version>0.22.2</problem-spring-web.version>
+        <problem-spring-web.version>0.22.5</problem-spring-web.version>
         <prometheus-simpleclient.version>0.3.0</prometheus-simpleclient.version>
         <reflections.version>0.9.11</reflections.version>
-        <spring-cloud.version>Finchley.M9</spring-cloud.version>
+        <spring-cloud.version>Finchley.RC1</spring-cloud.version>
         <!-- The netflix version should match the one in
         https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
-        <spring-cloud-netflix.version>2.0.0.M7</spring-cloud-netflix.version>
+        <spring-cloud-netflix.version>2.0.0.RC1</spring-cloud-netflix.version>
         <spring-cloud-stream.version>Elmhurst.RELEASE</spring-cloud-stream.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
-        <spring-security-oauth.version>2.2.1.RELEASE</spring-security-oauth.version>
+        <spring-security-oauth.version>2.3.2.RELEASE</spring-security-oauth.version>
         <spring-security-oauth2-autoconfigure.version>2.0.0.RELEASE</spring-security-oauth2-autoconfigure.version>
         <springfox.version>2.8.0</springfox.version>
     </properties>
