@@ -39,7 +39,7 @@
 
     <properties>
         <!-- Dependency versions -->
-        <aws-java-sdk-ssm.version>1.11.312</aws-java-sdk-ssm.version>
+        <aws-java-sdk.version>1.11.313</aws-java-sdk.version>
         <bucket4j.version>3.1.1</bucket4j.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
         <couchmove.version>1.0.1</couchmove.version>
@@ -178,11 +178,6 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-ssm</artifactId>
-                <version>${aws-java-sdk-ssm.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.sabomichal</groupId>
@@ -670,6 +665,14 @@
             </dependency>
 
             <!-- BOM imports last so we (could) selectively override dependencies above -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>${aws-java-sdk.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-stream-dependencies</artifactId>
