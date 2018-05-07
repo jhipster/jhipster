@@ -211,44 +211,44 @@ public class QueryUtil {
 
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3> Specification<ENTITY1> buildLessThanJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, U> e3) {
-        return (root, query, builder) -> builder.greaterThan(root.join(e1).join(e2).get(e3), value);
+        return (root, query, builder) -> builder.lessThan(root.join(e1).join(e2).get(e3), value);
     }
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3, ENTITY4> Specification<ENTITY1> buildLessThanJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, ENTITY4> e3, final SingularAttribute<? super ENTITY4, U> e4) {
-        return (root, query, builder) -> builder.greaterThan(root.join(e1).join(e2).join(e3).get(e4), value);
+        return (root, query, builder) -> builder.lessThan(root.join(e1).join(e2).join(e3).get(e4), value);
     }
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3, ENTITY4, ENTITY5> Specification<ENTITY1> buildLessThanJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, ENTITY4> e3, final SingularAttribute<? super ENTITY4, ENTITY5> e4, final SingularAttribute<? super ENTITY5, U> e5) {
-        return (root, query, builder) -> builder.greaterThan(root.join(e1).join(e2).join(e3).join(e4).get(e5), value);
+        return (root, query, builder) -> builder.lessThan(root.join(e1).join(e2).join(e3).join(e4).get(e5), value);
     }
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6> Specification<ENTITY1> buildLessThanJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, ENTITY4> e3, final SingularAttribute<? super ENTITY4, ENTITY5> e4, final SingularAttribute<? super ENTITY5, ENTITY6> e5, final SingularAttribute<? super ENTITY6, U> e6) {
-        return (root, query, builder) -> builder.greaterThan(root.join(e1).join(e2).join(e3).join(e4).join(e5).get(e6), value);
+        return (root, query, builder) -> builder.lessThan(root.join(e1).join(e2).join(e3).join(e4).join(e5).get(e6), value);
     }
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, ENTITY7> Specification<ENTITY1> buildLessThanJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, ENTITY4> e3, final SingularAttribute<? super ENTITY4, ENTITY5> e4, final SingularAttribute<? super ENTITY5, ENTITY6> e5, final SingularAttribute<? super ENTITY6, ENTITY7> e6, final SingularAttribute<? super ENTITY7, U> e7) {
-        return (root, query, builder) -> builder.greaterThan(root.join(e1).join(e2).join(e3).join(e4).join(e5).join(e6).get(e7), value);
+        return (root, query, builder) -> builder.lessThan(root.join(e1).join(e2).join(e3).join(e4).join(e5).join(e6).get(e7), value);
     }
 
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3> Specification<ENTITY1> buildLessThanOrEqualToJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, U> e3) {
-        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.join(e1).join(e2).get(e3), value);
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.join(e1).join(e2).get(e3), value);
     }
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3, ENTITY4> Specification<ENTITY1> buildLessThanOrEqualToJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, ENTITY4> e3, final SingularAttribute<? super ENTITY4, U> e4) {
-        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.join(e1).join(e2).join(e3).get(e4), value);
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.join(e1).join(e2).join(e3).get(e4), value);
     }
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3, ENTITY4, ENTITY5> Specification<ENTITY1> buildLessThanOrEqualToJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, ENTITY4> e3, final SingularAttribute<? super ENTITY4, ENTITY5> e4, final SingularAttribute<? super ENTITY5, U> e5) {
-        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.join(e1).join(e2).join(e3).join(e4).get(e5), value);
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.join(e1).join(e2).join(e3).join(e4).get(e5), value);
     }
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6> Specification<ENTITY1> buildLessThanOrEqualToJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, ENTITY4> e3, final SingularAttribute<? super ENTITY4, ENTITY5> e4, final SingularAttribute<? super ENTITY5, ENTITY6> e5, final SingularAttribute<? super ENTITY6, U> e6) {
-        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.join(e1).join(e2).join(e3).join(e4).join(e5).get(e6), value);
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.join(e1).join(e2).join(e3).join(e4).join(e5).get(e6), value);
     }
 
     public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, ENTITY7> Specification<ENTITY1> buildLessThanOrEqualToJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, ENTITY4> e3, final SingularAttribute<? super ENTITY4, ENTITY5> e4, final SingularAttribute<? super ENTITY5, ENTITY6> e5, final SingularAttribute<? super ENTITY6, ENTITY7> e6, final SingularAttribute<? super ENTITY7, U> e7) {
-        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.join(e1).join(e2).join(e3).join(e4).join(e5).join(e6).get(e7), value);
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.join(e1).join(e2).join(e3).join(e4).join(e5).join(e6).get(e7), value);
     }
 
 
