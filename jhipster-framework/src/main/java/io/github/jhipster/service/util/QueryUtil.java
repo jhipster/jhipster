@@ -252,7 +252,7 @@ public class QueryUtil {
     }
 
 
-    public <ENTITY, ENTITY2, ENTITY3, X> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, X> Specification<ENTITY> buildReferringEntitySpecification(
         Filter<X> filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -267,7 +267,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, X> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, X> Specification<ENTITY> buildReferringEntitySpecification(
         Filter<X> filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -283,7 +283,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, X> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, X> Specification<ENTITY> buildReferringEntitySpecification(
         Filter<X> filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -300,7 +300,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, X> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, X> Specification<ENTITY> buildReferringEntitySpecification(
         Filter<X> filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -318,7 +318,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, ENTITY7, X> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, ENTITY7, X> Specification<ENTITY> buildReferringEntitySpecification(
         Filter<X> filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -337,7 +337,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
         final RangeFilter<X> filter,
         final SingularAttribute<? super ENTITY, ENTITY2> reference,
         final SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -366,7 +366,7 @@ public class QueryUtil {
         return result;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
         final RangeFilter<X> filter,
         final SingularAttribute<? super ENTITY, ENTITY2> reference,
         final SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -396,7 +396,7 @@ public class QueryUtil {
         return result;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
         final RangeFilter<X> filter,
         final SingularAttribute<? super ENTITY, ENTITY2> reference,
         final SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -427,7 +427,7 @@ public class QueryUtil {
         return result;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
         final RangeFilter<X> filter,
         final SingularAttribute<? super ENTITY, ENTITY2> reference,
         final SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -459,7 +459,7 @@ public class QueryUtil {
         return result;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, ENTITY7, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, ENTITY7, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(
         final RangeFilter<X> filter,
         final SingularAttribute<? super ENTITY, ENTITY2> reference,
         final SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -492,7 +492,7 @@ public class QueryUtil {
         return result;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3> Specification<ENTITY> buildReferringEntitySpecification(
         StringFilter filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -509,7 +509,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4> Specification<ENTITY> buildReferringEntitySpecification(
         StringFilter filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -527,7 +527,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5> Specification<ENTITY> buildReferringEntitySpecification(
         StringFilter filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -546,7 +546,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6> Specification<ENTITY> buildReferringEntitySpecification(
         StringFilter filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
@@ -566,7 +566,7 @@ public class QueryUtil {
         return null;
     }
 
-    public <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, ENTITY7> Specification<ENTITY> buildReferringEntitySpecification(
+    public static <ENTITY, ENTITY2, ENTITY3, ENTITY4, ENTITY5, ENTITY6, ENTITY7> Specification<ENTITY> buildReferringEntitySpecification(
         StringFilter filter,
         SingularAttribute<? super ENTITY, ENTITY2> reference,
         SingularAttribute<? super ENTITY2, ENTITY3> reference2,
