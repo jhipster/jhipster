@@ -44,16 +44,6 @@ public class QueryUtil {
     }
     //*/
 
-    public static <U extends Comparable<? super U>, ENTITY1, ENTITY2, ENTITY3> Specification<ENTITY1> joinAndFinalGet(final RangeFilter<U> filter, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, U> e3) {
-        return (root, query, builder) -> builder.equal(root.join(e1).join(e2).get(e3), filter.getEquals());
-    }
-
-    public static <ENTITY1, ENTITY2, ENTITY3> Specification<ENTITY1> joinAndFinalGet(final StringFilter filter, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, String> e3) {
-        return (root, query, builder) -> builder.equal(root.join(e1).join(e2).get(e3), filter.getEquals());
-    }
-    //*/
-
-
     public static <U, ENTITY1, ENTITY2, ENTITY3> Specification<ENTITY1> buildEqualsJoin(final U value, final SingularAttribute<? super ENTITY1, ENTITY2> e1, final SingularAttribute<? super ENTITY2, ENTITY3> e2, final SingularAttribute<? super ENTITY3, U> e3) {
         return (root, query, builder) -> builder.equal(root.join(e1).join(e2).get(e3), value);
     }
