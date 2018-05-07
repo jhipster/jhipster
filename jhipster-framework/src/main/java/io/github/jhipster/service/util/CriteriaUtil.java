@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Allow to build or erase parts of criteria received in REST API, often we want to make sure that for getAll or getOne we filter on specific data that user can only get and not others
- * <p>The logic follow: equals > in > contains > specified = gt = gte = lt = lte. It is similar to order of {@linkplain io.github.jhipster.service.QueryService}</p>
+ * <p>The logic follow: equals &gt; in &gt; contains &gt; specified = gt = gte = lt = lte. It is similar to order of {@linkplain io.github.jhipster.service.QueryService}</p>
  * <p>If further checks are required like when building equals criteria that "IN" must be empty or only contain the equal value passed, you can extends this class</p>
  * <p>Created on 2018/2/6.</p>
  *
@@ -230,6 +230,8 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param values List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
      * @see #buildInCriteria(List)
      */
     public static ShortFilter buildInCriteriaShort(@NotNull final List<Short> values) {
@@ -237,6 +239,8 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param values List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
      * @see #buildInCriteria(List)
      */
     public static IntegerFilter buildInCriteriaInteger(@NotNull final List<Integer> values) {
@@ -244,6 +248,8 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param values List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
      * @see #buildInCriteria(List)
      */
     public static StringFilter buildInCriteriaString(@NotNull final List<String> values) {
@@ -264,6 +270,9 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
      * @see #buildInCriteria(LongFilter, List)
      */
     public static ShortFilter buildInCriteria(@Nullable final ShortFilter criteriaPassed, @NotNull final List<Short> values) {
@@ -271,6 +280,9 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
      * @see #buildInCriteria(LongFilter, List)
      */
     public static IntegerFilter buildInCriteria(@Nullable final IntegerFilter criteriaPassed, @NotNull final List<Integer> values) {
@@ -278,6 +290,9 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
      * @see #buildInCriteria(LongFilter, List)
      */
     public static StringFilter buildInCriteria(@Nullable final StringFilter criteriaPassed, @NotNull final List<String> values) {
@@ -338,6 +353,10 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of in
+     * @return A Filter with equal or a non-empty IN list filter or throws
      * @see #buildInCriteria(LongFilter, List)
      */
     public static ShortFilter buildInCriteriaOrThrow(@Nullable final ShortFilter criteriaPassed, @NotNull final List<Short> values) {
@@ -345,6 +364,10 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of in
+     * @return A Filter with equal or a non-empty IN list filter or throws
      * @see #buildInCriteria(LongFilter, List)
      */
     public static IntegerFilter buildInCriteriaOrThrow(@Nullable final IntegerFilter criteriaPassed, @NotNull final List<Integer> values) {
@@ -352,6 +375,10 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of in
+     * @return A Filter with equal or a non-empty IN list filter or throws
      * @see #buildInCriteria(LongFilter, List)
      */
     public static StringFilter buildInCriteriaOrThrow(@Nullable final StringFilter criteriaPassed, @NotNull final List<String> values) {
@@ -365,9 +392,12 @@ public class CriteriaUtil {
      * <p>If equals or in filters values are not contained in list passed, throws</p>
      * <p>If list contains <b>only one element</b>, it will <b>build the equal criteria</b> instead. Unless 'in' is already specified with different values</p>
      *
+     * @param criteriaClass  Class to instantiate if criteria is null
      * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
      *                       all contained in the list
      * @param values         List of elements to put in filter IN (can not be empty)
+     * @param <T>            Filter generic type
+     * @param <U>            Value generic type
      * @return A {@link LongFilter} with equal or a non-empty IN list filter or throws
      * @throws IllegalArgumentException if list is empty
      * @throws IllegalArgumentException If equals or some in filters values are not contained in list passed
@@ -396,6 +426,10 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with equal or a non-empty IN list filter or throws
      * @see #buildInCriteriaOrThrowNoReplace(LongFilter, List)
      */
     public static ShortFilter buildInCriteriaOrThrowNoReplace(@Nullable final ShortFilter criteriaPassed, @NotNull final List<Short> values) {
@@ -403,6 +437,10 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with equal or a non-empty IN list filter or throws
      * @see #buildInCriteriaOrThrowNoReplace(LongFilter, List)
      */
     public static IntegerFilter buildInCriteriaOrThrowNoReplace(@Nullable final IntegerFilter criteriaPassed, @NotNull final List<Integer> values) {
@@ -410,6 +448,10 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with equal or a non-empty IN list filter or throws
      * @see #buildInCriteriaOrThrowNoReplace(LongFilter, List)
      */
     public static StringFilter buildInCriteriaOrThrowNoReplace(@Nullable final StringFilter criteriaPassed, @NotNull final List<String> values) {
@@ -422,10 +464,13 @@ public class CriteriaUtil {
      * <p>If equals or in filters values are not contained in list passed, throws</p>
      * <p>If list contains <b>only one element</b>, it will <b>build the equal criteria</b> instead. Unless 'in' is already specified with different values</p>
      *
+     * @param criteriaClass  Class to instantiate if criteria is null
      * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
      *                       all contained in the list
      * @param values         List of in
      * @param replaceIn      If true then any value in "in" will be replaced with values from the list. Otherwise if "in" has values it does not overrides those (still need to be included in list passed)
+     * @param <T>            Filter generic type
+     * @param <U>            Value generic type
      * @return A Filter with equal or a non-empty IN list filter or throws
      * @throws IllegalArgumentException if list is empty
      * @throws IllegalArgumentException If equals or some in filters values are not contained in list passed
