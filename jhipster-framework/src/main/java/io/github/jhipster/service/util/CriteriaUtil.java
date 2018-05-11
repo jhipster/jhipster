@@ -326,6 +326,75 @@ public class CriteriaUtil {
     }
 
     /**
+     * Remove from IN criteria un-authorized values, leave other attribute untouched.
+     * <p>If IN is empty after remove un-authorized values, it is filled with list passed</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @param <T>            Filter generic type
+     * @param <U>            Value generic type
+     * @return Filter with in value set
+     */
+    public static <T extends Filter<U>, U> T buildInCriteriaFiltered(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final List<U> values) {
+        if (values.isEmpty())
+            throw new IllegalArgumentException("List param cannot be empty");
+
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (criteria.getIn() == null)
+            criteria.setIn(new ArrayList<>(values.size()));
+
+        criteria.getIn().retainAll(values);
+        if (criteria.getIn().isEmpty())
+            criteria.getIn().addAll(values);
+
+        checkInNotEmpty(criteria);
+
+        return criteria;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static LongFilter buildInCriteriaFiltered(@Nullable final LongFilter criteriaPassed, @NotNull final List<Long> values) {
+        return buildInCriteriaFiltered(LongFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static ShortFilter buildInCriteriaFiltered(@Nullable final ShortFilter criteriaPassed, @NotNull final List<Short> values) {
+        return buildInCriteriaFiltered(ShortFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static IntegerFilter buildInCriteriaFiltered(@Nullable final IntegerFilter criteriaPassed, @NotNull final List<Integer> values) {
+        return buildInCriteriaFiltered(IntegerFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static StringFilter buildInCriteriaFiltered(@Nullable final StringFilter criteriaPassed, @NotNull final List<String> values) {
+        return buildInCriteriaFiltered(StringFilter.class, criteriaPassed, values);
+    }
+
+
+    /**
      * If equals criteria is defined then it takes precedence on IN filter.
      * <p>If equals and in filters are null then in filter is filled with list passed</p>
      * <p>If equals or in filters values are not contained in list passed, throws</p>
