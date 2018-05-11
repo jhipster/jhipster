@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Allow to build or erase parts of criteria received in REST API, often we want to make sure that for getAll or getOne we filter on specific data that user can only get and not others
+ * Allow to build or erase parts of criteria received in REST API, often we want to make sure that for getAll or getOne we filter on specific data that user can only get and not others.
  * <p>The logic follow: equals &gt; in &gt; contains &gt; specified = gt = gte = lt = lte. It is similar to order of {@linkplain io.github.jhipster.service.QueryService}</p>
- * <p>If further checks are required like when building equals criteria that "IN" must be empty or only contain the equal value passed, you can extends this class</p>
+ * <p>If further checks are required like when building equals criteria that "IN" must be empty or only contain the equal value passed, you can extends this class.</p>
+ * <p>Some methods may be "useless" but it is provided as is, user can decide to use or not.</p>
  * <p>Created on 2018/2/6.</p>
  *
  * @author Yoann CAPLAIN
@@ -206,6 +207,7 @@ public class CriteriaUtil {
 
     /**
      * Replace the IN values with the one passed in list param, leave other attribute untouched
+     * <p>Care should be taken as equals value is not checked neither removed if not in list provided</p>
      *
      * @param criteriaClass Class to instantiate and return type
      * @param values        List of elements to put in filter IN (can not be empty)
@@ -219,6 +221,7 @@ public class CriteriaUtil {
 
     /**
      * Build a filter with the IN values with the one passed in list param, leave other attribute untouched
+     * <p>Care should be taken as equals value is not checked neither removed if not in list provided</p>
      *
      * @param values List of elements to put in filter IN (can not be empty)
      * @return A {@link LongFilter} with a non-empty IN list or throws
@@ -257,7 +260,53 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param values List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(List)
+     */
+    public static DoubleFilter buildInCriteriaDouble(@NotNull final List<Double> values) {
+        return buildInCriteria(new DoubleFilter(), values);
+    }
+
+    /**
+     * @param values List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(List)
+     */
+    public static FloatFilter buildInCriteriaFloat(@NotNull final List<Float> values) {
+        return buildInCriteria(new FloatFilter(), values);
+    }
+
+    /**
+     * @param values List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(List)
+     */
+    public static BigDecimalFilter buildInCriteriaBigDecimal(@NotNull final List<BigDecimal> values) {
+        return buildInCriteria(new BigDecimalFilter(), values);
+    }
+
+    /**
+     * @param values List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(List)
+     */
+    public static LocalDateFilter buildInCriteriaLocalDate(@NotNull final List<LocalDate> values) {
+        return buildInCriteria(new LocalDateFilter(), values);
+    }
+
+    /**
+     * @param values List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(List)
+     */
+    public static InstantFilter buildInCriteriaInstant(@NotNull final List<Instant> values) {
+        return buildInCriteria(new InstantFilter(), values);
+    }
+
+    /**
      * Replace the IN values with the one passed in list param, leave other attribute untouched
+     * <p>Care should be taken as equals value is not checked neither removed if not in list provided</p>
      *
      * @param criteriaPassed Criteria to build the IN filtering (can be null)
      * @param values         List of elements to put in filter IN (can not be empty)
@@ -300,7 +349,58 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static DoubleFilter buildInCriteria(@Nullable final DoubleFilter criteriaPassed, @NotNull final List<Double> values) {
+        return buildInCriteria(DoubleFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static FloatFilter buildInCriteria(@Nullable final FloatFilter criteriaPassed, @NotNull final List<Float> values) {
+        return buildInCriteria(FloatFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static BigDecimalFilter buildInCriteria(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final List<BigDecimal> values) {
+        return buildInCriteria(BigDecimalFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static LocalDateFilter buildInCriteria(@Nullable final LocalDateFilter criteriaPassed, @NotNull final List<LocalDate> values) {
+        return buildInCriteria(LocalDateFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with a non-empty IN list or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static InstantFilter buildInCriteria(@Nullable final InstantFilter criteriaPassed, @NotNull final List<Instant> values) {
+        return buildInCriteria(InstantFilter.class, criteriaPassed, values);
+    }
+
+    /**
      * Replace the IN values with the one passed in list param, leave other attribute untouched
+     * <p>Care should be taken as equals value is not checked neither removed if not in list provided</p>
      *
      * @param criteriaClass  Class to instantiate if criteria is null
      * @param criteriaPassed Criteria to build the IN filtering (can be null)
@@ -328,6 +428,7 @@ public class CriteriaUtil {
     /**
      * Remove from IN criteria un-authorized values, leave other attribute untouched.
      * <p>If IN is empty after remove un-authorized values, it is filled with list passed</p>
+     * <p>Care should be taken as equals value is not checked neither removed if not in list provided</p>
      *
      * @param criteriaClass  Class to instantiate if criteria is null
      * @param criteriaPassed Criteria to build the IN filtering (can be null)
@@ -393,6 +494,56 @@ public class CriteriaUtil {
         return buildInCriteriaFiltered(StringFilter.class, criteriaPassed, values);
     }
 
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static DoubleFilter buildInCriteriaFiltered(@Nullable final DoubleFilter criteriaPassed, @NotNull final List<Double> values) {
+        return buildInCriteriaFiltered(DoubleFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static FloatFilter buildInCriteriaFiltered(@Nullable final FloatFilter criteriaPassed, @NotNull final List<Float> values) {
+        return buildInCriteriaFiltered(FloatFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static BigDecimalFilter buildInCriteriaFiltered(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final List<BigDecimal> values) {
+        return buildInCriteriaFiltered(BigDecimalFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static LocalDateFilter buildInCriteriaFiltered(@Nullable final LocalDateFilter criteriaPassed, @NotNull final List<LocalDate> values) {
+        return buildInCriteriaFiltered(LocalDateFilter.class, criteriaPassed, values);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null)
+     * @param values         List of authorized elements for filter IN (can not be empty)
+     * @return Filter with in value set
+     * @see #buildInCriteriaFiltered(Class, Filter, List)
+     */
+    public static InstantFilter buildInCriteriaFiltered(@Nullable final InstantFilter criteriaPassed, @NotNull final List<Instant> values) {
+        return buildInCriteriaFiltered(InstantFilter.class, criteriaPassed, values);
+    }
+
 
     /**
      * If equals criteria is defined then it takes precedence on IN filter.
@@ -443,6 +594,61 @@ public class CriteriaUtil {
      */
     public static StringFilter buildInCriteriaOrThrow(@Nullable final StringFilter criteriaPassed, @NotNull final List<String> values) {
         return buildInCriteriaOrThrow(StringFilter.class, criteriaPassed, values, true);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of in
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static DoubleFilter buildInCriteriaOrThrow(@Nullable final DoubleFilter criteriaPassed, @NotNull final List<Double> values) {
+        return buildInCriteriaOrThrow(DoubleFilter.class, criteriaPassed, values, true);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of in
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static FloatFilter buildInCriteriaOrThrow(@Nullable final FloatFilter criteriaPassed, @NotNull final List<Float> values) {
+        return buildInCriteriaOrThrow(FloatFilter.class, criteriaPassed, values, true);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of in
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static BigDecimalFilter buildInCriteriaOrThrow(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final List<BigDecimal> values) {
+        return buildInCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, values, true);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of in
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static LocalDateFilter buildInCriteriaOrThrow(@Nullable final LocalDateFilter criteriaPassed, @NotNull final List<LocalDate> values) {
+        return buildInCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, values, true);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of in
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteria(LongFilter, List)
+     */
+    public static InstantFilter buildInCriteriaOrThrow(@Nullable final InstantFilter criteriaPassed, @NotNull final List<Instant> values) {
+        return buildInCriteriaOrThrow(InstantFilter.class, criteriaPassed, values, true);
     }
 
 
@@ -519,6 +725,61 @@ public class CriteriaUtil {
     }
 
     /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteriaOrThrowNoReplace(LongFilter, List)
+     */
+    public static DoubleFilter buildInCriteriaOrThrowNoReplace(@Nullable final DoubleFilter criteriaPassed, @NotNull final List<Double> values) {
+        return buildInCriteriaOrThrow(DoubleFilter.class, criteriaPassed, values, false);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteriaOrThrowNoReplace(LongFilter, List)
+     */
+    public static FloatFilter buildInCriteriaOrThrowNoReplace(@Nullable final FloatFilter criteriaPassed, @NotNull final List<Float> values) {
+        return buildInCriteriaOrThrow(FloatFilter.class, criteriaPassed, values, false);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteriaOrThrowNoReplace(LongFilter, List)
+     */
+    public static BigDecimalFilter buildInCriteriaOrThrowNoReplace(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final List<BigDecimal> values) {
+        return buildInCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, values, false);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteriaOrThrowNoReplace(LongFilter, List)
+     */
+    public static LocalDateFilter buildInCriteriaOrThrowNoReplace(@Nullable final LocalDateFilter criteriaPassed, @NotNull final List<LocalDate> values) {
+        return buildInCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, values, false);
+    }
+
+    /**
+     * @param criteriaPassed Criteria to build the IN filtering (can be null) and check if equals is different than
+     *                       all contained in the list
+     * @param values         List of elements to put in filter IN (can not be empty)
+     * @return A Filter with equal or a non-empty IN list filter or throws
+     * @see #buildInCriteriaOrThrowNoReplace(LongFilter, List)
+     */
+    public static InstantFilter buildInCriteriaOrThrowNoReplace(@Nullable final InstantFilter criteriaPassed, @NotNull final List<Instant> values) {
+        return buildInCriteriaOrThrow(InstantFilter.class, criteriaPassed, values, false);
+    }
+
+    /**
      * If equals criteria is defined then it takes precedence on IN filter.
      * <p>If equals and in filters are null then in filter is filled with list passed</p>
      * <p>If equals or in filters values are not contained in list passed, throws</p>
@@ -569,4 +830,70 @@ public class CriteriaUtil {
             throw new IllegalStateException("A IN criteria cannot result in an empty list");
         }
     }
+
+    /**
+     * @param criteriaPassed Criteria to build the Contains filtering (can be null)
+     * @param value          Value to set (cannot be null or empty)
+     * @param replaceValue   True if value of criteria contains should be replaced or throw if different (not case sensitive)
+     * @return Filter with contains value set
+     * @throws IllegalArgumentException if {@code value} is null or empty
+     * @throws IllegalArgumentException if criteria contains value is not null and is different from value passed and {@code replaceValue} is false
+     */
+    protected static StringFilter buildContainsCriteria(@Nullable final StringFilter criteriaPassed, @NotNull final String value, final boolean replaceValue) {
+        if (value == null || value.isEmpty())
+            throw new IllegalArgumentException("Contains value cannot be empty");
+        final StringFilter criteria = criteriaPassed == null ? new StringFilter() : criteriaPassed;
+        if (!replaceValue && criteria.getContains() != null && !criteria.getContains().equalsIgnoreCase(value))
+            throw new IllegalArgumentException("Contains filter value is not allowed");
+        criteria.setContains(value);
+        return criteria;
+    }
+
+    /**
+     * Build a filter with the Contains value with the one passed in param, leave other attribute untouched
+     *
+     * @param value Value to set (cannot be null or empty)
+     * @return Filter with contains value set
+     * @throws IllegalArgumentException if {@code value} is null or empty
+     */
+    public static StringFilter buildContainsCriteria(@NotNull final String value) {
+        return buildContainsCriteria(new StringFilter(), value);
+    }
+
+    /**
+     * Replace the Contains value with the one passed in param, leave other attribute untouched
+     *
+     * @param criteriaPassed Criteria to build the Contains filtering (can be null)
+     * @param value          Value to set (cannot be null or empty)
+     * @return Filter with contains value set
+     * @throws IllegalArgumentException if {@code value} is null or empty
+     */
+    public static StringFilter buildContainsCriteria(@Nullable final StringFilter criteriaPassed, @NotNull final String value) {
+        return buildContainsCriteria(criteriaPassed, value, true);
+    }
+
+    /**
+     * Build a filter with the Contains value with the one passed in param, leave other attribute untouched
+     * <p>Throws if contains value is set and different from the one passed (not case sensitive)</p>
+     *
+     * @param criteriaPassed Criteria to build the Contains filtering (can be null)
+     * @param value          Value to set (cannot be null or empty)
+     * @return Filter with contains value set
+     * @throws IllegalArgumentException if {@code value} is null or empty
+     */
+    public static StringFilter buildContainsCriteriaOrThrow(@Nullable final StringFilter criteriaPassed, @NotNull final String value) {
+        return buildContainsCriteria(criteriaPassed, value, false);
+    }
+
+    // TODO Specified
+
+
+    // TODO GreaterThan
+
+    // TODO GreaterThanOrEquals
+
+    // TODO LessThan
+
+    // TODO LessThanOrEquals
+
 }
