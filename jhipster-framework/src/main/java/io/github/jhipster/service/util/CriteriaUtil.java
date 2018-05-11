@@ -317,19 +317,10 @@ public class CriteriaUtil {
         if (criteria.getIn() == null)
             criteria.setIn(new ArrayList<>(values.size()));
 
-        if (criteria.getIn().isEmpty()) {
-            criteria.getIn().addAll(values);
-        } else {
-            criteria.getIn().retainAll(values);
-            if (criteria.getIn().isEmpty()) {
-                criteria.getIn().addAll(values);
-            }
-        }
+        criteria.getIn().clear();
+        criteria.getIn().addAll(values);
 
-        if (criteria.getIn().isEmpty()) {
-            // If in is empty then the query will be "... IN ()" so it will result in an error
-            throw new IllegalStateException("A IN criteria cannot result in an empty list");
-        }
+        checkInNotEmpty(criteria);
 
         return criteria;
     }
@@ -500,5 +491,13 @@ public class CriteriaUtil {
             return criteria;
         }
         return buildInCriteria(criteriaClass, criteria, values);
+    }
+
+
+    protected static <T extends Filter<?>> void checkInNotEmpty(final T criteriaPassed) {
+        if (criteriaPassed.getIn() == null || criteriaPassed.getIn().isEmpty()) {
+            // If in is empty then the query will be "... IN ()" so it will result in an error. Kept that verification here just in case of multi-thread and list is modified between check of first line (which should never be the case...)
+            throw new IllegalStateException("A IN criteria cannot result in an empty list");
+        }
     }
 }
