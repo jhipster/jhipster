@@ -24,7 +24,7 @@ import java.util.Collection;
 @SuppressWarnings({"unused"})
 public class QueryUtil {
 
-    private QueryUtil() {
+    protected QueryUtil() {
     }
 
     /*

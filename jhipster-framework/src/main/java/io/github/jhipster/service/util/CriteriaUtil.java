@@ -26,7 +26,7 @@ public class CriteriaUtil {
 
     private static final Logger log = LoggerFactory.getLogger(CriteriaUtil.class);
 
-    private CriteriaUtil() {
+    protected CriteriaUtil() {
     }
 
     protected static <T extends Filter<?>> T createCriteria(final Class<T> criteriaClass) {
