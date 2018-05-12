@@ -77,6 +77,150 @@ public class CriteriaUtil {
     //*/
 
     /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if some filter values overlap each others and will be ignored when building jpa specification
+     */
+    public static <T extends Filter<?>> boolean isCriteriaOverlap(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        if (isEqualsDefined(criteriaPassed))
+            return isInDefined(criteriaPassed) || isSpecifiedDefined(criteriaPassed);
+        if (isInDefined(criteriaPassed))
+            return isSpecifiedDefined(criteriaPassed);
+        return false;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @return True if some filter values overlap each others and will be ignored when building jpa specification
+     */
+    public static boolean isCriteriaOverlap(@Nullable final StringFilter criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        if (isEqualsDefined(criteriaPassed))
+            return isInDefined(criteriaPassed) || isSpecifiedDefined(criteriaPassed) || isContainsDefined(criteriaPassed);
+        if (isInDefined(criteriaPassed))
+            return isSpecifiedDefined(criteriaPassed) || isContainsDefined(criteriaPassed);
+        if (isContainsDefined(criteriaPassed))
+            return isSpecifiedDefined(criteriaPassed);
+        return false;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if some filter values overlap each others and will be ignored when building jpa specification
+     */
+    public static <T extends RangeFilter<?>> boolean isCriteriaOverlap(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        if (isEqualsDefined(criteriaPassed))
+            return isInDefined(criteriaPassed) || isSpecifiedDefined(criteriaPassed) || isAnyRangeDefined(criteriaPassed);
+        if (isInDefined(criteriaPassed))
+            return isSpecifiedDefined(criteriaPassed) || isAnyRangeDefined(criteriaPassed);
+        return false;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if equals value is set
+     */
+    public static <T extends Filter<?>> boolean isEqualsDefined(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return criteriaPassed.getEquals() != null;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if in value is set
+     */
+    public static <T extends Filter<?>> boolean isInDefined(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return criteriaPassed.getIn() != null;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @return True if contains value is set
+     */
+    public static boolean isContainsDefined(@Nullable final StringFilter criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return criteriaPassed.getContains() != null;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if specified value is set
+     */
+    public static <T extends Filter<?>> boolean isSpecifiedDefined(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return criteriaPassed.getSpecified() != null;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if greaterThan value is set
+     */
+    public static <T extends RangeFilter<?>> boolean isGreaterThanDefined(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return criteriaPassed.getGreaterThan() != null;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if greaterThanOrEqual value is set
+     */
+    public static <T extends RangeFilter<?>> boolean isGreaterThanOrEqualDefined(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return criteriaPassed.getGreaterOrEqualThan() != null;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if lessThan value is set
+     */
+    public static <T extends RangeFilter<?>> boolean isLessThanDefined(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return criteriaPassed.getLessThan() != null;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if lessThanOrEqual value is set
+     */
+    public static <T extends RangeFilter<?>> boolean isLessThanOrEqualDefined(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return criteriaPassed.getLessOrEqualThan() != null;
+    }
+
+    /**
+     * @param criteriaPassed Criteria to check (can be null)
+     * @param <T>            Filter generic type
+     * @return True if any of greaterThan/greaterThanOrEqual/lessThan/lessThanOrEqual value is set
+     */
+    public static <T extends RangeFilter<?>> boolean isAnyRangeDefined(@Nullable final T criteriaPassed) {
+        if (criteriaPassed == null)
+            return false;
+        return isGreaterThanDefined(criteriaPassed) || isGreaterThanOrEqualDefined(criteriaPassed) || isLessThanDefined(criteriaPassed) || isLessThanOrEqualDefined(criteriaPassed);
+    }
+
+    /**
      * @param criteriaClass  Class to instantiate if criteria is null
      * @param criteriaPassed Criteria given by user, can be null
      * @param value          Value criteria should be equal to
