@@ -41,6 +41,41 @@ public class CriteriaUtil {
         }
     }
 
+    // We could use this method instead of creating so many overloaded methods with different type but it would require the user to cast to proper filter type for some of the methods
+    /*
+    @SuppressWarnings("unchecked")
+    protected static <T extends Filter<U>, U> T createCriteria(final U value) {
+        if (value == null)
+            throw new IllegalArgumentException("Value param cannot be null");
+        if (value.getClass().equals(Long.class))
+            return (T) new LongFilter();
+        if (value.getClass().equals(Short.class))
+            return (T) new ShortFilter();
+        if (value.getClass().equals(Integer.class))
+            return (T) new IntegerFilter();
+        if (value.getClass().equals(String.class))
+            return (T) new StringFilter();
+        if (value.getClass().equals(Double.class))
+            return (T) new DoubleFilter();
+        if (value.getClass().equals(Float.class))
+            return (T) new FloatFilter();
+        if (value.getClass().equals(BigDecimal.class))
+            return (T) new BigDecimalFilter();
+        if (value.getClass().equals(LocalDate.class))
+            return (T) new LocalDateFilter();
+        if (value.getClass().equals(Instant.class))
+            return (T) new InstantFilter();
+        if (value.getClass().equals(Boolean.class))
+            return (T) new BooleanFilter();
+
+        throw new IllegalStateException("Unknown value type");
+    }
+    @SuppressWarnings("unchecked")
+    protected static <T extends RangeFilter<U>, U extends Comparable<? super U>> T createCriteria(final U value) {
+        // could repeat same here
+    }
+    //*/
+
     /**
      * @param criteriaClass  Class to instantiate if criteria is null
      * @param criteriaPassed Criteria given by user, can be null
@@ -832,6 +867,9 @@ public class CriteriaUtil {
     }
 
     /**
+     * Build a filter with the Contains value with the one passed in param, leave other attribute untouched
+     * <p>Throws if contains value is set and different from the one passed (not case sensitive)</p>
+     *
      * @param criteriaPassed Criteria to build the Contains filtering (can be null)
      * @param value          Value to set (cannot be null or empty)
      * @param replaceValue   True if value of criteria contains should be replaced or throw if different (not case sensitive)
@@ -885,15 +923,720 @@ public class CriteriaUtil {
         return buildContainsCriteria(criteriaPassed, value, false);
     }
 
-    // TODO Specified
+
+    public static <T extends Filter<?>> T buildSpecifiedCriteria(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final Boolean specified, final boolean replaceValue) {
+        if (specified == null)
+            throw new IllegalArgumentException("Specified value cannot be null");
+
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (!replaceValue && criteria.getSpecified() != null && !criteria.getSpecified().equals(specified))
+            throw new IllegalArgumentException("Specified filter value is not allowed");
+        criteria.setSpecified(specified);
+        return criteria;
+    }
 
 
-    // TODO GreaterThan
+    /**
+     * Build a filter with the GreaterThan value with the one passed in param, leave other attribute untouched
+     * <p>Throws if greaterThan value is set and different from the one passed</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the greaterThan filtering (can be null)
+     * @param value          Value to set (cannot be null)
+     * @param replaceValue   True if value of criteria greaterThan should be replaced or throw if different
+     * @return Filter with greaterThan value set
+     * @throws IllegalArgumentException if {@code value} is null
+     * @throws IllegalArgumentException if criteria greaterThan value is not null and is different from value passed and {@code replaceValue} is false
+     */
+    public static <T extends RangeFilter<U>, U extends Comparable<? super U>> T buildGreaterThanCriteriaOrThrow(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final U value, final boolean replaceValue) {
+        if (value == null)
+            throw new IllegalArgumentException("GreaterThan value cannot be null");
 
-    // TODO GreaterThanOrEquals
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (!replaceValue && criteria.getGreaterThan() != null && !criteria.getGreaterThan().equals(value))
+            throw new IllegalArgumentException("GreaterThan filter value is not allowed");
+        criteria.setGreaterThan(value);
+        return criteria;
+    }
 
-    // TODO LessThan
+    /**
+     * Build a filter with the GreaterThan value with the one passed in param if not set already, leave other attribute untouched
+     * <p>Does not replace greaterThan value if set.</p>
+     * <p>Throws if greaterThan value is set and lower than the one passed.</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the greaterThan filtering (can be null)
+     * @param value          Value to set (cannot be null)
+     * @return Filter with greaterThan value set
+     * @throws IllegalArgumentException if {@code value} is null
+     * @throws IllegalArgumentException if criteria greaterThan value is not null and is lower than value passed
+     */
+    public static <T extends RangeFilter<U>, U extends Comparable<? super U>> T buildGreaterThanCriteriaOrThrowOrMore(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final U value) {
+        if (value == null)
+            throw new IllegalArgumentException("GreaterThan value cannot be null");
 
-    // TODO LessThanOrEquals
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (criteria.getGreaterThan() != null && criteria.getGreaterThan().compareTo(value) < 0)
+            throw new IllegalArgumentException("GreaterThan filter value is not allowed");
+        if (criteria.getGreaterThan() == null)
+            criteria.setGreaterThan(value);
+        return criteria;
+    }
+
+    public static LongFilter buildGreaterThanCriteria(@NotNull final Long value) {
+        return buildGreaterThanCriteria(new LongFilter(), value);
+    }
+
+    public static ShortFilter buildGreaterThanCriteria(@NotNull final Short value) {
+        return buildGreaterThanCriteria(new ShortFilter(), value);
+    }
+
+    public static IntegerFilter buildGreaterThanCriteria(@NotNull final Integer value) {
+        return buildGreaterThanCriteria(new IntegerFilter(), value);
+    }
+
+    public static DoubleFilter buildGreaterThanCriteria(@NotNull final Double value) {
+        return buildGreaterThanCriteria(new DoubleFilter(), value);
+    }
+
+    public static FloatFilter buildGreaterThanCriteria(@NotNull final Float value) {
+        return buildGreaterThanCriteria(new FloatFilter(), value);
+    }
+
+    public static BigDecimalFilter buildGreaterThanCriteria(@NotNull final BigDecimal value) {
+        return buildGreaterThanCriteria(new BigDecimalFilter(), value);
+    }
+
+    public static LocalDateFilter buildGreaterThanCriteria(@NotNull final LocalDate value) {
+        return buildGreaterThanCriteria(new LocalDateFilter(), value);
+    }
+
+    public static InstantFilter buildGreaterThanCriteria(@NotNull final Instant value) {
+        return buildGreaterThanCriteria(new InstantFilter(), value);
+    }
+
+    public static LongFilter buildGreaterThanCriteria(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildGreaterThanCriteriaOrThrow(LongFilter.class, criteriaPassed, value, true);
+    }
+
+    public static ShortFilter buildGreaterThanCriteria(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildGreaterThanCriteriaOrThrow(ShortFilter.class, criteriaPassed, value, true);
+    }
+
+    public static IntegerFilter buildGreaterThanCriteria(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildGreaterThanCriteriaOrThrow(IntegerFilter.class, criteriaPassed, value, true);
+    }
+
+    public static DoubleFilter buildGreaterThanCriteria(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildGreaterThanCriteriaOrThrow(DoubleFilter.class, criteriaPassed, value, true);
+    }
+
+    public static FloatFilter buildGreaterThanCriteria(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildGreaterThanCriteriaOrThrow(FloatFilter.class, criteriaPassed, value, true);
+    }
+
+    public static BigDecimalFilter buildGreaterThanCriteria(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildGreaterThanCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, value, true);
+    }
+
+    public static LocalDateFilter buildGreaterThanCriteria(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildGreaterThanCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, value, true);
+    }
+
+    public static InstantFilter buildGreaterThanCriteria(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildGreaterThanCriteriaOrThrow(InstantFilter.class, criteriaPassed, value, true);
+    }
+
+    public static LongFilter buildGreaterThanCriteriaOrThrow(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildGreaterThanCriteriaOrThrow(LongFilter.class, criteriaPassed, value, false);
+    }
+
+    public static ShortFilter buildGreaterThanCriteriaOrThrow(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildGreaterThanCriteriaOrThrow(ShortFilter.class, criteriaPassed, value, false);
+    }
+
+    public static IntegerFilter buildGreaterThanCriteriaOrThrow(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildGreaterThanCriteriaOrThrow(IntegerFilter.class, criteriaPassed, value, false);
+    }
+
+    public static DoubleFilter buildGreaterThanCriteriaOrThrow(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildGreaterThanCriteriaOrThrow(DoubleFilter.class, criteriaPassed, value, false);
+    }
+
+    public static FloatFilter buildGreaterThanCriteriaOrThrow(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildGreaterThanCriteriaOrThrow(FloatFilter.class, criteriaPassed, value, false);
+    }
+
+    public static BigDecimalFilter buildGreaterThanCriteriaOrThrow(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildGreaterThanCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, value, false);
+    }
+
+    public static LocalDateFilter buildGreaterThanCriteriaOrThrow(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildGreaterThanCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, value, false);
+    }
+
+    public static InstantFilter buildGreaterThanCriteriaOrThrow(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildGreaterThanCriteriaOrThrow(InstantFilter.class, criteriaPassed, value, false);
+    }
+
+    public static LongFilter buildGreaterThanCriteriaOrThrowOrMore(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildGreaterThanCriteriaOrThrowOrMore(LongFilter.class, criteriaPassed, value);
+    }
+
+    public static ShortFilter buildGreaterThanCriteriaOrThrowOrMore(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildGreaterThanCriteriaOrThrowOrMore(ShortFilter.class, criteriaPassed, value);
+    }
+
+    public static IntegerFilter buildGreaterThanCriteriaOrThrowOrMore(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildGreaterThanCriteriaOrThrowOrMore(IntegerFilter.class, criteriaPassed, value);
+    }
+
+    public static DoubleFilter buildGreaterThanCriteriaOrThrowOrMore(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildGreaterThanCriteriaOrThrowOrMore(DoubleFilter.class, criteriaPassed, value);
+    }
+
+    public static FloatFilter buildGreaterThanCriteriaOrThrowOrMore(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildGreaterThanCriteriaOrThrowOrMore(FloatFilter.class, criteriaPassed, value);
+    }
+
+    public static BigDecimalFilter buildGreaterThanCriteriaOrThrowOrMore(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildGreaterThanCriteriaOrThrowOrMore(BigDecimalFilter.class, criteriaPassed, value);
+    }
+
+    public static LocalDateFilter buildGreaterThanCriteriaOrThrowOrMore(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildGreaterThanCriteriaOrThrowOrMore(LocalDateFilter.class, criteriaPassed, value);
+    }
+
+    public static InstantFilter buildGreaterThanCriteriaOrThrowOrMore(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildGreaterThanCriteriaOrThrowOrMore(InstantFilter.class, criteriaPassed, value);
+    }
+
+    /**
+     * Build a filter with the GreaterThanOrEqual value with the one passed in param, leave other attribute untouched
+     * <p>Throws if greaterThanOrEqual value is set and different from the one passed</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the greaterThanOrEqual filtering (can be null)
+     * @param value          Value to set (cannot be null)
+     * @param replaceValue   True if value of criteria greaterThanOrEqual should be replaced or throw if different
+     * @return Filter with greaterThanOrEqual value set
+     * @throws IllegalArgumentException if {@code value} is null
+     * @throws IllegalArgumentException if criteria greaterThanOrEqual value is not null and is different from value passed and {@code replaceValue} is false
+     */
+    public static <T extends RangeFilter<U>, U extends Comparable<? super U>> T buildGreaterThanOrEqualCriteriaOrThrow(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final U value, final boolean replaceValue) {
+        if (value == null)
+            throw new IllegalArgumentException("GreaterThanOrEqual value cannot be null");
+
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (!replaceValue && criteria.getGreaterOrEqualThan() != null && !criteria.getGreaterOrEqualThan().equals(value))
+            throw new IllegalArgumentException("GreaterThanOrEqual filter value is not allowed");
+        criteria.setGreaterOrEqualThan(value);
+        return criteria;
+    }
+
+    /**
+     * Build a filter with the GreaterThanOrEqual value with the one passed in param if not set already, leave other attribute untouched
+     * <p>Does not replace greaterThanOrEqual value if set.</p>
+     * <p>Throws if greaterThanOrEqual value is set and lower than the one passed.</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the greaterThanOrEqual filtering (can be null)
+     * @param value          Value to set (cannot be null)
+     * @return Filter with greaterThanOrEqual value set
+     * @throws IllegalArgumentException if {@code value} is null
+     * @throws IllegalArgumentException if criteria greaterThanOrEqual value is not null and is lower than value passed
+     */
+    public static <T extends RangeFilter<U>, U extends Comparable<? super U>> T buildGreaterThanOrEqualCriteriaOrThrowOrMore(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final U value) {
+        if (value == null)
+            throw new IllegalArgumentException("GreaterThanOrEqual value cannot be null");
+
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (criteria.getGreaterOrEqualThan() != null && criteria.getGreaterOrEqualThan().compareTo(value) < 0)
+            throw new IllegalArgumentException("GreaterThanOrEqual filter value is not allowed");
+        if (criteria.getGreaterOrEqualThan() == null)
+            criteria.setGreaterOrEqualThan(value);
+        return criteria;
+    }
+
+    public static LongFilter buildGreaterThanOrEqualCriteria(@NotNull final Long value) {
+        return buildGreaterThanOrEqualCriteria(new LongFilter(), value);
+    }
+
+    public static ShortFilter buildGreaterThanOrEqualCriteria(@NotNull final Short value) {
+        return buildGreaterThanOrEqualCriteria(new ShortFilter(), value);
+    }
+
+    public static IntegerFilter buildGreaterThanOrEqualCriteria(@NotNull final Integer value) {
+        return buildGreaterThanOrEqualCriteria(new IntegerFilter(), value);
+    }
+
+    public static DoubleFilter buildGreaterThanOrEqualCriteria(@NotNull final Double value) {
+        return buildGreaterThanOrEqualCriteria(new DoubleFilter(), value);
+    }
+
+    public static FloatFilter buildGreaterThanOrEqualCriteria(@NotNull final Float value) {
+        return buildGreaterThanOrEqualCriteria(new FloatFilter(), value);
+    }
+
+    public static BigDecimalFilter buildGreaterThanOrEqualCriteria(@NotNull final BigDecimal value) {
+        return buildGreaterThanOrEqualCriteria(new BigDecimalFilter(), value);
+    }
+
+    public static LocalDateFilter buildGreaterThanOrEqualCriteria(@NotNull final LocalDate value) {
+        return buildGreaterThanOrEqualCriteria(new LocalDateFilter(), value);
+    }
+
+    public static InstantFilter buildGreaterThanOrEqualCriteria(@NotNull final Instant value) {
+        return buildGreaterThanOrEqualCriteria(new InstantFilter(), value);
+    }
+
+    public static LongFilter buildGreaterThanOrEqualCriteria(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(LongFilter.class, criteriaPassed, value, true);
+    }
+
+    public static ShortFilter buildGreaterThanOrEqualCriteria(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(ShortFilter.class, criteriaPassed, value, true);
+    }
+
+    public static IntegerFilter buildGreaterThanOrEqualCriteria(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(IntegerFilter.class, criteriaPassed, value, true);
+    }
+
+    public static DoubleFilter buildGreaterThanOrEqualCriteria(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(DoubleFilter.class, criteriaPassed, value, true);
+    }
+
+    public static FloatFilter buildGreaterThanOrEqualCriteria(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(FloatFilter.class, criteriaPassed, value, true);
+    }
+
+    public static BigDecimalFilter buildGreaterThanOrEqualCriteria(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, value, true);
+    }
+
+    public static LocalDateFilter buildGreaterThanOrEqualCriteria(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, value, true);
+    }
+
+    public static InstantFilter buildGreaterThanOrEqualCriteria(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(InstantFilter.class, criteriaPassed, value, true);
+    }
+
+    public static LongFilter buildGreaterThanOrEqualCriteriaOrThrow(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(LongFilter.class, criteriaPassed, value, false);
+    }
+
+    public static ShortFilter buildGreaterThanOrEqualCriteriaOrThrow(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(ShortFilter.class, criteriaPassed, value, false);
+    }
+
+    public static IntegerFilter buildGreaterThanOrEqualCriteriaOrThrow(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(IntegerFilter.class, criteriaPassed, value, false);
+    }
+
+    public static DoubleFilter buildGreaterThanOrEqualCriteriaOrThrow(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(DoubleFilter.class, criteriaPassed, value, false);
+    }
+
+    public static FloatFilter buildGreaterThanOrEqualCriteriaOrThrow(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(FloatFilter.class, criteriaPassed, value, false);
+    }
+
+    public static BigDecimalFilter buildGreaterThanOrEqualCriteriaOrThrow(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, value, false);
+    }
+
+    public static LocalDateFilter buildGreaterThanOrEqualCriteriaOrThrow(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, value, false);
+    }
+
+    public static InstantFilter buildGreaterThanOrEqualCriteriaOrThrow(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildGreaterThanOrEqualCriteriaOrThrow(InstantFilter.class, criteriaPassed, value, false);
+    }
+
+    public static LongFilter buildGreaterThanOrEqualCriteriaOrThrowOrMore(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildGreaterThanOrEqualCriteriaOrThrowOrMore(LongFilter.class, criteriaPassed, value);
+    }
+
+    public static ShortFilter buildGreaterThanOrEqualCriteriaOrThrowOrMore(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildGreaterThanOrEqualCriteriaOrThrowOrMore(ShortFilter.class, criteriaPassed, value);
+    }
+
+    public static IntegerFilter buildGreaterThanOrEqualCriteriaOrThrowOrMore(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildGreaterThanOrEqualCriteriaOrThrowOrMore(IntegerFilter.class, criteriaPassed, value);
+    }
+
+    public static DoubleFilter buildGreaterThanOrEqualCriteriaOrThrowOrMore(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildGreaterThanOrEqualCriteriaOrThrowOrMore(DoubleFilter.class, criteriaPassed, value);
+    }
+
+    public static FloatFilter buildGreaterThanOrEqualCriteriaOrThrowOrMore(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildGreaterThanOrEqualCriteriaOrThrowOrMore(FloatFilter.class, criteriaPassed, value);
+    }
+
+    public static BigDecimalFilter buildGreaterThanOrEqualCriteriaOrThrowOrMore(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildGreaterThanOrEqualCriteriaOrThrowOrMore(BigDecimalFilter.class, criteriaPassed, value);
+    }
+
+    public static LocalDateFilter buildGreaterThanOrEqualCriteriaOrThrowOrMore(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildGreaterThanOrEqualCriteriaOrThrowOrMore(LocalDateFilter.class, criteriaPassed, value);
+    }
+
+    public static InstantFilter buildGreaterThanOrEqualCriteriaOrThrowOrMore(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildGreaterThanOrEqualCriteriaOrThrowOrMore(InstantFilter.class, criteriaPassed, value);
+    }
+
+
+    /**
+     * Build a filter with the LessThan value with the one passed in param, leave other attribute untouched
+     * <p>Throws if lessThan value is set and different from the one passed</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the lessThan filtering (can be null)
+     * @param value          Value to set (cannot be null)
+     * @param replaceValue   True if value of criteria lessThan should be replaced or throw if different
+     * @return Filter with lessThan value set
+     * @throws IllegalArgumentException if {@code value} is null
+     * @throws IllegalArgumentException if criteria lessThan value is not null and is different from value passed and {@code replaceValue} is false
+     */
+    public static <T extends RangeFilter<U>, U extends Comparable<? super U>> T buildLessThanCriteriaOrThrow(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final U value, final boolean replaceValue) {
+        if (value == null)
+            throw new IllegalArgumentException("LessThan value cannot be null");
+
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (!replaceValue && criteria.getLessThan() != null && !criteria.getLessThan().equals(value))
+            throw new IllegalArgumentException("LessThan filter value is not allowed");
+        criteria.setLessThan(value);
+        return criteria;
+    }
+
+    /**
+     * Build a filter with the LessThan value with the one passed in param if not set already, leave other attribute untouched
+     * <p>Does not replace lessThan value if set.</p>
+     * <p>Throws if lessThan value is set and higher than the one passed.</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the lessThan filtering (can be null)
+     * @param value          Value to set (cannot be null)
+     * @return Filter with lessThan value set
+     * @throws IllegalArgumentException if {@code value} is null
+     * @throws IllegalArgumentException if criteria lessThan value is not null and is higher than value passed
+     */
+    public static <T extends RangeFilter<U>, U extends Comparable<? super U>> T buildLessThanCriteriaOrThrowOrLess(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final U value) {
+        if (value == null)
+            throw new IllegalArgumentException("LessThan value cannot be null");
+
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (criteria.getLessThan() != null && criteria.getLessThan().compareTo(value) > 0)
+            throw new IllegalArgumentException("LessThan filter value is not allowed");
+        if (criteria.getLessThan() == null)
+            criteria.setLessThan(value);
+        return criteria;
+    }
+
+    public static LongFilter buildLessThanCriteria(@NotNull final Long value) {
+        return buildLessThanCriteria(new LongFilter(), value);
+    }
+
+    public static ShortFilter buildLessThanCriteria(@NotNull final Short value) {
+        return buildLessThanCriteria(new ShortFilter(), value);
+    }
+
+    public static IntegerFilter buildLessThanCriteria(@NotNull final Integer value) {
+        return buildLessThanCriteria(new IntegerFilter(), value);
+    }
+
+    public static DoubleFilter buildLessThanCriteria(@NotNull final Double value) {
+        return buildLessThanCriteria(new DoubleFilter(), value);
+    }
+
+    public static FloatFilter buildLessThanCriteria(@NotNull final Float value) {
+        return buildLessThanCriteria(new FloatFilter(), value);
+    }
+
+    public static BigDecimalFilter buildLessThanCriteria(@NotNull final BigDecimal value) {
+        return buildLessThanCriteria(new BigDecimalFilter(), value);
+    }
+
+    public static LocalDateFilter buildLessThanCriteria(@NotNull final LocalDate value) {
+        return buildLessThanCriteria(new LocalDateFilter(), value);
+    }
+
+    public static InstantFilter buildLessThanCriteria(@NotNull final Instant value) {
+        return buildLessThanCriteria(new InstantFilter(), value);
+    }
+
+    public static LongFilter buildLessThanCriteria(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildLessThanCriteriaOrThrow(LongFilter.class, criteriaPassed, value, true);
+    }
+
+    public static ShortFilter buildLessThanCriteria(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildLessThanCriteriaOrThrow(ShortFilter.class, criteriaPassed, value, true);
+    }
+
+    public static IntegerFilter buildLessThanCriteria(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildLessThanCriteriaOrThrow(IntegerFilter.class, criteriaPassed, value, true);
+    }
+
+    public static DoubleFilter buildLessThanCriteria(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildLessThanCriteriaOrThrow(DoubleFilter.class, criteriaPassed, value, true);
+    }
+
+    public static FloatFilter buildLessThanCriteria(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildLessThanCriteriaOrThrow(FloatFilter.class, criteriaPassed, value, true);
+    }
+
+    public static BigDecimalFilter buildLessThanCriteria(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildLessThanCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, value, true);
+    }
+
+    public static LocalDateFilter buildLessThanCriteria(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildLessThanCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, value, true);
+    }
+
+    public static InstantFilter buildLessThanCriteria(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildLessThanCriteriaOrThrow(InstantFilter.class, criteriaPassed, value, true);
+    }
+
+    public static LongFilter buildLessThanCriteriaOrThrow(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildLessThanCriteriaOrThrow(LongFilter.class, criteriaPassed, value, false);
+    }
+
+    public static ShortFilter buildLessThanCriteriaOrThrow(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildLessThanCriteriaOrThrow(ShortFilter.class, criteriaPassed, value, false);
+    }
+
+    public static IntegerFilter buildLessThanCriteriaOrThrow(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildLessThanCriteriaOrThrow(IntegerFilter.class, criteriaPassed, value, false);
+    }
+
+    public static DoubleFilter buildLessThanCriteriaOrThrow(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildLessThanCriteriaOrThrow(DoubleFilter.class, criteriaPassed, value, false);
+    }
+
+    public static FloatFilter buildLessThanCriteriaOrThrow(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildLessThanCriteriaOrThrow(FloatFilter.class, criteriaPassed, value, false);
+    }
+
+    public static BigDecimalFilter buildLessThanCriteriaOrThrow(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildLessThanCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, value, false);
+    }
+
+    public static LocalDateFilter buildLessThanCriteriaOrThrow(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildLessThanCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, value, false);
+    }
+
+    public static InstantFilter buildLessThanCriteriaOrThrow(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildLessThanCriteriaOrThrow(InstantFilter.class, criteriaPassed, value, false);
+    }
+
+    public static LongFilter buildLessThanCriteriaOrThrowOrLess(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildLessThanCriteriaOrThrowOrLess(LongFilter.class, criteriaPassed, value);
+    }
+
+    public static ShortFilter buildLessThanCriteriaOrThrowOrLess(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildLessThanCriteriaOrThrowOrLess(ShortFilter.class, criteriaPassed, value);
+    }
+
+    public static IntegerFilter buildLessThanCriteriaOrThrowOrLess(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildLessThanCriteriaOrThrowOrLess(IntegerFilter.class, criteriaPassed, value);
+    }
+
+    public static DoubleFilter buildLessThanCriteriaOrThrowOrLess(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildLessThanCriteriaOrThrowOrLess(DoubleFilter.class, criteriaPassed, value);
+    }
+
+    public static FloatFilter buildLessThanCriteriaOrThrowOrLess(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildLessThanCriteriaOrThrowOrLess(FloatFilter.class, criteriaPassed, value);
+    }
+
+    public static BigDecimalFilter buildLessThanCriteriaOrThrowOrLess(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildLessThanCriteriaOrThrowOrLess(BigDecimalFilter.class, criteriaPassed, value);
+    }
+
+    public static LocalDateFilter buildLessThanCriteriaOrThrowOrLess(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildLessThanCriteriaOrThrowOrLess(LocalDateFilter.class, criteriaPassed, value);
+    }
+
+    public static InstantFilter buildLessThanCriteriaOrThrowOrLess(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildLessThanCriteriaOrThrowOrLess(InstantFilter.class, criteriaPassed, value);
+    }
+
+
+    /**
+     * Build a filter with the LessThanOrEqual value with the one passed in param, leave other attribute untouched
+     * <p>Throws if lessThanOrEqual value is set and different from the one passed</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the lessThanOrEqual filtering (can be null)
+     * @param value          Value to set (cannot be null)
+     * @param replaceValue   True if value of criteria lessThanOrEqual should be replaced or throw if different
+     * @return Filter with lessThanOrEqual value set
+     * @throws IllegalArgumentException if {@code value} is null
+     * @throws IllegalArgumentException if criteria lessThanOrEqual value is not null and is different from value passed and {@code replaceValue} is false
+     */
+    public static <T extends RangeFilter<U>, U extends Comparable<? super U>> T buildLessThanOrEqualCriteriaOrThrow(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final U value, final boolean replaceValue) {
+        if (value == null)
+            throw new IllegalArgumentException("LessThanOrEqual value cannot be null");
+
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (!replaceValue && criteria.getLessOrEqualThan() != null && !criteria.getLessOrEqualThan().equals(value))
+            throw new IllegalArgumentException("LessThanOrEqual filter value is not allowed");
+        criteria.setLessOrEqualThan(value);
+        return criteria;
+    }
+
+    /**
+     * Build a filter with the LessThanOrEqual value with the one passed in param if not set already, leave other attribute untouched
+     * <p>Does not replace lessThanOrEqual value if set.</p>
+     * <p>Throws if lessThanOrEqual value is set and higher than the one passed.</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the lessThanOrEqual filtering (can be null)
+     * @param value          Value to set (cannot be null)
+     * @return Filter with lessThanOrEqual value set
+     * @throws IllegalArgumentException if {@code value} is null
+     * @throws IllegalArgumentException if criteria lessThanOrEqual value is not null and is higher than value passed
+     */
+    public static <T extends RangeFilter<U>, U extends Comparable<? super U>> T buildLessThanOrEqualCriteriaOrThrowOrLess(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final U value) {
+        if (value == null)
+            throw new IllegalArgumentException("LessThanOrEqual value cannot be null");
+
+        final T criteria = criteriaPassed == null ? createCriteria(criteriaClass) : criteriaPassed;
+        if (criteria.getLessOrEqualThan() != null && criteria.getLessOrEqualThan().compareTo(value) > 0)
+            throw new IllegalArgumentException("LessThanOrEqual filter value is not allowed");
+        if (criteria.getLessOrEqualThan() == null)
+            criteria.setLessOrEqualThan(value);
+        return criteria;
+    }
+
+    public static LongFilter buildLessThanOrEqualCriteria(@NotNull final Long value) {
+        return buildLessThanOrEqualCriteria(new LongFilter(), value);
+    }
+
+    public static ShortFilter buildLessThanOrEqualCriteria(@NotNull final Short value) {
+        return buildLessThanOrEqualCriteria(new ShortFilter(), value);
+    }
+
+    public static IntegerFilter buildLessThanOrEqualCriteria(@NotNull final Integer value) {
+        return buildLessThanOrEqualCriteria(new IntegerFilter(), value);
+    }
+
+    public static DoubleFilter buildLessThanOrEqualCriteria(@NotNull final Double value) {
+        return buildLessThanOrEqualCriteria(new DoubleFilter(), value);
+    }
+
+    public static FloatFilter buildLessThanOrEqualCriteria(@NotNull final Float value) {
+        return buildLessThanOrEqualCriteria(new FloatFilter(), value);
+    }
+
+    public static BigDecimalFilter buildLessThanOrEqualCriteria(@NotNull final BigDecimal value) {
+        return buildLessThanOrEqualCriteria(new BigDecimalFilter(), value);
+    }
+
+    public static LocalDateFilter buildLessThanOrEqualCriteria(@NotNull final LocalDate value) {
+        return buildLessThanOrEqualCriteria(new LocalDateFilter(), value);
+    }
+
+    public static InstantFilter buildLessThanOrEqualCriteria(@NotNull final Instant value) {
+        return buildLessThanOrEqualCriteria(new InstantFilter(), value);
+    }
+
+    public static LongFilter buildLessThanOrEqualCriteria(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildLessThanOrEqualCriteriaOrThrow(LongFilter.class, criteriaPassed, value, true);
+    }
+
+    public static ShortFilter buildLessThanOrEqualCriteria(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildLessThanOrEqualCriteriaOrThrow(ShortFilter.class, criteriaPassed, value, true);
+    }
+
+    public static IntegerFilter buildLessThanOrEqualCriteria(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildLessThanOrEqualCriteriaOrThrow(IntegerFilter.class, criteriaPassed, value, true);
+    }
+
+    public static DoubleFilter buildLessThanOrEqualCriteria(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildLessThanOrEqualCriteriaOrThrow(DoubleFilter.class, criteriaPassed, value, true);
+    }
+
+    public static FloatFilter buildLessThanOrEqualCriteria(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildLessThanOrEqualCriteriaOrThrow(FloatFilter.class, criteriaPassed, value, true);
+    }
+
+    public static BigDecimalFilter buildLessThanOrEqualCriteria(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildLessThanOrEqualCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, value, true);
+    }
+
+    public static LocalDateFilter buildLessThanOrEqualCriteria(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildLessThanOrEqualCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, value, true);
+    }
+
+    public static InstantFilter buildLessThanOrEqualCriteria(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildLessThanOrEqualCriteriaOrThrow(InstantFilter.class, criteriaPassed, value, true);
+    }
+
+    public static LongFilter buildLessThanOrEqualCriteriaOrThrow(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildLessThanOrEqualCriteriaOrThrow(LongFilter.class, criteriaPassed, value, false);
+    }
+
+    public static ShortFilter buildLessThanOrEqualCriteriaOrThrow(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildLessThanOrEqualCriteriaOrThrow(ShortFilter.class, criteriaPassed, value, false);
+    }
+
+    public static IntegerFilter buildLessThanOrEqualCriteriaOrThrow(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildLessThanOrEqualCriteriaOrThrow(IntegerFilter.class, criteriaPassed, value, false);
+    }
+
+    public static DoubleFilter buildLessThanOrEqualCriteriaOrThrow(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildLessThanOrEqualCriteriaOrThrow(DoubleFilter.class, criteriaPassed, value, false);
+    }
+
+    public static FloatFilter buildLessThanOrEqualCriteriaOrThrow(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildLessThanOrEqualCriteriaOrThrow(FloatFilter.class, criteriaPassed, value, false);
+    }
+
+    public static BigDecimalFilter buildLessThanOrEqualCriteriaOrThrow(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildLessThanOrEqualCriteriaOrThrow(BigDecimalFilter.class, criteriaPassed, value, false);
+    }
+
+    public static LocalDateFilter buildLessThanOrEqualCriteriaOrThrow(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildLessThanOrEqualCriteriaOrThrow(LocalDateFilter.class, criteriaPassed, value, false);
+    }
+
+    public static InstantFilter buildLessThanOrEqualCriteriaOrThrow(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildLessThanOrEqualCriteriaOrThrow(InstantFilter.class, criteriaPassed, value, false);
+    }
+
+    public static LongFilter buildLessThanOrEqualCriteriaOrThrowOrLess(@Nullable final LongFilter criteriaPassed, @NotNull final Long value) {
+        return buildLessThanOrEqualCriteriaOrThrowOrLess(LongFilter.class, criteriaPassed, value);
+    }
+
+    public static ShortFilter buildLessThanOrEqualCriteriaOrThrowOrLess(@Nullable final ShortFilter criteriaPassed, @NotNull final Short value) {
+        return buildLessThanOrEqualCriteriaOrThrowOrLess(ShortFilter.class, criteriaPassed, value);
+    }
+
+    public static IntegerFilter buildLessThanOrEqualCriteriaOrThrowOrLess(@Nullable final IntegerFilter criteriaPassed, @NotNull final Integer value) {
+        return buildLessThanOrEqualCriteriaOrThrowOrLess(IntegerFilter.class, criteriaPassed, value);
+    }
+
+    public static DoubleFilter buildLessThanOrEqualCriteriaOrThrowOrLess(@Nullable final DoubleFilter criteriaPassed, @NotNull final Double value) {
+        return buildLessThanOrEqualCriteriaOrThrowOrLess(DoubleFilter.class, criteriaPassed, value);
+    }
+
+    public static FloatFilter buildLessThanOrEqualCriteriaOrThrowOrLess(@Nullable final FloatFilter criteriaPassed, @NotNull final Float value) {
+        return buildLessThanOrEqualCriteriaOrThrowOrLess(FloatFilter.class, criteriaPassed, value);
+    }
+
+    public static BigDecimalFilter buildLessThanOrEqualCriteriaOrThrowOrLess(@Nullable final BigDecimalFilter criteriaPassed, @NotNull final BigDecimal value) {
+        return buildLessThanOrEqualCriteriaOrThrowOrLess(BigDecimalFilter.class, criteriaPassed, value);
+    }
+
+    public static LocalDateFilter buildLessThanOrEqualCriteriaOrThrowOrLess(@Nullable final LocalDateFilter criteriaPassed, @NotNull final LocalDate value) {
+        return buildLessThanOrEqualCriteriaOrThrowOrLess(LocalDateFilter.class, criteriaPassed, value);
+    }
+
+    public static InstantFilter buildLessThanOrEqualCriteriaOrThrowOrLess(@Nullable final InstantFilter criteriaPassed, @NotNull final Instant value) {
+        return buildLessThanOrEqualCriteriaOrThrowOrLess(InstantFilter.class, criteriaPassed, value);
+    }
+
 
 }
