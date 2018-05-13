@@ -1068,6 +1068,17 @@ public class CriteriaUtil {
     }
 
 
+    /**
+     * Build a filter with the Specified value with the one passed in param, leave other attribute untouched
+     * <p>Throws if specified value is set and different from the one passed (not case sensitive)</p>
+     *
+     * @param criteriaClass  Class to instantiate if criteria is null
+     * @param criteriaPassed Criteria to build the Specified filtering (can be null)
+     * @param specified          Value to set (cannot be null)
+     * @param replaceValue True if value of criteria specified should be replaced or throw if different
+     * @return Filter with specified value set
+     * @throws IllegalArgumentException if {@code value} is null or empty
+     */
     public static <T extends Filter<?>> T buildSpecifiedCriteria(final Class<T> criteriaClass, @Nullable final T criteriaPassed, @NotNull final Boolean specified, final boolean replaceValue) {
         if (specified == null)
             throw new IllegalArgumentException("Specified value cannot be null");
