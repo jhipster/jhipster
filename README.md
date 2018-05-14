@@ -12,7 +12,7 @@ This project is used by the JHipster generator. This is the Bill of Materials an
 [travis-image]: https://travis-ci.org/jhipster/jhipster.svg?branch=master
 [travis-url]: https://travis-ci.org/jhipster/jhipster
 
-[maven-image]: https://maven-badges.herokuapp.com/maven-central/io.github.jhipster/jhipster/badge.svg
-[maven-url]: https://maven-badges.herokuapp.com/maven-central/io.github.jhipster/jhipster
+[maven-image]: https://maven-badges.herokuapp.com/maven-central/io.github.jhipster/jhipster-parent/badge.svg
+[maven-url]: https://maven-badges.herokuapp.com/maven-central/io.github.jhipster/jhipster-parent
 
 [jhipster-url]: https://www.jhipster.tech/
