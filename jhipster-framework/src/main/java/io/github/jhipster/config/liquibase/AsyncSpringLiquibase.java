@@ -33,6 +33,9 @@ import org.springframework.util.StopWatch;
 import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * Specific liquibase.integration.spring.SpringLiquibase that will update the database asynchronously. <p> By default,
  * this asynchronous version only works when using the "dev" profile.<p> The standard
@@ -71,14 +74,20 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
     public void afterPropertiesSet() throws LiquibaseException {
         if (!env.acceptsProfiles(SPRING_PROFILE_NO_LIQUIBASE)) {
             if (env.acceptsProfiles(SPRING_PROFILE_DEVELOPMENT, SPRING_PROFILE_HEROKU)) {
-                taskExecutor.execute(() -> {
-                    try {
-                        logger.warn(STARTING_ASYNC_MESSAGE);
-                        initDb();
-                    } catch (LiquibaseException e) {
-                        logger.error(EXCEPTION_MESSAGE, e.getMessage(), e);
-                    }
-                });
+                // Prevent Thread Lock with spring-cloud-context GenericScope
+                // https://github.com/spring-cloud/spring-cloud-commons/commit/aaa7288bae3bb4d6fdbef1041691223238d77b7b#diff-afa0715eafc2b0154475fe672dab70e4R328
+                try (Connection connection = getDataSource().getConnection()) {
+                    taskExecutor.execute(() -> {
+                        try {
+                            logger.warn(STARTING_ASYNC_MESSAGE);
+                            initDb();
+                        } catch (LiquibaseException e) {
+                            logger.error(EXCEPTION_MESSAGE, e.getMessage(), e);
+                        }
+                    });
+                } catch (SQLException e) {
+                    logger.error(EXCEPTION_MESSAGE, e.getMessage(), e);
+                }
             } else {
                 logger.debug(STARTING_SYNC_MESSAGE);
                 initDb();
