@@ -47,7 +47,7 @@
         <couchbase-client.version>2.5.8</couchbase-client.version>
         <cucumber.version>3.0.1</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
-        <guava.version>25.0-jre</guava.version>
+        <guava.version>25.1-jre</guava.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
         <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
