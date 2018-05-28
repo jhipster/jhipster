@@ -45,7 +45,7 @@
         <couchmove.version>1.0.2</couchmove.version>
         <couchbase-testcontainer.version>1.12</couchbase-testcontainer.version>
         <couchbase-client.version>2.5.8</couchbase-client.version>
-        <cucumber.version>1.2.5</cucumber.version>
+        <cucumber.version>3.0.1</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>25.0-jre</guava.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
@@ -140,12 +140,12 @@
                 <version>${commons-io.version}</version>
             </dependency>
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-junit</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-spring</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
