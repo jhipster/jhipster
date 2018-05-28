@@ -62,7 +62,7 @@
         <mssql-jdbc.version>6.4.0.jre8</mssql-jdbc.version>
         <oracle-jdbc.version>12.2.0.1</oracle-jdbc.version>
         <problem-spring-web.version>0.23.0</problem-spring-web.version>
-        <prometheus-simpleclient.version>0.3.0</prometheus-simpleclient.version>
+        <prometheus-simpleclient.version>0.4.0</prometheus-simpleclient.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-cloud.version>Finchley.RC1</spring-cloud.version>
         <!-- The netflix version should match the one in
