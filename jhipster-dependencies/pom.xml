@@ -65,9 +65,6 @@
         <prometheus-simpleclient.version>0.4.0</prometheus-simpleclient.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-cloud.version>Finchley.RC1</spring-cloud.version>
-        <!-- The spring-cloud-netflix version should match the one in
-        https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
-        <spring-cloud-netflix.version>2.0.0.RC1</spring-cloud-netflix.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.3.3.RELEASE</spring-security-oauth.version>
         <spring-security-oauth2-autoconfigure.version>2.0.1.RELEASE</spring-security-oauth2-autoconfigure.version>
@@ -621,11 +618,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web-services</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-netflix-spectator</artifactId>
-                <version>${spring-cloud-netflix.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>
