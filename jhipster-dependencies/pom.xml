@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.github.jhipster</groupId>
         <artifactId>jhipster-parent</artifactId>
-        <version>2.0.4</version>
+        <version>2.0.5-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -39,15 +39,15 @@
 
     <properties>
         <!-- Dependency versions -->
-        <aws-java-sdk.version>1.11.325</aws-java-sdk.version>
-        <bucket4j.version>4.0.0</bucket4j.version>
+        <aws-java-sdk.version>1.11.337</aws-java-sdk.version>
+        <bucket4j.version>4.0.1</bucket4j.version>
         <cassandra-unit-spring.version>3.3.0.2</cassandra-unit-spring.version>
         <couchmove.version>1.0.2</couchmove.version>
         <couchbase-testcontainer.version>1.12</couchbase-testcontainer.version>
-        <couchbase-client.version>2.5.7</couchbase-client.version>
-        <cucumber.version>1.2.5</cucumber.version>
+        <couchbase-client.version>2.5.8</couchbase-client.version>
+        <cucumber.version>3.0.1</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
-        <guava.version>25.0-jre</guava.version>
+        <guava.version>25.1-jre</guava.version>
         <hazelcast-wm.version>3.8.3</hazelcast-wm.version>
         <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
@@ -61,14 +61,10 @@
         <mongobee.version>0.13</mongobee.version>
         <mssql-jdbc.version>6.4.0.jre8</mssql-jdbc.version>
         <oracle-jdbc.version>12.2.0.1</oracle-jdbc.version>
-        <problem-spring-web.version>0.22.5</problem-spring-web.version>
-        <prometheus-simpleclient.version>0.3.0</prometheus-simpleclient.version>
+        <problem-spring-web.version>0.23.0</problem-spring-web.version>
+        <prometheus-simpleclient.version>0.4.0</prometheus-simpleclient.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-cloud.version>Finchley.RC1</spring-cloud.version>
-        <!-- The netflix version should match the one in
-        https://github.com/spring-cloud/spring-cloud-release/blob/v${spring-cloud.version}/spring-cloud-dependencies/pom.xml -->
-        <spring-cloud-netflix.version>2.0.0.RC1</spring-cloud-netflix.version>
-        <spring-cloud-stream.version>Elmhurst.RELEASE</spring-cloud-stream.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.3.3.RELEASE</spring-security-oauth.version>
         <spring-security-oauth2-autoconfigure.version>2.0.1.RELEASE</spring-security-oauth2-autoconfigure.version>
@@ -140,12 +136,12 @@
                 <version>${commons-io.version}</version>
             </dependency>
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-junit</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-spring</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
@@ -624,16 +620,6 @@
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-netflix-zuul</artifactId>
-                <version>${spring-cloud-netflix.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-netflix-spectator</artifactId>
-                <version>${spring-cloud-netflix.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-jwt</artifactId>
                 <version>${spring-security-jwt.version}</version>
@@ -683,14 +669,6 @@
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-bom</artifactId>
                 <version>${aws-java-sdk.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-stream-dependencies</artifactId>
-                <version>${spring-cloud-stream.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
