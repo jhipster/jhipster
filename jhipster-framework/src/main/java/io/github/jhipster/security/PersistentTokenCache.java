@@ -19,8 +19,7 @@
 
 package io.github.jhipster.security;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Simple time-limited cache for login tokens, necessary to avoid concurrent
@@ -32,7 +31,7 @@ public class PersistentTokenCache<T> {
 
     private final long expireMillis;
 
-    private final LinkedHashMap<String, Value> map;
+    private final Map<String, Value> map;
     private long latestWriteTime;
 
     /**
