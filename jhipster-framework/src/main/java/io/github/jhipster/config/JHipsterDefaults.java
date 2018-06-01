@@ -92,7 +92,7 @@ public interface JHipsterDefaults {
     }
 
     interface Mail {
-
+        boolean enable = false;
         String from = "";
         String baseUrl = "";
     }

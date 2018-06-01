@@ -301,6 +301,16 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testMailEnable() {
+        JHipsterProperties.Mail obj = properties.getMail();
+        boolean val = JHipsterDefaults.Mail.enable;
+        assertThat(obj.isEnable()).isEqualTo(val);
+        val = !val;
+        obj.setEnable(val);
+        assertThat(obj.isEnable()).isEqualTo(val);
+    }
+
+    @Test
     public void testSecurityClientAuthorizationAccessTokenUri() {
         JHipsterProperties.Security.ClientAuthorization obj = properties.getSecurity().getClientAuthorization();
         String val = JHipsterDefaults.Security.ClientAuthorization.accessTokenUri;
