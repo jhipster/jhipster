@@ -301,13 +301,13 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testMailEnable() {
+    public void testMailEnabled() {
         JHipsterProperties.Mail obj = properties.getMail();
-        boolean val = JHipsterDefaults.Mail.enable;
-        assertThat(obj.isEnable()).isEqualTo(val);
+        boolean val = JHipsterDefaults.Mail.enabled;
+        assertThat(obj.isEnabled()).isEqualTo(val);
         val = !val;
-        obj.setEnable(val);
-        assertThat(obj.isEnable()).isEqualTo(val);
+        obj.setEnabled(val);
+        assertThat(obj.isEnabled()).isEqualTo(val);
     }
 
     @Test

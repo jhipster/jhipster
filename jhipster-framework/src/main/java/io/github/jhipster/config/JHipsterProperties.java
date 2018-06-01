@@ -428,18 +428,18 @@ public class JHipsterProperties {
 
     public static class Mail {
 
-        private boolean enable = JHipsterDefaults.Mail.enable;
+        private boolean enabled = JHipsterDefaults.Mail.enabled;
 
         private String from = JHipsterDefaults.Mail.from;
 
         private String baseUrl = JHipsterDefaults.Mail.baseUrl;
 
-        public boolean isEnable() {
-            return enable;
+        public boolean isEnabled() {
+            return enabled;
         }
 
-        public void setEnable(boolean enable) {
-            this.enable = enable;
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
         }
 
         public String getFrom() {
