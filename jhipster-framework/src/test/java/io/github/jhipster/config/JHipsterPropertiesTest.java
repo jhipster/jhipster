@@ -281,6 +281,46 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testCacheMemcachedEnabled() {
+        JHipsterProperties.Cache.Memcached obj = properties.getCache().getMemcached();
+        boolean val = JHipsterDefaults.Cache.Memcached.enabled;
+        assertThat(obj.isEnabled()).isEqualTo(val);
+        val = true;
+        obj.setEnabled(val);
+        assertThat(obj.isEnabled()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheMemcachedServers() {
+        JHipsterProperties.Cache.Memcached obj = properties.getCache().getMemcached();
+        String val = JHipsterDefaults.Cache.Memcached.servers;
+        assertThat(obj.getServers()).isEqualTo(val);
+        val = "myserver:1337";
+        obj.setServers(val);
+        assertThat(obj.getServers()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheMemcachedExpiration() {
+        JHipsterProperties.Cache.Memcached obj = properties.getCache().getMemcached();
+        int val = JHipsterDefaults.Cache.Memcached.expiration;
+        assertThat(obj.getExpiration()).isEqualTo(val);
+        val++;
+        obj.setExpiration(val);
+        assertThat(obj.getExpiration()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheMemcachedUseBinaryProtocol() {
+        JHipsterProperties.Cache.Memcached obj = properties.getCache().getMemcached();
+        boolean val = JHipsterDefaults.Cache.Memcached.useBinaryProtocol;
+        assertThat(obj.isUseBinaryProtocol()).isEqualTo(val);
+        val = false;
+        obj.setUseBinaryProtocol(val);
+        assertThat(obj.isUseBinaryProtocol()).isEqualTo(val);
+    }
+
+    @Test
     public void testMailFrom() {
         JHipsterProperties.Mail obj = properties.getMail();
         String val = JHipsterDefaults.Mail.from;

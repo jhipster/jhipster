@@ -89,6 +89,14 @@ public interface JHipsterDefaults {
                 long maxEntries = 100;
             }
         }
+
+        interface Memcached {
+
+            boolean enabled = false;
+            String servers = "localhost:11211";
+            int expiration = 300; // 5 minutes
+            boolean useBinaryProtocol = true;
+        }
     }
 
     interface Mail {

@@ -69,6 +69,8 @@
         <spring-security-oauth.version>2.3.3.RELEASE</spring-security-oauth.version>
         <spring-security-oauth2-autoconfigure.version>2.0.1.RELEASE</spring-security-oauth2-autoconfigure.version>
         <springfox.version>2.8.0</springfox.version>
+        <xmemcached.version>2.4.4</xmemcached.version>
+        <xmemcached-provider.version>4.0.0</xmemcached-provider.version>
     </properties>
 
     <!-- TODO To remove after final Spring Boot 2 release -->
@@ -149,6 +151,21 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.simple-spring-memcached</groupId>
+                <artifactId>spring-cache</artifactId>
+                <version>${xmemcached-provider.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.simple-spring-memcached</groupId>
+                <artifactId>xmemcached-provider</artifactId>
+                <version>${xmemcached-provider.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.xmemcached</groupId>
+                <artifactId>xmemcached</artifactId>
+                <version>${xmemcached.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.hazelcast</groupId>
