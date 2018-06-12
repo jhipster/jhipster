@@ -205,6 +205,8 @@ public class JHipsterProperties {
 
         private final Infinispan infinispan = new Infinispan();
 
+        private final Memcached memcached = new Memcached();
+
         public Hazelcast getHazelcast() {
             return hazelcast;
         }
@@ -215,6 +217,10 @@ public class JHipsterProperties {
 
         public Infinispan getInfinispan() {
             return infinispan;
+        }
+
+        public Memcached getMemcached() {
+            return memcached;
         }
 
         public static class Hazelcast {
@@ -422,6 +428,52 @@ public class JHipsterProperties {
                     this.maxEntries = maxEntries;
                 }
 
+            }
+        }
+
+        public static class Memcached {
+
+            private boolean enabled = JHipsterDefaults.Cache.Memcached.enabled;
+
+            /**
+             * Comma or whitespace separated list of servers' addresses.
+             */
+            private String servers = JHipsterDefaults.Cache.Memcached.servers;
+
+            private int expiration = JHipsterDefaults.Cache.Memcached.expiration;
+
+            private boolean useBinaryProtocol = JHipsterDefaults.Cache.Memcached.useBinaryProtocol;
+
+            public boolean isEnabled() {
+                return enabled;
+            }
+
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
+
+            public String getServers() {
+                return servers;
+            }
+
+            public void setServers(String servers) {
+                this.servers = servers;
+            }
+
+            public int getExpiration() {
+                return expiration;
+            }
+
+            public void setExpiration(int expiration) {
+                this.expiration = expiration;
+            }
+
+            public boolean isUseBinaryProtocol() {
+                return useBinaryProtocol;
+            }
+
+            public void setUseBinaryProtocol(boolean useBinaryProtocol) {
+                this.useBinaryProtocol = useBinaryProtocol;
             }
         }
     }
