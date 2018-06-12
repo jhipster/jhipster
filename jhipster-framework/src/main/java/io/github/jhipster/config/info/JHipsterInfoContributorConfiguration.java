@@ -41,4 +41,10 @@ public class JHipsterInfoContributorConfiguration {
         ConfigurableEnvironment environment) {
         return new ActiveProfilesInfoContributor(environment);
     }
+
+    @Bean
+    @ConditionalOnEnabledInfoContributor("management.info.mail-enabled.enabled")
+    public MailEnabledInfoContributor mailEnabledInfoContributor() {
+        return new MailEnabledInfoContributor();
+    }
 }
