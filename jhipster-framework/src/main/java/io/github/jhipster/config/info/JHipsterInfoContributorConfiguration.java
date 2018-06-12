@@ -29,7 +29,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * JHipster auto-configuration for custom {@link InfoContributor}s.
- *
  */
 @Configuration
 @AutoConfigureAfter(InfoContributorAutoConfiguration.class)
