@@ -4,6 +4,12 @@
         "type": "java.lang.Boolean",
         "description": "Enable active-profiles info.",
         "defaultValue": true
+    },
+    {
+        "name": "management.info.mail-enabled.enabled",
+        "type": "java.lang.Boolean",
+        "description": "Enable mail service info",
+        "defaultValue": false
     }
 ]}
 
