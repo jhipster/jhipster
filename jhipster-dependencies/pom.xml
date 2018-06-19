@@ -45,7 +45,7 @@
         <couchmove.version>1.0.2</couchmove.version>
         <couchbase-testcontainer.version>1.2</couchbase-testcontainer.version>
         <couchbase-client.version>2.5.8</couchbase-client.version>
-        <cucumber.version>3.0.1</cucumber.version>
+        <cucumber.version>3.0.2</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>25.1-jre</guava.version>
         <infinispan.version>8.2.5.Final</infinispan.version>
