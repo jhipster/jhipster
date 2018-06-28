@@ -149,6 +149,7 @@ public class SwaggerAutoConfiguration {
 
         return createDocket()
             .apiInfo(apiInfo)
+            .useDefaultResponseMessages(properties.isUseDefaultResponseMessages())
             .groupName(MANAGEMENT_GROUP_NAME)
             .host(properties.getHost())
             .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))

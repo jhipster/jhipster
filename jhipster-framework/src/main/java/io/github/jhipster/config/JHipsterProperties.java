@@ -658,6 +658,8 @@ public class JHipsterProperties {
         private String host = JHipsterDefaults.Swagger.host;
 
         private String[] protocols = JHipsterDefaults.Swagger.protocols;
+        
+        private boolean useDefaultResponseMessages = JHipsterDefaults.Swagger.useDefaultResponseMessages;
 
         public String getTitle() {
             return title;
@@ -753,6 +755,14 @@ public class JHipsterProperties {
 
         public void setProtocols(final String[] protocols) {
             this.protocols = protocols;
+        }
+
+        public boolean isUseDefaultResponseMessages() {
+            return useDefaultResponseMessages;
+        }
+
+        public void setUseDefaultResponseMessages(final boolean useDefaultResponseMessages) {
+            this.useDefaultResponseMessages = useDefaultResponseMessages;
         }
     }
 

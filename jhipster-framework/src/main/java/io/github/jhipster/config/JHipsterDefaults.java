@@ -145,6 +145,7 @@ public interface JHipsterDefaults {
         String defaultIncludePattern = "/api/.*";
         String host = null;
         String[] protocols = {};
+        boolean useDefaultResponseMessages = true;
     }
 
     interface Metrics {

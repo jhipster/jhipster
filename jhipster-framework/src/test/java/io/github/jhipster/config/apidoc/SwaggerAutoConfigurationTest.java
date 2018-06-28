@@ -80,6 +80,7 @@ public class SwaggerAutoConfigurationTest {
         properties.setContactUrl("http://test.host.org/contact");
         properties.setLicense("free as in beer");
         properties.setLicenseUrl("http://test.host.org/license");
+        properties.setUseDefaultResponseMessages(false);
 
         config = new SwaggerAutoConfiguration(jHipsterProperties) {
             @Override
@@ -120,6 +121,7 @@ public class SwaggerAutoConfigurationTest {
         assertThat(info.getLicenseUrl()).isEqualTo(properties.getLicenseUrl());
         assertThat(info.getVendorExtensions()).isEmpty();
 
+        verify(docket).useDefaultResponseMessages(properties.isUseDefaultResponseMessages());
         verify(docket).forCodeGeneration(true);
         verify(docket).directModelSubstitute(ByteBuffer.class, String.class);
         verify(docket).genericModelSubstitutes(ResponseEntity.class);
@@ -168,6 +170,7 @@ public class SwaggerAutoConfigurationTest {
         assertThat(info.getLicenseUrl()).isEqualTo("");
         assertThat(info.getVendorExtensions()).isEmpty();
 
+        verify(docket).useDefaultResponseMessages(properties.isUseDefaultResponseMessages());
         verify(docket).forCodeGeneration(true);
         verify(docket).directModelSubstitute(ByteBuffer.class, String.class);
         verify(docket).genericModelSubstitutes(ResponseEntity.class);
