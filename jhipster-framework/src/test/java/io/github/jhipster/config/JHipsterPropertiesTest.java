@@ -559,6 +559,16 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testSwaggerUseDefaultResponseMessages() {
+        JHipsterProperties.Swagger obj = properties.getSwagger();
+        boolean val = JHipsterDefaults.Swagger.useDefaultResponseMessages;
+        assertThat(obj.isUseDefaultResponseMessages()).isEqualTo(val);
+        val = false;
+        obj.setUseDefaultResponseMessages(val);
+        assertThat(obj.isUseDefaultResponseMessages()).isEqualTo(val);
+    }
+
+    @Test
     public void testMetricsJmxEnabled() {
         JHipsterProperties.Metrics.Jmx obj = properties.getMetrics().getJmx();
         boolean val = JHipsterDefaults.Metrics.Jmx.enabled;
