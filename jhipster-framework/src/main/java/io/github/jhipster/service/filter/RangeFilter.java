@@ -19,6 +19,8 @@
 
 package io.github.jhipster.service.filter;
 
+import java.util.Objects;
+
 /**
  * Filter class for Comparable types, where less than / greater than / etc relations could be interpreted. It can be
  * added to a criteria class as a member, to support the following query parameters:
@@ -86,6 +88,29 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
     public RangeFilter<FIELD_TYPE> setLessOrEqualThan(FIELD_TYPE lessOrEqualThan) {
         this.lessOrEqualThan = lessOrEqualThan;
         return this;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        final RangeFilter<?> that = (RangeFilter<?>) o;
+        return Objects.equals(greaterThan, that.greaterThan) &&
+            Objects.equals(lessThan, that.lessThan) &&
+            Objects.equals(greaterOrEqualThan, that.greaterOrEqualThan) &&
+            Objects.equals(lessOrEqualThan, that.lessOrEqualThan);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), greaterThan, lessThan, greaterOrEqualThan, lessOrEqualThan);
     }
 
     @Override

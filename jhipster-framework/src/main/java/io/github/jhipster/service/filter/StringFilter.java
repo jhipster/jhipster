@@ -19,6 +19,8 @@
 
 package io.github.jhipster.service.filter;
 
+import java.util.Objects;
+
 /**
  * Class for filtering attributes with {@link String} type.
  * It can be added to a criteria class as a member, to support the following query parameters:
@@ -43,6 +45,26 @@ public class StringFilter extends Filter<String> {
     public StringFilter setContains(String contains) {
         this.contains = contains;
         return this;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        final StringFilter that = (StringFilter) o;
+        return Objects.equals(contains, that.contains);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), contains);
     }
 
     @Override

@@ -21,6 +21,7 @@ package io.github.jhipster.service.filter;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Base class for the various attribute filters. It can be added to a criteria class as a member, to support the
@@ -64,6 +65,25 @@ public class Filter<FIELD_TYPE> implements Serializable {
     public Filter<FIELD_TYPE> setIn(List<FIELD_TYPE> in) {
         this.in = in;
         return this;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Filter<?> filter = (Filter<?>) o;
+        return Objects.equals(equals, filter.equals) &&
+            Objects.equals(specified, filter.specified) &&
+            Objects.equals(in, filter.in);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(equals, specified, in);
     }
 
     @Override
