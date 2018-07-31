@@ -49,9 +49,15 @@ public class StringFilter extends Filter<String> {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         final StringFilter that = (StringFilter) o;
         return Objects.equals(contains, that.contains);
     }
