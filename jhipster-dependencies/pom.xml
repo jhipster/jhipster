@@ -39,7 +39,7 @@
 
     <properties>
         <!-- Dependency versions -->
-        <awsjavasdk.version>1.11.354</awsjavasdk.version>
+        <awsjavasdk.version>1.11.375</awsjavasdk.version>
         <bucket4j.version>4.0.1</bucket4j.version>
         <cassandra-unit-spring.version>3.5.0.1</cassandra-unit-spring.version>
         <couchmove.version>1.0.2</couchmove.version>
@@ -51,7 +51,7 @@
         <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
-        <jjwt.version>0.9.0</jjwt.version>
+        <jjwt.version>0.9.1</jjwt.version>
         <liquibase-mssql.version>1.6.4</liquibase-mssql.version>
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
         <logstash-logback-encoder.version>5.1</logstash-logback-encoder.version>
@@ -63,12 +63,12 @@
         <problem-spring-web.version>0.23.0</problem-spring-web.version>
         <prometheus-simpleclient.version>0.4.0</prometheus-simpleclient.version>
         <reflections.version>0.9.11</reflections.version>
-        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <spring-cloud.version>Finchley.SR1</spring-cloud.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.3.3.RELEASE</spring-security-oauth.version>
         <spring-security-oauth2-autoconfigure.version>2.0.1.RELEASE</spring-security-oauth2-autoconfigure.version>
         <springfox.version>2.9.2</springfox.version>
-        <xmemcached.version>2.4.4</xmemcached.version>
+        <xmemcached.version>2.4.5</xmemcached.version>
         <xmemcached-provider.version>4.0.0</xmemcached-provider.version>
     </properties>
 
