@@ -48,7 +48,6 @@
         <cucumber.version>3.0.2</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>26.0-jre</guava.version>
-        <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
         <jjwt.version>0.9.1</jjwt.version>
