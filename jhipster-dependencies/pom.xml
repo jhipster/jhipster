@@ -39,7 +39,7 @@
 
     <properties>
         <!-- Dependency versions -->
-        <awsjavasdk.version>1.11.375</awsjavasdk.version>
+        <aws-java-sdk.version>1.11.388</aws-java-sdk.version>
         <bucket4j.version>4.0.1</bucket4j.version>
         <cassandra-unit-spring.version>3.5.0.1</cassandra-unit-spring.version>
         <couchmove.version>1.0.2</couchmove.version>
@@ -657,7 +657,7 @@
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-bom</artifactId>
-                <version>${awsjavasdk.version}</version>
+                <version>${aws-java-sdk.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
