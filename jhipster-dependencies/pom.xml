@@ -48,7 +48,6 @@
         <cucumber.version>3.0.2</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>26.0-jre</guava.version>
-        <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
         <jjwt.version>0.9.1</jjwt.version>
         <liquibase-mssql.version>1.6.4</liquibase-mssql.version>
@@ -142,17 +141,6 @@
                 <groupId>com.googlecode.xmemcached</groupId>
                 <artifactId>xmemcached</artifactId>
                 <version>${xmemcached.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-cloud</artifactId>
-                <version>${infinispan-cloud.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.undertow</groupId>
-                        <artifactId>undertow-core</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.infinispan</groupId>
