@@ -22,12 +22,15 @@ package io.github.jhipster.config.jcache;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import io.github.jhipster.test.LogbackRecorder;
 
 public class BeanClassLoaderAwareJCacheRegionFactoryTest {
+    
+    private LogbackRecorder recorder;
     
     private BeanClassLoaderAwareJCacheRegionFactory factory;
     
@@ -36,11 +39,15 @@ public class BeanClassLoaderAwareJCacheRegionFactoryTest {
     
     @Before
     public void setup() {
-        LogbackRecorder recorder = LogbackRecorder.forName("org.jboss.logging").reset().capture("ALL");
         factory = new BeanClassLoaderAwareJCacheRegionFactory();
-        recorder.release();
+        recorder = LogbackRecorder.forClass(factory.getClass()).reset().capture("ALL");
     }
     
+    @After()
+    public void teardown() {
+        recorder.release();
+    }
+
     @Test
     public void testGetClassLoader() {
         Throwable caught = catchThrowable(() -> factory.getClassLoader(null));
