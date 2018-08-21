@@ -27,21 +27,25 @@ import org.junit.Test;
 
 import io.github.jhipster.test.LogbackRecorder;
 
-public class NoDefaultJCacheRegionFactoryTest {
-
-    private NoDefaultJCacheRegionFactory factory;
-
+public class BeanClassLoaderAwareJCacheRegionFactoryTest {
+    
+    private BeanClassLoaderAwareJCacheRegionFactory factory;
+    
+    public BeanClassLoaderAwareJCacheRegionFactoryTest() {
+    }
+    
     @Before
     public void setup() {
         LogbackRecorder recorder = LogbackRecorder.forName("org.jboss.logging").reset().capture("ALL");
-        factory = new NoDefaultJCacheRegionFactory();
+        factory = new BeanClassLoaderAwareJCacheRegionFactory();
         recorder.release();
     }
-
+    
     @Test
-    public void testNoDefaultJCacheRegionFactory() {
-        Throwable caught = catchThrowable(() -> factory.createCache("krypton", null, null));
-        assertThat(caught).isInstanceOf(IllegalStateException.class);
-        assertThat(caught.getMessage()).isEqualTo(NoDefaultJCacheRegionFactory.EXCEPTION_MESSAGE + " krypton");
+    public void testGetClassLoader() {
+        Throwable caught = catchThrowable(() -> factory.getClassLoader(null));
+        assertThat(caught).isInstanceOf(NullPointerException.class);
+        assertThat(caught.getMessage()).isEqualTo(BeanClassLoaderAwareJCacheRegionFactory.EXCEPTION_MESSAGE);
     }
+    
 }
