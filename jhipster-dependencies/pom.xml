@@ -39,7 +39,7 @@
 
     <properties>
         <!-- Dependency versions -->
-        <aws-java-sdk.version>1.11.388</aws-java-sdk.version>
+        <aws-java-sdk.version>1.11.391</aws-java-sdk.version>
         <bucket4j.version>4.0.1</bucket4j.version>
         <cassandra-unit-spring.version>3.5.0.1</cassandra-unit-spring.version>
         <couchmove.version>1.0.2</couchmove.version>
