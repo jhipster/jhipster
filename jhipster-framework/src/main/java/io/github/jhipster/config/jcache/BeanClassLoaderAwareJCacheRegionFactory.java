@@ -19,12 +19,8 @@
 
 package io.github.jhipster.config.jcache;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Objects;
-import java.util.Properties;
-import javax.cache.CacheException;
-import javax.cache.CacheManager;
+
 import javax.cache.spi.CachingProvider;
 
 import org.hibernate.cache.jcache.internal.JCacheRegionFactory;
@@ -39,7 +35,7 @@ import org.hibernate.cache.jcache.internal.JCacheRegionFactory;
  */
 public class BeanClassLoaderAwareJCacheRegionFactory extends JCacheRegionFactory {
 
-    public static final String EXCEPTION_MESSAGE = "Please set Spring's classloader in the setBeanClassLoader method before using this class in Hibernate";
+    static final String EXCEPTION_MESSAGE = "Please set Spring's classloader in the setBeanClassLoader method before using this class in Hibernate";
     
     private static volatile ClassLoader classLoader;
 
