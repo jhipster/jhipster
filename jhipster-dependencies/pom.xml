@@ -51,7 +51,7 @@
         <infinispan.version>8.2.5.Final</infinispan.version>
         <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
-        <jjwt.version>0.10.5</jjwt.version>
+        <jjwt.version>0.9.1</jjwt.version>
         <liquibase-mssql.version>1.6.4</liquibase-mssql.version>
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
         <logstash-logback-encoder.version>5.1</logstash-logback-encoder.version>
