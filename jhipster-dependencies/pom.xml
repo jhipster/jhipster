@@ -63,6 +63,7 @@
         <problem-spring-web.version>0.23.0</problem-spring-web.version>
         <prometheus-simpleclient.version>0.4.0</prometheus-simpleclient.version>
         <reflections.version>0.9.11</reflections.version>
+        <spring-data-jest.version>3.1.4.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.3.3.RELEASE</spring-security-oauth.version>
@@ -418,6 +419,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.vanroy</groupId>
+                <artifactId>spring-boot-starter-data-jest</artifactId>
+                <version>${spring-data-jest.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
