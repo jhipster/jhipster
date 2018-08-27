@@ -43,8 +43,9 @@
         <bucket4j.version>4.0.1</bucket4j.version>
         <cassandra-unit-spring.version>3.5.0.1</cassandra-unit-spring.version>
         <couchmove.version>1.0.2</couchmove.version>
-        <couchbase-testcontainer.version>1.2</couchbase-testcontainer.version>
-        <couchbase-client.version>2.5.9</couchbase-client.version>
+        <couchbase-testcontainer.version>1.3</couchbase-testcontainer.version>
+        <couchbase-client.version>2.6.1</couchbase-client.version>
+        <couchbase-encryption.version>1.0.0</couchbase-encryption.version>
         <cucumber.version>3.0.2</cucumber.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>25.1-jre</guava.version>
@@ -242,6 +243,11 @@
                 <groupId>com.couchbase.client</groupId>
                 <artifactId>java-client</artifactId>
                 <version>${couchbase-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.couchbase.client</groupId>
+                <artifactId>encryption</artifactId>
+                <version>${couchbase-encryption.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.microsoft.sqlserver</groupId>
