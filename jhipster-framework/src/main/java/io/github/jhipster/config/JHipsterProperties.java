@@ -586,6 +586,8 @@ public class JHipsterProperties {
 
                 private String secret = JHipsterDefaults.Security.Authentication.Jwt.secret;
 
+                private String base64Secret = JHipsterDefaults.Security.Authentication.Jwt.base64Secret;
+
                 private long tokenValidityInSeconds = JHipsterDefaults.Security.Authentication.Jwt
                     .tokenValidityInSeconds;
 
@@ -598,6 +600,14 @@ public class JHipsterProperties {
 
                 public void setSecret(String secret) {
                     this.secret = secret;
+                }
+
+                public String getBase64Secret() {
+                    return base64Secret;
+                }
+
+                public void setBase64Secret(String base64Secret) {
+                    this.base64Secret = base64Secret;
                 }
 
                 public long getTokenValidityInSeconds() {

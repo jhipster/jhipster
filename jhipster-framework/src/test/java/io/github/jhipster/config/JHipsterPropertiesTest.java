@@ -401,6 +401,16 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testSecurityAuthenticationJwtBase64Secret() {
+        JHipsterProperties.Security.Authentication.Jwt obj = properties.getSecurity().getAuthentication().getJwt();
+        String val = JHipsterDefaults.Security.Authentication.Jwt.base64Secret;
+        assertThat(obj.getSecret()).isEqualTo(val);
+        val = "1" + val;
+        obj.setBase64Secret(val);
+        assertThat(obj.getBase64Secret()).isEqualTo(val);
+    }
+
+    @Test
     public void testSecurityAuthenticationJwtTokenValidityInSeconds() {
         JHipsterProperties.Security.Authentication.Jwt obj = properties.getSecurity().getAuthentication().getJwt();
         long val = JHipsterDefaults.Security.Authentication.Jwt.tokenValidityInSeconds;

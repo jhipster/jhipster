@@ -120,6 +120,7 @@ public interface JHipsterDefaults {
             interface Jwt {
 
                 String secret = null;
+                String base64Secret = null;
                 long tokenValidityInSeconds = 1800; // 0.5 hour
                 long tokenValidityInSecondsForRememberMe = 2592000; // 30 hours;
             }
