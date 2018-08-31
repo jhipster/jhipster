@@ -89,10 +89,18 @@ public interface JHipsterDefaults {
                 long maxEntries = 100;
             }
         }
+
+        interface Memcached {
+
+            boolean enabled = false;
+            String servers = "localhost:11211";
+            int expiration = 300; // 5 minutes
+            boolean useBinaryProtocol = true;
+        }
     }
 
     interface Mail {
-
+        boolean enabled = false;
         String from = "";
         String baseUrl = "";
     }
@@ -112,6 +120,7 @@ public interface JHipsterDefaults {
             interface Jwt {
 
                 String secret = null;
+                String base64Secret = null;
                 long tokenValidityInSeconds = 1800; // 0.5 hour
                 long tokenValidityInSecondsForRememberMe = 2592000; // 30 hours;
             }
@@ -137,6 +146,7 @@ public interface JHipsterDefaults {
         String defaultIncludePattern = "/api/.*";
         String host = null;
         String[] protocols = {};
+        boolean useDefaultResponseMessages = true;
     }
 
     interface Metrics {

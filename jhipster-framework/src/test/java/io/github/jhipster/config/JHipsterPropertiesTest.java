@@ -281,6 +281,46 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testCacheMemcachedEnabled() {
+        JHipsterProperties.Cache.Memcached obj = properties.getCache().getMemcached();
+        boolean val = JHipsterDefaults.Cache.Memcached.enabled;
+        assertThat(obj.isEnabled()).isEqualTo(val);
+        val = true;
+        obj.setEnabled(val);
+        assertThat(obj.isEnabled()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheMemcachedServers() {
+        JHipsterProperties.Cache.Memcached obj = properties.getCache().getMemcached();
+        String val = JHipsterDefaults.Cache.Memcached.servers;
+        assertThat(obj.getServers()).isEqualTo(val);
+        val = "myserver:1337";
+        obj.setServers(val);
+        assertThat(obj.getServers()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheMemcachedExpiration() {
+        JHipsterProperties.Cache.Memcached obj = properties.getCache().getMemcached();
+        int val = JHipsterDefaults.Cache.Memcached.expiration;
+        assertThat(obj.getExpiration()).isEqualTo(val);
+        val++;
+        obj.setExpiration(val);
+        assertThat(obj.getExpiration()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheMemcachedUseBinaryProtocol() {
+        JHipsterProperties.Cache.Memcached obj = properties.getCache().getMemcached();
+        boolean val = JHipsterDefaults.Cache.Memcached.useBinaryProtocol;
+        assertThat(obj.isUseBinaryProtocol()).isEqualTo(val);
+        val = false;
+        obj.setUseBinaryProtocol(val);
+        assertThat(obj.isUseBinaryProtocol()).isEqualTo(val);
+    }
+
+    @Test
     public void testMailFrom() {
         JHipsterProperties.Mail obj = properties.getMail();
         String val = JHipsterDefaults.Mail.from;
@@ -298,6 +338,16 @@ public class JHipsterPropertiesTest {
         val = "1" + val;
         obj.setBaseUrl(val);
         assertThat(obj.getBaseUrl()).isEqualTo(val);
+    }
+
+    @Test
+    public void testMailEnabled() {
+        JHipsterProperties.Mail obj = properties.getMail();
+        boolean val = JHipsterDefaults.Mail.enabled;
+        assertThat(obj.isEnabled()).isEqualTo(val);
+        val = !val;
+        obj.setEnabled(val);
+        assertThat(obj.isEnabled()).isEqualTo(val);
     }
 
     @Test
@@ -348,6 +398,16 @@ public class JHipsterPropertiesTest {
         val = "1" + val;
         obj.setSecret(val);
         assertThat(obj.getSecret()).isEqualTo(val);
+    }
+
+    @Test
+    public void testSecurityAuthenticationJwtBase64Secret() {
+        JHipsterProperties.Security.Authentication.Jwt obj = properties.getSecurity().getAuthentication().getJwt();
+        String val = JHipsterDefaults.Security.Authentication.Jwt.base64Secret;
+        assertThat(obj.getSecret()).isEqualTo(val);
+        val = "1" + val;
+        obj.setBase64Secret(val);
+        assertThat(obj.getBase64Secret()).isEqualTo(val);
     }
 
     @Test
@@ -509,6 +569,16 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testSwaggerUseDefaultResponseMessages() {
+        JHipsterProperties.Swagger obj = properties.getSwagger();
+        boolean val = JHipsterDefaults.Swagger.useDefaultResponseMessages;
+        assertThat(obj.isUseDefaultResponseMessages()).isEqualTo(val);
+        val = false;
+        obj.setUseDefaultResponseMessages(val);
+        assertThat(obj.isUseDefaultResponseMessages()).isEqualTo(val);
+    }
+
+    @Test
     public void testMetricsJmxEnabled() {
         JHipsterProperties.Metrics.Jmx obj = properties.getMetrics().getJmx();
         boolean val = JHipsterDefaults.Metrics.Jmx.enabled;
@@ -626,24 +696,6 @@ public class JHipsterPropertiesTest {
         val++;
         obj.setDurationInSeconds(val);
         assertThat(obj.getDurationInSeconds()).isEqualTo(val);
-    }
-
-    @Test
-    public void testRibbonDisplayOnActiveProfiles() {
-        JHipsterProperties.Ribbon obj = properties.getRibbon();
-        String[] def = JHipsterDefaults.Ribbon.displayOnActiveProfiles;
-        ArrayList<String> val;
-        if (def != null) {
-            val = newArrayList(def);
-            assertThat(obj.getDisplayOnActiveProfiles()).containsExactlyElementsOf(newArrayList(val));
-        } else {
-            assertThat(obj.getDisplayOnActiveProfiles()).isNull();
-            def = new String[1];
-            val = new ArrayList<>(1);
-        }
-        val.add("1");
-        obj.setDisplayOnActiveProfiles(val.toArray(def));
-        assertThat(obj.getDisplayOnActiveProfiles()).containsExactlyElementsOf(newArrayList(val));
     }
 
     @Test

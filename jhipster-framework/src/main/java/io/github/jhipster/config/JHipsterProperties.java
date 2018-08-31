@@ -24,14 +24,22 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.web.cors.CorsConfiguration;
 
 /**
  * Properties specific to JHipster.
  *
  * <p> Properties are configured in the application.yml file. </p>
+ * <p> This class also load properties in the Spring Environment from the git.properties and META-INF/build-info.properties
+ * files if they are found in the classpath.</p>
  */
 @ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = false)
+@PropertySources({
+    @PropertySource(value = "classpath:git.properties", ignoreResourceNotFound = true),
+    @PropertySource(value = "classpath:META-INF/build-info.properties", ignoreResourceNotFound = true)
+})
 public class JHipsterProperties {
 
     private final Async async = new Async();
@@ -55,8 +63,6 @@ public class JHipsterProperties {
     private final Social social = new Social();
 
     private final Gateway gateway = new Gateway();
-
-    private final Ribbon ribbon = new Ribbon();
 
     private final Registry registry = new Registry();
 
@@ -106,10 +112,6 @@ public class JHipsterProperties {
 
     public Gateway getGateway() {
         return gateway;
-    }
-
-    public Ribbon getRibbon() {
-        return ribbon;
     }
 
     public static class Async {
@@ -203,6 +205,8 @@ public class JHipsterProperties {
 
         private final Infinispan infinispan = new Infinispan();
 
+        private final Memcached memcached = new Memcached();
+
         public Hazelcast getHazelcast() {
             return hazelcast;
         }
@@ -213,6 +217,10 @@ public class JHipsterProperties {
 
         public Infinispan getInfinispan() {
             return infinispan;
+        }
+
+        public Memcached getMemcached() {
+            return memcached;
         }
 
         public static class Hazelcast {
@@ -422,13 +430,69 @@ public class JHipsterProperties {
 
             }
         }
+
+        public static class Memcached {
+
+            private boolean enabled = JHipsterDefaults.Cache.Memcached.enabled;
+
+            /**
+             * Comma or whitespace separated list of servers' addresses.
+             */
+            private String servers = JHipsterDefaults.Cache.Memcached.servers;
+
+            private int expiration = JHipsterDefaults.Cache.Memcached.expiration;
+
+            private boolean useBinaryProtocol = JHipsterDefaults.Cache.Memcached.useBinaryProtocol;
+
+            public boolean isEnabled() {
+                return enabled;
+            }
+
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
+
+            public String getServers() {
+                return servers;
+            }
+
+            public void setServers(String servers) {
+                this.servers = servers;
+            }
+
+            public int getExpiration() {
+                return expiration;
+            }
+
+            public void setExpiration(int expiration) {
+                this.expiration = expiration;
+            }
+
+            public boolean isUseBinaryProtocol() {
+                return useBinaryProtocol;
+            }
+
+            public void setUseBinaryProtocol(boolean useBinaryProtocol) {
+                this.useBinaryProtocol = useBinaryProtocol;
+            }
+        }
     }
 
     public static class Mail {
 
+        private boolean enabled = JHipsterDefaults.Mail.enabled;
+
         private String from = JHipsterDefaults.Mail.from;
 
         private String baseUrl = JHipsterDefaults.Mail.baseUrl;
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
 
         public String getFrom() {
             return from;
@@ -522,6 +586,8 @@ public class JHipsterProperties {
 
                 private String secret = JHipsterDefaults.Security.Authentication.Jwt.secret;
 
+                private String base64Secret = JHipsterDefaults.Security.Authentication.Jwt.base64Secret;
+
                 private long tokenValidityInSeconds = JHipsterDefaults.Security.Authentication.Jwt
                     .tokenValidityInSeconds;
 
@@ -534,6 +600,14 @@ public class JHipsterProperties {
 
                 public void setSecret(String secret) {
                     this.secret = secret;
+                }
+
+                public String getBase64Secret() {
+                    return base64Secret;
+                }
+
+                public void setBase64Secret(String base64Secret) {
+                    this.base64Secret = base64Secret;
                 }
 
                 public long getTokenValidityInSeconds() {
@@ -594,6 +668,8 @@ public class JHipsterProperties {
         private String host = JHipsterDefaults.Swagger.host;
 
         private String[] protocols = JHipsterDefaults.Swagger.protocols;
+        
+        private boolean useDefaultResponseMessages = JHipsterDefaults.Swagger.useDefaultResponseMessages;
 
         public String getTitle() {
             return title;
@@ -689,6 +765,14 @@ public class JHipsterProperties {
 
         public void setProtocols(final String[] protocols) {
             this.protocols = protocols;
+        }
+
+        public boolean isUseDefaultResponseMessages() {
+            return useDefaultResponseMessages;
+        }
+
+        public void setUseDefaultResponseMessages(final boolean useDefaultResponseMessages) {
+            this.useDefaultResponseMessages = useDefaultResponseMessages;
         }
     }
 
@@ -858,19 +942,6 @@ public class JHipsterProperties {
             public void setDurationInSeconds(int durationInSeconds) {
                 this.durationInSeconds = durationInSeconds;
             }
-        }
-    }
-
-    public static class Ribbon {
-
-        private String[] displayOnActiveProfiles = JHipsterDefaults.Ribbon.displayOnActiveProfiles;
-
-        public String[] getDisplayOnActiveProfiles() {
-            return displayOnActiveProfiles;
-        }
-
-        public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
-            this.displayOnActiveProfiles = displayOnActiveProfiles;
         }
     }
 

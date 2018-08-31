@@ -1,0 +1,57 @@
+{"properties": [
+    {
+        "name": "management.info.active-profiles.enabled",
+        "type": "java.lang.Boolean",
+        "description": "Enable active-profiles info.",
+        "defaultValue": true
+    },
+    {
+        "name": "management.info.mail-enabled.enabled",
+        "type": "java.lang.Boolean",
+        "description": "Enable mail service info.",
+        "defaultValue": false
+    },
+    {
+        "name": "jhipster.cors.allowed-origins",
+        "type": "java.util.List<java.lang.String>",
+        "description": "Set global CORS allowed origins.",
+        "sourceType": "org.springframework.web.cors.CorsConfiguration"
+    },
+    {
+        "name": "jhipster.cors.allowed-methods",
+        "type": "java.util.List<java.lang.String>",
+        "description": "Set global CORS allowed methods.",
+        "sourceType": "org.springframework.web.cors.CorsConfiguration"
+    },
+    {
+        "name": "jhipster.cors.resolved-methods",
+        "type": "java.util.List<org.springframework.http.HttpMethod>",
+        "description": "Set global CORS resolved methods.",
+        "sourceType": "org.springframework.web.cors.CorsConfiguration"
+    },
+    {
+        "name": "jhipster.cors.allowed-headers",
+        "type": "java.util.List<java.lang.String>",
+        "description": "Set global CORS allowed headers.",
+        "sourceType": "org.springframework.web.cors.CorsConfiguration"
+    },
+    {
+        "name": "jhipster.cors.exposed-headers",
+        "type": "java.util.List<java.lang.String>",
+        "description": "Set global CORS exposed methods.",
+        "sourceType": "org.springframework.web.cors.CorsConfiguration"
+    },
+    {
+        "name": "jhipster.cors.allow-credentials",
+        "type": "java.lang.Boolean",
+        "description": "Set global CORS allow credentials.",
+        "sourceType": "org.springframework.web.cors.CorsConfiguration"
+    },
+    {
+        "name": "jhipster.cors.max-age",
+        "type": "java.lang.Long",
+        "description": "Set global CORS max age.",
+        "sourceType": "org.springframework.web.cors.CorsConfiguration"
+    }
+]}
+

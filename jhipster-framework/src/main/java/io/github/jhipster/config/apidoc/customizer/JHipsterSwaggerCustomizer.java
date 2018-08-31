@@ -73,6 +73,7 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
         docket.host(properties.getHost())
             .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
             .apiInfo(apiInfo)
+            .useDefaultResponseMessages(properties.isUseDefaultResponseMessages())
             .forCodeGeneration(true)
             .directModelSubstitute(ByteBuffer.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)

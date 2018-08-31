@@ -34,7 +34,7 @@ public interface JHipsterConstants {
     String SPRING_PROFILE_HEROKU = "heroku";
     // Spring profile used when deploying to Amazon ECS
     String SPRING_PROFILE_AWS_ECS = "aws-ecs";
-    // Spring profile used to disable swagger
+    // Spring profile used to enable swagger
     String SPRING_PROFILE_SWAGGER = "swagger";
     // Spring profile used to disable running liquibase
     String SPRING_PROFILE_NO_LIQUIBASE = "no-liquibase";
