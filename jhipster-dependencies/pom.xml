@@ -68,7 +68,7 @@
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.3.3.RELEASE</spring-security-oauth.version>
-        <spring-security-oauth2-autoconfigure.version>2.0.4.RELEASE</spring-security-oauth2-autoconfigure.version>
+        <spring-security-oauth2-autoconfigure.version>2.0.5.RELEASE</spring-security-oauth2-autoconfigure.version>
         <springfox.version>2.9.2</springfox.version>
         <xmemcached.version>2.4.5</xmemcached.version>
         <xmemcached-provider.version>4.0.0</xmemcached-provider.version>
