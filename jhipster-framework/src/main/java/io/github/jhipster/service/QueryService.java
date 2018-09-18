@@ -139,7 +139,7 @@ public abstract class QueryService<ENTITY> {
      */
     protected <OTHER, X> Specification<ENTITY> buildReferringEntitySpecification(Filter<X> filter,
         SingularAttribute<? super ENTITY, OTHER> reference,
-        SingularAttribute<OTHER, X> valueField) {
+        SingularAttribute<? super OTHER, X> valueField) {
         if (filter.getEquals() != null) {
             return equalsSpecification(reference, valueField, filter.getEquals());
         } else if (filter.getIn() != null) {
@@ -278,7 +278,7 @@ public abstract class QueryService<ENTITY> {
     }
 
     protected <OTHER, X> Specification<ENTITY> equalsSpecification(SingularAttribute<? super ENTITY, OTHER>
-        reference, SingularAttribute<OTHER, X> idField,
+        reference, SingularAttribute<? super OTHER, X> idField,
         X value) {
         return (root, query, builder) -> builder.equal(root.get(reference).get(idField), value);
     }
@@ -317,7 +317,7 @@ public abstract class QueryService<ENTITY> {
     }
 
     protected <OTHER, X> Specification<ENTITY> valueIn(SingularAttribute<? super ENTITY, OTHER> reference,
-        SingularAttribute<OTHER, X> valueField, final Collection<X> values) {
+        SingularAttribute<? super OTHER, X> valueField, final Collection<X> values) {
         return (root, query, builder) -> {
             In<X> in = builder.in(root.get(reference).get(valueField));
             for (X value : values) {
