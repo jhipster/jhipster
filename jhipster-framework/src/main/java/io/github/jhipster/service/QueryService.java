@@ -277,10 +277,9 @@ public abstract class QueryService<ENTITY> {
         return (root, query, builder) -> builder.equal(root.get(field), value);
     }
 
-    protected <OTHER, X> Specification<ENTITY> equalsSpecification(SingularAttribute<? super ENTITY, OTHER>
-        reference, SingularAttribute<? super OTHER, X> idField,
-        X value) {
-        return (root, query, builder) -> builder.equal(root.get(reference).get(idField), value);
+    protected <OTHER, X> Specification<ENTITY> equalsSpecification(SingularAttribute<? super ENTITY, OTHER> reference, 
+            SingularAttribute<? super OTHER, X> valueField, X value) {
+        return (root, query, builder) -> builder.equal(root.get(reference).get(valueField), value);
     }
 
     protected <OTHER, X> Specification<ENTITY> equalsSetSpecification(SetAttribute<? super ENTITY, OTHER> reference,
