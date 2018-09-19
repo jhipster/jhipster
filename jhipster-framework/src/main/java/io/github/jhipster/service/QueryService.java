@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import java.util.Collection;
@@ -180,7 +181,7 @@ public abstract class QueryService<ENTITY> {
         }
         Specification<ENTITY> result = Specification.where(null);
         if (filter.getSpecified() != null) {
-            result = result.and(byFieldSpecified(reference, filter.getSpecified()));
+            result = result.and(byReferringEntityFieldSpecified(reference, filter.getSpecified()));
         }
         if (filter.getGreaterThan() != null) {
             result = result.and(greaterThan(reference, valueField, filter.getGreaterThan()));
@@ -302,6 +303,12 @@ public abstract class QueryService<ENTITY> {
     protected <X> Specification<ENTITY> byFieldSpecified(SetAttribute<ENTITY, X> field, final boolean specified) {
         return specified ? (root, query, builder) -> builder.isNotEmpty(root.get(field)) : (root, query, builder) ->
             builder.isEmpty(root.get(field));
+    }
+
+    protected <X> Specification<ENTITY> byReferringEntityFieldSpecified(SingularAttribute<? super ENTITY, X> field, final boolean
+        specified) {
+        return specified ? (root, query, builder) -> builder.isNotNull(root.join(field, JoinType.LEFT)) : (root, query, builder) ->
+            builder.isNull(root.join(field, JoinType.LEFT));
     }
 
     protected <X> Specification<ENTITY> valueIn(SingularAttribute<? super ENTITY, X> field, final Collection<X>
