@@ -89,7 +89,7 @@ public abstract class QueryService<ENTITY> {
      */
     protected Specification<ENTITY> buildStringSpecification(StringFilter filter, SingularAttribute<? super ENTITY,
         String> field) {
-        return buildStringSpecification(filter, root -> root.get(field));
+        return buildSpecification(filter, root -> root.get(field));
     }
 
     /**
@@ -100,7 +100,7 @@ public abstract class QueryService<ENTITY> {
      * @param metaclassFunction lambda, which based on a Root&lt;ENTITY&gt; returns Expression - basicaly picks a column
      * @return a Specification
      */
-    protected Specification<ENTITY> buildStringSpecification(StringFilter filter, Function<Root<ENTITY>, Expression<String>> metaclassFunction) {
+    protected Specification<ENTITY> buildSpecification(StringFilter filter, Function<Root<ENTITY>, Expression<String>> metaclassFunction) {
         if (filter.getEquals() != null) {
             return equalsSpecification(metaclassFunction, filter.getEquals());
         } else if (filter.getIn() != null) {
@@ -125,7 +125,7 @@ public abstract class QueryService<ENTITY> {
      */
     protected <X extends Comparable<? super X>> Specification<ENTITY> buildRangeSpecification(RangeFilter<X> filter,
         SingularAttribute<? super ENTITY, X> field) {
-        return buildRangeSpecification(filter, root -> root.get(field));
+        return buildSpecification(filter, root -> root.get(field));
     }
 
     /**
@@ -138,7 +138,7 @@ public abstract class QueryService<ENTITY> {
      * @param <X>    The type of the attribute which is filtered.
      * @return a Specification
      */
-    protected <X extends Comparable<? super X>> Specification<ENTITY> buildRangeSpecification(RangeFilter<X> filter,
+    protected <X extends Comparable<? super X>> Specification<ENTITY> buildSpecification(RangeFilter<X> filter,
             Function<Root<ENTITY>, Expression<X>> metaclassFunction) {
         if (filter.getEquals() != null) {
             return equalsSpecification(metaclassFunction, filter.getEquals());
@@ -208,13 +208,13 @@ public abstract class QueryService<ENTITY> {
      * @param <OTHER>    The type of the referenced entity.
      * @param <X>        The type of the attribute which is filtered.
      * @return a Specification
-     * @deprecated just call buildRangeSpecification(filter, root -&gt; root.get(reference).get(valueField))
+     * @deprecated just call buildSpecification(filter, root -&gt; root.get(reference).get(valueField))
      */
     @Deprecated
     protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(final RangeFilter<X> filter,
                                                                                                                final SingularAttribute<? super ENTITY, OTHER> reference,
                                                                                                                final SingularAttribute<OTHER, X> valueField) {
-        return buildRangeSpecification(filter, root -> root.get(reference).get(valueField));
+        return buildSpecification(filter, root -> root.get(reference).get(valueField));
     }
 
     /**
@@ -241,6 +241,28 @@ public abstract class QueryService<ENTITY> {
         return buildReferringEntitySpecification(filter, root -> root.join(reference), entity -> entity.get(valueField));
     }
 
+    /**
+     * Helper function to return a specification for filtering on one-to-many or many-to-many reference. Usage:
+     * <pre>
+     *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(
+     *          criteria.getEmployeId(),
+     *          root -&gt; root.get(Project_.company).join(Company_.employees),
+     *          entity -&gt; entity.get(Employee_.id));
+     *   Specification&lt;Employee&gt; specByProjectName = buildReferringEntitySpecification(
+     *          criteria.getProjectName(),
+     *          root -&gt; root.get(Project_.project)
+     *          entity -&gt; entity.get(Project_.name));
+     * </pre>
+     *
+     * @param filter     the filter object which contains a value, which needs to match or a flag if emptiness is
+     *                   checked.
+     * @param functionToEntity the function, which joins he current entity to the entity set, on which the filtering is applied.
+     * @param entityToColumn the function, which of the static metamodel of the referred entity, where the equality should be
+     *                   checked.
+     * @param <OTHER>    The type of the referenced entity.
+     * @param <X>        The type of the attribute which is filtered.
+     * @return a Specification
+     */
     protected <OTHER, MISC, X> Specification<ENTITY> buildReferringEntitySpecification(Filter<X> filter,
             Function<Root<ENTITY>, SetJoin<MISC,OTHER>> functionToEntity,
             Function<SetJoin<MISC,OTHER>, Expression<X>> entityToColumn) {
