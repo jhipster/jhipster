@@ -83,7 +83,7 @@ public class AngularCookieLocaleResolverTest {
 
         assertThat(context).isNotNull();
         assertThat(context).isInstanceOf(TimeZoneAwareLocaleContext.class);
-        assertThat(((TimeZoneAwareLocaleContext) context).getLocale()).isEqualTo(LOCALE_DEFAULT);
+        assertThat(context.getLocale()).isEqualTo(LOCALE_DEFAULT);
         assertThat(((TimeZoneAwareLocaleContext) context).getTimeZone()).isEqualTo(TIMEZONE_DEFAULT);
 
         List<Event> events = recorder.play();
@@ -99,7 +99,7 @@ public class AngularCookieLocaleResolverTest {
 
         assertThat(context).isNotNull();
         assertThat(context).isInstanceOf(TimeZoneAwareLocaleContext.class);
-        Locale locale = ((TimeZoneAwareLocaleContext) context).getLocale();
+        Locale locale = context.getLocale();
         TimeZone zone = ((TimeZoneAwareLocaleContext) context).getTimeZone();
 
         assertThat(locale).isNotNull();
@@ -150,7 +150,7 @@ public class AngularCookieLocaleResolverTest {
 
         assertThat(context).isNotNull();
         assertThat(context).isInstanceOf(TimeZoneAwareLocaleContext.class);
-        Locale locale = ((TimeZoneAwareLocaleContext) context).getLocale();
+        Locale locale = context.getLocale();
         TimeZone zone = ((TimeZoneAwareLocaleContext) context).getTimeZone();
         assertThat(locale).isEqualTo(LOCALE_DEFAULT);
         assertThat(zone).isEqualTo(TIMEZONE_CUSTOM);
@@ -169,7 +169,7 @@ public class AngularCookieLocaleResolverTest {
 
         assertThat(context).isNotNull();
         assertThat(context).isInstanceOf(TimeZoneAwareLocaleContext.class);
-        Locale locale = ((TimeZoneAwareLocaleContext) context).getLocale();
+        Locale locale = context.getLocale();
         TimeZone zone = ((TimeZoneAwareLocaleContext) context).getTimeZone();
         assertThat(locale).isEqualTo(LOCALE_DEFAULT);
         assertThat(zone).isEqualTo(TIMEZONE_CUSTOM);
@@ -188,7 +188,7 @@ public class AngularCookieLocaleResolverTest {
 
         assertThat(context).isNotNull();
         assertThat(context).isInstanceOf(TimeZoneAwareLocaleContext.class);
-        Locale locale = ((TimeZoneAwareLocaleContext) context).getLocale();
+        Locale locale = context.getLocale();
         TimeZone zone = ((TimeZoneAwareLocaleContext) context).getTimeZone();
         assertThat(locale).isEqualTo(LOCALE_CUSTOM);
         assertThat(zone).isEqualTo(TIMEZONE_CUSTOM);
@@ -269,7 +269,7 @@ public class AngularCookieLocaleResolverTest {
         LocaleContext context = resolver.resolveLocaleContext(request);
 
         assertThat(context).isInstanceOf(TimeZoneAwareLocaleContext.class);
-        Locale locale = ((TimeZoneAwareLocaleContext) context).getLocale();
+        Locale locale = context.getLocale();
         TimeZone zone = ((TimeZoneAwareLocaleContext) context).getTimeZone();
 
         List<Event> events = recorder.play();
