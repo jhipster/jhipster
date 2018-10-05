@@ -76,10 +76,42 @@
         <springfox.version>2.9.2</springfox.version>
         <xmemcached.version>2.4.5</xmemcached.version>
         <xmemcached-provider.version>4.0.0</xmemcached-provider.version>
+        <log4j.version>2.7</log4j.version>
+        <log4j-api.version>${log4j.version}</log4j-api.version>
+        <log4j-core.version>${log4j.version}</log4j-core.version>
+        <problem-spring.version>0.24.0-RC.0</problem-spring.version>
+        <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
+        <problem-spring-webflux.version>${problem-spring.version}</problem-spring-webflux.version>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-jpamodelgen</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j-core.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.github.jhipster</groupId>
                 <artifactId>jhipster-framework</artifactId>
@@ -268,6 +300,11 @@
                 <groupId>org.zalando</groupId>
                 <artifactId>problem-spring-web</artifactId>
                 <version>${problem-spring-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.zalando</groupId>
+                <artifactId>problem-spring-webflux</artifactId>
+                <version>${problem-spring-webflux.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.prometheus</groupId>
