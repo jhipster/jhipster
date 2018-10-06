@@ -782,12 +782,18 @@ public class JHipsterProperties {
 
         private final Logs logs = new Logs();
 
+        private final Prometheus prometheus = new Prometheus();
+
         public Jmx getJmx() {
             return jmx;
         }
 
-         public Logs getLogs() {
+        public Logs getLogs() {
             return logs;
+        }
+
+        public Prometheus getPrometheus() {
+            return prometheus;
         }
 
         public static class Jmx {
@@ -823,6 +829,29 @@ public class JHipsterProperties {
 
             public void setReportFrequency(long reportFrequency) {
                 this.reportFrequency = reportFrequency;
+            }
+        }
+
+        public static class Prometheus {
+
+            private boolean enabled = JHipsterDefaults.Metrics.Prometheus.enabled;
+
+            private String endpoint = JHipsterDefaults.Metrics.Prometheus.endpoint;
+
+            public boolean isEnabled() {
+                return enabled;
+            }
+
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
+
+            public String getEndpoint() {
+                return endpoint;
+            }
+
+            public void setEndpoint(String endpoint) {
+                this.endpoint = endpoint;
             }
         }
     }
