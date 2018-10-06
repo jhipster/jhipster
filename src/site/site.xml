@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  #%L
+  Pmi
+  %%
+  Copyright (C) 2018 THALESGROUP
+  %%
+  Copyright © 2015-2018 Thales Global Services
+   Licensed under the Thales Inner Source Software License (
+   Version 1.0, InnerPublic - OuterRestricted
+   the "License")
+   You may not use this file except in compliance with the License.
+   You may obtain a copy of the License at https://bit.ly/2HPVKx4
+   See the License for the specific language governing permissions and limitations under the license
+  #L%
+  -->
+
+
+<project name="tmp" xmlns="http://maven.apache.org/DECORATION/1.7.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd">
+
+    <bannerLeft>
+        <name>Github</name>
+        <!-- this should not be the right adress-->
+        <href>https://github.com/jhipster/jhipster/</href>
+    </bannerLeft>
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.7</version>
+    </skin>
+    <custom>
+        <fluidoSkin>
+            <sideBarEnabled>true</sideBarEnabled>
+            <topBarEnabled>true</topBarEnabled>
+
+            <googleSearch>
+                <sitesearch />
+            </googleSearch>
+            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+            <googlePlusOne />
+            <twitter>
+                <user>java_hipster</user>
+                <showUser>true</showUser>
+                <showFollowers>true</showFollowers>
+            </twitter>
+            <facebookLike />
+        </fluidoSkin>
+        <!-- this should not be the right adress-->
+        <custom.fluidoSkin.googleSearch.sitesearch>https://github.com/jhipster/jhipster/tree/gh-pages</custom.fluidoSkin.googleSearch.sitesearch>
+    </custom>
+
+
+    <body>
+    <links>
+        <item name="Jhipster generator repo" href="https://github.com/jhipster/generator-jhipster" />
+    </links>
+
+    <menu name="Documentation">
+        <item href="doc.html" name="Documentation" />
+    </menu>
+    <menu ref="reports" inherit="bottom" />
+    </body>
+</project>

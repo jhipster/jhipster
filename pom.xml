@@ -16,6 +16,7 @@
     <name>JHipster server-side parent POM</name>
     <url>https://github.com/jhipster/jhipster/</url>
 
+    <inceptionYear>2016</inceptionYear>
     <licenses>
         <license>
             <name>Apache License, version 2.0</name>
@@ -47,8 +48,10 @@
         <!-- Build properties -->
         <java.version>1.8</java.version>
         <maven.version>3.0.0</maven.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- generic properties -->
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
         <project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -64,24 +67,42 @@
 
         <!-- Plugin versions -->
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+        <license-maven-plugin.version>1.14</license-maven-plugin.version>
+        <maven-checkstyle-plugin.version>2.15</maven-checkstyle-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
+        <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
+        <maven-project-info-reports-plugin.version>2.8</maven-project-info-reports-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
+        <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <sonar-maven-plugin.version>3.5.0.1254</sonar-maven-plugin.version>
+        <spotbugs-maven-plugin.version>3.1.6</spotbugs-maven-plugin.version>
+        <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
+
+        <wagon-scm.version>2.12</wagon-scm.version>
+        <org.apache.maven.scm.version>1.9.4</org.apache.maven.scm.version>
+        <maven-scm-manager-plexus.version>${org.apache.maven.scm.version}</maven-scm-manager-plexus.version>
+        <maven-scm-provider-gitexe.version>${org.apache.maven.scm.version}</maven-scm-provider-gitexe.version>
+
     </properties>
 
     <scm>
-        <connection>scm:git:https://github.com/jhipster/jhipster/</connection>
-        <url>https://github.com/jhipster/jhipster/</url>
+        <connection>scm:git:https://github.com/jhipster/jhipster.git</connection>
+        <developerConnection>scm:git:git@github.com:jhipster/jhipster.git</developerConnection>
+        <url>https://github.com/jhipster/jhipster</url>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
+            <id>snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
+            <id>releases</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
@@ -100,10 +121,6 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -134,6 +151,39 @@
                                 <dataFile>${project.testresult.directory}/coverage/jacoco/jacoco.exec</dataFile>
                                 <outputDirectory>${project.testresult.directory}/coverage/jacoco</outputDirectory>
                             </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>${license-maven-plugin.version}</version>
+                    <configuration>
+                        <licenseName>apache_v2</licenseName>
+                        <excludes>
+                            <exclude>**/*persistence.xml</exclude>
+                            <exclude>**/*.html</exclude>
+                            <exclude>**/*.json</exclude>
+                            <exclude>**/*.svg</exclude>
+                        </excludes>
+                        <extraExtensions>
+                            <bnd>properties</bnd>
+                        </extraExtensions>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>first</id>
+                            <goals>
+                                <goal>update-file-header</goal>
+                            </goals>
+                            <phase>process-sources</phase>
+                        </execution>
+                        <execution>
+                            <id>second</id>
+                            <goals>
+                                <goal>update-project-license</goal>
+                            </goals>
+                            <phase>process-sources</phase>
                         </execution>
                     </executions>
                 </plugin>
@@ -200,6 +250,10 @@
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <keyname>${gpg.keyname}</keyname>
+                        <passphraseServerId>${gpg.passphrase}</passphraseServerId>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -213,6 +267,58 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-provider-gitexe</artifactId>
+                            <version>${maven-scm-provider-gitexe.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <scmCommentPrefix>[ci-skip][maven-release-plugin]</scmCommentPrefix>
+                        <!-- The profile we want to use when doing the release -->
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <releaseProfiles>release</releaseProfiles>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                    <configuration>
+                        <inputEncoding>${encoding}</inputEncoding>
+                        <outputEncoding>${encoding}</outputEncoding>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-descriptor</id>
+                            <goals>
+                                <goal>attach-descriptor</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-provider-gitexe</artifactId>
+                            <version>${maven-scm-provider-gitexe.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-scm</artifactId>
+                            <version>${wagon-scm.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-manager-plexus</artifactId>
+                            <version>${maven-scm-manager-plexus.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -255,5 +361,174 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!--
+                    To release:
 
+                    1 configure a server on your settings.xml
+                    <servers>
+        <server>
+                <id>gitlab-pages</id>
+                <privateKey>${user.home}/.ssh/id_rsa</privateKey>
+                <configuration>
+                        <scmVersionType>branch</scmVersionType>
+                        <scmVersion>gh-pages</scmVersion>
+                </configuration>
+        </server>
+        <server>
+      <id>gpg.passphrase</id>
+      <passphrase><![CDATA[xxxxx]]></passphrase>
+    </server>
+    <server>
+      <id>snapshots</id>
+      <username>snapshotrepo</username>
+      <password><![CDATA[xxxxx]]></password>
+    </server>
+    <server>
+      <id>releases</id>
+      <username>releaserepo</username>
+      <password><![CDATA[xxxxx]]></password>
+    </server>
+    <server>
+    ...
+    <profiles>
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+          <gpg.keyname>xxxxx</gpg.keyname>
+        <gpg.passphrase><![CDATA[cccccc]]></gpg.passphrase>
+      </properties>
+    </profile>
+<profile>
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <goals>deploy site-deploy</goals>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <reporting>
+        <plugins>
+            <!-- not working in the build pipeline <plugin> <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId> <version>${maven-changelog-plugin.version}</version>
+                </plugin> -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- select non-aggregate reports -->
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+                <configuration>
+                    <dataFile>${sonar.jacoco.reportPath}</dataFile>
+                    <outputDirectory>${sonar.jacoco.reportFolder}</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>jdoc</id>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>${maven-jxr-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-project-info-reports-plugin.version}</version>
+                <configuration>
+                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-maven-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                            <report>property-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
