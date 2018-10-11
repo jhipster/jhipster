@@ -256,10 +256,11 @@ public abstract class QueryService<ENTITY> {
      *
      * @param filter     the filter object which contains a value, which needs to match or a flag if emptiness is
      *                   checked.
-     * @param functionToEntity the function, which joins he current entity to the entity set, on which the filtering is applied.
+     * @param functionToEntity the function, which joins the current entity to the entity set, on which the filtering is applied.
      * @param entityToColumn the function, which of the static metamodel of the referred entity, where the equality should be
      *                   checked.
      * @param <OTHER>    The type of the referenced entity.
+     * @param <MISC>     The type of the entity which is the last before the OTHER in the chain.
      * @param <X>        The type of the attribute which is filtered.
      * @return a Specification
      */
@@ -361,6 +362,7 @@ public abstract class QueryService<ENTITY> {
      * Generic method, which based on a Root&lt;ENTITY&gt; returns an Expression which type is the same as the given 'value' type. 
      * @param metaclassFunction function which returns the column which is used for filtering.
      * @param value the actual value to filter for.
+     * @param <X> The type of the attribute.
      * @return a Specification.
      */
     protected <X> Specification<ENTITY> equalsSpecification(Function<Root<ENTITY>, Expression<X>> metaclassFunction, final X value) {
@@ -368,6 +370,9 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
+     * @param <X> The type of the attribute.
+     * @param field field to get the column to apply filter.
+     * @param value value to filter for.
      * @deprecated Just call the equalsSpecification(root -&gt; root.get(field), value) directly.
      */
     protected <X> Specification<ENTITY> equalsSpecification(SingularAttribute<? super ENTITY, X> field, final X value) {
