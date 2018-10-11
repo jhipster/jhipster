@@ -68,11 +68,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerAutoConfiguration {
 
-    public static final String STARTING_MESSAGE = "Starting Swagger";
-    public static final String STARTED_MESSAGE = "Started Swagger in {} ms";
-    public static final String MANAGEMENT_TITLE_SUFFIX = "Management API";
-    public static final String MANAGEMENT_GROUP_NAME = "management";
-    public static final String MANAGEMENT_DESCRIPTION = "Management endpoints documentation";
+    static final String STARTING_MESSAGE = "Starting Swagger";
+    static final String STARTED_MESSAGE = "Started Swagger in {} ms";
+    static final String MANAGEMENT_TITLE_SUFFIX = "Management API";
+    static final String MANAGEMENT_GROUP_NAME = "management";
+    static final String MANAGEMENT_DESCRIPTION = "Management endpoints documentation";
 
     private final Logger log = LoggerFactory.getLogger(SwaggerAutoConfiguration.class);
 
@@ -129,7 +129,7 @@ public class SwaggerAutoConfiguration {
      * @return the Swagger Springfox configuration
      */
     @Bean
-    @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.ManagementServerProperties")
+    @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties")
     @ConditionalOnProperty("management.endpoints.web.base-path")
     @ConditionalOnExpression("'${management.endpoints.web.base-path}'.length() > 0")
     @ConditionalOnMissingBean(name = "swaggerSpringfoxManagementDocket")
