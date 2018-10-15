@@ -33,11 +33,15 @@ import javax.servlet.*;
 public class H2ConfigurationHelper {
 
     public static Object createServer() throws SQLException {
+        return createServer("9092");
+    }
+
+    public static Object createServer(String port) throws SQLException {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             Class<?> serverClass = Class.forName("org.h2.tools.Server", true, loader);
             Method createServer = serverClass.getMethod("createTcpServer", String[].class);
-            return createServer.invoke(null, new Object[] { new String[] { "-tcp", "-tcpAllowOthers" } });
+            return createServer.invoke(null, new Object[] { new String[] { "-tcp","-tcpAllowOthers", "-tcpPort", port } });
 
         } catch (ClassNotFoundException | LinkageError e) {
             throw new RuntimeException("Failed to load and initialize org.h2.tools.Server", e);
