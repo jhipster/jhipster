@@ -35,7 +35,7 @@ env:
 
     # if JHIPSTER_BRANCH value is release, use the release from NPM
     - JHIPSTER_REPO=https://github.com/jhipster/generator-jhipster.git
-    - JHIPSTER_BRANCH=master
+    - JHIPSTER_BRANCH=spring-boot_2.1.0
 
   matrix:
     - JHIPSTER=ngx-default PROFILE=prod PROTRACTOR=1
