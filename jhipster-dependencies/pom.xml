@@ -52,9 +52,8 @@
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.3.7.Final</hibernate.version>
-        <infinispan.version>8.2.11.Final</infinispan.version>
-        <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
-        <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
+        <infinispan.version>9.4.1.Final</infinispan.version>
+        <infinispan-spring-boot-starter-embedded.version>2.0.0.Final</infinispan-spring-boot-starter-embedded.version>
         <jjwt.version>0.10.5</jjwt.version>
         <liquibase-mssql.version>1.6.4</liquibase-mssql.version>
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
@@ -152,19 +151,8 @@
             </dependency>
             <dependency>
                 <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-cloud</artifactId>
-                <version>${infinispan-cloud.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.undertow</groupId>
-                        <artifactId>undertow-core</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-spring-boot-starter</artifactId>
-                <version>${infinispan-spring-boot-starter.version}</version>
+                <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
+                <version>${infinispan-spring-boot-starter-embedded.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
