@@ -52,7 +52,6 @@
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.3.7.Final</hibernate.version>
-        <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
         <jjwt.version>0.10.5</jjwt.version>
         <liquibase-mssql.version>1.6.4</liquibase-mssql.version>
@@ -152,13 +151,7 @@
             <dependency>
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-cloud</artifactId>
-                <version>${infinispan-cloud.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.undertow</groupId>
-                        <artifactId>undertow-core</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>${infinispan.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.infinispan</groupId>
