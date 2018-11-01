@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $JHIPSTER_VERSION == '' ]]; then
-    JHIPSTER_VERSION=0.0.0-TRAVIS
+    JHIPSTER_VERSION=0.0.0-CICD
 fi
 
 # jhipster-dependencies.version in generated pom.xml or gradle.properties
