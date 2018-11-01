@@ -4,7 +4,7 @@ services:
   - docker
 language: node_js
 node_js:
-  - "8.11.1"
+  - "8.12.0"
 jdk:
   - oraclejdk8
 addons:
@@ -63,10 +63,8 @@ before_install:
   # Use this for Protractor
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  # Install Yarn
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s
-  - export PATH=$HOME/.yarn/bin:$PATH
-  - yarn -v
+  # Upgrade NPM
+  - npm install -g npm
 install:
   - $TRAVIS_BUILD_DIR/travis/scripts/00-install-jhipster.sh
   # generate project and entities
