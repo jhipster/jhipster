@@ -52,7 +52,6 @@
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.3.7.Final</hibernate.version>
-        <infinispan.version>8.2.11.Final</infinispan.version>
         <infinispan-cloud.version>9.1.7.Final</infinispan-cloud.version>
         <infinispan-spring-boot-starter.version>1.0.0.Final</infinispan-spring-boot-starter.version>
         <jjwt.version>0.10.5</jjwt.version>
