@@ -42,6 +42,7 @@ local.properties
 # Visual Studio Code
 ######################
 .vscode/
+.factorypath
 
 ######################
 # Maven
