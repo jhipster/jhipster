@@ -76,10 +76,20 @@
         <springfox.version>2.9.2</springfox.version>
         <xmemcached.version>2.4.5</xmemcached.version>
         <xmemcached-provider.version>4.1.1</xmemcached-provider.version>
+        <problem-spring.version>0.24.0-RC.0</problem-spring.version>
+        <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
+        <problem-spring-webflux.version>${problem-spring.version}</problem-spring-webflux.version>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-jpamodelgen</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>io.github.jhipster</groupId>
                 <artifactId>jhipster-framework</artifactId>
@@ -270,6 +280,11 @@
                 <version>${problem-spring-web.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.zalando</groupId>
+                <artifactId>problem-spring-webflux</artifactId>
+                <version>${problem-spring-webflux.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.prometheus</groupId>
                 <artifactId>simpleclient</artifactId>
                 <version>${prometheus-simpleclient.version}</version>
@@ -288,6 +303,16 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.reflections</groupId>
