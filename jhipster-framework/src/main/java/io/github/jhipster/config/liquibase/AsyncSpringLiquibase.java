@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.StopWatch;
 
@@ -72,8 +73,8 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
 
     @Override
     public void afterPropertiesSet() throws LiquibaseException {
-        if (!env.acceptsProfiles(SPRING_PROFILE_NO_LIQUIBASE)) {
-            if (env.acceptsProfiles(SPRING_PROFILE_DEVELOPMENT, SPRING_PROFILE_HEROKU)) {
+        if (!env.acceptsProfiles(Profiles.of(SPRING_PROFILE_NO_LIQUIBASE))) {
+            if (env.acceptsProfiles(Profiles.of(SPRING_PROFILE_DEVELOPMENT + "|" + SPRING_PROFILE_HEROKU))) {
                 // Prevent Thread Lock with spring-cloud-context GenericScope
                 // https://github.com/spring-cloud/spring-cloud-commons/commit/aaa7288bae3bb4d6fdbef1041691223238d77b7b#diff-afa0715eafc2b0154475fe672dab70e4R328
                 try (Connection connection = getDataSource().getConnection()) {
