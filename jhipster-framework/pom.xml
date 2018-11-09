@@ -195,6 +195,10 @@
             <artifactId>spring-boot-starter-cloud-connectors</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
