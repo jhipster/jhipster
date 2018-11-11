@@ -5,4 +5,4 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-JHIPSTER_VERSION=$1 travis/scripts/00-replace-version-jhipster.sh
+JHI_VERSION=$1 test-integration/scripts/10-replace-version-jhipster.sh
