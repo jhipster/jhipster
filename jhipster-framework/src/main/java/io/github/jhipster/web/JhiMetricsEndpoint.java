@@ -51,41 +51,41 @@ public class JhiMetricsEndpoint {
     private Map<String, Number> processMetrics() {
         Map<String, Number> resultsProcess = new HashMap<>();
 
-        Gauge gauge = Search.in(this.meterRegistry).name(s -> s.contains("process.cpu.usage")).gauge();
-        Double cpuUsage = gauge.value();
-
-        resultsProcess.put("cpuUsage", cpuUsage);
-
-        gauge = Search.in(this.meterRegistry).name(s -> s.contains("process.start.time")).gauge();
-        Double startTime = gauge.value();
-
-        resultsProcess.put("startTime", startTime);
-
-        gauge = Search.in(this.meterRegistry).name(s -> s.contains("process.uptime")).gauge();
-        Double upTime = gauge.value();
-
-        resultsProcess.put("upTime", upTime);
+        Collection<Gauge> gauges = Search.in(this.meterRegistry).name(s -> s.contains("cpu") || s.contains("system") || s.contains("process")).gauges();
+        gauges.forEach(gauge -> resultsProcess.put(gauge.getId().getName(), gauge.value()));
 
         return resultsProcess;
     }
 
-    private Map<String, Number> garbageCollectorMetrics() {
-        Map<String, Number> resultsGarbageCollector = new HashMap<>();
+    private Map<String, Object> garbageCollectorMetrics() {
+        Map<String, Object> resultsGarbageCollector = new HashMap<>();
 
         Collection<Timer> timers = Search.in(this.meterRegistry).name(s -> s.contains("jvm.gc.pause")).timers();
-        Double gcPause = timers.stream().map(x -> x.totalTime(TimeUnit.MILLISECONDS)).reduce((x, y) -> (x + y)).orElse((double) 0);
 
-        resultsGarbageCollector.put("pause", gcPause);
+        timers.forEach(timer -> {
+            String key = timer.getId().getName();
+
+            HashMap<String, Number> gcPauseResults = new HashMap<>();
+
+            gcPauseResults.put("count", timer.count());
+            gcPauseResults.put("max", timer.max(TimeUnit.MILLISECONDS));
+            gcPauseResults.put("totalTime", timer.totalTime(TimeUnit.MILLISECONDS));
+            gcPauseResults.put("mean", timer.mean(TimeUnit.MILLISECONDS));
+
+            ValueAtPercentile[] percentiles = timer.takeSnapshot().percentileValues();
+
+            for (ValueAtPercentile percentile : percentiles) {
+                gcPauseResults.put(String.valueOf(percentile.percentile()), percentile.value(TimeUnit.MILLISECONDS));
+            }
+
+            resultsGarbageCollector.putIfAbsent(key, gcPauseResults);
+        });
 
         Collection<Gauge> gauges = Search.in(this.meterRegistry).name(s -> s.contains("jvm.gc") && !s.contains("jvm.gc.pause")).gauges();
-        gauges.forEach(gauge -> {
-            resultsGarbageCollector.put(gauge.getId().getName(), gauge.value());
-        });
+        gauges.forEach(gauge -> resultsGarbageCollector.put(gauge.getId().getName(), gauge.value()));
 
         Collection<Counter> counters = Search.in(this.meterRegistry).name(s -> s.contains("jvm.gc") && !s.contains("jvm.gc.pause")).counters();
-        counters.forEach(counter -> {
-            resultsGarbageCollector.put(counter.getId().getName(), counter.count());
-        });
+        counters.forEach(counter -> resultsGarbageCollector.put(counter.getId().getName(), counter.count()));
 
 
         gauges = Search.in(this.meterRegistry).name(s -> s.contains("jvm.classes.loaded")).gauges();
@@ -118,7 +118,7 @@ public class JhiMetricsEndpoint {
             ValueAtPercentile[] percentiles = timer.takeSnapshot().percentileValues();
 
             for (ValueAtPercentile percentile : percentiles) {
-                resultsDatabase.get(key).put(String.valueOf(percentile.percentile()), percentile.value());
+                resultsDatabase.get(key).put(String.valueOf(percentile.percentile()), percentile.value(TimeUnit.MILLISECONDS));
             }
         });
 
@@ -153,7 +153,7 @@ public class JhiMetricsEndpoint {
             ValueAtPercentile[] percentiles = timer.takeSnapshot().percentileValues();
 
             for (ValueAtPercentile percentile : percentiles) {
-                resultsService.get(key).put(String.valueOf(percentile.percentile()), percentile.value());
+                resultsService.get(key).put(String.valueOf(percentile.percentile()), percentile.value(TimeUnit.MILLISECONDS));
             }
         });
         return resultsService;
@@ -235,6 +235,7 @@ public class JhiMetricsEndpoint {
         statusCode.add("200");
         statusCode.add("404");
         statusCode.add("500");
+        statusCode.add("401");
 
         Map<String, Map<String, Number>> resultsHTTP = new HashMap<>();
 
