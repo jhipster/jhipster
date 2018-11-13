@@ -88,7 +88,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   # Upgrade NPM
   - npm install -g npm
-  # - $JHI_SCRIPTS/04-git-config.sh
+  - $TRAVIS_BUILD_DIR/test-integration/scripts/04-git-config.sh
 
 #----------------------------------------------------------------------
 # Install JHipster and generate project+entities
