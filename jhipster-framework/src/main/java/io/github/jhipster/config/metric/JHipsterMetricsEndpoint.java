@@ -40,7 +40,6 @@ public class JHipsterMetricsEndpoint {
         results.put("jvm", this.jvmMemoryMetrics());
         // HTTP requests stats
         results.put("http.server.requests", this.httpRequestsMetrics());
-        results.put("http.server.requests.all", this.httpRequestAllMetrics());
         // Cache stats
         results.put("cache", this.cacheMetrics());
         // Service stats
@@ -233,10 +232,12 @@ public class JHipsterMetricsEndpoint {
         return resultsJVM;
     }
 
-    private Map<String, Map<String, Number>> httpRequestsMetrics() {
+    private Map<String, Map> httpRequestsMetrics() {
         List<String> statusCode = jHipsterProperties.getMetrics().getEndpoint().getStatusCodes();
 
-        Map<String, Map<String, Number>> resultsHTTP = new HashMap<>();
+        Map<String, Map> resultsHTTP = new HashMap<>();
+
+        Map<String, Map<String, Number>> resultsHTTPperCode = new HashMap<>();
 
         statusCode.forEach(code -> {
             Map<String, Number> resultsHTTPPerCode = new HashMap<>();
@@ -250,19 +251,19 @@ public class JHipsterMetricsEndpoint {
             resultsHTTPPerCode.put("count", count);
             resultsHTTPPerCode.put("max", max);
             resultsHTTPPerCode.put("mean", count != 0 ? totalTime / count : 0);
-            resultsHTTP.put(code, resultsHTTPPerCode);
+            resultsHTTPperCode.put(code, resultsHTTPPerCode);
         });
 
-        return resultsHTTP;
-    }
+        resultsHTTP.put("percode", resultsHTTPperCode);
 
-    private Map<String, Number> httpRequestAllMetrics() {
         Collection<Timer> timers = this.meterRegistry.find("http.server.requests").timers();
         long countAllrequests = timers.stream().map(Timer::count).reduce((x, y) -> x + y).orElse(0L);
         Map<String, Number> resultsHTTPAll = new HashMap<>();
         resultsHTTPAll.put("count", countAllrequests);
 
-        return resultsHTTPAll;
+        resultsHTTP.put("all", resultsHTTPAll);
+
+        return resultsHTTP;
     }
 
 }
