@@ -59,6 +59,9 @@ public class JHipsterMetricsEndpoint {
         Collection<Gauge> gauges = Search.in(this.meterRegistry).name(s -> s.contains("cpu") || s.contains("system") || s.contains("process")).gauges();
         gauges.forEach(gauge -> resultsProcess.put(gauge.getId().getName(), gauge.value()));
 
+        Collection<TimeGauge> timeGauges = Search.in(this.meterRegistry).name(s -> s.contains("process")).timeGauges();
+        timeGauges.forEach(gauge -> resultsProcess.put(gauge.getId().getName(), gauge.value(TimeUnit.MILLISECONDS)));
+
         return resultsProcess;
     }
 
