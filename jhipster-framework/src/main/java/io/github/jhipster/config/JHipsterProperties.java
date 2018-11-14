@@ -19,6 +19,7 @@
 
 package io.github.jhipster.config;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
@@ -668,7 +669,7 @@ public class JHipsterProperties {
         private String host = JHipsterDefaults.Swagger.host;
 
         private String[] protocols = JHipsterDefaults.Swagger.protocols;
-        
+
         private boolean useDefaultResponseMessages = JHipsterDefaults.Swagger.useDefaultResponseMessages;
 
         public String getTitle() {
@@ -778,35 +779,16 @@ public class JHipsterProperties {
 
     public static class Metrics {
 
-        private final Jmx jmx = new Jmx();
+        private final Endpoint endpoint = new Endpoint();
+
+        public Endpoint getEndpoint() {
+            return endpoint;
+        }
 
         private final Logs logs = new Logs();
 
-        private final Prometheus prometheus = new Prometheus();
-
-        public Jmx getJmx() {
-            return jmx;
-        }
-
         public Logs getLogs() {
             return logs;
-        }
-
-        public Prometheus getPrometheus() {
-            return prometheus;
-        }
-
-        public static class Jmx {
-
-            private boolean enabled = JHipsterDefaults.Metrics.Jmx.enabled;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
         }
 
         public static class Logs {
@@ -832,26 +814,15 @@ public class JHipsterProperties {
             }
         }
 
-        public static class Prometheus {
+        public static class Endpoint {
+            private List<String> statusCodes = Arrays.asList("200", "404", "500");
 
-            private boolean enabled = JHipsterDefaults.Metrics.Prometheus.enabled;
-
-            private String endpoint = JHipsterDefaults.Metrics.Prometheus.endpoint;
-
-            public boolean isEnabled() {
-                return enabled;
+            public List<String> getStatusCodes() {
+                return statusCodes;
             }
 
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-
-            public String getEndpoint() {
-                return endpoint;
-            }
-
-            public void setEndpoint(String endpoint) {
-                this.endpoint = endpoint;
+            public void setStatusCodes(List<String> statusCodes) {
+                this.statusCodes = statusCodes;
             }
         }
     }

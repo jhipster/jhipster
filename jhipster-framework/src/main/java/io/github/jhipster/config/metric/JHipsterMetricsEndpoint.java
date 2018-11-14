@@ -1,48 +1,54 @@
-package io.github.jhipster.web;
+package io.github.jhipster.config.metric;
 
+import io.github.jhipster.config.JHipsterProperties;
 import io.micrometer.core.instrument.*;
-import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.distribution.ValueAtPercentile;
 import io.micrometer.core.instrument.search.Search;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@Endpoint(id = "jhi-metrics")
-@Component
-public class JhiMetricsEndpoint {
+@WebEndpoint(id = "jhi-metrics")
+public class JHipsterMetricsEndpoint {
 
-    @Autowired
-    MeterRegistry meterRegistry;
+    private final MeterRegistry meterRegistry;
 
+    private final JHipsterProperties jHipsterProperties;
+
+    public JHipsterMetricsEndpoint(MeterRegistry meterRegistry, JHipsterProperties jHipsterProperties) {
+        this.meterRegistry = meterRegistry;
+        this.jHipsterProperties = jHipsterProperties;
+    }
+
+    /** GET /management/jhi-metrics
+     *
+     * Give metrics displayed on Metrics page
+     *
+     * @return a Map with a String defining a category of metrics as Key and
+     * another Map containing metrics related to this category as Value
+     */
     @ReadOperation
-    public Map<String, Map> oneMetric() {
+    public Map<String, Map> allMetrics() {
 
         Map<String, Map> results = new HashMap<>();
-
         // JVM stats
         results.put("jvm", this.jvmMemoryMetrics());
-
         // HTTP requests stats
         results.put("http.server.requests", this.httpRequestsMetrics());
         results.put("http.server.requests.all", this.httpRequestAllMetrics());
-
         // Cache stats
         results.put("cache", this.cacheMetrics());
-
         // Service stats
         results.put("services", this.serviceMetrics());
-
         // Database stats
         results.put("databases", this.databaseMetrics());
-
         // Garbage collector
         results.put("garbageCollector", this.garbageCollectorMetrics());
-
         results.put("processMetrics", this.processMetrics());
 
         return results;
@@ -86,7 +92,6 @@ public class JhiMetricsEndpoint {
 
         Collection<Counter> counters = Search.in(this.meterRegistry).name(s -> s.contains("jvm.gc") && !s.contains("jvm.gc.pause")).counters();
         counters.forEach(counter -> resultsGarbageCollector.put(counter.getId().getName(), counter.count()));
-
 
         gauges = Search.in(this.meterRegistry).name(s -> s.contains("jvm.classes.loaded")).gauges();
         Double classesLoaded = gauges.stream().map(Gauge::value).reduce((x, y) -> (x + y)).orElse((double) 0);
@@ -162,7 +167,7 @@ public class JhiMetricsEndpoint {
     private Map<String, Map<String, Number>> cacheMetrics() {
         Map<String, Map<String, Number>> resultsCache = new HashMap<>();
 
-        Collection<FunctionCounter> counters = Search.in(this.meterRegistry).name(s -> s.contains("cache")).functionCounters();
+        Collection<FunctionCounter> counters = Search.in(this.meterRegistry).name(s -> s.contains("cache") && !s.contains("hibernate")).functionCounters();
 
         counters.forEach(counter -> {
             String name = counter.getId().getTag("name");
@@ -214,7 +219,6 @@ public class JhiMetricsEndpoint {
         gauges.forEach(gauge -> {
             String key = gauge.getId().getTag("id");
             resultsJVM.get(key).put("max", gauge.value());
-
         });
 
         Search jvmCommittedSearch = Search.in(this.meterRegistry).name(s -> s.contains("jvm.memory.committed"));
@@ -224,18 +228,13 @@ public class JhiMetricsEndpoint {
         gauges.forEach(gauge -> {
             String key = gauge.getId().getTag("id");
             resultsJVM.get(key).put("committed", gauge.value());
-
         });
 
         return resultsJVM;
     }
 
     private Map<String, Map<String, Number>> httpRequestsMetrics() {
-        List<String> statusCode = new ArrayList<>();
-        statusCode.add("200");
-        statusCode.add("404");
-        statusCode.add("500");
-        statusCode.add("401");
+        List<String> statusCode = jHipsterProperties.getMetrics().getEndpoint().getStatusCodes();
 
         Map<String, Map<String, Number>> resultsHTTP = new HashMap<>();
 
@@ -252,7 +251,6 @@ public class JhiMetricsEndpoint {
             resultsHTTPPerCode.put("max", max);
             resultsHTTPPerCode.put("mean", count != 0 ? totalTime / count : 0);
             resultsHTTP.put(code, resultsHTTPPerCode);
-
         });
 
         return resultsHTTP;
