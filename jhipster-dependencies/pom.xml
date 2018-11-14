@@ -60,7 +60,8 @@
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
         <logstash-logback-encoder.version>5.2</logstash-logback-encoder.version>
         <lz4-java.version>1.5.0</lz4-java.version>
-        <metrics-spring.version>3.1.3</metrics-spring.version>
+        <micrometer.version>1.1.0</micrometer.version>
+        <dropwizard-metrics.version>4.0.3</dropwizard-metrics.version>
         <mongobee.version>0.13</mongobee.version>
         <mssql-jdbc.version>7.0.0.jre8</mssql-jdbc.version>
         <mysql-jdbc.version>5.1.47</mysql-jdbc.version>
@@ -89,7 +90,6 @@
                 <artifactId>hibernate-jpamodelgen</artifactId>
                 <version>${hibernate.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>io.github.jhipster</groupId>
                 <artifactId>jhipster-framework</artifactId>
@@ -194,6 +194,22 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-core</artifactId>
+                <version>${micrometer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.dropwizard.metrics</groupId>
+                <artifactId>metrics-core</artifactId>
+                <version>${dropwizard-metrics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-prometheus</artifactId>
+                <version>${micrometer.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
                 <groupId>com.github.sabomichal</groupId>
                 <artifactId>liquibase-mssql</artifactId>
                 <version>${liquibase-mssql.version}</version>
@@ -227,16 +243,7 @@
                 <artifactId>lz4-java</artifactId>
                 <version>${lz4-java.version}</version>
             </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-jcache</artifactId>
-                <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ryantenney.metrics</groupId>
-                <artifactId>metrics-spring</artifactId>
-                <version>${metrics-spring.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.github.mongobee</groupId>
                 <artifactId>mongobee</artifactId>
@@ -283,21 +290,6 @@
                 <groupId>org.zalando</groupId>
                 <artifactId>problem-spring-webflux</artifactId>
                 <version>${problem-spring-webflux.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient</artifactId>
-                <version>${prometheus-simpleclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient_dropwizard</artifactId>
-                <version>${prometheus-simpleclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient_servlet</artifactId>
-                <version>${prometheus-simpleclient.version}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
