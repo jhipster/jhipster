@@ -42,8 +42,6 @@ import org.springframework.web.cors.CorsConfiguration;
 })
 public class JHipsterProperties {
 
-    private final Async async = new Async();
-
     private final Http http = new Http();
 
     private final Cache cache = new Cache();
@@ -65,10 +63,6 @@ public class JHipsterProperties {
     private final Gateway gateway = new Gateway();
 
     private final Registry registry = new Registry();
-
-    public Async getAsync() {
-        return async;
-    }
 
     public Http getHttp() {
         return http;
@@ -112,39 +106,6 @@ public class JHipsterProperties {
 
     public Gateway getGateway() {
         return gateway;
-    }
-
-    public static class Async {
-
-        private int corePoolSize = JHipsterDefaults.Async.corePoolSize;
-
-        private int maxPoolSize = JHipsterDefaults.Async.maxPoolSize;
-
-        private int queueCapacity = JHipsterDefaults.Async.queueCapacity;
-
-        public int getCorePoolSize() {
-            return corePoolSize;
-        }
-
-        public void setCorePoolSize(int corePoolSize) {
-            this.corePoolSize = corePoolSize;
-        }
-
-        public int getMaxPoolSize() {
-            return maxPoolSize;
-        }
-
-        public void setMaxPoolSize(int maxPoolSize) {
-            this.maxPoolSize = maxPoolSize;
-        }
-
-        public int getQueueCapacity() {
-            return queueCapacity;
-        }
-
-        public void setQueueCapacity(int queueCapacity) {
-            this.queueCapacity = queueCapacity;
-        }
     }
 
     public static class Http {

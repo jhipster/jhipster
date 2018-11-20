@@ -25,13 +25,6 @@ import io.github.jhipster.config.JHipsterProperties.Http.Version;
 
 public interface JHipsterDefaults {
 
-    interface Async {
-
-        int corePoolSize = 2;
-        int maxPoolSize = 50;
-        int queueCapacity = 10000;
-    }
-
     interface Http {
 
         Version version = Version.V_1_1;
