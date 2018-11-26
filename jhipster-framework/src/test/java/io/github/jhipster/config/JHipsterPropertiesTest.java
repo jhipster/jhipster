@@ -63,6 +63,36 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testAsyncCorePoolSize() {
+        JHipsterProperties.Async obj = properties.getAsync();
+        int val = JHipsterDefaults.Async.corePoolSize;
+        assertThat(obj.getCorePoolSize()).isEqualTo(val);
+        val++;
+        obj.setCorePoolSize(val);
+        assertThat(obj.getCorePoolSize()).isEqualTo(val);
+    }
+
+    @Test
+    public void testAsyncMaxPoolSize() {
+        JHipsterProperties.Async obj = properties.getAsync();
+        int val = JHipsterDefaults.Async.maxPoolSize;
+        assertThat(obj.getMaxPoolSize()).isEqualTo(val);
+        val++;
+        obj.setMaxPoolSize(val);
+        assertThat(obj.getMaxPoolSize()).isEqualTo(val);
+    }
+
+    @Test
+    public void testAsyncQueueCapacity() {
+        JHipsterProperties.Async obj = properties.getAsync();
+        int val = JHipsterDefaults.Async.queueCapacity;
+        assertThat(obj.getQueueCapacity()).isEqualTo(val);
+        val++;
+        obj.setQueueCapacity(val);
+        assertThat(obj.getQueueCapacity()).isEqualTo(val);
+    }
+
+    @Test
     public void testHttpVersion() {
         JHipsterProperties.Http.Version[] versions = JHipsterProperties.Http.Version.values();
         JHipsterProperties.Http obj = properties.getHttp();
