@@ -46,7 +46,7 @@
         <couchbase-testcontainer.version>1.3</couchbase-testcontainer.version>
         <couchbase-client.version>2.7.1</couchbase-client.version>
         <couchbase-encryption.version>1.0.0</couchbase-encryption.version>
-        <cucumber-jvm.version>4.1.1</cucumber-jvm.version>
+        <cucumber-jvm.version>4.2.0</cucumber-jvm.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>25.1-jre</guava.version>
         <!-- The hibernate version should match the one managed by
