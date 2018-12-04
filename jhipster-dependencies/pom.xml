@@ -80,6 +80,7 @@
         <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
         <problem-spring-webflux.version>${problem-spring.version}</problem-spring-webflux.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
+        <elasticsearch.version>6.2.2</elasticsearch.version>
     </properties>
 
     <dependencyManagement>
