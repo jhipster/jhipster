@@ -49,6 +49,7 @@
         <cucumber-jvm.version>4.2.0</cucumber-jvm.version>
         <commons-io.version>2.6</commons-io.version>
         <guava.version>27.0-jre</guava.version>
+        <hazelcast-hibernate53.version>1.3.0</hazelcast-hibernate53.version>
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.3.7.Final</hibernate.version>
@@ -237,6 +238,11 @@
                 <groupId>com.couchbase.client</groupId>
                 <artifactId>encryption</artifactId>
                 <version>${couchbase-encryption.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-hibernate53</artifactId>
+                <version>${hazelcast-hibernate53.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.microsoft.sqlserver</groupId>
