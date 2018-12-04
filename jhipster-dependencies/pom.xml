@@ -78,6 +78,7 @@
         <springfox.version>2.9.2</springfox.version>
         <xmemcached.version>2.4.5</xmemcached.version>
         <xmemcached-provider.version>4.1.1</xmemcached-provider.version>
+        <elasticsearch.version>6.2.2</elasticsearch.version>
     </properties>
 
     <dependencyManagement>
