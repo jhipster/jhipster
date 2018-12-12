@@ -1,6 +1,5 @@
 package io.github.jhipster.config.metric;
 
-import io.github.jhipster.config.JHipsterProperties;
 import io.micrometer.core.instrument.*;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.distribution.ValueAtPercentile;
@@ -16,11 +15,8 @@ public class JHipsterMetricsEndpoint {
 
     private final MeterRegistry meterRegistry;
 
-    private final JHipsterProperties jHipsterProperties;
-
-    public JHipsterMetricsEndpoint(MeterRegistry meterRegistry, JHipsterProperties jHipsterProperties) {
+    public JHipsterMetricsEndpoint(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
-        this.jHipsterProperties = jHipsterProperties;
     }
 
     /**
@@ -210,19 +206,10 @@ public class JHipsterMetricsEndpoint {
     }
 
     private Map<String, Map> httpRequestsMetrics() {
-        Collection<String> statusCode = jHipsterProperties.getMetrics().getEndpoint().getStatusCodes();
+        Set<String> statusCode = new HashSet<>();
+        Collection<Timer> timers = this.meterRegistry.find("http.server.requests").timers();
 
-        // Get all status codes if requested
-        if (statusCode.contains("all")) {
-            Set<String> codes = new HashSet<>();
-            Collection<Timer> timers = this.meterRegistry.find("http.server.requests").timers();
-
-            timers.forEach(timer -> {
-                codes.add(timer.getId().getTag("status"));
-            });
-
-            statusCode = codes;
-        }
+        timers.forEach(timer -> statusCode.add(timer.getId().getTag("status")));
 
         Map<String, Map> resultsHttp = new HashMap<>();
         Map<String, Map<String, Number>> resultsHttpPerCode = new HashMap<>();
@@ -244,7 +231,7 @@ public class JHipsterMetricsEndpoint {
 
         resultsHttp.put("percode", resultsHttpPerCode);
 
-        Collection<Timer> timers = this.meterRegistry.find("http.server.requests").timers();
+        timers = this.meterRegistry.find("http.server.requests").timers();
         long countAllrequests = timers.stream().map(Timer::count).reduce((x, y) -> x + y).orElse(0L);
         Map<String, Number> resultsHTTPAll = new HashMap<>();
         resultsHTTPAll.put("count", countAllrequests);

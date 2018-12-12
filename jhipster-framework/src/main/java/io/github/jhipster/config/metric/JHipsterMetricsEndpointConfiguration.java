@@ -1,6 +1,5 @@
 package io.github.jhipster.config.metric;
 
-import io.github.jhipster.config.JHipsterProperties;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
@@ -18,10 +17,10 @@ import org.springframework.context.annotation.Configuration;
 public class JHipsterMetricsEndpointConfiguration {
 
     @Bean
-    @ConditionalOnBean({ MeterRegistry.class, JHipsterProperties.class })
+    @ConditionalOnBean({ MeterRegistry.class })
     @ConditionalOnMissingBean
     @ConditionalOnEnabledEndpoint
-    public JHipsterMetricsEndpoint jHipsterMetricsEndpoint(MeterRegistry meterRegistry, JHipsterProperties jHipsterProperties) {
-        return new JHipsterMetricsEndpoint(meterRegistry, jHipsterProperties);
+    public JHipsterMetricsEndpoint jHipsterMetricsEndpoint(MeterRegistry meterRegistry) {
+        return new JHipsterMetricsEndpoint(meterRegistry);
     }
 }

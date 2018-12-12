@@ -779,12 +779,6 @@ public class JHipsterProperties {
 
     public static class Metrics {
 
-        private final Endpoint endpoint = new Endpoint();
-
-        public Endpoint getEndpoint() {
-            return endpoint;
-        }
-
         private final Logs logs = new Logs();
 
         public Logs getLogs() {
@@ -811,18 +805,6 @@ public class JHipsterProperties {
 
             public void setReportFrequency(long reportFrequency) {
                 this.reportFrequency = reportFrequency;
-            }
-        }
-
-        public static class Endpoint {
-            private List<String> statusCodes = Arrays.asList("200", "404", "500");
-
-            public List<String> getStatusCodes() {
-                return statusCodes;
-            }
-
-            public void setStatusCodes(List<String> statusCodes) {
-                this.statusCodes = statusCodes;
             }
         }
     }
