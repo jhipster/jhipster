@@ -128,26 +128,40 @@ public class JHipsterMetricsEndpoint {
         return resultsDatabase;
     }
 
-    private Map<String, Map<String, Number>> serviceMetrics() {
-        Map<String, Map<String, Number>> resultsService = new HashMap<>();
+    private Map<String, Map> serviceMetrics() {
+        Collection<String> crudOperation = Arrays.asList("GET", "POST", "PUT", "DELETE");
 
-        Collection<Timer> timers = Search.in(this.meterRegistry).tagKeys("service").timers();
-        timers.forEach(timer -> {
-            String key = timer.getId().getName();
+        Set<String> uris = new HashSet<>();
+        Collection<Timer> timers = this.meterRegistry.find("http.server.requests").timers();
 
-            resultsService.putIfAbsent(key, new HashMap<>());
-            resultsService.get(key).put("count", timer.count());
-            resultsService.get(key).put("max", timer.max(TimeUnit.MILLISECONDS));
-            resultsService.get(key).put("totalTime", timer.totalTime(TimeUnit.MILLISECONDS));
-            resultsService.get(key).put("mean", timer.mean(TimeUnit.MILLISECONDS));
+        timers.forEach(timer -> uris.add(timer.getId().getTag("uri")));
+        Map<String, Map> resultsHttpPerUri = new HashMap<>();
 
-            ValueAtPercentile[] percentiles = timer.takeSnapshot().percentileValues();
-            for (ValueAtPercentile percentile : percentiles) {
-                resultsService.get(key).put(String.valueOf(percentile.percentile()), percentile.value(TimeUnit.MILLISECONDS));
-            }
+        uris.forEach(uri -> {
+            Map<String, Map> resultsPerUri = new HashMap<>();
+
+            crudOperation.forEach(operation -> {
+                Map<String, Number> resultsPerUriPerCrudOperation = new HashMap<>();
+
+                Collection<Timer> httpTimersStream = this.meterRegistry.find("http.server.requests").tags("uri", uri, "method", operation).timers();
+                long count = httpTimersStream.stream().map(Timer::count).reduce((x, y) -> x + y).orElse(0L);
+
+                if (count != 0) {
+                    double max = httpTimersStream.stream().map(x -> x.max(TimeUnit.MILLISECONDS)).reduce((x, y) -> x > y ? x : y).orElse((double) 0);
+                    double totalTime = httpTimersStream.stream().map(x -> x.totalTime(TimeUnit.MILLISECONDS)).reduce((x, y) -> (x + y)).orElse((double) 0);
+
+                    resultsPerUriPerCrudOperation.put("count", count);
+                    resultsPerUriPerCrudOperation.put("max", max);
+                    resultsPerUriPerCrudOperation.put("mean", totalTime / count);
+
+                    resultsPerUri.put(operation, resultsPerUriPerCrudOperation);
+                }
+            });
+
+            resultsHttpPerUri.put(uri, resultsPerUri);
         });
 
-        return resultsService;
+        return resultsHttpPerUri;
     }
 
     private Map<String, Map<String, Number>> cacheMetrics() {
