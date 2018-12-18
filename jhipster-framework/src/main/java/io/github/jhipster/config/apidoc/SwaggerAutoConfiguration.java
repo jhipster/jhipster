@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.context.annotation.*;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
@@ -156,6 +157,7 @@ public class SwaggerAutoConfiguration {
             .forCodeGeneration(true)
             .directModelSubstitute(ByteBuffer.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)
+            .ignoredParameterTypes(Pageable.class)
             .select()
             .paths(regex(managementContextPath + ".*"))
             .build();
