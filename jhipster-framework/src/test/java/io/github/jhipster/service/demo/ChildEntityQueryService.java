@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2018-2019 the original author or authors.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -32,7 +32,7 @@ public class ChildEntityQueryService extends QueryService<ChildEntity> {
 
     static class ChildEntityCriteria extends BaseEntityQueryService.BaseEntityCriteria {
         LongFilter parentId;
-        
+
         public LongFilter getParentId() {
             return id;
         }
@@ -41,9 +41,9 @@ public class ChildEntityQueryService extends QueryService<ChildEntity> {
     public Specification<ChildEntity> createSpecification(ChildEntityCriteria criteria) {
         Specification<ChildEntity> specification = Specification.where(null);
         if (criteria.getParentId() != null) {
-            specification = specification.and(buildReferringEntitySpecification(criteria.getParentId(), ChildEntity_.parent, ParentEntity_.id)); 
+            specification = specification.and(buildReferringEntitySpecification(criteria.getParentId(), ChildEntity_.parent, ParentEntity_.id));
         }
         return specification;
     }
-    
+
 }
