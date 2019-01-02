@@ -229,7 +229,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.differentway</groupId>
-                <artifactId>couchbase-testcontainers</artifactId>
+                <artifactId>couchbase-testcontainer</artifactId>
                 <version>${couchbase-testcontainers.version}</version>
                 <scope>test</scope>
             </dependency>
