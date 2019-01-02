@@ -50,7 +50,7 @@
         <commons-io.version>2.6</commons-io.version>
         <elasticsearch.version>6.2.2</elasticsearch.version>
         <guava.version>27.0.1-jre</guava.version>
-        <hazelcast-hibernate53.version>1.3.1</hazelcast-hibernate53.version>
+        <hazelcast-hibernate53.version>1.3.0</hazelcast-hibernate53.version>
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.3.7.Final</hibernate.version>
