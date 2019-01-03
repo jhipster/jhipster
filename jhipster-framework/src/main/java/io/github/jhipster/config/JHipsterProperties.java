@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 the original author or authors from the JHipster project.
+ * Copyright 2016-2019 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -19,6 +19,7 @@
 
 package io.github.jhipster.config;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
@@ -668,7 +669,7 @@ public class JHipsterProperties {
         private String host = JHipsterDefaults.Swagger.host;
 
         private String[] protocols = JHipsterDefaults.Swagger.protocols;
-        
+
         private boolean useDefaultResponseMessages = JHipsterDefaults.Swagger.useDefaultResponseMessages;
 
         public String getTitle() {
@@ -778,35 +779,10 @@ public class JHipsterProperties {
 
     public static class Metrics {
 
-        private final Jmx jmx = new Jmx();
-
         private final Logs logs = new Logs();
-
-        private final Prometheus prometheus = new Prometheus();
-
-        public Jmx getJmx() {
-            return jmx;
-        }
 
         public Logs getLogs() {
             return logs;
-        }
-
-        public Prometheus getPrometheus() {
-            return prometheus;
-        }
-
-        public static class Jmx {
-
-            private boolean enabled = JHipsterDefaults.Metrics.Jmx.enabled;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
         }
 
         public static class Logs {
@@ -829,29 +805,6 @@ public class JHipsterProperties {
 
             public void setReportFrequency(long reportFrequency) {
                 this.reportFrequency = reportFrequency;
-            }
-        }
-
-        public static class Prometheus {
-
-            private boolean enabled = JHipsterDefaults.Metrics.Prometheus.enabled;
-
-            private String endpoint = JHipsterDefaults.Metrics.Prometheus.endpoint;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-
-            public String getEndpoint() {
-                return endpoint;
-            }
-
-            public void setEndpoint(String endpoint) {
-                this.endpoint = endpoint;
             }
         }
     }

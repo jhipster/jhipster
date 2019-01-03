@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 the original author or authors from the JHipster project.
+ * Copyright 2016-2019 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -579,16 +579,6 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testMetricsJmxEnabled() {
-        JHipsterProperties.Metrics.Jmx obj = properties.getMetrics().getJmx();
-        boolean val = JHipsterDefaults.Metrics.Jmx.enabled;
-        assertThat(obj.isEnabled()).isEqualTo(val);
-        val = !val;
-        obj.setEnabled(val);
-        assertThat(obj.isEnabled()).isEqualTo(val);
-    }
-
-    @Test
     public void testMetricsLogsEnabled() {
         JHipsterProperties.Metrics.Logs obj = properties.getMetrics().getLogs();
         boolean val = JHipsterDefaults.Metrics.Logs.enabled;
@@ -606,25 +596,6 @@ public class JHipsterPropertiesTest {
         val++;
         obj.setReportFrequency(val);
         assertThat(obj.getReportFrequency()).isEqualTo(val);
-    }
-
-    @Test
-    public void testMetricsPrometheusEnabled() {
-        JHipsterProperties.Metrics.Prometheus obj = properties.getMetrics().getPrometheus();
-        boolean val = JHipsterDefaults.Metrics.Prometheus.enabled;
-        assertThat(obj.isEnabled()).isEqualTo(val);
-        val = !val;
-        obj.setEnabled(val);
-        assertThat(obj.isEnabled()).isEqualTo(val);
-    }
-
-    @Test
-    public void testMetricsPrometheusEndpoint() {
-        JHipsterProperties.Metrics.Prometheus obj = properties.getMetrics().getPrometheus();
-        String val = JHipsterDefaults.Metrics.Prometheus.endpoint;
-        assertThat(obj.getEndpoint()).isEqualTo(val);
-        obj.setEndpoint(val);
-        assertThat(obj.getEndpoint()).isEqualTo(val);
     }
 
     @Test

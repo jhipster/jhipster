@@ -21,6 +21,7 @@ package io.github.jhipster.config.apidoc.customizer;
 
 import io.github.jhipster.config.JHipsterProperties;
 import org.springframework.core.Ordered;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -77,6 +78,7 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
             .forCodeGeneration(true)
             .directModelSubstitute(ByteBuffer.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)
+            .ignoredParameterTypes(Pageable.class)
             .select()
             .paths(regex(properties.getDefaultIncludePattern()))
             .build();
