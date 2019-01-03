@@ -153,7 +153,7 @@ public interface JHipsterDefaults {
 
         interface Jmx {
 
-            boolean enabled = true;
+            boolean enabled = false;
         }
 
         interface Logs {
