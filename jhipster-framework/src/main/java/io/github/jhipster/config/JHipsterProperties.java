@@ -577,7 +577,17 @@ public class JHipsterProperties {
 
         public static class Authentication {
 
+            private String managementApiKey;
+
             private final Jwt jwt = new Jwt();
+
+            public String getManagementApiKey() {
+                return managementApiKey;
+            }
+
+            public void setManagementApiKey(String managementApiKey) {
+                this.managementApiKey = managementApiKey;
+            }
 
             public Jwt getJwt() {
                 return jwt;

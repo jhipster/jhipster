@@ -117,6 +117,8 @@ public interface JHipsterDefaults {
 
         interface Authentication {
 
+            String managementApiKey = null;
+
             interface Jwt {
 
                 String secret = null;

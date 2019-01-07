@@ -391,6 +391,13 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testSecurityAuthenticationManagementApiKey() {
+        String obj = properties.getSecurity().getAuthentication().getManagementApiKey();
+        String val = JHipsterDefaults.Security.Authentication.managementApiKey;
+        assertThat(obj).isEqualTo(val);
+    }
+
+    @Test
     public void testSecurityAuthenticationJwtSecret() {
         JHipsterProperties.Security.Authentication.Jwt obj = properties.getSecurity().getAuthentication().getJwt();
         String val = JHipsterDefaults.Security.Authentication.Jwt.secret;
