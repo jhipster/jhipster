@@ -64,7 +64,7 @@
         <logstash-logback-encoder.version>5.2</logstash-logback-encoder.version>
         <lz4-java.version>1.5.0</lz4-java.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
-        <micrometer.version>1.1.1</micrometer.version>
+        <micrometer.version>1.1.2</micrometer.version>
         <mongobee.version>0.13</mongobee.version>
         <mssql-jdbc.version>7.0.0.jre8</mssql-jdbc.version>
         <mysql-jdbc.version>8.0.13</mysql-jdbc.version>
