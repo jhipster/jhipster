@@ -82,7 +82,7 @@
         <spring-security-oauth2-autoconfigure.version>2.1.2.RELEASE</spring-security-oauth2-autoconfigure.version>
         <springfox.version>2.9.2</springfox.version>
         <testcontainers.version>1.10.6</testcontainers.version>
-        <xmemcached.version>2.4.5</xmemcached.version>
+        <xmemcached.version>2.4.6</xmemcached.version>
         <xmemcached-provider.version>4.1.2</xmemcached-provider.version>
     </properties>
 
