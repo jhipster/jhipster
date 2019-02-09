@@ -4,6 +4,8 @@ import io.micrometer.core.instrument.*;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.distribution.ValueAtPercentile;
 import io.micrometer.core.instrument.search.Search;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 
@@ -14,6 +16,10 @@ import java.util.concurrent.TimeUnit;
 public class JHipsterMetricsEndpoint {
 
     private final MeterRegistry meterRegistry;
+
+    private final Logger logger = LoggerFactory.getLogger(JHipsterMetricsEndpoint.class);
+
+    public static final String MISSING_NAME_TAG_MESSAGE = "Missing name tag for metric {}";
 
     public JHipsterMetricsEndpoint(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
@@ -169,23 +175,29 @@ public class JHipsterMetricsEndpoint {
 
         Collection<FunctionCounter> counters = Search.in(this.meterRegistry).name(s -> s.contains("cache") && !s.contains("hibernate")).functionCounters();
         counters.forEach(counter -> {
-            String name = counter.getId().getTag("name");
-
-            resultsCache.putIfAbsent(name, new HashMap<>());
             String key = counter.getId().getName();
-            if (counter.getId().getTag("result") != null) {
-                key += "." + counter.getId().getTag("result");
+            String name = counter.getId().getTag("name");
+            if(name != null) {
+                resultsCache.putIfAbsent(name, new HashMap<>());
+                if (counter.getId().getTag("result") != null) {
+                    key += "." + counter.getId().getTag("result");
+                }
+                resultsCache.get(name).put(key, counter.count());
+            } else {
+                logger.warn(MISSING_NAME_TAG_MESSAGE,key);
             }
-            resultsCache.get(name).put(key, counter.count());
         });
 
         Collection<Gauge> gauges = Search.in(this.meterRegistry).name(s -> s.contains("cache")).gauges();
         gauges.forEach(gauge -> {
-            String name = gauge.getId().getTag("name");
-            resultsCache.putIfAbsent(name, new HashMap<>());
-
             String key = gauge.getId().getName();
-            resultsCache.get(name).put(key, gauge.value());
+            String name = gauge.getId().getTag("name");
+            if(name != null) {
+                resultsCache.putIfAbsent(name, new HashMap<>());
+                resultsCache.get(name).put(key, gauge.value());
+            } else {
+                logger.warn(MISSING_NAME_TAG_MESSAGE,key);
+            }
         });
         return resultsCache;
     }
