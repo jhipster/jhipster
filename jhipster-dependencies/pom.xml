@@ -93,7 +93,7 @@
                 <artifactId>jhipster-framework</artifactId>
                 <version>${jhipster-framework.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>com.github.vladimir-bukhtoyarov</groupId>
                 <artifactId>bucket4j-core</artifactId>
