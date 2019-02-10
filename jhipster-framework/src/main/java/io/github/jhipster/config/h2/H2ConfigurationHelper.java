@@ -67,14 +67,14 @@ public class H2ConfigurationHelper {
             // actually need it, so we have to load / invoke things at runtime through reflection.
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             Class<?> servletClass = Class.forName("org.h2.server.web.WebServlet", true, loader);
-            Servlet servlet = (Servlet) servletClass.newInstance();
+            Servlet servlet = (Servlet) servletClass.getDeclaredConstructor().newInstance();
 
             ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", servlet);
             h2ConsoleServlet.addMapping("/h2-console/*");
             h2ConsoleServlet.setInitParameter("-properties", "src/main/resources/");
             h2ConsoleServlet.setLoadOnStartup(1);
 
-        } catch (ClassNotFoundException | LinkageError e) {
+        } catch (ClassNotFoundException | LinkageError | NoSuchMethodException | InvocationTargetException e) {
             throw new RuntimeException("Failed to load and initialize org.h2.server.web.WebServlet", e);
 
         } catch (IllegalAccessException | InstantiationException e) {

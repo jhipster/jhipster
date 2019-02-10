@@ -23,9 +23,9 @@ services:
   - docker
 language: node_js
 node_js:
-  - "10.13.0"
+  - "10.15.0"
 jdk:
-  - oraclejdk8
+  - openjdk11
 addons:
   apt:
     sources:
@@ -88,7 +88,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   # Upgrade NPM
   - npm install -g npm
-  - $TRAVIS_BUILD_DIR/test-integration/scripts/04-git-config.sh
+  # - $JHI_SCRIPTS/04-git-config.sh
 
 #----------------------------------------------------------------------
 # Install JHipster and generate project+entities
