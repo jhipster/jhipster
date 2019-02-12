@@ -12,7 +12,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@WebEndpoint(id = "jhi-metrics")
+@WebEndpoint(id = "jhimetrics")
 public class JHipsterMetricsEndpoint {
 
     private final MeterRegistry meterRegistry;
