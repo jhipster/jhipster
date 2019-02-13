@@ -30,4 +30,12 @@ public class FloatFilter extends RangeFilter<Float> {
     public FloatFilter() {
     }
 
+    public FloatFilter(final FloatFilter filter) {
+        super(filter);
+    }
+
+    public FloatFilter copy() {
+        return new FloatFilter(this);
+    }
+
 }

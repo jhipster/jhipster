@@ -19,10 +19,10 @@
 
 package io.github.jhipster.service.filter;
 
-import java.time.Instant;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import java.time.Instant;
 
 /**
  * Filter class for {@link Instant} type attributes.
@@ -32,6 +32,17 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 public class InstantFilter extends RangeFilter<Instant> {
 
     private static final long serialVersionUID = 1L;
+
+    public InstantFilter() {
+    }
+
+    public InstantFilter(final InstantFilter filter) {
+        super(filter);
+    }
+
+    public InstantFilter copy() {
+        return new InstantFilter(this);
+    }
 
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)

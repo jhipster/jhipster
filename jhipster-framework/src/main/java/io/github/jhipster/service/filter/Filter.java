@@ -20,6 +20,7 @@
 package io.github.jhipster.service.filter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,6 +40,19 @@ public class Filter<FIELD_TYPE> implements Serializable {
     private FIELD_TYPE equals;
     private Boolean specified;
     private List<FIELD_TYPE> in;
+
+    public Filter() {
+    }
+
+    public Filter(Filter<FIELD_TYPE> filter) {
+        this.equals = filter.equals;
+        this.specified = filter.specified;
+        this.in = new ArrayList<>(filter.in);
+    }
+
+    public Filter<FIELD_TYPE> copy() {
+        return new Filter<>(this);
+    }
 
     public FIELD_TYPE getEquals() {
         return equals;

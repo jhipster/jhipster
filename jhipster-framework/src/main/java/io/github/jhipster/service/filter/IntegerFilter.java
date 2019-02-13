@@ -31,4 +31,12 @@ public class IntegerFilter extends RangeFilter<Integer> {
     public IntegerFilter() {
     }
 
+    public IntegerFilter(final IntegerFilter filter) {
+        super(filter);
+    }
+
+    public IntegerFilter copy() {
+        return new IntegerFilter(this);
+    }
+
 }

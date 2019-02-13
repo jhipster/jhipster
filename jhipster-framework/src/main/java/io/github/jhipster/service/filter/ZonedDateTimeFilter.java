@@ -19,11 +19,11 @@
 
 package io.github.jhipster.service.filter;
 
-import java.time.ZonedDateTime;
-import java.util.List;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * Filter class for {@link ZonedDateTime} type attributes.
@@ -33,6 +33,17 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
 
     private static final long serialVersionUID = 1L;
+
+    public ZonedDateTimeFilter() {
+    }
+
+    public ZonedDateTimeFilter(final ZonedDateTimeFilter filter) {
+        super(filter);
+    }
+
+    public ZonedDateTimeFilter copy() {
+        return new ZonedDateTimeFilter(this);
+    }
 
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)

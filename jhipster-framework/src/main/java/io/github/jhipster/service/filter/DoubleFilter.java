@@ -30,4 +30,12 @@ public class DoubleFilter extends RangeFilter<Double> {
     public DoubleFilter() {
     }
 
+    public DoubleFilter(final DoubleFilter filter) {
+        super(filter);
+    }
+
+    public DoubleFilter copy() {
+        return new DoubleFilter(this);
+    }
+
 }
