@@ -34,6 +34,17 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
 
     private static final long serialVersionUID = 1L;
 
+    public LocalDateFilter() {
+    }
+
+    public LocalDateFilter(final LocalDateFilter filter) {
+        super(filter);
+    }
+
+    public LocalDateFilter copy() {
+        return new LocalDateFilter(this);
+    }
+
     @Override
     @DateTimeFormat(iso = ISO.DATE)
     public LocalDateFilter setEquals(LocalDate equals) {

@@ -35,4 +35,12 @@ public class BooleanFilter extends Filter<Boolean> {
     public BooleanFilter() {
     }
 
+    public BooleanFilter(final BooleanFilter filter) {
+        super(filter);
+    }
+
+    public BooleanFilter copy() {
+        return new BooleanFilter(this);
+    }
+
 }

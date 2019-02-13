@@ -31,4 +31,12 @@ public class ShortFilter extends RangeFilter<Short> {
     public ShortFilter() {
     }
 
+    public ShortFilter(final ShortFilter filter) {
+        super(filter);
+    }
+
+    public ShortFilter copy() {
+        return new ShortFilter(this);
+    }
+
 }

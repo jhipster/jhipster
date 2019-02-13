@@ -31,4 +31,12 @@ public class LongFilter extends RangeFilter<Long> {
     public LongFilter() {
     }
 
+    public LongFilter(final LongFilter filter) {
+        super(filter);
+    }
+
+    public LongFilter copy() {
+        return new LongFilter(this);
+    }
+
 }

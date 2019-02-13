@@ -33,6 +33,17 @@ public class InstantFilter extends RangeFilter<Instant> {
 
     private static final long serialVersionUID = 1L;
 
+    public InstantFilter() {
+    }
+
+    public InstantFilter(final InstantFilter filter) {
+        super(filter);
+    }
+
+    public InstantFilter copy() {
+        return new InstantFilter(this);
+    }
+
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setEquals(Instant equals) {

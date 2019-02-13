@@ -38,6 +38,18 @@ public class StringFilter extends Filter<String> {
 
     private String contains;
 
+    public StringFilter() {
+    }
+
+    public StringFilter(final StringFilter filter) {
+        super(filter);
+        this.contains = filter.contains;
+    }
+
+    public StringFilter copy() {
+        return new StringFilter(this);
+    }
+
     public String getContains() {
         return contains;
     }

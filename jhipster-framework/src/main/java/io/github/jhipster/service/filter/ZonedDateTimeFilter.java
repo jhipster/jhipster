@@ -34,6 +34,17 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
 
     private static final long serialVersionUID = 1L;
 
+    public ZonedDateTimeFilter() {
+    }
+
+    public ZonedDateTimeFilter(final ZonedDateTimeFilter filter) {
+        super(filter);
+    }
+
+    public ZonedDateTimeFilter copy() {
+        return new ZonedDateTimeFilter(this);
+    }
+
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setEquals(ZonedDateTime equals) {
