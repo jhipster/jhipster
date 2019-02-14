@@ -36,7 +36,7 @@ public interface ResponseUtil {
      * @param maybeResponse response to return if present
      * @return response containing {@code maybeResponse} if present or {@link HttpStatus#NOT_FOUND}
      */
-    public static <X> ResponseEntity<X> wrapOrNotFound(Optional<X> maybeResponse) {
+    static <X> ResponseEntity<X> wrapOrNotFound(Optional<X> maybeResponse) {
         return wrapOrNotFound(maybeResponse, null);
     }
 
@@ -49,9 +49,8 @@ public interface ResponseUtil {
      * @param header        headers to be added to the response
      * @return response containing {@code maybeResponse} if present or {@link HttpStatus#NOT_FOUND}
      */
-    public static <X> ResponseEntity<X> wrapOrNotFound(Optional<X> maybeResponse, HttpHeaders header) {
+    static <X> ResponseEntity<X> wrapOrNotFound(Optional<X> maybeResponse, HttpHeaders header) {
         return maybeResponse.map(response -> ResponseEntity.ok().headers(header).body(response))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
 }
