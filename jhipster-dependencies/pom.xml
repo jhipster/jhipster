@@ -50,7 +50,6 @@
         <commons-io.version>2.6</commons-io.version>
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
         <dropwizard-metrics.version>4.0.5</dropwizard-metrics.version>
-        <elasticsearch.version>6.2.2</elasticsearch.version>
         <guava.version>27.0.1-jre</guava.version>
         <hazelcast-hibernate53.version>1.3.1</hazelcast-hibernate53.version>
         <!-- The hibernate version should match the one managed by
@@ -75,7 +74,7 @@
         <problem-spring-webflux.version>${problem-spring.version}</problem-spring-webflux.version>
         <prometheus-simpleclient.version>0.6.0</prometheus-simpleclient.version>
         <reflections.version>0.9.11</reflections.version>
-        <spring-data-jest.version>3.2.0.RELEASE</spring-data-jest.version>
+        <spring-data-jest.version>3.2.1.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.3.4.RELEASE</spring-security-oauth.version>
