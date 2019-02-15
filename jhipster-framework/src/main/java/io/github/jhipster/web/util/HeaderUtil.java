@@ -52,7 +52,7 @@ public final class HeaderUtil {
     }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
-        return createFailureAlert(APPLICATION_NAME, errorKey, defaultMessage);
+        return createFailureAlert(APPLICATION_NAME, entityName, errorKey, defaultMessage);
     }
 
     public static HttpHeaders createFailureAlert(String applicationName, String entityName, String errorKey, String defaultMessage) {
