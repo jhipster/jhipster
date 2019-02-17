@@ -707,4 +707,14 @@ public class JHipsterPropertiesTest {
         obj.setUseUndertowUserCipherSuitesOrder(val);
         assertThat(obj.isUseUndertowUserCipherSuitesOrder()).isEqualTo(val);
     }
+
+    @Test
+    public void testClientAppName() {
+        JHipsterProperties.ClientApp obj = properties.getClientApp();
+        String val = JHipsterDefaults.ClientApp.name;
+        assertThat(obj.getName()).isEqualTo(val);
+        val = "1" + val;
+        obj.setName(val);
+        assertThat(obj.getName()).isEqualTo(val);
+    }
 }
