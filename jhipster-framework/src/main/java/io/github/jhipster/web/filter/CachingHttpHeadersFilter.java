@@ -34,9 +34,6 @@ public class CachingHttpHeadersFilter implements Filter {
     public static final int DEFAULT_DAYS_TO_LIVE = 1461; // 4 years
     public static final long DEFAULT_SECONDS_TO_LIVE = TimeUnit.DAYS.toMillis(DEFAULT_DAYS_TO_LIVE);
 
-    // We consider the last modified date is the start up time of the server
-    public final static long LAST_MODIFIED = System.currentTimeMillis();
-
     private long cacheTimeToLive = DEFAULT_SECONDS_TO_LIVE;
 
     private JHipsterProperties jHipsterProperties;
@@ -66,9 +63,6 @@ public class CachingHttpHeadersFilter implements Filter {
 
         // Setting Expires header, for proxy caching
         httpResponse.setDateHeader("Expires", cacheTimeToLive + System.currentTimeMillis());
-
-        // Setting the Last-Modified header, for browser caching
-        httpResponse.setDateHeader("Last-Modified", LAST_MODIFIED);
 
         chain.doFilter(request, response);
     }
