@@ -208,4 +208,10 @@ public interface JHipsterDefaults {
 
         String password = null;
     }
+
+    interface ClientApp {
+
+        String name = "jhipsterApp";
+    }
+
 }

@@ -11,13 +11,7 @@ public final class HeaderUtil {
 
     private static final Logger log = LoggerFactory.getLogger(HeaderUtil.class);
 
-    public static final String APPLICATION_NAME = "JHIPSTER";
-
     private HeaderUtil() {
-    }
-
-    public static HttpHeaders createAlert(String message, String param) {
-        return createAlert(APPLICATION_NAME, message, param);
     }
 
     public static HttpHeaders createAlert(String applicationName, String message, String param) {
@@ -27,38 +21,31 @@ public final class HeaderUtil {
         return headers;
     }
 
-    public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
-        return createEntityCreationAlert(APPLICATION_NAME, entityName, param);
+    public static HttpHeaders createEntityCreationAlert(String applicationName, boolean enableTranslation, String entityName, String param) {
+        String message = enableTranslation ? applicationName + "." + entityName + ".created"
+            : "A new " + entityName + " is created with identifier " + param;
+        return createAlert(applicationName, message, param);
     }
 
-    public static HttpHeaders createEntityCreationAlert(String applicationName, String entityName, String param) {
-        return createAlert(applicationName + "." + entityName + ".created", param);
+    public static HttpHeaders createEntityUpdateAlert(String applicationName, boolean enableTranslation, String entityName, String param) {
+        String message = enableTranslation ? applicationName + "." + entityName + ".updated"
+            : "A " + entityName + " is updated with identifier " + param;
+        return createAlert(applicationName, message, param);
     }
 
-    public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
-        return createEntityUpdateAlert(APPLICATION_NAME, entityName, param);
+    public static HttpHeaders createEntityDeletionAlert(String applicationName, boolean enableTranslation, String entityName, String param) {
+        String message = enableTranslation ? applicationName + "." + entityName + ".deleted"
+            : "A " + entityName + " is deleted with identifier " + param;
+        return createAlert(applicationName, message, param);
     }
 
-    public static HttpHeaders createEntityUpdateAlert(String applicationName, String entityName, String param) {
-        return createAlert(applicationName + "." + entityName + ".updated", param);
-    }
-
-    public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
-        return createEntityDeletionAlert(APPLICATION_NAME, entityName, param);
-    }
-
-    public static HttpHeaders createEntityDeletionAlert(String applicationName, String entityName, String param) {
-        return createAlert(applicationName + "." + entityName + ".deleted", param);
-    }
-
-    public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
-        return createFailureAlert(APPLICATION_NAME, entityName, errorKey, defaultMessage);
-    }
-
-    public static HttpHeaders createFailureAlert(String applicationName, String entityName, String errorKey, String defaultMessage) {
+    public static HttpHeaders createFailureAlert(String applicationName, boolean enableTranslation, String entityName, String errorKey, String defaultMessage) {
         log.error("Entity processing failed, {}", defaultMessage);
+
+        String message = enableTranslation ? "error." + errorKey : defaultMessage;
+
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-" + applicationName + "-error", "error." + errorKey);
+        headers.add("X-" + applicationName + "-error", message);
         headers.add("X-" + applicationName + "-params", entityName);
         return headers;
     }
