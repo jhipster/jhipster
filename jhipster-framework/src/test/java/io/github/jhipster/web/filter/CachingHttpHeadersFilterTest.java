@@ -20,7 +20,6 @@
 package io.github.jhipster.web.filter;
 
 import static io.github.jhipster.web.filter.CachingHttpHeadersFilter.DEFAULT_DAYS_TO_LIVE;
-import static io.github.jhipster.web.filter.CachingHttpHeadersFilter.LAST_MODIFIED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -78,7 +77,6 @@ public class CachingHttpHeadersFilterTest {
         verify(response).setHeader("Pragma", "cache");
         verify(response).setDateHeader(eq("Expires"), anyLong());
         assertThat(response.getDateHeader("Expires")).isBetween(before + secsToLive, after + secsToLive);
-        verify(response).setDateHeader("Last-Modified", LAST_MODIFIED);
         assertThat(caught).isNull();
     }
 
@@ -104,7 +102,6 @@ public class CachingHttpHeadersFilterTest {
         verify(response).setHeader("Pragma", "cache");
         verify(response).setDateHeader(eq("Expires"), anyLong());
         assertThat(response.getDateHeader("Expires")).isBetween(before + secsToLive, after + secsToLive);
-        verify(response).setDateHeader("Last-Modified", LAST_MODIFIED);
         assertThat(caught).isNull();
     }
 }

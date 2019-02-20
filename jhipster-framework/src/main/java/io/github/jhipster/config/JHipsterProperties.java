@@ -19,7 +19,6 @@
 
 package io.github.jhipster.config;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
@@ -67,6 +66,8 @@ public class JHipsterProperties {
 
     private final Registry registry = new Registry();
 
+    private final ClientApp clientApp = new ClientApp();
+
     public Async getAsync() {
         return async;
     }
@@ -113,6 +114,10 @@ public class JHipsterProperties {
 
     public Gateway getGateway() {
         return gateway;
+    }
+
+    public ClientApp getClientApp() {
+        return clientApp;
     }
 
     public static class Async {
@@ -937,6 +942,19 @@ public class JHipsterProperties {
 
         public void setPassword(String password) {
             this.password = password;
+        }
+    }
+
+    public static class ClientApp {
+
+        private String name = JHipsterDefaults.ClientApp.name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }
