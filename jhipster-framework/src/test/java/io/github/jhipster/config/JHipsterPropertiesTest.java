@@ -93,18 +93,6 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testHttpVersion() {
-        JHipsterProperties.Http.Version[] versions = JHipsterProperties.Http.Version.values();
-        JHipsterProperties.Http obj = properties.getHttp();
-        String str = JHipsterDefaults.Http.version.toString();
-        JHipsterProperties.Http.Version val = JHipsterProperties.Http.Version.valueOf(str);
-        assertThat(obj.getVersion()).isEqualTo(val);
-        val = versions[(1 + val.ordinal()) % versions.length];
-        obj.setVersion(val);
-        assertThat(obj.getVersion()).isEqualTo(val);
-    }
-
-    @Test
     public void testHttpCacheTimeToLiveInDays() {
         JHipsterProperties.Http.Cache obj = properties.getHttp().getCache();
         int val = JHipsterDefaults.Http.Cache.timeToLiveInDays;
