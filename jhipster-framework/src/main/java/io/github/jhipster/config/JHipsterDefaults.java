@@ -21,8 +21,6 @@ package io.github.jhipster.config;
 
 import java.util.*;
 
-import io.github.jhipster.config.JHipsterProperties.Http.Version;
-
 public interface JHipsterDefaults {
 
     interface Async {
@@ -33,8 +31,6 @@ public interface JHipsterDefaults {
     }
 
     interface Http {
-
-        Version version = Version.V_1_1;
 
         boolean useUndertowUserCipherSuitesOrder = true;
 
