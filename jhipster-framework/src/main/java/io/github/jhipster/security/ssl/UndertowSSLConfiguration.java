@@ -35,7 +35,7 @@ import io.undertow.UndertowOptions;
  * allowing to achieve perfect forward secrecy.
  * This can only be activated with HTTPS and a cipher suite defined by the user (server.ssl.ciphers).
  * <p>
- * Please note that when using JHipster, you can use the `server.ssl.ciphers` property that is commented out
+ * Please note that when using JHipster, you can use the `server.ssl.ciphers` property that is available
  * in your `application-tls.yml` file, and which is ready to work with this configuration.
  *
  * @see
