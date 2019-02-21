@@ -157,11 +157,6 @@ public class JHipsterProperties {
 
         private final Cache cache = new Cache();
 
-        /**
-         * Https has to be active with cipher suite define also
-         */
-        private boolean useUndertowUserCipherSuitesOrder = JHipsterDefaults.Http.useUndertowUserCipherSuitesOrder;
-
         public Cache getCache() {
             return cache;
         }
@@ -177,14 +172,6 @@ public class JHipsterProperties {
             public void setTimeToLiveInDays(int timeToLiveInDays) {
                 this.timeToLiveInDays = timeToLiveInDays;
             }
-        }
-
-        public boolean isUseUndertowUserCipherSuitesOrder() {
-            return useUndertowUserCipherSuitesOrder;
-        }
-
-        public void setUseUndertowUserCipherSuitesOrder(boolean useUndertowUserCipherSuitesOrder) {
-            this.useUndertowUserCipherSuitesOrder = useUndertowUserCipherSuitesOrder;
         }
     }
 

@@ -32,8 +32,6 @@ public interface JHipsterDefaults {
 
     interface Http {
 
-        boolean useUndertowUserCipherSuitesOrder = true;
-
         interface Cache {
 
             int timeToLiveInDays = 1461; // 4 years (including leap day)
