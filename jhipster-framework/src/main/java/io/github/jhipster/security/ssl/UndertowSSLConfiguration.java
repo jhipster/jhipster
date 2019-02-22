@@ -42,7 +42,7 @@ import io.undertow.UndertowOptions;
  * <a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices#25-use-forward-secrecy" target="_blank">More explanation on perfect forward secrecy</a>
  */
 @Configuration
-@ConditionalOnClass({ UndertowServletWebServerFactory.class })
+@ConditionalOnClass({ UndertowServletWebServerFactory.class, UndertowOptions.class })
 @ConditionalOnProperty({ "server.ssl.ciphers", "server.ssl.key-store" })
 public class UndertowSSLConfiguration {
 
