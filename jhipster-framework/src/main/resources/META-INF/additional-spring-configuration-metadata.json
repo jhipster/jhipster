@@ -6,12 +6,6 @@
         "defaultValue": true
     },
     {
-        "name": "management.info.mail-enabled.enabled",
-        "type": "java.lang.Boolean",
-        "description": "Enable mail service info.",
-        "defaultValue": false
-    },
-    {
         "name": "jhipster.cors.allowed-origins",
         "type": "java.util.List<java.lang.String>",
         "description": "Set global CORS allowed origins.",
@@ -54,4 +48,3 @@
         "sourceType": "org.springframework.web.cors.CorsConfiguration"
     }
 ]}
-
