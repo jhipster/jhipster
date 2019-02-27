@@ -18,11 +18,13 @@
  */
 package io.github.jhipster.web.util;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,21 +38,31 @@ import static org.junit.Assert.*;
  */
 public class PaginationUtilUnitTest {
 
+    private static final String BASE_URL = "/api/_search/example";
+
+    private MockHttpServletRequest mockRequest;
+
+    @Before
+    public void init() {
+        mockRequest = new MockHttpServletRequest();
+        mockRequest.setRequestURI(BASE_URL);
+    }
+
     @Test
     public void generatePaginationHttpHeadersTest() {
         String baseUrl = "/api/_search/example";
         List<String> content = new ArrayList<>();
         Page<String> page = new PageImpl<>(content, PageRequest.of(6, 50), 400L);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
         assertTrue(strHeaders.size() == 1);
         String headerData = strHeaders.get(0);
         assertTrue(headerData.split(",").length == 4);
         String expectedData = "</api/_search/example?page=7&size=50>; rel=\"next\","
-                + "</api/_search/example?page=5&size=50>; rel=\"prev\","
-                + "</api/_search/example?page=7&size=50>; rel=\"last\","
-                + "</api/_search/example?page=0&size=50>; rel=\"first\"";
+            + "</api/_search/example?page=5&size=50>; rel=\"prev\","
+            + "</api/_search/example?page=7&size=50>; rel=\"last\","
+            + "</api/_search/example?page=0&size=50>; rel=\"first\"";
         assertEquals(expectedData, headerData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
         assertTrue(xTotalCountHeaders.size() == 1);
@@ -59,11 +71,12 @@ public class PaginationUtilUnitTest {
 
     @Test
     public void commaTest() {
+        mockRequest.setParameter("query", "Test1, test2");
         String baseUrl = "/api/_search/example";
         List<String> content = new ArrayList<>();
         Page<String> page = new PageImpl<>(content);
         String query = "Test1, test2";
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, baseUrl);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
         assertTrue(strHeaders.size() == 1);
@@ -79,13 +92,14 @@ public class PaginationUtilUnitTest {
 
     @Test
     public void multiplePagesTest() {
+        mockRequest.setParameter("query", "Test1, test2");
         String baseUrl = "/api/_search/example";
         List<String> content = new ArrayList<>();
 
         // Page 0
         Page<String> page = new PageImpl<>(content, PageRequest.of(0, 50), 400L);
         String query = "Test1, test2";
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, baseUrl);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
         assertTrue(strHeaders.size() == 1);
@@ -100,9 +114,10 @@ public class PaginationUtilUnitTest {
         assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(400L));
 
         // Page 1
+        mockRequest.setParameter("page", "1");
         page = new PageImpl<>(content, PageRequest.of(1, 50), 400L);
         query = "Test1, test2";
-        headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, baseUrl);
+        headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
         strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
         assertTrue(strHeaders.size() == 1);
@@ -118,8 +133,9 @@ public class PaginationUtilUnitTest {
         assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(400L));
 
         // Page 6
+        mockRequest.setParameter("page", "6");
         page = new PageImpl<>(content, PageRequest.of(6, 50), 400L);
-        headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, baseUrl);
+        headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
         strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
         assertTrue(strHeaders.size() == 1);
@@ -135,8 +151,9 @@ public class PaginationUtilUnitTest {
         assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(400L));
 
         // Page 7
+        mockRequest.setParameter("page", "7");
         page = new PageImpl<>(content, PageRequest.of(7, 50), 400L);
-        headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, baseUrl);
+        headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
         strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
         assertTrue(strHeaders.size() == 1);
@@ -150,11 +167,12 @@ public class PaginationUtilUnitTest {
 
     @Test
     public void greaterSemicolonTest() {
+        mockRequest.setParameter("query", "Test>;test");
         String baseUrl = "/api/_search/example";
         List<String> content = new ArrayList<>();
         Page<String> page = new PageImpl<>(content);
         String query = "Test>;test";
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, baseUrl);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
         assertTrue(strHeaders.size() == 1);
@@ -170,5 +188,23 @@ public class PaginationUtilUnitTest {
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
         assertTrue(xTotalCountHeaders.size() == 1);
         assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(0L));
+    }
+
+    @Test
+    public void sortAndCriteriaTest() {
+        mockRequest.setRequestURI("/api/users");
+        mockRequest.addParameter("login.contains", "adm");
+        mockRequest.addParameter("name", "name,asc");
+        List<String> content = new ArrayList<>();
+        Page<String> page = new PageImpl<>(content, PageRequest.of(0, 50), 400L);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
+        List<String> strHeaders = headers.get(HttpHeaders.LINK);
+        String expectedData = "</api/users?page=1&size=50&login.contains=adm&name=name%2Casc>; rel=\"next\"," +
+            "</api/users?page=7&size=50&login.contains=adm&name=name%2Casc>; rel=\"last\"," +
+            "</api/users?page=0&size=50&login.contains=adm&name=name%2Casc>; rel=\"first\"";
+        assertNotNull(strHeaders);
+        assertEquals(1, strHeaders.size());
+        String headerData = strHeaders.get(0);
+        assertEquals(expectedData, headerData);
     }
 }

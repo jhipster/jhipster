@@ -20,10 +20,15 @@ package io.github.jhipster.web.util;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.MessageFormat;
+import java.util.Arrays;
 
 /**
  * Utility class for handling pagination.
@@ -34,67 +39,56 @@ import java.net.URLEncoder;
  */
 public final class PaginationUtil {
 
+    private static final String HEADER_X_TOTAL_COUNT = "X-Total-Count";
+    private static final String HEADER_LINK_FORMAT = "<{0}>; rel=\"{1}\"";
+
     private PaginationUtil() {
     }
 
     /**
-     * Generate pagination headers for a classic Spring Data {@link Page} object.
+     * Generate pagination headers for a Spring Data {@link Page} object.
      */
-    public static <T> HttpHeaders generatePaginationHttpHeaders(Page<T> page, String baseUrl) {
-
+    public static <T> HttpHeaders generatePaginationHttpHeaders(HttpServletRequest request, Page<T> page) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Total-Count", Long.toString(page.getTotalElements()));
-        String link = "";
-        if ((page.getNumber() + 1) < page.getTotalPages()) {
-            link = "<" + generateUri(baseUrl, page.getNumber() + 1, page.getSize()) + ">; rel=\"next\",";
+        headers.add(HEADER_X_TOTAL_COUNT, Long.toString(page.getTotalElements()));
+        int pageNumber = page.getNumber();
+        int pageSize = page.getSize();
+        StringBuilder link = new StringBuilder();
+        if (pageNumber < page.getTotalPages() - 1) {
+            link.append(prepareLink(request, pageNumber + 1, pageSize, "next"))
+                .append(",");
         }
-        // prev link
-        if ((page.getNumber()) > 0) {
-            link += "<" + generateUri(baseUrl, page.getNumber() - 1, page.getSize()) + ">; rel=\"prev\",";
+        if (pageNumber > 0) {
+            link.append(prepareLink(request, pageNumber - 1, pageSize, "prev"))
+                .append(",");
         }
-        // last and first link
-        int lastPage = 0;
-        if (page.getTotalPages() > 0) {
-            lastPage = page.getTotalPages() - 1;
-        }
-        link += "<" + generateUri(baseUrl, lastPage, page.getSize()) + ">; rel=\"last\",";
-        link += "<" + generateUri(baseUrl, 0, page.getSize()) + ">; rel=\"first\"";
-        headers.add(HttpHeaders.LINK, link);
+        link.append(prepareLink(request, page.getTotalPages() - 1, pageSize, "last"))
+            .append(",")
+            .append(prepareLink(request, 0, pageSize, "first"));
+        headers.add(HttpHeaders.LINK, link.toString());
         return headers;
     }
 
-    /**
-     * Generate pagination headers for a Spring Data {@link Page} object that is created by Elasticsearch.
-     */
-    public static <T> HttpHeaders generateSearchPaginationHttpHeaders(String query, Page<T> page, String baseUrl) {
-        String escapedQuery;
-        try {
-            escapedQuery = URLEncoder.encode(query, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Total-Count", Long.toString(page.getTotalElements()));
-        String link = "";
-        if ((page.getNumber() + 1) < page.getTotalPages()) {
-            link = "<" + generateUri(baseUrl, page.getNumber() + 1, page.getSize()) + "&query=" + escapedQuery + ">; rel=\"next\",";
-        }
-        // prev link
-        if ((page.getNumber()) > 0) {
-            link += "<" + generateUri(baseUrl, page.getNumber() - 1, page.getSize()) + "&query=" + escapedQuery + ">; rel=\"prev\",";
-        }
-        // last and first link
-        int lastPage = 0;
-        if (page.getTotalPages() > 0) {
-            lastPage = page.getTotalPages() - 1;
-        }
-        link += "<" + generateUri(baseUrl, lastPage, page.getSize()) + "&query=" + escapedQuery + ">; rel=\"last\",";
-        link += "<" + generateUri(baseUrl, 0, page.getSize()) + "&query=" + escapedQuery + ">; rel=\"first\"";
-        headers.add(HttpHeaders.LINK, link);
-        return headers;
+    private static String prepareLink(HttpServletRequest request, int pageNumber, int pageSize, String relType) {
+        return MessageFormat.format(HEADER_LINK_FORMAT, preparePageUri(request, pageNumber, pageSize), relType);
     }
 
-    private static String generateUri(String baseUrl, int page, int size) {
-        return UriComponentsBuilder.fromUriString(baseUrl).queryParam("page", page).queryParam("size", size).toUriString();
+    private static String preparePageUri(HttpServletRequest request, int pageNumber, int pageSize) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.set("page", Integer.toString(pageNumber));
+        parameters.set("size", Integer.toString(pageSize));
+        request.getParameterMap().entrySet().stream()
+            .filter(map -> !"page".equalsIgnoreCase(map.getKey()) && !"size".equalsIgnoreCase(map.getKey()))
+            .forEach(map -> Arrays.asList(map.getValue()).forEach(value -> {
+                    try {
+                        parameters.add(map.getKey(), URLEncoder.encode(value, "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+            );
+        return UriComponentsBuilder.fromUriString(request.getRequestURI())
+            .queryParams(parameters).build(false)
+            .toUriString();
     }
 }
