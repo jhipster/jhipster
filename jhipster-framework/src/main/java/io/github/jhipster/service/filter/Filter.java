@@ -47,7 +47,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
     public Filter(Filter<FIELD_TYPE> filter) {
         this.equals = filter.equals;
         this.specified = filter.specified;
-        this.in = new ArrayList<>(filter.in);
+        this.in = filter.in == null ? null : new ArrayList<>(filter.in);
     }
 
     public Filter<FIELD_TYPE> copy() {
