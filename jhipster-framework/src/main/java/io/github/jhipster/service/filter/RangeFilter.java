@@ -65,7 +65,7 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
         this.lessOrEqualThan = filter.lessOrEqualThan;
     }
 
-    public Filter<FIELD_TYPE> copy() {
+    public RangeFilter<FIELD_TYPE> copy() {
         return new RangeFilter<>(this);
     }
 

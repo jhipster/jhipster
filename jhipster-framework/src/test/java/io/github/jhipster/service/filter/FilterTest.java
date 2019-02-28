@@ -53,6 +53,16 @@ public class FilterTest {
     }
 
     @Test
+    public void testCopy() {
+        final Filter<Object> copy = filter.copy();
+        assertThat(copy).isNotSameAs(filter);
+        assertThat(copy.getEquals()).isNull();
+        assertThat(copy.getSpecified()).isNull();
+        assertThat(copy.getIn()).isNull();
+        assertThat(copy.toString()).isEqualTo("Filter []");
+    }
+
+    @Test
     public void testSetEquals() {
         Filter<Object> chain = filter.setEquals(value);
         assertThat(chain).isEqualTo(filter);
