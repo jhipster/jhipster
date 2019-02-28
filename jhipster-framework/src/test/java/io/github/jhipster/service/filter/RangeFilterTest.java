@@ -52,6 +52,20 @@ public class RangeFilterTest {
     }
 
     @Test
+    public void testCopy() {
+        final RangeFilter<Short> copy = filter.copy();
+        assertThat(copy).isNotSameAs(filter);
+        assertThat(copy.getEquals()).isNull();
+        assertThat(copy.getGreaterThan()).isNull();
+        assertThat(copy.getGreaterOrEqualThan()).isNull();
+        assertThat(copy.getLessThan()).isNull();
+        assertThat(copy.getLessOrEqualThan()).isNull();
+        assertThat(copy.getSpecified()).isNull();
+        assertThat(copy.getIn()).isNull();
+        assertThat(copy.toString()).isEqualTo("RangeFilter []");
+    }
+
+    @Test
     public void testSetEquals() {
         Filter<Short> chain = filter.setEquals(value);
         assertThat(chain).isEqualTo(filter);
