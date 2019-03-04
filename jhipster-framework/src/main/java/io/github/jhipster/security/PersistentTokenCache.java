@@ -19,7 +19,9 @@
 
 package io.github.jhipster.security;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Simple time-limited cache for login tokens, necessary to avoid concurrent

@@ -19,13 +19,12 @@
 
 package io.github.jhipster.security.uaa;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import io.github.jhipster.config.JHipsterProperties;
+import io.github.jhipster.config.JHipsterProperties.Security.ClientAuthorization;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.config.JHipsterProperties.Security.ClientAuthorization;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UaaAutoConfigurationTest {
 

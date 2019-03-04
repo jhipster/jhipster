@@ -19,15 +19,15 @@
 
 package io.github.jhipster.security;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.servlet.http.HttpServletResponse;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class AjaxLogoutSuccessHandlerTest {
 

@@ -28,9 +28,8 @@ import java.util.List;
 
 /**
  * An {@link InfoContributor} that exposes the list of active spring profiles.
- *
  */
-public class ActiveProfilesInfoContributor  implements InfoContributor {
+public class ActiveProfilesInfoContributor implements InfoContributor {
 
     private static final String ACTIVE_PROFILES = "activeProfiles";
     private final List<String> profiles;

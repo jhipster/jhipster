@@ -19,11 +19,11 @@
 
 package io.github.jhipster.domain.util;
 
-import java.sql.Types;
-
 import org.hibernate.dialect.PostgreSQL82Dialect;
 import org.hibernate.type.descriptor.sql.BinaryTypeDescriptor;
 import org.hibernate.type.descriptor.sql.SqlTypeDescriptor;
+
+import java.sql.Types;
 
 public class FixedPostgreSQL82Dialect extends PostgreSQL82Dialect {
 

@@ -26,7 +26,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.plugin.core.SimplePluginRegistry;
-
 import springfox.documentation.schema.JacksonEnumTypeDeterminer;
 import springfox.documentation.schema.TypeNameExtractor;
 import springfox.documentation.spi.schema.TypeNameProviderPlugin;

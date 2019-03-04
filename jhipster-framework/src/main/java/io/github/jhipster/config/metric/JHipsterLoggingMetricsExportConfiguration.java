@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Console Reporter Configuration
- *
+ * <p>
  * Pass the metrics to the logs with Dropwizard Reporter implementation
  * see https://github.com/micrometer-metrics/micrometer-docs/blob/9fedeb5/src/docs/guide/console-reporter.adoc
  */

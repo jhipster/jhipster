@@ -19,9 +19,11 @@
 
 package io.github.jhipster.web.util;
 
-import java.util.Optional;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import org.springframework.http.*;
+import java.util.Optional;
 
 /**
  * Utility class for ResponseEntity creation.

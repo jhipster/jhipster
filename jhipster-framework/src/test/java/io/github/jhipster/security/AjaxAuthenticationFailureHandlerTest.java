@@ -19,21 +19,19 @@
 
 package io.github.jhipster.security;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 import static io.github.jhipster.security.AjaxAuthenticationFailureHandler.UNAUTHORIZED_MESSAGE;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 public class AjaxAuthenticationFailureHandlerTest {
 

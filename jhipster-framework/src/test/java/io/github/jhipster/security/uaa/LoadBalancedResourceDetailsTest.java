@@ -19,23 +19,24 @@
 
 package io.github.jhipster.security.uaa;
 
-import static io.github.jhipster.security.uaa.LoadBalancedResourceDetails.EXCEPTION_MESSAGE;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import java.net.URI;
-import java.util.List;
-
-import org.junit.*;
+import io.github.jhipster.test.LogbackRecorder;
+import io.github.jhipster.test.LogbackRecorder.Event;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 
-import io.github.jhipster.test.LogbackRecorder;
-import io.github.jhipster.test.LogbackRecorder.Event;
+import java.net.URI;
+import java.util.List;
+
+import static io.github.jhipster.security.uaa.LoadBalancedResourceDetails.EXCEPTION_MESSAGE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 public class LoadBalancedResourceDetailsTest {
 

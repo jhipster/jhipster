@@ -19,11 +19,11 @@
 
 package io.github.jhipster.service.filter;
 
-import java.time.ZonedDateTime;
-import java.util.List;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * Filter class for {@link ZonedDateTime} type attributes.

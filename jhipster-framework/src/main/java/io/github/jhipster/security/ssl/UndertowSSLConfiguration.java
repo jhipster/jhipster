@@ -19,14 +19,13 @@
 
 package io.github.jhipster.security.ssl;
 
+import io.undertow.UndertowOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.context.annotation.Configuration;
-
-import io.undertow.UndertowOptions;
 
 /**
  * SSL configuration for Undertow.
@@ -38,12 +37,11 @@ import io.undertow.UndertowOptions;
  * Please note that when using JHipster, you can use the `server.ssl.ciphers` property that is available
  * in your `application-tls.yml` file, and which is ready to work with this configuration.
  *
- * @see
- * <a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices#25-use-forward-secrecy" target="_blank">More explanation on perfect forward secrecy</a>
+ * @see <a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices#25-use-forward-secrecy" target="_blank">More explanation on perfect forward secrecy</a>
  */
 @Configuration
-@ConditionalOnClass({ UndertowServletWebServerFactory.class, UndertowOptions.class })
-@ConditionalOnProperty({ "server.ssl.ciphers", "server.ssl.key-store" })
+@ConditionalOnClass({UndertowServletWebServerFactory.class, UndertowOptions.class})
+@ConditionalOnProperty({"server.ssl.ciphers", "server.ssl.key-store"})
 public class UndertowSSLConfiguration {
 
     private final UndertowServletWebServerFactory factory;

@@ -19,14 +19,12 @@
 
 package io.github.jhipster.service.demo;
 
-import org.springframework.data.jpa.domain.Specification;
-
 import io.github.jhipster.service.QueryService;
 import io.github.jhipster.service.filter.LongFilter;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  * This class is just a compile - test.
- *
  */
 public class ChildEntityQueryService extends QueryService<ChildEntity> {
 

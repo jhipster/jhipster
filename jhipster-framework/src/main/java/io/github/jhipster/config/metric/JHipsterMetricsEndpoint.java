@@ -1,7 +1,7 @@
 package io.github.jhipster.config.metric;
 
-import io.micrometer.core.instrument.*;
 import io.micrometer.core.instrument.Timer;
+import io.micrometer.core.instrument.*;
 import io.micrometer.core.instrument.distribution.ValueAtPercentile;
 import io.micrometer.core.instrument.search.Search;
 import org.slf4j.Logger;
@@ -177,14 +177,14 @@ public class JHipsterMetricsEndpoint {
         counters.forEach(counter -> {
             String key = counter.getId().getName();
             String name = counter.getId().getTag("name");
-            if(name != null) {
+            if (name != null) {
                 resultsCache.putIfAbsent(name, new HashMap<>());
                 if (counter.getId().getTag("result") != null) {
                     key += "." + counter.getId().getTag("result");
                 }
                 resultsCache.get(name).put(key, counter.count());
             } else {
-                logger.warn(MISSING_NAME_TAG_MESSAGE,key);
+                logger.warn(MISSING_NAME_TAG_MESSAGE, key);
             }
         });
 
@@ -192,11 +192,11 @@ public class JHipsterMetricsEndpoint {
         gauges.forEach(gauge -> {
             String key = gauge.getId().getName();
             String name = gauge.getId().getTag("name");
-            if(name != null) {
+            if (name != null) {
                 resultsCache.putIfAbsent(name, new HashMap<>());
                 resultsCache.get(name).put(key, gauge.value());
             } else {
-                logger.warn(MISSING_NAME_TAG_MESSAGE,key);
+                logger.warn(MISSING_NAME_TAG_MESSAGE, key);
             }
         });
         return resultsCache;

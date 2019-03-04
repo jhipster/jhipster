@@ -19,30 +19,28 @@
 
 package io.github.jhipster.config.liquibase;
 
-import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_DEVELOPMENT;
-import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_HEROKU;
-import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_NO_LIQUIBASE;
-import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_PRODUCTION;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Mockito.*;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-import javax.sql.DataSource;
-
-import org.junit.*;
+import io.github.jhipster.test.LogbackRecorder;
+import io.github.jhipster.test.LogbackRecorder.Event;
+import liquibase.Liquibase;
+import liquibase.exception.LiquibaseException;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.mock.env.MockEnvironment;
 
-import io.github.jhipster.test.LogbackRecorder;
-import io.github.jhipster.test.LogbackRecorder.Event;
-import liquibase.Liquibase;
-import liquibase.exception.LiquibaseException;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+import static io.github.jhipster.config.JHipsterConstants.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.Mockito.*;
 
 public class AsyncSpringLiquibaseTest {
 

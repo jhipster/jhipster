@@ -102,14 +102,14 @@ public class RangeFilterTest {
     }
 
     @Test
-    public void testEquals(){
+    public void testEquals() {
         final RangeFilter<Short> filter2 = new RangeFilter<>();
         assertThat(filter).isEqualTo(filter2);
         filter.setEquals(value);
         filter2.setEquals(value);
         assertThat(filter).isEqualTo(filter2);
-        filter.setIn(Lists.newArrayList(value,value));
-        filter2.setIn(Lists.newArrayList(value,value));
+        filter.setIn(Lists.newArrayList(value, value));
+        filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter).isEqualTo(filter2);
         filter.setLessThan(value);
         filter2.setLessThan(value);
@@ -126,14 +126,14 @@ public class RangeFilterTest {
     }
 
     @Test
-    public void testHashCode(){
+    public void testHashCode() {
         final RangeFilter<Short> filter2 = new RangeFilter<>();
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
         filter.setEquals(value);
         filter2.setEquals(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
-        filter.setIn(Lists.newArrayList(value,value));
-        filter2.setIn(Lists.newArrayList(value,value));
+        filter.setIn(Lists.newArrayList(value, value));
+        filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
         filter.setLessThan(value);
         filter2.setLessThan(value);

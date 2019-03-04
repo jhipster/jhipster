@@ -19,11 +19,10 @@
 
 package io.github.jhipster.service.demo;
 
-import org.springframework.data.jpa.domain.Specification;
-
 import io.github.jhipster.service.QueryService;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import org.springframework.data.jpa.domain.Specification;
 
 public class BaseEntityQueryService extends QueryService<BaseEntity> {
 

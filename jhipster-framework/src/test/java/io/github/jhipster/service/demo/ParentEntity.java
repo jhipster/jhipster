@@ -19,12 +19,11 @@
 
 package io.github.jhipster.service.demo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class ParentEntity extends BaseEntity {

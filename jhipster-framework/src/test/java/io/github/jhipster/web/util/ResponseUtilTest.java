@@ -19,13 +19,15 @@
 
 package io.github.jhipster.web.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.http.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ResponseUtilTest {
 

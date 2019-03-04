@@ -19,23 +19,24 @@
 
 package io.github.jhipster.async;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-
-import java.util.List;
-import java.util.concurrent.*;
-
-import org.junit.*;
+import io.github.jhipster.test.LogbackRecorder;
+import io.github.jhipster.test.LogbackRecorder.Event;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
-import io.github.jhipster.test.LogbackRecorder;
-import io.github.jhipster.test.LogbackRecorder.Event;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.Mockito.*;
 
 public class ExceptionHandlingAsyncTaskExecutorTest {
 

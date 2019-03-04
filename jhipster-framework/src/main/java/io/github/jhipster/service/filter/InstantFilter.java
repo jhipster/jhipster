@@ -19,10 +19,10 @@
 
 package io.github.jhipster.service.filter;
 
-import java.time.Instant;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import java.time.Instant;
 
 /**
  * Filter class for {@link Instant} type attributes.

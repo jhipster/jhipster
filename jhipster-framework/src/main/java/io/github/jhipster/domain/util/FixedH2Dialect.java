@@ -19,9 +19,9 @@
 
 package io.github.jhipster.domain.util;
 
-import java.sql.Types;
-
 import org.hibernate.dialect.H2Dialect;
+
+import java.sql.Types;
 
 public class FixedH2Dialect extends H2Dialect {
 

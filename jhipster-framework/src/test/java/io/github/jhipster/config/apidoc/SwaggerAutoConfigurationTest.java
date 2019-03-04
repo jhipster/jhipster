@@ -19,36 +19,37 @@
 
 package io.github.jhipster.config.apidoc;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.nio.ByteBuffer;
-import java.util.*;
-import javax.annotation.Nullable;
-
-import org.junit.*;
-import org.mockito.*;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
-
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.JHipsterProperties.Swagger;
 import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
 import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
+
+import javax.annotation.Nullable;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class SwaggerAutoConfigurationTest {
 
@@ -70,7 +71,7 @@ public class SwaggerAutoConfigurationTest {
         final JHipsterProperties jHipsterProperties = new JHipsterProperties();
         properties = jHipsterProperties.getSwagger();
         properties.setHost("test.host.org");
-        properties.setProtocols(new String[] { "http", "https" });
+        properties.setProtocols(new String[]{"http", "https"});
         properties.setTitle("test title");
         properties.setDescription("test description");
         properties.setVersion("6.6.6");

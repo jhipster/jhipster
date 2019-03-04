@@ -19,21 +19,25 @@
 
 package io.github.jhipster.test;
 
-import java.util.*;
-
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.classic.spi.IThrowableProxy;
+import ch.qos.logback.core.AppenderBase;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
-import ch.qos.logback.classic.*;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.classic.spi.IThrowableProxy;
-import ch.qos.logback.core.AppenderBase;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 /**
  * Utility, mainly for unit tests, to assert content written to logback.
  */
-@ConditionalOnClass({ LoggerContext.class })
+@ConditionalOnClass({LoggerContext.class})
 public class LogbackRecorder {
 
     public static final boolean DEFAULT_MUTE = true;

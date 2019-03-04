@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 public class JHipsterMetricsEndpointConfiguration {
 
     @Bean
-    @ConditionalOnBean({ MeterRegistry.class })
+    @ConditionalOnBean({MeterRegistry.class})
     @ConditionalOnMissingBean
     @ConditionalOnEnabledEndpoint
     public JHipsterMetricsEndpoint jHipsterMetricsEndpoint(MeterRegistry meterRegistry) {

@@ -19,14 +19,14 @@
 
 package io.github.jhipster.config;
 
-import java.util.List;
-import java.util.Map;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.web.cors.CorsConfiguration;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Properties specific to JHipster.
@@ -219,7 +219,7 @@ public class JHipsterProperties {
 
                 private int updateInterval = JHipsterDefaults.Cache.Hazelcast.ManagementCenter.updateInterval;
 
-                private String url =  JHipsterDefaults.Cache.Hazelcast.ManagementCenter.url;
+                private String url = JHipsterDefaults.Cache.Hazelcast.ManagementCenter.url;
 
                 public boolean isEnabled() {
                     return enabled;

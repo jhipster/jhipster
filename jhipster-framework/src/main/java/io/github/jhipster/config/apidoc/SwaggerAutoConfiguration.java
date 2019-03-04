@@ -19,35 +19,37 @@
 
 package io.github.jhipster.config.apidoc;
 
-import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_SWAGGER;
-import static springfox.documentation.builders.PathSelectors.regex;
-
-import java.nio.ByteBuffer;
-import java.util.*;
-import javax.servlet.Servlet;
-
+import io.github.jhipster.config.JHipsterProperties;
+import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
+import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.*;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.DispatcherServlet;
-
-import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
-import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.servlet.Servlet;
+import java.nio.ByteBuffer;
+import java.util.*;
+
+import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_SWAGGER;
+import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * Springfox Swagger configuration.
@@ -93,7 +95,7 @@ public class SwaggerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(name = "swaggerSpringfoxApiDocket")
     public Docket swaggerSpringfoxApiDocket(List<SwaggerCustomizer> swaggerCustomizers,
-        ObjectProvider<AlternateTypeRule[]> alternateTypeRules) {
+                                            ObjectProvider<AlternateTypeRule[]> alternateTypeRules) {
         log.debug(STARTING_MESSAGE);
         StopWatch watch = new StopWatch();
         watch.start();
@@ -135,7 +137,7 @@ public class SwaggerAutoConfiguration {
     @ConditionalOnExpression("'${management.endpoints.web.base-path}'.length() > 0")
     @ConditionalOnMissingBean(name = "swaggerSpringfoxManagementDocket")
     public Docket swaggerSpringfoxManagementDocket(@Value("${spring.application.name:application}") String appName,
-        @Value("${management.endpoints.web.base-path}") String managementContextPath) {
+                                                   @Value("${management.endpoints.web.base-path}") String managementContextPath) {
 
         ApiInfo apiInfo = new ApiInfo(
             StringUtils.capitalize(appName) + " " + MANAGEMENT_TITLE_SUFFIX,

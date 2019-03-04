@@ -19,10 +19,10 @@
 
 package io.github.jhipster.domain.util;
 
+import org.springframework.core.convert.converter.Converter;
+
 import java.time.*;
 import java.util.Date;
-
-import org.springframework.core.convert.converter.Converter;
 
 public final class JSR310DateConverters {
 
