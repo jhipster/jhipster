@@ -24,12 +24,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
-import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Tests based on parsing algorithm in app/components/util/pagination-util.service.js
@@ -40,171 +41,142 @@ public class PaginationUtilUnitTest {
 
     private static final String BASE_URL = "/api/_search/example";
 
-    private MockHttpServletRequest mockRequest;
+    private UriComponentsBuilder uriBuilder;
 
     @Before
     public void init() {
-        mockRequest = new MockHttpServletRequest();
-        mockRequest.setRequestURI(BASE_URL);
+        uriBuilder = UriComponentsBuilder.fromUriString(BASE_URL);
     }
 
     @Test
     public void generatePaginationHttpHeadersTest() {
-        String baseUrl = "/api/_search/example";
-        List<String> content = new ArrayList<>();
-        Page<String> page = new PageImpl<>(content, PageRequest.of(6, 50), 400L);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
+        Page<String> page = new PageImpl<>(new ArrayList<>(), PageRequest.of(6, 50), 400L);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
-        assertTrue(strHeaders.size() == 1);
+        assertEquals(1, strHeaders.size());
         String headerData = strHeaders.get(0);
-        assertTrue(headerData.split(",").length == 4);
+        assertEquals(4, headerData.split(",").length);
         String expectedData = "</api/_search/example?page=7&size=50>; rel=\"next\","
             + "</api/_search/example?page=5&size=50>; rel=\"prev\","
             + "</api/_search/example?page=7&size=50>; rel=\"last\","
             + "</api/_search/example?page=0&size=50>; rel=\"first\"";
         assertEquals(expectedData, headerData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
-        assertTrue(xTotalCountHeaders.size() == 1);
-        assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(400L));
+        assertEquals(1, xTotalCountHeaders.size());
+        assertEquals(400L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
     }
 
     @Test
     public void commaTest() {
-        mockRequest.setParameter("query", "Test1, test2");
-        String baseUrl = "/api/_search/example";
+        uriBuilder.queryParam("query", "Test1, test2");
         List<String> content = new ArrayList<>();
         Page<String> page = new PageImpl<>(content);
-        String query = "Test1, test2";
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
-        assertTrue(strHeaders.size() == 1);
+        assertEquals(1, strHeaders.size());
         String headerData = strHeaders.get(0);
-        assertTrue(headerData.split(",").length == 2);
-        String expectedData = "</api/_search/example?page=0&size=0&query=Test1%2C+test2>; rel=\"last\","
-            + "</api/_search/example?page=0&size=0&query=Test1%2C+test2>; rel=\"first\"";
+        assertEquals(2, headerData.split(",").length);
+        String expectedData = "</api/_search/example?query=Test1%2C%20test2&page=0&size=0>; rel=\"last\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=0&size=0>; rel=\"first\"";
         assertEquals(expectedData, headerData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
-        assertTrue(xTotalCountHeaders.size() == 1);
-        assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(0L));
+        assertEquals(1, xTotalCountHeaders.size());
+        assertEquals(0L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
     }
 
     @Test
     public void multiplePagesTest() {
-        mockRequest.setParameter("query", "Test1, test2");
-        String baseUrl = "/api/_search/example";
+        uriBuilder.queryParam("query", "Test1, test2");
         List<String> content = new ArrayList<>();
 
         // Page 0
         Page<String> page = new PageImpl<>(content, PageRequest.of(0, 50), 400L);
-        String query = "Test1, test2";
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
-        assertTrue(strHeaders.size() == 1);
+        assertEquals(1, strHeaders.size());
         String headerData = strHeaders.get(0);
-        assertTrue(headerData.split(",").length == 3);
-        String expectedData = "</api/_search/example?page=1&size=50&query=Test1%2C+test2>; rel=\"next\","
-            + "</api/_search/example?page=7&size=50&query=Test1%2C+test2>; rel=\"last\","
-            + "</api/_search/example?page=0&size=50&query=Test1%2C+test2>; rel=\"first\"";
+        assertEquals(3, headerData.split(",").length);
+        String expectedData = "</api/_search/example?query=Test1%2C%20test2&page=1&size=50>; rel=\"next\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"last\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"first\"";
         assertEquals(expectedData, headerData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
-        assertTrue(xTotalCountHeaders.size() == 1);
-        assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(400L));
+        assertEquals(1, xTotalCountHeaders.size());
+        assertEquals(400L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
 
         // Page 1
-        mockRequest.setParameter("page", "1");
+        uriBuilder.queryParam("page", "1");
         page = new PageImpl<>(content, PageRequest.of(1, 50), 400L);
-        query = "Test1, test2";
-        headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
+        headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
-        assertTrue(strHeaders.size() == 1);
+        assertEquals(1, strHeaders.size());
         headerData = strHeaders.get(0);
-        assertTrue(headerData.split(",").length == 4);
-        expectedData = "</api/_search/example?page=2&size=50&query=Test1%2C+test2>; rel=\"next\","
-            + "</api/_search/example?page=0&size=50&query=Test1%2C+test2>; rel=\"prev\","
-            + "</api/_search/example?page=7&size=50&query=Test1%2C+test2>; rel=\"last\","
-            + "</api/_search/example?page=0&size=50&query=Test1%2C+test2>; rel=\"first\"";
+        assertEquals(4, headerData.split(",").length);
+        expectedData = "</api/_search/example?query=Test1%2C%20test2&page=2&size=50>; rel=\"next\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"prev\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"last\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"first\"";
         assertEquals(expectedData, headerData);
         xTotalCountHeaders = headers.get("X-Total-Count");
-        assertTrue(xTotalCountHeaders.size() == 1);
-        assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(400L));
+        assertEquals(1, xTotalCountHeaders.size());
+        assertEquals(400L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
 
         // Page 6
-        mockRequest.setParameter("page", "6");
+        uriBuilder.queryParam("page", "6");
         page = new PageImpl<>(content, PageRequest.of(6, 50), 400L);
-        headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
+        headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
-        assertTrue(strHeaders.size() == 1);
+        assertEquals(1, strHeaders.size());
         headerData = strHeaders.get(0);
-        assertTrue(headerData.split(",").length == 4);
-        expectedData = "</api/_search/example?page=7&size=50&query=Test1%2C+test2>; rel=\"next\","
-            + "</api/_search/example?page=5&size=50&query=Test1%2C+test2>; rel=\"prev\","
-            + "</api/_search/example?page=7&size=50&query=Test1%2C+test2>; rel=\"last\","
-            + "</api/_search/example?page=0&size=50&query=Test1%2C+test2>; rel=\"first\"";
+        assertEquals(4, headerData.split(",").length);
+        expectedData = "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"next\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=5&size=50>; rel=\"prev\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"last\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"first\"";
         assertEquals(expectedData, headerData);
         xTotalCountHeaders = headers.get("X-Total-Count");
-        assertTrue(xTotalCountHeaders.size() == 1);
-        assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(400L));
+        assertEquals(1, xTotalCountHeaders.size());
+        assertEquals(400L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
 
         // Page 7
-        mockRequest.setParameter("page", "7");
+        uriBuilder.queryParam("page", "7");
         page = new PageImpl<>(content, PageRequest.of(7, 50), 400L);
-        headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
+        headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
-        assertTrue(strHeaders.size() == 1);
+        assertEquals(1, strHeaders.size());
         headerData = strHeaders.get(0);
-        assertTrue(headerData.split(",").length == 3);
-        expectedData = "</api/_search/example?page=6&size=50&query=Test1%2C+test2>; rel=\"prev\","
-            + "</api/_search/example?page=7&size=50&query=Test1%2C+test2>; rel=\"last\","
-            + "</api/_search/example?page=0&size=50&query=Test1%2C+test2>; rel=\"first\"";
+        assertEquals(3, headerData.split(",").length);
+        expectedData = "</api/_search/example?query=Test1%2C%20test2&page=6&size=50>; rel=\"prev\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"last\"," +
+            "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"first\"";
         assertEquals(expectedData, headerData);
     }
 
     @Test
     public void greaterSemicolonTest() {
-        mockRequest.setParameter("query", "Test>;test");
-        String baseUrl = "/api/_search/example";
-        List<String> content = new ArrayList<>();
-        Page<String> page = new PageImpl<>(content);
-        String query = "Test>;test";
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
+        uriBuilder.queryParam("query", "Test>;test");
+        Page<String> page = new PageImpl<>(new ArrayList<>());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
-        assertNotNull(strHeaders);
-        assertTrue(strHeaders.size() == 1);
-        String headerData = strHeaders.get(0);
-        assertTrue(headerData.split(",").length == 2);
-        String[] linksData = headerData.split(",");
-        assertTrue(linksData.length == 2);
-        assertTrue(linksData[0].split(">;").length == 2);
-        assertTrue(linksData[1].split(">;").length == 2);
-        String expectedData = "</api/_search/example?page=0&size=0&query=Test%3E%3Btest>; rel=\"last\","
-            + "</api/_search/example?page=0&size=0&query=Test%3E%3Btest>; rel=\"first\"";
-        assertEquals(expectedData, headerData);
-        List<String> xTotalCountHeaders = headers.get("X-Total-Count");
-        assertTrue(xTotalCountHeaders.size() == 1);
-        assertTrue(Long.valueOf(xTotalCountHeaders.get(0)).equals(0L));
-    }
-
-    @Test
-    public void sortAndCriteriaTest() {
-        mockRequest.setRequestURI("/api/users");
-        mockRequest.addParameter("login.contains", "adm");
-        mockRequest.addParameter("name", "name,asc");
-        List<String> content = new ArrayList<>();
-        Page<String> page = new PageImpl<>(content, PageRequest.of(0, 50), 400L);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(mockRequest, page);
-        List<String> strHeaders = headers.get(HttpHeaders.LINK);
-        String expectedData = "</api/users?page=1&size=50&login.contains=adm&name=name%2Casc>; rel=\"next\"," +
-            "</api/users?page=7&size=50&login.contains=adm&name=name%2Casc>; rel=\"last\"," +
-            "</api/users?page=0&size=50&login.contains=adm&name=name%2Casc>; rel=\"first\"";
         assertNotNull(strHeaders);
         assertEquals(1, strHeaders.size());
         String headerData = strHeaders.get(0);
+        assertEquals(2, headerData.split(",").length);
+        String[] linksData = headerData.split(",");
+        assertEquals(2, linksData.length);
+        assertEquals(2, linksData[0].split(">;").length);
+        assertEquals(2, linksData[1].split(">;").length);
+        String expectedData = "</api/_search/example?query=Test%3E%3Btest&page=0&size=0>; rel=\"last\"," +
+            "</api/_search/example?query=Test%3E%3Btest&page=0&size=0>; rel=\"first\"";
         assertEquals(expectedData, headerData);
+        List<String> xTotalCountHeaders = headers.get("X-Total-Count");
+        assertEquals(1, xTotalCountHeaders.size());
+        assertEquals(0L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
     }
 }

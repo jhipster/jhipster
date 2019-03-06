@@ -20,15 +20,9 @@ package io.github.jhipster.web.util;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.MessageFormat;
-import java.util.Arrays;
 
 /**
  * Utility class for handling pagination.
@@ -48,47 +42,36 @@ public final class PaginationUtil {
     /**
      * Generate pagination headers for a Spring Data {@link Page} object.
      */
-    public static <T> HttpHeaders generatePaginationHttpHeaders(HttpServletRequest request, Page<T> page) {
+    public static <T> HttpHeaders generatePaginationHttpHeaders(UriComponentsBuilder uriBuilder, Page<T> page) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HEADER_X_TOTAL_COUNT, Long.toString(page.getTotalElements()));
         int pageNumber = page.getNumber();
         int pageSize = page.getSize();
         StringBuilder link = new StringBuilder();
         if (pageNumber < page.getTotalPages() - 1) {
-            link.append(prepareLink(request, pageNumber + 1, pageSize, "next"))
+            link.append(prepareLink(uriBuilder, pageNumber + 1, pageSize, "next"))
                 .append(",");
         }
         if (pageNumber > 0) {
-            link.append(prepareLink(request, pageNumber - 1, pageSize, "prev"))
+            link.append(prepareLink(uriBuilder, pageNumber - 1, pageSize, "prev"))
                 .append(",");
         }
-        link.append(prepareLink(request, page.getTotalPages() - 1, pageSize, "last"))
+        link.append(prepareLink(uriBuilder, page.getTotalPages() - 1, pageSize, "last"))
             .append(",")
-            .append(prepareLink(request, 0, pageSize, "first"));
+            .append(prepareLink(uriBuilder, 0, pageSize, "first"));
         headers.add(HttpHeaders.LINK, link.toString());
         return headers;
     }
 
-    private static String prepareLink(HttpServletRequest request, int pageNumber, int pageSize, String relType) {
-        return MessageFormat.format(HEADER_LINK_FORMAT, preparePageUri(request, pageNumber, pageSize), relType);
+    private static String prepareLink(UriComponentsBuilder uriBuilder, int pageNumber, int pageSize, String relType) {
+        return MessageFormat.format(HEADER_LINK_FORMAT, preparePageUri(uriBuilder, pageNumber, pageSize), relType);
     }
 
-    private static String preparePageUri(HttpServletRequest request, int pageNumber, int pageSize) {
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.set("page", Integer.toString(pageNumber));
-        parameters.set("size", Integer.toString(pageSize));
-        request.getParameterMap().entrySet().stream()
-            .filter(map -> !"page".equalsIgnoreCase(map.getKey()) && !"size".equalsIgnoreCase(map.getKey()))
-            .forEach(map -> Arrays.asList(map.getValue()).forEach(value -> {
-                    try {
-                        parameters.add(map.getKey(), URLEncoder.encode(value, "UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-            );
-        return UriComponentsBuilder.fromUriString(request.getRequestURI())
-            .queryParams(parameters).build(false)
-            .toUriString();
+    private static String preparePageUri(UriComponentsBuilder uriBuilder, int pageNumber, int pageSize) {
+        return uriBuilder.replaceQueryParam("page", Integer.toString(pageNumber))
+            .replaceQueryParam("size", Integer.toString(pageSize))
+            .toUriString()
+            .replace(",", "%2C")
+            .replace(";", "%3B");
     }
 }
