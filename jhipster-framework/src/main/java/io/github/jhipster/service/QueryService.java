@@ -212,8 +212,7 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
-     * Helper function to return a specification for filtering on one-to-many or many-to-many reference. Usage:
-     * <pre>
+     * Helper function to return a specification for filtering on one-to-many or many-to-many reference.Usage:<pre>
      *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(
      *          criteria.getEmployeId(),
      *          root -&gt; root.get(Project_.company).join(Company_.employees),
@@ -230,6 +229,7 @@ public abstract class QueryService<ENTITY> {
      * @param entityToColumn   the function, which of the static metamodel of the referred entity, where the equality should be
      *                         checked.
      * @param <OTHER>          The type of the referenced entity.
+     * @param <MISC>           The type of the entity which is the last before the OTHER in the chain.
      * @param <X>              The type of the attribute which is filtered.
      * @return a Specification
      */
@@ -332,6 +332,7 @@ public abstract class QueryService<ENTITY> {
      *
      * @param metaclassFunction function which returns the column which is used for filtering.
      * @param value             the actual value to filter for.
+     * @param <X>              The type of the attribute which is filtered.
      * @return a Specification.
      */
     protected <X> Specification<ENTITY> equalsSpecification(Function<Root<ENTITY>, Expression<X>> metaclassFunction, final X value) {
