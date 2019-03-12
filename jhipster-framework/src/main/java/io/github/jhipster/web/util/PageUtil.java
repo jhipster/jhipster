@@ -34,9 +34,9 @@ public interface PageUtil {
     /**
      * Create a {@link Page} from a {@link List} of objects
      *
-     * @param list     - list of objects
-     * @param pageable
-     * @param <T>      - type of object
+     * @param list list of objects
+     * @param pageable pagination information.
+     * @param <T> type of object
      * @return page containing objects, and attributes set according to pageable
      * @throws IllegalArgumentException - if list is null
      */

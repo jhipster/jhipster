@@ -41,6 +41,11 @@ public final class PaginationUtil {
 
     /**
      * Generate pagination headers for a Spring Data {@link Page} object.
+     * 
+     * @param uriBuilder The URI builder.
+     * @param page The page.
+     * @param <T> The type of object.
+     * @return http header.
      */
     public static <T> HttpHeaders generatePaginationHttpHeaders(UriComponentsBuilder uriBuilder, Page<T> page) {
         HttpHeaders headers = new HttpHeaders();
