@@ -188,34 +188,6 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
-     * Helper function to return a specification for filtering on one-to-one or many-to-one reference. Where equality, less
-     * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
-     * supported. Usage:
-     * <pre>
-     *   Specification&lt;Employee&gt; specByProjectId = buildReferringEntitySpecification(criteria.getProjectId(),
-     * Employee_.project, Project_.id);
-     *   Specification&lt;Employee&gt; specByProjectName = buildReferringEntitySpecification(criteria.getProjectName(),
-     * Employee_.project, Project_.name);
-     * </pre>
-     *
-     * @param filter     the filter object which contains a value, which needs to match or a flag if nullness is
-     *                   checked.
-     * @param reference  the attribute of the static metamodel for the referring entity.
-     * @param valueField the attribute of the static metamodel of the referred entity, where the equality should be
-     *                   checked.
-     * @param <OTHER>    The type of the referenced entity.
-     * @param <X>        The type of the attribute which is filtered.
-     * @return a Specification
-     * @deprecated just call buildSpecification(filter, root -&gt; root.get(reference).get(valueField))
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(final RangeFilter<X> filter,
-                                                                                                               final SingularAttribute<? super ENTITY, OTHER> reference,
-                                                                                                               final SingularAttribute<OTHER, X> valueField) {
-        return buildSpecification(filter, root -> root.get(reference).get(valueField));
-    }
-
-    /**
      * Helper function to return a specification for filtering on one-to-many or many-to-many reference. Usage:
      * <pre>
      *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(criteria.getEmployeId(),
@@ -366,44 +338,9 @@ public abstract class QueryService<ENTITY> {
         return (root, query, builder) -> builder.equal(metaclassFunction.apply(root), value);
     }
 
-    /**
-     * @deprecated Just call the equalsSpecification(root -&gt; root.get(field), value) directly.
-     */
-    protected <X> Specification<ENTITY> equalsSpecification(SingularAttribute<? super ENTITY, X> field, final X value) {
-        return equalsSpecification(root -> root.get(field), value);
-    }
-
-    /**
-     * @deprecated Just call the equalsSpecification(root -&gt; root.get(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X> Specification<ENTITY> equalsSpecification(
-        SingularAttribute<? super ENTITY, OTHER> reference,
-        SingularAttribute<? super OTHER, X> valueField,
-        X value) {
-        return equalsSpecification(root -> root.get(reference).get(valueField), value);
-    }
-
-    /**
-     * @deprecated Just call the equalsSpecification(root -&gt; root.join(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X> Specification<ENTITY> equalsSetSpecification(SetAttribute<? super ENTITY, OTHER> reference,
-                                                                      SingularAttribute<OTHER, X> idField, X value) {
-        return equalsSpecification(root -> root.join(reference).get(idField), value);
-    }
-
     protected Specification<ENTITY> likeUpperSpecification(Function<Root<ENTITY>, Expression<String>> metaclassFunction,
                                                            final String value) {
         return (root, query, builder) -> builder.like(builder.upper(metaclassFunction.apply(root)), wrapLikeQuery(value));
-    }
-
-    /**
-     * @deprecated Just call the likeUpperSpecification(root -&gt; root.get(field), value) directly.
-     */
-    protected Specification<ENTITY> likeUpperSpecification(SingularAttribute<? super ENTITY, String> field,
-                                                           final String value) {
-        return likeUpperSpecification(root -> root.get(field), value);
     }
 
     protected <X> Specification<ENTITY> byFieldSpecified(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
@@ -413,28 +350,11 @@ public abstract class QueryService<ENTITY> {
             (root, query, builder) -> builder.isNull(metaclassFunction.apply(root));
     }
 
-    /**
-     * @deprecated Just call the byFieldSpecified(root -&gt; root.get(field), value) directly.
-     */
-    @Deprecated
-    protected <X> Specification<ENTITY> byFieldSpecified(SingularAttribute<? super ENTITY, X> field,
-                                                         final boolean specified) {
-        return byFieldSpecified(root -> root.get(field), specified);
-    }
-
     protected <X> Specification<ENTITY> byFieldEmptiness(Function<Root<ENTITY>, Expression<Set<X>>> metaclassFunction,
                                                          final boolean specified) {
         return specified ?
             (root, query, builder) -> builder.isNotEmpty(metaclassFunction.apply(root)) :
             (root, query, builder) -> builder.isEmpty(metaclassFunction.apply(root));
-    }
-
-    /**
-     * @deprecated Just call the byFieldEmptiness(root -&gt; root.get(field), value) directly.
-     */
-    @Deprecated
-    protected <X> Specification<ENTITY> byFieldSpecified(SetAttribute<ENTITY, X> field, final boolean specified) {
-        return byFieldEmptiness(root -> root.get(field), specified);
     }
 
     protected <X> Specification<ENTITY> valueIn(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
@@ -446,24 +366,6 @@ public abstract class QueryService<ENTITY> {
             }
             return in;
         };
-    }
-
-    /**
-     * @deprecated Just call the valueIn(root -&gt; root.get(field), value) directly.
-     */
-    @Deprecated
-    protected <X> Specification<ENTITY> valueIn(SingularAttribute<? super ENTITY, X> field,
-                                                final Collection<X> values) {
-        return valueIn(root -> root.get(field), values);
-    }
-
-    /**
-     * @deprecated Just call the valueIn(root -&gt; root.get(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X> Specification<ENTITY> valueIn(SingularAttribute<? super ENTITY, OTHER> reference,
-                                                       SingularAttribute<? super OTHER, X> valueField, final Collection<X> values) {
-        return valueIn(root -> root.get(reference).get(valueField), values);
     }
 
     protected <X extends Comparable<? super X>> Specification<ENTITY> greaterThanOrEqualTo(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
@@ -486,116 +388,8 @@ public abstract class QueryService<ENTITY> {
         return (root, query, builder) -> builder.lessThan(metaclassFunction.apply(root), value);
     }
 
-    /**
-     * @deprecated Just call the greaterThanOrEqualTo(root -&gt; root.get(field), value) directly.
-     */
-    @Deprecated
-    protected <X extends Comparable<? super X>> Specification<ENTITY> greaterThanOrEqualTo(SingularAttribute<? super
-        ENTITY, X> field, final X value) {
-        return greaterThanOrEqualTo(root -> root.get(field), value);
-    }
-
-    /**
-     * @deprecated Just call the greaterThan(root -&gt; root.get(field), value) directly.
-     */
-    @Deprecated
-    protected <X extends Comparable<? super X>> Specification<ENTITY> greaterThan(SingularAttribute<? super ENTITY,
-        X> field, final X value) {
-        return greaterThan(root -> root.get(field), value);
-    }
-
-    /**
-     * @deprecated Just call the lessThanOrEqualTo(root -&gt; root.get(field), value) directly.
-     */
-    @Deprecated
-    protected <X extends Comparable<? super X>> Specification<ENTITY> lessThanOrEqualTo(SingularAttribute<? super
-        ENTITY, X> field, final X value) {
-        return lessThanOrEqualTo(root -> root.get(field), value);
-    }
-
-    /**
-     * @deprecated Just call the lessThan(root -&gt; root.get(field), value) directly.
-     */
-    @Deprecated
-    protected <X extends Comparable<? super X>> Specification<ENTITY> lessThan(SingularAttribute<? super ENTITY, X>
-                                                                                   field, final X value) {
-        return lessThan(root -> root.get(field), value);
-    }
-
     protected String wrapLikeQuery(String txt) {
         return "%" + txt.toUpperCase() + '%';
     }
 
-    /**
-     * @deprecated Just call the valueIn(root -&gt; root.get(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X> Specification<ENTITY> valueIn(final SetAttribute<? super ENTITY, OTHER> reference,
-                                                       final SingularAttribute<OTHER, X> valueField, final Collection<X> values) {
-        return valueIn(root -> root.join(reference).get(valueField), values);
-    }
-
-    /**
-     * @deprecated Just call the greaterThan(root -&gt; root.get(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> greaterThan(final SingularAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
-        return greaterThan(root -> root.get(reference).get(valueField), value);
-    }
-
-    /**
-     * @deprecated Just call the greaterThan(root -&gt; root.join(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> greaterThan(final SetAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
-        return greaterThan(root -> root.join(reference).get(valueField), value);
-    }
-
-    /**
-     * @deprecated Just call the greaterThanOrEqualTo(root -&gt; root.get(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> greaterThanOrEqualTo(final SingularAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
-        return greaterThanOrEqualTo(root -> root.get(reference).get(valueField), value);
-    }
-
-    /**
-     * @deprecated Just call the greaterThanOrEqualTo(root -&gt; root.join(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> greaterThanOrEqualTo(final SetAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
-        return greaterThanOrEqualTo(root -> root.join(reference).get(valueField), value);
-    }
-
-    /**
-     * @deprecated Just call the lessThan(root -&lt; root.get(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> lessThan(final SingularAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
-        return lessThan(root -> root.get(reference).get(valueField), value);
-    }
-
-    /**
-     * @deprecated Just call the lessThan(root -&gt; root.join(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> lessThan(final SetAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
-        return lessThan(root -> root.join(reference).get(valueField), value);
-    }
-
-    /**
-     * @deprecated Just call the lessThanOrEqualTo(root -&gt; root.get(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> lessThanOrEqualTo(final SingularAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
-        return lessThanOrEqualTo(root -> root.get(reference).get(valueField), value);
-    }
-
-    /**
-     * @deprecated Just call the lessThanOrEqualTo(root -&gt; root.join(reference).get(valueField), value) directly.
-     */
-    @Deprecated
-    protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> lessThanOrEqualTo(final SetAttribute<? super ENTITY, OTHER> reference, final SingularAttribute<OTHER, X> valueField, final X value) {
-        return lessThanOrEqualTo(root -> root.join(reference).get(valueField), value);
-    }
 }
