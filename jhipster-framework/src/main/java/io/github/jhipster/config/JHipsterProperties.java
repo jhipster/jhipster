@@ -788,7 +788,17 @@ public class JHipsterProperties {
 
     public static class Logging {
 
+        private boolean useJsonFormat = JHipsterDefaults.Logging.useJsonFormat;
+        
         private final Logstash logstash = new Logstash();
+
+        public boolean isUseJsonFormat() {
+            return useJsonFormat;
+        }
+
+        public void setUseJsonFormat(boolean useJsonFormat) {
+            this.useJsonFormat = useJsonFormat;
+        }
 
         public Logstash getLogstash() {
             return logstash;
