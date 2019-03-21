@@ -168,6 +168,8 @@ public interface JHipsterDefaults {
 
     interface Logging {
 
+        boolean useJsonFormat = false;
+        
         interface Logstash {
 
             boolean enabled = false;

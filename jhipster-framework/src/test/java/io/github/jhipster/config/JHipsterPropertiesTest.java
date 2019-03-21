@@ -587,6 +587,16 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testLoggingUseJsonFormat() {
+        JHipsterProperties.Logging obj = properties.getLogging();
+        boolean val = JHipsterDefaults.Logging.useJsonFormat;
+        assertThat(obj.isUseJsonFormat()).isEqualTo(val);
+        val = true;
+        obj.setUseJsonFormat(val);
+        assertThat(obj.isUseJsonFormat()).isEqualTo(val);
+    }
+
+    @Test
     public void testLoggingLogstashEnabled() {
         JHipsterProperties.Logging.Logstash obj = properties.getLogging().getLogstash();
         boolean val = JHipsterDefaults.Logging.Logstash.enabled;
