@@ -66,7 +66,7 @@
         <mapstruct.version>1.3.0.Final</mapstruct.version>
         <micrometer.version>1.1.3</micrometer.version>
         <mongobee.version>0.13</mongobee.version>
-        <mssql-jdbc.version>7.2.1.jre8</mssql-jdbc.version>
+        <mssql-jdbc.version>7.3.0.jre11-preview</mssql-jdbc.version>
         <mysql-jdbc.version>8.0.15</mysql-jdbc.version>
         <oracle-jdbc.version>18.3.0.0</oracle-jdbc.version>
         <problem-spring.version>0.24.0-RC.0</problem-spring.version>
