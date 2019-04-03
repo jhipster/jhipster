@@ -50,8 +50,7 @@ public interface PageUtil {
             return new PageImpl<>(new ArrayList<>(), pageable, 0);
         }
 
-        int endOfPage = startOfPage + pageable.getPageSize();
-        endOfPage = (endOfPage > list.size()) ? list.size() : endOfPage;
+        int endOfPage = Math.min(startOfPage + pageable.getPageSize(), list.size());
         return new PageImpl<>(list.subList(startOfPage, endOfPage), pageable, list.size());
     }
 }
