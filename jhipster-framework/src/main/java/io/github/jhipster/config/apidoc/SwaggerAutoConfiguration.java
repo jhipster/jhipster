@@ -63,7 +63,8 @@ import static springfox.documentation.builders.PathSelectors.regex;
     ApiInfo.class,
     BeanValidatorPluginsConfiguration.class,
     Servlet.class,
-    DispatcherServlet.class
+    DispatcherServlet.class,
+    Docket.class
 })
 @Profile(SPRING_PROFILE_SWAGGER)
 @AutoConfigureAfter(JHipsterProperties.class)
