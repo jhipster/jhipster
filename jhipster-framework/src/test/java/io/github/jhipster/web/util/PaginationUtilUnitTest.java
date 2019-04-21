@@ -95,7 +95,7 @@ public class PaginationUtilUnitTest {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertThat(strHeaders).isNotNull();
-        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).hasSize(1);
         String headerData = strHeaders.get(0);
         assertThat(headerData.split(",")).hasSize(3);
         String expectedData = "</api/_search/example?query=Test1%2C%20test2&page=1&size=50>; rel=\"next\"," +
@@ -112,7 +112,7 @@ public class PaginationUtilUnitTest {
         headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         strHeaders = headers.get(HttpHeaders.LINK);
         assertThat(strHeaders).isNotNull();
-        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).hasSize(1);
         headerData = strHeaders.get(0);
         assertThat(headerData.split(",")).hasSize(4);
         expectedData = "</api/_search/example?query=Test1%2C%20test2&page=2&size=50>; rel=\"next\"," +
@@ -130,7 +130,7 @@ public class PaginationUtilUnitTest {
         headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         strHeaders = headers.get(HttpHeaders.LINK);
         assertThat(strHeaders).isNotNull();
-        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).hasSize(1);
         headerData = strHeaders.get(0);
         assertThat(headerData.split(",")).hasSize(4);
         expectedData = "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"next\"," +
@@ -164,7 +164,7 @@ public class PaginationUtilUnitTest {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertThat(strHeaders).isNotNull();
-        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).hasSize(1);
         String headerData = strHeaders.get(0);
         assertThat(headerData.split(",")).hasSize(2);
         String[] linksData = headerData.split(",");
