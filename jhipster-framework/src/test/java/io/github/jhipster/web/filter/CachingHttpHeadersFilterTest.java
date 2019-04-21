@@ -20,9 +20,9 @@
 package io.github.jhipster.web.filter;
 
 import io.github.jhipster.config.JHipsterProperties;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -46,7 +46,7 @@ public class CachingHttpHeadersFilterTest {
     private JHipsterProperties properties;
     private CachingHttpHeadersFilter filter;
 
-    @Before
+    @BeforeEach
     public void setup() {
         request = new MockHttpServletRequest();
         response = spy(new MockHttpServletResponse());
@@ -55,7 +55,7 @@ public class CachingHttpHeadersFilterTest {
         filter = new CachingHttpHeadersFilter(properties);
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         filter.destroy();
     }

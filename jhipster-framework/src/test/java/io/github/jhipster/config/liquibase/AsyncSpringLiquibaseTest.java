@@ -23,9 +23,9 @@ import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
 import liquibase.Liquibase;
 import liquibase.exception.LiquibaseException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
@@ -51,7 +51,7 @@ public class AsyncSpringLiquibaseTest {
     private TestAsyncSpringLiquibase config;
     private LogbackRecorder recorder;
 
-    @Before
+    @BeforeEach
     public void setup() {
         executor = new SimpleAsyncTaskExecutor();
         recorder = LogbackRecorder.forClass(MockEnvironment.class).reset().capture("ALL");
@@ -61,7 +61,7 @@ public class AsyncSpringLiquibaseTest {
         recorder = LogbackRecorder.forClass(AsyncSpringLiquibase.class).reset().capture("ALL");
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         recorder.release();
     }

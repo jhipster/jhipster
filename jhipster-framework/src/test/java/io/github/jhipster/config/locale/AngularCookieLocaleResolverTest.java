@@ -21,9 +21,9 @@ package io.github.jhipster.config.locale;
 
 import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
@@ -59,7 +59,7 @@ public class AngularCookieLocaleResolverTest {
     @Captor
     private ArgumentCaptor<Cookie> captor;
 
-    @Before
+    @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
@@ -73,7 +73,7 @@ public class AngularCookieLocaleResolverTest {
         recorder = LogbackRecorder.forClass(resolver.getClass()).reset().capture("DEBUG");
     }
 
-    @After()
+    @AfterEach
     public void teardown() {
         recorder.release();
     }

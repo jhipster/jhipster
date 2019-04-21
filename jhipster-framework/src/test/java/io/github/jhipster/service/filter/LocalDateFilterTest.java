@@ -19,8 +19,8 @@
 
 package io.github.jhipster.service.filter;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -34,7 +34,7 @@ public class LocalDateFilterTest {
 
     private LocalDate value = LocalDate.now();
 
-    @Before
+    @BeforeEach
     public void setup() {
         filter = new LocalDateFilter();
     }

@@ -19,7 +19,7 @@
 
 package io.github.jhipster.web.filter.reactive;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
@@ -29,8 +29,6 @@ import reactor.core.publisher.Mono;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class CachingHttpHeadersFilterTest {
 
@@ -43,8 +41,8 @@ public class CachingHttpHeadersFilterTest {
         WebFilterChain filterChain = (filterExchange) -> {
             try {
                 HttpHeaders headers = filterExchange.getResponse().getHeaders();
-                assertEquals("cache", headers.getPragma());
-                assertEquals("max-age=172800000, public", headers.getCacheControl());
+                assertThat(headers.getPragma()).isEqualTo("cache");
+                assertThat(headers.getCacheControl()).isEqualTo("max-age=172800000, public");
                 assertThat(headers.getExpires() - now).isBetween(ttl - 1000, ttl + 1000);
             } catch (AssertionError ex) {
                 return Mono.error(ex);
@@ -62,9 +60,9 @@ public class CachingHttpHeadersFilterTest {
         WebFilterChain filterChain = (filterExchange) -> {
             try {
                 HttpHeaders headers = filterExchange.getResponse().getHeaders();
-                assertNull(headers.getPragma());
-                assertNull(headers.getCacheControl());
-                assertEquals(-1, headers.getExpires());
+                assertThat(headers.getPragma()).isNull();
+                assertThat(headers.getCacheControl()).isNull();;
+                assertThat(headers.getExpires()).isEqualTo(-1);
             } catch (AssertionError ex) {
                 return Mono.error(ex);
             }
