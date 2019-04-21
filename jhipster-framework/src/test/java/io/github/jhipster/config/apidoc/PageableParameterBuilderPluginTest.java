@@ -20,8 +20,8 @@
 package io.github.jhipster.config.apidoc;
 
 import com.fasterxml.classmate.TypeResolver;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
@@ -65,7 +65,7 @@ public class PageableParameterBuilderPluginTest {
     @Captor
     private ArgumentCaptor<List<Parameter>> captor;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
         Method method = this.getClass().getMethod("test", new Class<?>[]{Pageable.class, Integer.class});

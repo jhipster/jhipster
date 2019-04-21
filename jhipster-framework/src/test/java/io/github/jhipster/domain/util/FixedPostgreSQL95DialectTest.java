@@ -25,9 +25,9 @@ import org.hibernate.type.descriptor.sql.BinaryTypeDescriptor;
 import org.hibernate.type.descriptor.sql.BlobTypeDescriptor;
 import org.hibernate.type.descriptor.sql.BooleanTypeDescriptor;
 import org.hibernate.type.descriptor.sql.SqlTypeDescriptor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Types;
 import java.util.LinkedHashMap;
@@ -45,7 +45,7 @@ public class FixedPostgreSQL95DialectTest {
 
     private FixedPostgreSQL95Dialect dialect;
 
-    @Before
+    @BeforeEach
     public void setup() {
         recorders.add(LogbackRecorder.forName("org.jboss.logging").reset().capture("ALL"));
         recorders.add(LogbackRecorder.forClass(Dialect.class).reset().capture("ALL"));
@@ -61,7 +61,7 @@ public class FixedPostgreSQL95DialectTest {
         };
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         recorders.forEach(LogbackRecorder::release);
         recorders.clear();

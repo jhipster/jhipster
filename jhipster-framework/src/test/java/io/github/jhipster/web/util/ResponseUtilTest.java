@@ -19,8 +19,8 @@
 
 package io.github.jhipster.web.util;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class ResponseUtilTest {
     private Optional<Integer> no;
     private HttpHeaders headers;
 
-    @Before
+    @BeforeEach
     public void setup() {
         yes = Optional.of(42);
         no = Optional.empty();

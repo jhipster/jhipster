@@ -18,8 +18,8 @@
  */
 package io.github.jhipster.web.util;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +29,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests based on parsing algorithm in app/components/util/pagination-util.service.js
@@ -43,7 +42,7 @@ public class PaginationUtilUnitTest {
 
     private UriComponentsBuilder uriBuilder;
 
-    @Before
+    @BeforeEach
     public void init() {
         uriBuilder = UriComponentsBuilder.fromUriString(BASE_URL);
     }
@@ -53,18 +52,18 @@ public class PaginationUtilUnitTest {
         Page<String> page = new PageImpl<>(new ArrayList<>(), PageRequest.of(6, 50), 400L);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
-        assertNotNull(strHeaders);
-        assertEquals(1, strHeaders.size());
+        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).hasSize(1);
         String headerData = strHeaders.get(0);
-        assertEquals(4, headerData.split(",").length);
+        assertThat(headerData.split(",")).hasSize(4);
         String expectedData = "</api/_search/example?page=7&size=50>; rel=\"next\","
             + "</api/_search/example?page=5&size=50>; rel=\"prev\","
             + "</api/_search/example?page=7&size=50>; rel=\"last\","
             + "</api/_search/example?page=0&size=50>; rel=\"first\"";
-        assertEquals(expectedData, headerData);
+        assertThat(headerData).isEqualTo(expectedData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
-        assertEquals(1, xTotalCountHeaders.size());
-        assertEquals(400L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
+        assertThat(xTotalCountHeaders).hasSize(1);
+        assertThat((long) Long.valueOf(xTotalCountHeaders.get(0))).isEqualTo(400L);
     }
 
     @Test
@@ -74,16 +73,16 @@ public class PaginationUtilUnitTest {
         Page<String> page = new PageImpl<>(content);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
-        assertNotNull(strHeaders);
-        assertEquals(1, strHeaders.size());
+        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).hasSize(1);
         String headerData = strHeaders.get(0);
-        assertEquals(2, headerData.split(",").length);
+        assertThat(headerData.split(",")).hasSize(2);
         String expectedData = "</api/_search/example?query=Test1%2C%20test2&page=0&size=0>; rel=\"last\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=0&size=0>; rel=\"first\"";
-        assertEquals(expectedData, headerData);
+        assertThat(headerData).isEqualTo(expectedData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
-        assertEquals(1, xTotalCountHeaders.size());
-        assertEquals(0L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
+        assertThat(xTotalCountHeaders).hasSize(1);
+        assertThat((long) Long.valueOf(xTotalCountHeaders.get(0))).isEqualTo(0L);
     }
 
     @Test
@@ -95,67 +94,67 @@ public class PaginationUtilUnitTest {
         Page<String> page = new PageImpl<>(content, PageRequest.of(0, 50), 400L);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
-        assertNotNull(strHeaders);
-        assertEquals(1, strHeaders.size());
+        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).isNotNull();
         String headerData = strHeaders.get(0);
-        assertEquals(3, headerData.split(",").length);
+        assertThat(headerData.split(",")).hasSize(3);
         String expectedData = "</api/_search/example?query=Test1%2C%20test2&page=1&size=50>; rel=\"next\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"last\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"first\"";
-        assertEquals(expectedData, headerData);
+        assertThat(headerData).isEqualTo(expectedData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
-        assertEquals(1, xTotalCountHeaders.size());
-        assertEquals(400L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
+        assertThat(xTotalCountHeaders).hasSize(1);
+        assertThat((long) Long.valueOf(xTotalCountHeaders.get(0))).isEqualTo(400L);
 
         // Page 1
         uriBuilder.queryParam("page", "1");
         page = new PageImpl<>(content, PageRequest.of(1, 50), 400L);
         headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         strHeaders = headers.get(HttpHeaders.LINK);
-        assertNotNull(strHeaders);
-        assertEquals(1, strHeaders.size());
+        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).isNotNull();
         headerData = strHeaders.get(0);
-        assertEquals(4, headerData.split(",").length);
+        assertThat(headerData.split(",")).hasSize(4);
         expectedData = "</api/_search/example?query=Test1%2C%20test2&page=2&size=50>; rel=\"next\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"prev\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"last\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"first\"";
-        assertEquals(expectedData, headerData);
+        assertThat(headerData).isEqualTo(expectedData);
         xTotalCountHeaders = headers.get("X-Total-Count");
-        assertEquals(1, xTotalCountHeaders.size());
-        assertEquals(400L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
+        assertThat(xTotalCountHeaders).hasSize(1);
+        assertThat((long) Long.valueOf(xTotalCountHeaders.get(0))).isEqualTo(400L);
 
         // Page 6
         uriBuilder.queryParam("page", "6");
         page = new PageImpl<>(content, PageRequest.of(6, 50), 400L);
         headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         strHeaders = headers.get(HttpHeaders.LINK);
-        assertNotNull(strHeaders);
-        assertEquals(1, strHeaders.size());
+        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).isNotNull();
         headerData = strHeaders.get(0);
-        assertEquals(4, headerData.split(",").length);
+        assertThat(headerData.split(",")).hasSize(4);
         expectedData = "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"next\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=5&size=50>; rel=\"prev\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"last\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"first\"";
-        assertEquals(expectedData, headerData);
+       assertThat(headerData).isEqualTo(expectedData);
         xTotalCountHeaders = headers.get("X-Total-Count");
-        assertEquals(1, xTotalCountHeaders.size());
-        assertEquals(400L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
+        assertThat(xTotalCountHeaders).hasSize(1);
+        assertThat((long) Long.valueOf(xTotalCountHeaders.get(0))).isEqualTo(400L);
 
         // Page 7
         uriBuilder.queryParam("page", "7");
         page = new PageImpl<>(content, PageRequest.of(7, 50), 400L);
         headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         strHeaders = headers.get(HttpHeaders.LINK);
-        assertNotNull(strHeaders);
-        assertEquals(1, strHeaders.size());
+        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).hasSize(1);
         headerData = strHeaders.get(0);
-        assertEquals(3, headerData.split(",").length);
+        assertThat(headerData.split(",")).hasSize(3);
         expectedData = "</api/_search/example?query=Test1%2C%20test2&page=6&size=50>; rel=\"prev\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=7&size=50>; rel=\"last\"," +
             "</api/_search/example?query=Test1%2C%20test2&page=0&size=50>; rel=\"first\"";
-        assertEquals(expectedData, headerData);
+        assertThat(headerData).isEqualTo(expectedData);
     }
 
     @Test
@@ -164,19 +163,19 @@ public class PaginationUtilUnitTest {
         Page<String> page = new PageImpl<>(new ArrayList<>());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
-        assertNotNull(strHeaders);
-        assertEquals(1, strHeaders.size());
+        assertThat(strHeaders).isNotNull();
+        assertThat(strHeaders).isNotNull();
         String headerData = strHeaders.get(0);
-        assertEquals(2, headerData.split(",").length);
+        assertThat(headerData.split(",")).hasSize(2);
         String[] linksData = headerData.split(",");
-        assertEquals(2, linksData.length);
-        assertEquals(2, linksData[0].split(">;").length);
-        assertEquals(2, linksData[1].split(">;").length);
+        assertThat(linksData).hasSize(2);
+        assertThat(linksData[0].split(">;")).hasSize(2);
+        assertThat(linksData[1].split(">;")).hasSize(2);
         String expectedData = "</api/_search/example?query=Test%3E%3Btest&page=0&size=0>; rel=\"last\"," +
             "</api/_search/example?query=Test%3E%3Btest&page=0&size=0>; rel=\"first\"";
-        assertEquals(expectedData, headerData);
+        assertThat(headerData).isEqualTo(expectedData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
-        assertEquals(1, xTotalCountHeaders.size());
-        assertEquals(0L, (long) Long.valueOf(xTotalCountHeaders.get(0)));
+        assertThat(xTotalCountHeaders).hasSize(1);
+        assertThat((long) Long.valueOf(xTotalCountHeaders.get(0))).isEqualTo(0L);
     }
 }

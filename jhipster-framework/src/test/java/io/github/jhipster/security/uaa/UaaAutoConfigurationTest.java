@@ -21,8 +21,8 @@ package io.github.jhipster.security.uaa;
 
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.JHipsterProperties.Security.ClientAuthorization;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,7 +37,7 @@ public class UaaAutoConfigurationTest {
     private ClientAuthorization authorization;
     private UaaAutoConfiguration config;
 
-    @Before
+    @BeforeEach
     public void setup() {
         properties = new JHipsterProperties();
         authorization = properties.getSecurity().getClientAuthorization();

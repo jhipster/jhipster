@@ -21,9 +21,9 @@ package io.github.jhipster.async;
 
 import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.task.AsyncTaskExecutor;
@@ -49,7 +49,7 @@ public class ExceptionHandlingAsyncTaskExecutorTest {
     private ExceptionHandlingAsyncTaskExecutor executor;
     private LogbackRecorder recorder;
 
-    @Before
+    @BeforeEach
     public void setup() {
         done = false;
         handled = null;
@@ -58,7 +58,7 @@ public class ExceptionHandlingAsyncTaskExecutorTest {
         recorder = LogbackRecorder.forClass(ExceptionHandlingAsyncTaskExecutor.class).reset().capture("ALL");
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         recorder.release();
     }

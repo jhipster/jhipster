@@ -21,9 +21,9 @@ package io.github.jhipster.config.apidoc;
 
 import com.fasterxml.classmate.TypeResolver;
 import io.github.jhipster.test.LogbackRecorder;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.plugin.core.SimplePluginRegistry;
 import springfox.documentation.schema.JacksonEnumTypeDeterminer;
@@ -40,7 +40,7 @@ public class SwaggerPluginsAutoConfigurationTest {
     private SwaggerPluginsAutoConfiguration.SpringPagePluginConfiguration pagePluginConfig;
     private LogbackRecorder recorder;
 
-    @Before
+    @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
@@ -49,7 +49,7 @@ public class SwaggerPluginsAutoConfigurationTest {
         recorder = LogbackRecorder.forClass(SwaggerAutoConfiguration.class).reset().capture("ALL");
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         recorder.release();
     }

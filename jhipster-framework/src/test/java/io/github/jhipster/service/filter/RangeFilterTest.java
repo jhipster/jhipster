@@ -20,8 +20,8 @@
 package io.github.jhipster.service.filter;
 
 import com.google.common.collect.Lists;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class RangeFilterTest {
 
     private Short value = 42;
 
-    @Before
+    @BeforeEach
     public void setup() {
         filter = new RangeFilter<Short>();
     }

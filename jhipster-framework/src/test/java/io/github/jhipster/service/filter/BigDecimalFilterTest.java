@@ -19,8 +19,8 @@
 
 package io.github.jhipster.service.filter;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
@@ -34,7 +34,7 @@ public class BigDecimalFilterTest {
 
     private BigDecimal value = new BigDecimal(42L);
 
-    @Before
+    @BeforeEach
     public void setup() {
         filter = new BigDecimalFilter();
     }

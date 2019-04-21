@@ -19,8 +19,8 @@
 
 package io.github.jhipster.config;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -32,7 +32,7 @@ public class JHipsterPropertiesTest {
 
     private JHipsterProperties properties;
 
-    @Before
+    @BeforeEach
     public void setup() {
         properties = new JHipsterProperties();
     }
