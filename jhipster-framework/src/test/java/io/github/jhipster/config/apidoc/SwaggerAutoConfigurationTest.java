@@ -27,9 +27,10 @@ import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
 import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
 import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
@@ -64,7 +65,7 @@ public class SwaggerAutoConfigurationTest {
     @Captor
     private ArgumentCaptor<Predicate<String>> pathsCaptor;
 
-    @Before
+    @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
@@ -95,7 +96,7 @@ public class SwaggerAutoConfigurationTest {
         recorder = LogbackRecorder.forClass(SwaggerAutoConfiguration.class).reset().capture("ALL");
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         recorder.release();
     }

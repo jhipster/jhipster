@@ -19,8 +19,8 @@
 
 package io.github.jhipster.security;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class AjaxAuthenticationFailureHandlerTest {
     private HttpServletResponse response;
     private AjaxAuthenticationFailureHandler handler;
 
-    @Before
+    @BeforeEach
     public void setup() {
         response = spy(HttpServletResponse.class);
         handler = new AjaxAuthenticationFailureHandler();

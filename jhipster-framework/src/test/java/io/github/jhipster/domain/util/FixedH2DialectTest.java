@@ -22,7 +22,7 @@ package io.github.jhipster.domain.util;
 import io.github.jhipster.test.LogbackRecorder;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.H2Dialect;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Types;
 import java.util.LinkedHashMap;

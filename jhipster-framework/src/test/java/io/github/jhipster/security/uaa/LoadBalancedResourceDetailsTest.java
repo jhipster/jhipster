@@ -21,9 +21,9 @@ package io.github.jhipster.security.uaa;
 
 import io.github.jhipster.test.LogbackRecorder;
 import io.github.jhipster.test.LogbackRecorder.Event;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -46,7 +46,7 @@ public class LoadBalancedResourceDetailsTest {
     private LoadBalancerClient client;
     private LogbackRecorder recorder;
 
-    @Before
+    @BeforeEach
     public void setup() {
         client = spy(LoadBalancerClient.class);
         doReturn(null).when(client).choose(TOKEN_SERVICE_ID);
@@ -62,7 +62,7 @@ public class LoadBalancedResourceDetailsTest {
         recorder = LogbackRecorder.forClass(LoadBalancedResourceDetails.class).reset().capture("ALL");
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         recorder.release();
     }

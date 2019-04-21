@@ -21,7 +21,7 @@ package io.github.jhipster.security.ssl;
 
 import io.undertow.Undertow;
 import io.undertow.UndertowOptions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.xnio.OptionMap;

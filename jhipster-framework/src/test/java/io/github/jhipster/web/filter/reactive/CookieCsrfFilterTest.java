@@ -19,7 +19,7 @@
 
 package io.github.jhipster.web.filter.reactive;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseCookie;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
@@ -31,7 +31,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CookieCsrfFilterTest {
 
@@ -46,13 +46,13 @@ public class CookieCsrfFilterTest {
         WebFilterChain filterChain = (filterExchange) -> {
             try {
                 ResponseCookie cookie = filterExchange.getResponse().getCookies().getFirst(CSRF_COOKIE_NAME);
-                assertNotNull(cookie);
-                assertEquals(CSRF_COOKIE_NAME, cookie.getName());
-                assertEquals(token, cookie.getValue());
-                assertEquals("/", cookie.getPath());
-                assertEquals(Duration.ofSeconds(-1), cookie.getMaxAge());
-                assertFalse(cookie.isHttpOnly());
-                assertFalse(cookie.isSecure());
+                assertThat(cookie).isNotNull();
+                assertThat(cookie.getName()).isEqualTo(CSRF_COOKIE_NAME);
+                assertThat(cookie.getValue()).isEqualTo(token);
+                assertThat(cookie.getPath()).isEqualTo("/");
+                assertThat(cookie.getMaxAge()).isEqualTo(Duration.ofSeconds(-1));
+                assertThat(cookie.isHttpOnly()).isFalse();
+                assertThat(cookie.isSecure()).isFalse();
             } catch (AssertionError ex) {
                 return Mono.error(ex);
             }
@@ -69,7 +69,7 @@ public class CookieCsrfFilterTest {
     public void cookieNotSetIfTokenInRequest() {
         WebFilterChain filterChain = (filterExchange) -> {
             try {
-                assertNull(filterExchange.getResponse().getCookies().getFirst(CSRF_COOKIE_NAME));
+                assertThat(filterExchange.getResponse().getCookies().getFirst(CSRF_COOKIE_NAME)).isNull();
             } catch (AssertionError ex) {
                 return Mono.error(ex);
             }
@@ -88,7 +88,7 @@ public class CookieCsrfFilterTest {
     public void cookieNotSetIfNotInAttributes() {
         WebFilterChain filterChain = (filterExchange) -> {
             try {
-                assertNull(filterExchange.getResponse().getCookies().getFirst(CSRF_COOKIE_NAME));
+                assertThat(filterExchange.getResponse().getCookies().getFirst(CSRF_COOKIE_NAME)).isNull();;
             } catch (AssertionError ex) {
                 return Mono.error(ex);
             }
