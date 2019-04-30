@@ -11,7 +11,7 @@
 
     <groupId>io.github.jhipster</groupId>
     <artifactId>jhipster-parent</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
     <packaging>pom</packaging>
     <name>JHipster server-side parent POM</name>
     <url>https://github.com/jhipster/jhipster/</url>
@@ -40,7 +40,7 @@
 
     <properties>
         <!-- The jhipster-framework version should be the same as the artifact version above -->
-        <jhipster-framework.version>3.0.1-SNAPSHOT</jhipster-framework.version>
+        <jhipster-framework.version>3.0.1</jhipster-framework.version>
         <!-- The spring-boot version should be the same as the parent version above -->
         <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
 
@@ -69,7 +69,7 @@
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
         <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-        
+
         <!-- Sonar properties -->
         <jacoco.reportFolder>${project.build.directory}/jacoco</jacoco.reportFolder>
         <jacoco.utReportFile>${jacoco.reportFolder}/test.exec</jacoco.utReportFile>
