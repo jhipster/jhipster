@@ -55,7 +55,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- Plugin versions -->
-        <jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <!-- We can't go to 3.0.0-M2 as it has a regression. See https://issues.apache.org/jira/browse/MENFORCER-306 -->
