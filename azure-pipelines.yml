@@ -90,6 +90,8 @@ jobs:
       - script: |
           sudo /etc/init.d/mysql stop
         displayName: 'Before Install'
+
+
       #----------------------------------------------------------------------
       # Install all tools and check configuration
       #----------------------------------------------------------------------
@@ -98,7 +100,6 @@ jobs:
           versionSpec: '10.15.3'
         displayName: 'TOOLS: install Node.js'
         
-      # Upgrade NPM
       - script: npm install -g npm
         displayName: 'TOOLS: update NPM'
 
