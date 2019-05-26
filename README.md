@@ -1,7 +1,7 @@
 JHipster BOM and server-side library
 ----------------------------
 
-[![Build Status][travis-image]][travis-url] [![Maven Central][maven-image]][maven-url]
+[![Azure DevOps Build Status][azure-devops-image]][azure-devops-url-main] [![Build Status][travis-image]][travis-url] [![Maven Central][maven-image]][maven-url]
 
 Full documentation and information is available on our website at [https://www.jhipster.tech/][jhipster-url]
 
@@ -14,5 +14,8 @@ This project is used by the JHipster generator. This is the Bill of Materials an
 
 [maven-image]: https://maven-badges.herokuapp.com/maven-central/io.github.jhipster/jhipster-parent/badge.svg
 [maven-url]: https://maven-badges.herokuapp.com/maven-central/io.github.jhipster/jhipster-parent
+
+[azure-devops-image]: https://dev.azure.com/jhipster/jhipster/_apis/build/status/jhipster.jhipster?branchName=master
+[azure-devops-url-main]: https://dev.azure.com/jhipster/jhipster/_build
 
 [jhipster-url]: https://www.jhipster.tech/
