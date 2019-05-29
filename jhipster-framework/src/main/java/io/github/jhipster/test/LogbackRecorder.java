@@ -35,7 +35,17 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 /**
- * Utility, mainly for unit tests, to assert content written to logback.
+ * Utility, mainly for unit tests, to assert content written to logback. A classical usage would be
+ * the following.
+ * <p>
+ * {@code
+ * LogbackRecorder recorder = LogbackRecorder.forClass(TestedClass.class)
+ *   .reset()
+ *   .capture(Level.WARN.name());
+ * // do something that logs
+ * List<LogbackRecorder.Event> events = recorder.release().play();
+ * // perform assertions on the events
+ * }
  */
 @ConditionalOnClass({LoggerContext.class})
 public class LogbackRecorder {
@@ -52,14 +62,35 @@ public class LogbackRecorder {
 
     private static final Map<Logger, LogbackRecorder> instances = new WeakHashMap<>(32, 0.75F);
 
+    /**
+     * Create a recorder for a logback logger identified by the class name. Instances of a recorder are cached per logger.
+     * Make sure to reset it before starting capture.
+     *
+     * @param clazz class whose logger as its name
+     * @return the recorder for this class
+     */
     public static final LogbackRecorder forClass(Class<?> clazz) {
         return forLogger(context.getLogger(clazz));
     }
 
+    /**
+     * Create a recorder for a logback logger identified by its name. Instances of a recorder are cached per logger.
+     * Make sure to reset it before starting capture.
+     *
+     * @param name the name of the logger
+     * @return the recorder for this class
+     */
     public static final LogbackRecorder forName(String name) {
         return forLogger(context.getLogger(name));
     }
 
+    /**
+     * Create a recorder for a logback logger. Instances of a recorder are cached per logger.
+     * Make sure to reset it before starting capture.
+     *
+     * @param logger the logger to record
+     * @return the recorder for this logger
+     */
     public static final LogbackRecorder forLogger(org.slf4j.Logger logger) {
         synchronized (instances) {
             if (!(logger instanceof Logger)) {
@@ -92,11 +123,22 @@ public class LogbackRecorder {
         };
     }
 
+    /**
+     * Resets the logger by clearing everything that was recorded so far.
+     *
+     * @return this
+     */
     public synchronized LogbackRecorder reset() {
         this.events.clear();
         return this;
     }
 
+    /**
+     * Start capturing whatever is logged for this level of worse.
+     *
+     * @param level the level at which to start capturing
+     * @return this
+     */
     public LogbackRecorder capture(String level) {
         synchronized (lock) {
             if (this.active) {
@@ -113,6 +155,11 @@ public class LogbackRecorder {
         return this;
     }
 
+    /**
+     * Stop recording and detach from the logger.
+     *
+     * @return this
+     */
     public synchronized LogbackRecorder release() {
         synchronized (lock) {
             if (!this.active) {
@@ -127,12 +174,18 @@ public class LogbackRecorder {
         return this;
     }
 
+    /**
+     * Return all recorded events.
+     *
+     * @return all recorded events so far
+     */
     public List<Event> play() {
-        final List<Event> list = new ArrayList<>(this.events.size());
-        list.addAll(this.events);
-        return list;
+        return new ArrayList<>(this.events);
     }
 
+    /**
+     * A recorded event. It contains all information sent to the logger.
+     */
     public static final class Event {
 
         private final Marker marker;
@@ -150,22 +203,47 @@ public class LogbackRecorder {
             this.thrown = proxy == null ? null : proxy.getClassName() + ": " + proxy.getMessage();
         }
 
+        /**
+         * Slf4j market used.
+         *
+         * @return the marker
+         */
         public Marker getMarker() {
             return this.marker;
         }
 
+        /**
+         * Level of the log.
+         *
+         * @return the level
+         */
         public String getLevel() {
             return this.level;
         }
 
+        /**
+         * Message passed to the logger with the original placeholders ('{}').
+         *
+         * @return the logged message
+         */
         public String getMessage() {
             return this.message;
         }
 
+        /**
+         * The arguments passed to the logger to be used by a placeholder. Logged exceptions are not included.
+         *
+         * @return the parameters passed to the logger
+         */
         public Object[] getArguments() {
             return this.arguments;
         }
 
+        /**
+         * Logged exception passed in argument to the logger or null if none.
+         *
+         * @return the logged exception as {@code exception.getClass().getName() + ": " + exception.getMessage()}
+         */
         public String getThrown() {
             return this.thrown;
         }

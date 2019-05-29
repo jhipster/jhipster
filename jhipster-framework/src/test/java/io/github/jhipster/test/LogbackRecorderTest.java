@@ -64,8 +64,7 @@ public class LogbackRecorderTest {
             assertThat(event.getMarker()).isEqualTo(marker);
             assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[i].toUpperCase());
             assertThat(event.getMessage()).startsWith(TEST_MESSAGES[i]);
-            assertThat(event.getArguments()).hasSize(1);
-            assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[i]);
+            assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[i]);
             assertThat(event.getThrown()).isNull();
         }
 
@@ -86,8 +85,7 @@ public class LogbackRecorderTest {
             assertThat(event.getMarker()).isEqualTo(marker);
             assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[i].toUpperCase());
             assertThat(event.getMessage()).startsWith(TEST_MESSAGES[i]);
-            assertThat(event.getArguments()).hasSize(1);
-            assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[i]);
+            assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[i]);
             assertThat(event.getThrown()).isEqualTo(exception.toString());
         }
 
@@ -108,8 +106,7 @@ public class LogbackRecorderTest {
             assertThat(event.getMarker()).isEqualTo(marker);
             assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[i].toUpperCase());
             assertThat(event.getMessage()).startsWith(TEST_MESSAGES[i]);
-            assertThat(event.getArguments()).hasSize(1);
-            assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[i]);
+            assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[i]);
             assertThat(event.getThrown()).isNull();
         }
 
@@ -130,8 +127,7 @@ public class LogbackRecorderTest {
             assertThat(event.getMarker()).isEqualTo(marker);
             assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[i].toUpperCase());
             assertThat(event.getMessage()).startsWith(TEST_MESSAGES[i]);
-            assertThat(event.getArguments()).hasSize(1);
-            assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[i]);
+            assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[i]);
             assertThat(event.getThrown()).isEqualTo(exception.toString());
         }
 
@@ -152,8 +148,7 @@ public class LogbackRecorderTest {
             assertThat(event.getMarker()).isEqualTo(marker);
             assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[i].toUpperCase());
             assertThat(event.getMessage()).startsWith(TEST_MESSAGES[i]);
-            assertThat(event.getArguments()).hasSize(1);
-            assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[i]);
+            assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[i]);
             assertThat(event.getThrown()).isNull();
         }
 
@@ -174,8 +169,7 @@ public class LogbackRecorderTest {
             assertThat(event.getMarker()).isEqualTo(marker);
             assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[i].toUpperCase());
             assertThat(event.getMessage()).startsWith(TEST_MESSAGES[i]);
-            assertThat(event.getArguments()).hasSize(1);
-            assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[i]);
+            assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[i]);
             assertThat(event.getThrown()).isEqualTo(exception.toString());
         }
 
@@ -196,8 +190,7 @@ public class LogbackRecorderTest {
             assertThat(event.getMarker()).isEqualTo(marker);
             assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[i].toUpperCase());
             assertThat(event.getMessage()).startsWith(TEST_MESSAGES[i]);
-            assertThat(event.getArguments()).hasSize(1);
-            assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[i]);
+            assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[i]);
             assertThat(event.getThrown()).isNull();
         }
 
@@ -218,8 +211,7 @@ public class LogbackRecorderTest {
             assertThat(event.getMarker()).isEqualTo(marker);
             assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[i].toUpperCase());
             assertThat(event.getMessage()).startsWith(TEST_MESSAGES[i]);
-            assertThat(event.getArguments()).hasSize(1);
-            assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[i]);
+            assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[i]);
             assertThat(event.getThrown()).isEqualTo(exception.toString());
         }
 
@@ -239,8 +231,7 @@ public class LogbackRecorderTest {
         assertThat(event.getMarker()).isEqualTo(marker);
         assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[0].toUpperCase());
         assertThat(event.getMessage()).startsWith(TEST_MESSAGES[0]);
-        assertThat(event.getArguments()).hasSize(1);
-        assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[0]);
+        assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[0]);
         assertThat(event.getThrown()).isNull();
 
         recorder.release();
@@ -259,8 +250,7 @@ public class LogbackRecorderTest {
         assertThat(event.getMarker()).isEqualTo(marker);
         assertThat(event.getLevel()).isEqualTo(TEST_MESSAGES[0].toUpperCase());
         assertThat(event.getMessage()).startsWith(TEST_MESSAGES[0]);
-        assertThat(event.getArguments()).hasSize(1);
-        assertThat(event.getArguments()[0]).isEqualTo(TEST_ARGUMENTS[0]);
+        assertThat(event.getArguments()).containsExactly(TEST_ARGUMENTS[0]);
         assertThat(event.getThrown()).isEqualTo(exception.toString());
 
         recorder.release();
@@ -302,9 +292,7 @@ public class LogbackRecorderTest {
     @Test
     public void testCaptureException() {
         recorder.capture("ALL");
-        Throwable caught = catchThrowable(() -> {
-            recorder.capture("ALL");
-        });
+        Throwable caught = catchThrowable(() -> recorder.capture("ALL"));
         assertThat(caught).isInstanceOf(IllegalStateException.class);
         assertThat(caught).hasMessage(LogbackRecorder.CAPTURE_EXCEPTION_MESSAGE);
         recorder.release();
@@ -312,9 +300,7 @@ public class LogbackRecorderTest {
 
     @Test
     public void testReleaseException() {
-        Throwable caught = catchThrowable(() -> {
-            recorder.release();
-        });
+        Throwable caught = catchThrowable(() -> recorder.release());
         assertThat(caught).isInstanceOf(IllegalStateException.class);
         assertThat(caught).hasMessage(LogbackRecorder.RELEASE_EXCEPTION_MESSAGE);
     }
