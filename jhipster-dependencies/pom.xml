@@ -77,7 +77,7 @@
         <spring-data-jest.version>3.2.2.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
         <spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
-        <spring-security-oauth.version>2.3.5.RELEASE</spring-security-oauth.version>
+        <spring-security-oauth.version>2.3.6.RELEASE</spring-security-oauth.version>
         <springfox.version>2.9.2</springfox.version>
         <testcontainers.version>1.11.3</testcontainers.version>
         <xmemcached.version>2.4.6</xmemcached.version>
