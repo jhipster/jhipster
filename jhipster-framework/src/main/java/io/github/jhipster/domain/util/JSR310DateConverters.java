@@ -117,7 +117,7 @@ public final class JSR310DateConverters {
 
         @Override
         public Long convert(Duration source) {
-            return source == null ? null : source.toMillis();
+            return source == null ? null : source.toNanos();
         }
     }
 
@@ -130,7 +130,7 @@ public final class JSR310DateConverters {
 
         @Override
         public Duration convert(Long source) {
-            return source == null ? null : Duration.ofMillis(source);
+            return source == null ? null : Duration.ofNanos(source);
         }
     }
 }
