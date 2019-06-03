@@ -45,7 +45,6 @@
         <couchmove.version>1.0.2</couchmove.version>
         <couchbase-client.version>2.7.6</couchbase-client.version>
         <couchbase-encryption.version>2.0.1</couchbase-encryption.version>
-        <couchbase-testcontainers.version>1.3</couchbase-testcontainers.version>
         <cucumber-jvm.version>4.3.1</cucumber-jvm.version>
         <commons-io.version>2.6</commons-io.version>
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
@@ -241,9 +240,9 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.differentway</groupId>
-                <artifactId>couchbase-testcontainer</artifactId>
-                <version>${couchbase-testcontainers.version}</version>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>couchbase</artifactId>
+                <version>${testcontainers.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
