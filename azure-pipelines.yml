@@ -40,6 +40,7 @@ jobs:
       JHI_DISABLE_WEBPACK_LOGS: true
       JHI_E2E_HEADLESS: true
       JHI_SCRIPTS: $HOME/generator-jhipster/test-integration/scripts
+      NG_CLI_ANALYTICS: false
     
     strategy:
       matrix:
