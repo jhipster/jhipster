@@ -26,7 +26,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * Filter class for {@link ZonedDateTime} type attributes.
+ * Filter class for {@link java.time.ZonedDateTime} type attributes.
  *
  * @see RangeFilter
  */
@@ -34,17 +34,31 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * <p>Constructor for ZonedDateTimeFilter.</p>
+     */
     public ZonedDateTimeFilter() {
     }
 
+    /**
+     * <p>Constructor for ZonedDateTimeFilter.</p>
+     *
+     * @param filter a {@link io.github.jhipster.service.filter.ZonedDateTimeFilter} object.
+     */
     public ZonedDateTimeFilter(final ZonedDateTimeFilter filter) {
         super(filter);
     }
 
+    /**
+     * <p>copy.</p>
+     *
+     * @return a {@link io.github.jhipster.service.filter.ZonedDateTimeFilter} object.
+     */
     public ZonedDateTimeFilter copy() {
         return new ZonedDateTimeFilter(this);
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setEquals(ZonedDateTime equals) {
@@ -52,6 +66,7 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setGreaterThan(ZonedDateTime equals) {
@@ -59,6 +74,7 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setGreaterOrEqualThan(ZonedDateTime equals) {
@@ -66,6 +82,7 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setLessThan(ZonedDateTime equals) {
@@ -73,6 +90,7 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setLessOrEqualThan(ZonedDateTime equals) {
@@ -80,6 +98,7 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setIn(List<ZonedDateTime> in) {

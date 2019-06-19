@@ -48,6 +48,11 @@ public class UndertowSSLConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(UndertowSSLConfiguration.class);
 
+    /**
+     * <p>Constructor for UndertowSSLConfiguration.</p>
+     *
+     * @param undertowServletWebServerFactory a {@link org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory} object.
+     */
     public UndertowSSLConfiguration(UndertowServletWebServerFactory undertowServletWebServerFactory) {
         this.factory = undertowServletWebServerFactory;
 

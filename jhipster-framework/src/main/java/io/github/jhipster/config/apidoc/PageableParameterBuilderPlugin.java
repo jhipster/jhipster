@@ -41,20 +41,29 @@ import static springfox.documentation.schema.ResolvedTypes.modelRefFactory;
 import static springfox.documentation.spi.schema.contexts.ModelContext.inputParam;
 
 /**
- * The Springfox Plugin to resolve {@link Pageable} parameter into plain fields.
+ * The Springfox Plugin to resolve {@link org.springframework.data.domain.Pageable} parameter into plain fields.
  */
 public class PageableParameterBuilderPlugin implements OperationBuilderPlugin {
 
+    /** Constant <code>DEFAULT_PAGE_NAME="page"</code> */
     public static final String DEFAULT_PAGE_NAME = "page";
+    /** Constant <code>PAGE_TYPE="query"</code> */
     public static final String PAGE_TYPE = "query";
+    /** Constant <code>PAGE_DESCRIPTION="Page number of the requested page"</code> */
     public static final String PAGE_DESCRIPTION = "Page number of the requested page";
 
+    /** Constant <code>DEFAULT_SIZE_NAME="size"</code> */
     public static final String DEFAULT_SIZE_NAME = "size";
+    /** Constant <code>SIZE_TYPE="query"</code> */
     public static final String SIZE_TYPE = "query";
+    /** Constant <code>SIZE_DESCRIPTION="Size of a page"</code> */
     public static final String SIZE_DESCRIPTION = "Size of a page";
 
+    /** Constant <code>DEFAULT_SORT_NAME="sort"</code> */
     public static final String DEFAULT_SORT_NAME = "sort";
+    /** Constant <code>SORT_TYPE="query"</code> */
     public static final String SORT_TYPE = "query";
+    /** Constant <code>SORT_DESCRIPTION="Sorting criteria in the format: propert"{trunked}</code> */
     public static final String SORT_DESCRIPTION = "Sorting criteria in the format: property(,asc|desc). "
         + "Default sort order is ascending. "
         + "Multiple sort criteria are supported.";
@@ -63,17 +72,25 @@ public class PageableParameterBuilderPlugin implements OperationBuilderPlugin {
     private final TypeResolver resolver;
     private final ResolvedType pageableType;
 
+    /**
+     * <p>Constructor for PageableParameterBuilderPlugin.</p>
+     *
+     * @param nameExtractor a {@link springfox.documentation.schema.TypeNameExtractor} object.
+     * @param resolver a {@link com.fasterxml.classmate.TypeResolver} object.
+     */
     public PageableParameterBuilderPlugin(TypeNameExtractor nameExtractor, TypeResolver resolver) {
         this.nameExtractor = nameExtractor;
         this.resolver = resolver;
         this.pageableType = resolver.resolve(Pageable.class);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean supports(DocumentationType delimiter) {
         return DocumentationType.SWAGGER_2.equals(delimiter);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void apply(OperationContext context) {
         List<Parameter> parameters = newArrayList();
@@ -130,7 +147,7 @@ public class PageableParameterBuilderPlugin implements OperationBuilderPlugin {
      * Create a page parameter.
      * Override it if needed. Set a default value for example.
      *
-     * @param context {@link Pageable} parameter context
+     * @param context {@link org.springframework.data.domain.Pageable} parameter context
      * @return The page parameter
      */
     protected Parameter createPageParameter(ParameterContext context) {
@@ -147,7 +164,7 @@ public class PageableParameterBuilderPlugin implements OperationBuilderPlugin {
      * Create a size parameter.
      * Override it if needed. Set a default value for example.
      *
-     * @param context {@link Pageable} parameter context
+     * @param context {@link org.springframework.data.domain.Pageable} parameter context
      * @return The size parameter
      */
     protected Parameter createSizeParameter(ParameterContext context) {
@@ -164,7 +181,7 @@ public class PageableParameterBuilderPlugin implements OperationBuilderPlugin {
      * Create a sort parameter.
      * Override it if needed. Set a default value or further description for example.
      *
-     * @param context {@link Pageable} parameter context
+     * @param context {@link org.springframework.data.domain.Pageable} parameter context
      * @return The sort parameter
      */
     protected Parameter createSortParameter(ParameterContext context) {
@@ -178,6 +195,12 @@ public class PageableParameterBuilderPlugin implements OperationBuilderPlugin {
             .build();
     }
 
+    /**
+     * <p>createModelRefFactory.</p>
+     *
+     * @param context a {@link springfox.documentation.spi.service.contexts.ParameterContext} object.
+     * @return a {@link java.util.function.Function} object.
+     */
     protected Function<ResolvedType, ? extends ModelReference> createModelRefFactory(ParameterContext context) {
         ModelContext modelContext = inputParam(
             context.getGroupName(),

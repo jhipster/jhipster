@@ -31,27 +31,37 @@ import java.util.concurrent.TimeUnit;
  */
 public class CachingHttpHeadersFilter implements Filter {
 
+    /** Constant <code>DEFAULT_DAYS_TO_LIVE=1461</code> */
     public static final int DEFAULT_DAYS_TO_LIVE = 1461; // 4 years
+    /** Constant <code>DEFAULT_SECONDS_TO_LIVE=TimeUnit.DAYS.toMillis(DEFAULT_DAYS_TO_LIVE)</code> */
     public static final long DEFAULT_SECONDS_TO_LIVE = TimeUnit.DAYS.toMillis(DEFAULT_DAYS_TO_LIVE);
 
     private long cacheTimeToLive = DEFAULT_SECONDS_TO_LIVE;
 
     private JHipsterProperties jHipsterProperties;
 
+    /**
+     * <p>Constructor for CachingHttpHeadersFilter.</p>
+     *
+     * @param jHipsterProperties a {@link io.github.jhipster.config.JHipsterProperties} object.
+     */
     public CachingHttpHeadersFilter(JHipsterProperties jHipsterProperties) {
         this.jHipsterProperties = jHipsterProperties;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         cacheTimeToLive = TimeUnit.DAYS.toMillis(jHipsterProperties.getHttp().getCache().getTimeToLiveInDays());
     }
 
+    /** {@inheritDoc} */
     @Override
     public void destroy() {
         // Nothing to destroy
     }
 
+    /** {@inheritDoc} */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException {

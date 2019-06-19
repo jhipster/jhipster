@@ -12,10 +12,14 @@ import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
+/**
+ * <p>CookieCsrfFilter class.</p>
+ */
 public class CookieCsrfFilter implements WebFilter {
 
     private static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
 
+    /** {@inheritDoc} */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         if (exchange.getRequest().getCookies().get(CSRF_COOKIE_NAME) != null) {

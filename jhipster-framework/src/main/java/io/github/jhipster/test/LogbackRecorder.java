@@ -50,11 +50,16 @@ import java.util.WeakHashMap;
 @ConditionalOnClass({LoggerContext.class})
 public class LogbackRecorder {
 
+    /** Constant <code>DEFAULT_MUTE=true</code> */
     public static final boolean DEFAULT_MUTE = true;
+    /** Constant <code>DEFAULT_LEVEL="ALL"</code> */
     public static final String DEFAULT_LEVEL = "ALL";
 
+    /** Constant <code>LOGBACK_EXCEPTION_MESSAGE="Expected logback"</code> */
     public static final String LOGBACK_EXCEPTION_MESSAGE = "Expected logback";
+    /** Constant <code>CAPTURE_EXCEPTION_MESSAGE="Already capturing"</code> */
     public static final String CAPTURE_EXCEPTION_MESSAGE = "Already capturing";
+    /** Constant <code>RELEASE_EXCEPTION_MESSAGE="Not currently capturing"</code> */
     public static final String RELEASE_EXCEPTION_MESSAGE = "Not currently capturing";
 
     private static final LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();

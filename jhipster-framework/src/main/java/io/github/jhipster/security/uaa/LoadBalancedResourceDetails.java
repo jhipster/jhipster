@@ -28,9 +28,13 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * <p>LoadBalancedResourceDetails class.</p>
+ */
 @ConditionalOnMissingBean
 public class LoadBalancedResourceDetails extends ClientCredentialsResourceDetails {
 
+    /** Constant <code>EXCEPTION_MESSAGE="Returning an invalid URI: {}"</code> */
     public static final String EXCEPTION_MESSAGE = "Returning an invalid URI: {}";
 
     private final Logger log = LoggerFactory.getLogger(LoadBalancedResourceDetails.class);
@@ -39,10 +43,16 @@ public class LoadBalancedResourceDetails extends ClientCredentialsResourceDetail
 
     private LoadBalancerClient loadBalancerClient;
 
+    /**
+     * <p>Constructor for LoadBalancedResourceDetails.</p>
+     *
+     * @param loadBalancerClient a {@link org.springframework.cloud.client.loadbalancer.LoadBalancerClient} object.
+     */
     public LoadBalancedResourceDetails(LoadBalancerClient loadBalancerClient) {
         this.loadBalancerClient = loadBalancerClient;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getAccessTokenUri() {
         if (loadBalancerClient != null && tokenServiceId != null && !tokenServiceId.isEmpty()) {
@@ -61,10 +71,20 @@ public class LoadBalancedResourceDetails extends ClientCredentialsResourceDetail
         }
     }
 
+    /**
+     * <p>Getter for the field <code>tokenServiceId</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getTokenServiceId() {
         return this.tokenServiceId;
     }
 
+    /**
+     * <p>Setter for the field <code>tokenServiceId</code>.</p>
+     *
+     * @param tokenServiceId a {@link java.lang.String} object.
+     */
     public void setTokenServiceId(String tokenServiceId) {
         this.tokenServiceId = tokenServiceId;
     }

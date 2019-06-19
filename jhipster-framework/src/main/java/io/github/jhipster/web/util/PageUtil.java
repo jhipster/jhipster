@@ -32,13 +32,13 @@ import java.util.List;
 public interface PageUtil {
 
     /**
-     * Create a {@link Page} from a {@link List} of objects
+     * Create a {@link org.springframework.data.domain.Page} from a {@link java.util.List} of objects
      *
      * @param list list of objects
      * @param pageable pagination information.
      * @param <T> type of object
      * @return page containing objects, and attributes set according to pageable
-     * @throws IllegalArgumentException - if list is null
+     * @throws java.lang.IllegalArgumentException - if list is null
      */
     static <T> Page<T> createPageFromList(List<T> list, Pageable pageable) {
         if (list == null) {

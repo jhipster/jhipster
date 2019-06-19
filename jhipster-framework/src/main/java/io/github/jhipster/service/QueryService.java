@@ -78,7 +78,7 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
-     * Helper function to return a specification for filtering on a {@link String} field, where equality, containment,
+     * Helper function to return a specification for filtering on a {@link java.lang.String} field, where equality, containment,
      * and null/non-null conditions are supported.
      *
      * @param filter the individual attribute filter coming from the frontend.
@@ -91,7 +91,7 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
-     * Helper function to return a specification for filtering on a {@link String} field, where equality, containment,
+     * Helper function to return a specification for filtering on a {@link java.lang.String} field, where equality, containment,
      * and null/non-null conditions are supported.
      *
      * @param filter            the individual attribute filter coming from the frontend.
@@ -112,13 +112,13 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
-     * Helper function to return a specification for filtering on a single {@link Comparable}, where equality, less
+     * Helper function to return a specification for filtering on a single {@link java.lang.Comparable}, where equality, less
      * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
      * supported.
      *
+     * @param <X>    The type of the attribute which is filtered.
      * @param filter the individual attribute filter coming from the frontend.
      * @param field  the JPA static metamodel representing the field.
-     * @param <X>    The type of the attribute which is filtered.
      * @return a Specification
      */
     protected <X extends Comparable<? super X>> Specification<ENTITY> buildRangeSpecification(RangeFilter<X> filter,
@@ -127,13 +127,13 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
-     * Helper function to return a specification for filtering on a single {@link Comparable}, where equality, less
+     * Helper function to return a specification for filtering on a single {@link java.lang.Comparable}, where equality, less
      * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
      * supported.
      *
+     * @param <X>               The type of the attribute which is filtered.
      * @param filter            the individual attribute filter coming from the frontend.
      * @param metaclassFunction lambda, which based on a Root&lt;ENTITY&gt; returns Expression - basicaly picks a column
-     * @param <X>               The type of the attribute which is filtered.
      * @return a Specification
      */
     protected <X extends Comparable<? super X>> Specification<ENTITY> buildSpecification(RangeFilter<X> filter,
@@ -246,23 +246,23 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
-     * Helper function to return a specification for filtering on one-to-many or many-to-many reference. Where equality, less
-     * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
-     * supported. Usage:
-     * <pre>
+     * Helper function to return a specification for filtering on one-to-many or many-to-many reference.Where equality, less
+ than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
+ supported. Usage:
+ <pre>
      *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(criteria.getEmployeId(),
      * Project_.employees, Employee_.id);
      *   Specification&lt;Employee&gt; specByEmployeeName = buildReferringEntitySpecification(criteria.getEmployeName(),
      * Project_.project, Project_.name);
      * </pre>
      *
+     * @param <X>        The type of the attribute which is filtered.
      * @param filter     the filter object which contains a value, which needs to match or a flag if emptiness is
      *                   checked.
      * @param reference  the attribute of the static metamodel for the referring entity.
      * @param valueField the attribute of the static metamodel of the referred entity, where the equality should be
      *                   checked.
      * @param <OTHER>    The type of the referenced entity.
-     * @param <X>        The type of the attribute which is filtered.
      * @return a Specification
      */
     protected <OTHER, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(final RangeFilter<X> filter,
@@ -272,10 +272,10 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
-     * Helper function to return a specification for filtering on one-to-many or many-to-many reference. Where equality, less
-     * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
-     * supported. Usage:
-     * <pre><code>
+     * Helper function to return a specification for filtering on one-to-many or many-to-many reference.Where equality, less
+ than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
+ supported. Usage:
+ <pre><code>
      *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(
      *          criteria.getEmployeId(),
      *          root -&gt; root.get(Project_.company).join(Company_.employees),
@@ -287,6 +287,7 @@ public abstract class QueryService<ENTITY> {
      * </code>
      * </pre>
      *
+     * @param <X>              The type of the attribute which is filtered.
      * @param filter           the filter object which contains a value, which needs to match or a flag if emptiness is
      *                         checked.
      * @param functionToEntity the function, which joins he current entity to the entity set, on which the filtering is applied.
@@ -294,7 +295,6 @@ public abstract class QueryService<ENTITY> {
      *                         checked.
      * @param <OTHER>          The type of the referenced entity.
      * @param <MISC>           The type of the entity which is the last before the OTHER in the chain.
-     * @param <X>              The type of the attribute which is filtered.
      * @return a Specification
      */
     protected <OTHER, MISC, X extends Comparable<? super X>> Specification<ENTITY> buildReferringEntitySpecification(final RangeFilter<X> filter,
@@ -339,11 +339,26 @@ public abstract class QueryService<ENTITY> {
         return (root, query, builder) -> builder.equal(metaclassFunction.apply(root), value);
     }
 
+    /**
+     * <p>likeUpperSpecification.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param value a {@link java.lang.String} object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
     protected Specification<ENTITY> likeUpperSpecification(Function<Root<ENTITY>, Expression<String>> metaclassFunction,
                                                            final String value) {
         return (root, query, builder) -> builder.like(builder.upper(metaclassFunction.apply(root)), wrapLikeQuery(value));
     }
 
+    /**
+     * <p>byFieldSpecified.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param specified a boolean.
+     * @param <X> a X object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
     protected <X> Specification<ENTITY> byFieldSpecified(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
                                                          final boolean specified) {
         return specified ?
@@ -351,6 +366,14 @@ public abstract class QueryService<ENTITY> {
             (root, query, builder) -> builder.isNull(metaclassFunction.apply(root));
     }
 
+    /**
+     * <p>byFieldEmptiness.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param specified a boolean.
+     * @param <X> a X object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
     protected <X> Specification<ENTITY> byFieldEmptiness(Function<Root<ENTITY>, Expression<Set<X>>> metaclassFunction,
                                                          final boolean specified) {
         return specified ?
@@ -358,6 +381,14 @@ public abstract class QueryService<ENTITY> {
             (root, query, builder) -> builder.isEmpty(metaclassFunction.apply(root));
     }
 
+    /**
+     * <p>valueIn.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param values a {@link java.util.Collection} object.
+     * @param <X> a X object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
     protected <X> Specification<ENTITY> valueIn(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
                                                 final Collection<X> values) {
         return (root, query, builder) -> {
@@ -369,26 +400,64 @@ public abstract class QueryService<ENTITY> {
         };
     }
 
+    /**
+     * <p>greaterThanOrEqualTo.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param value a X object.
+     * @param <X> a X object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
     protected <X extends Comparable<? super X>> Specification<ENTITY> greaterThanOrEqualTo(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
                                                                                            final X value) {
         return (root, query, builder) -> builder.greaterThanOrEqualTo(metaclassFunction.apply(root), value);
     }
 
+    /**
+     * <p>greaterThan.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param value a X object.
+     * @param <X> a X object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
     protected <X extends Comparable<? super X>> Specification<ENTITY> greaterThan(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
                                                                                   final X value) {
         return (root, query, builder) -> builder.greaterThan(metaclassFunction.apply(root), value);
     }
 
+    /**
+     * <p>lessThanOrEqualTo.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param value a X object.
+     * @param <X> a X object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
     protected <X extends Comparable<? super X>> Specification<ENTITY> lessThanOrEqualTo(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
                                                                                         final X value) {
         return (root, query, builder) -> builder.lessThanOrEqualTo(metaclassFunction.apply(root), value);
     }
 
+    /**
+     * <p>lessThan.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param value a X object.
+     * @param <X> a X object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
     protected <X extends Comparable<? super X>> Specification<ENTITY> lessThan(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
                                                                                final X value) {
         return (root, query, builder) -> builder.lessThan(metaclassFunction.apply(root), value);
     }
 
+    /**
+     * <p>wrapLikeQuery.</p>
+     *
+     * @param txt a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     protected String wrapLikeQuery(String txt) {
         return "%" + txt.toUpperCase() + '%';
     }

@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import java.net.InetSocketAddress;
 
 /**
- * Utility methods to add appenders to a {@link LoggerContext}.
+ * Utility methods to add appenders to a {@link ch.qos.logback.classic.LoggerContext}.
  */
 public final class LoggingUtils {
 
@@ -37,6 +37,12 @@ public final class LoggingUtils {
     private LoggingUtils () {
     }
 
+    /**
+     * <p>addJsonConsoleAppender.</p>
+     *
+     * @param context a {@link ch.qos.logback.classic.LoggerContext} object.
+     * @param customFields a {@link java.lang.String} object.
+     */
     public static void addJsonConsoleAppender(LoggerContext context, String customFields) {
         log.info("Initializing Console loggingProperties");
 
@@ -51,6 +57,13 @@ public final class LoggingUtils {
         context.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME).addAppender(consoleAppender);
     }
 
+    /**
+     * <p>addLogstashTcpSocketAppender.</p>
+     *
+     * @param context a {@link ch.qos.logback.classic.LoggerContext} object.
+     * @param customFields a {@link java.lang.String} object.
+     * @param logstashProperties a {@link io.github.jhipster.config.JHipsterProperties.Logging.Logstash} object.
+     */
     public static void addLogstashTcpSocketAppender(LoggerContext context, String customFields,
                                                     JHipsterProperties.Logging.Logstash logstashProperties) {
         log.info("Initializing Logstash loggingProperties");
@@ -74,6 +87,13 @@ public final class LoggingUtils {
         context.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME).addAppender(asyncLogstashAppender);
     }
 
+    /**
+     * <p>addContextListener.</p>
+     *
+     * @param context a {@link ch.qos.logback.classic.LoggerContext} object.
+     * @param customFields a {@link java.lang.String} object.
+     * @param properties a {@link io.github.jhipster.config.JHipsterProperties.Logging} object.
+     */
     public static void addContextListener(LoggerContext context, String customFields, JHipsterProperties.Logging properties) {
         LogbackLoggerContextListener loggerContextListener = new LogbackLoggerContextListener(properties, customFields);
         loggerContextListener.setContext(context);
