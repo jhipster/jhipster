@@ -43,9 +43,9 @@ public class ZonedDateTimeFilterTest {
     public void testConstructor() {
         assertThat(filter.getEquals()).isNull();
         assertThat(filter.getGreaterThan()).isNull();
-        assertThat(filter.getGreaterOrEqualThan()).isNull();
+        assertThat(filter.getGreaterThanOrEqual()).isNull();
         assertThat(filter.getLessThan()).isNull();
-        assertThat(filter.getLessOrEqualThan()).isNull();
+        assertThat(filter.getLessThanOrEqual()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
         assertThat(filter.toString()).isEqualTo("ZonedDateTimeFilter []");
@@ -66,10 +66,10 @@ public class ZonedDateTimeFilterTest {
     }
 
     @Test
-    public void testSetLessOrEqualThan() {
-        Filter<ZonedDateTime> chain = filter.setLessOrEqualThan(value);
+    public void testSetLessThanOrEqual() {
+        Filter<ZonedDateTime> chain = filter.setLessThanOrEqual(value);
         assertThat(chain).isEqualTo(filter);
-        assertThat(filter.getLessOrEqualThan()).isEqualTo(value);
+        assertThat(filter.getLessThanOrEqual()).isEqualTo(value);
     }
 
     @Test
@@ -80,10 +80,10 @@ public class ZonedDateTimeFilterTest {
     }
 
     @Test
-    public void testSetGreaterOrEqualThan() {
-        Filter<ZonedDateTime> chain = filter.setGreaterOrEqualThan(value);
+    public void testSetGreaterThanOrEqual() {
+        Filter<ZonedDateTime> chain = filter.setGreaterThanOrEqual(value);
         assertThat(chain).isEqualTo(filter);
-        assertThat(filter.getGreaterOrEqualThan()).isEqualTo(value);
+        assertThat(filter.getGreaterThanOrEqual()).isEqualTo(value);
     }
 
     @Test
@@ -105,14 +105,14 @@ public class ZonedDateTimeFilterTest {
     public void testToString() {
         filter.setEquals(value);
         filter.setLessThan(value);
-        filter.setLessOrEqualThan(value);
+        filter.setLessThanOrEqual(value);
         filter.setGreaterThan(value);
-        filter.setGreaterOrEqualThan(value);
+        filter.setGreaterThanOrEqual(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
         String str = value.toString();
         assertThat(filter.toString()).isEqualTo("ZonedDateTimeFilter "
-            + "[greaterThan=" + str + ", greaterOrEqualThan=" + str + ", lessThan=" + str + ", "
-            + "lessOrEqualThan=" + str + ", equals=" + str + ", specified=true, in=[]]");
+            + "[greaterThan=" + str + ", greaterThanOrEqual=" + str + ", lessThan=" + str + ", "
+            + "lessThanOrEqual=" + str + ", equals=" + str + ", specified=true, in=[]]");
     }
 }

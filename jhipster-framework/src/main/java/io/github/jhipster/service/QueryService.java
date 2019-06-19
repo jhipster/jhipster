@@ -151,14 +151,14 @@ public abstract class QueryService<ENTITY> {
         if (filter.getGreaterThan() != null) {
             result = result.and(greaterThan(metaclassFunction, filter.getGreaterThan()));
         }
-        if (filter.getGreaterOrEqualThan() != null) {
-            result = result.and(greaterThanOrEqualTo(metaclassFunction, filter.getGreaterOrEqualThan()));
+        if (filter.getGreaterThanOrEqual() != null) {
+            result = result.and(greaterThanOrEqualTo(metaclassFunction, filter.getGreaterThanOrEqual()));
         }
         if (filter.getLessThan() != null) {
             result = result.and(lessThan(metaclassFunction, filter.getLessThan()));
         }
-        if (filter.getLessOrEqualThan() != null) {
-            result = result.and(lessThanOrEqualTo(metaclassFunction, filter.getLessOrEqualThan()));
+        if (filter.getLessThanOrEqual() != null) {
+            result = result.and(lessThanOrEqualTo(metaclassFunction, filter.getLessThanOrEqual()));
         }
         return result;
     }
@@ -315,14 +315,14 @@ public abstract class QueryService<ENTITY> {
         if (filter.getGreaterThan() != null) {
             result = result.and(greaterThan(fused, filter.getGreaterThan()));
         }
-        if (filter.getGreaterOrEqualThan() != null) {
-            result = result.and(greaterThanOrEqualTo(fused, filter.getGreaterOrEqualThan()));
+        if (filter.getGreaterThanOrEqual() != null) {
+            result = result.and(greaterThanOrEqualTo(fused, filter.getGreaterThanOrEqual()));
         }
         if (filter.getLessThan() != null) {
             result = result.and(lessThan(fused, filter.getLessThan()));
         }
-        if (filter.getLessOrEqualThan() != null) {
-            result = result.and(lessThanOrEqualTo(fused, filter.getLessOrEqualThan()));
+        if (filter.getLessThanOrEqual() != null) {
+            result = result.and(lessThanOrEqualTo(fused, filter.getLessThanOrEqual()));
         }
         return result;
     }
