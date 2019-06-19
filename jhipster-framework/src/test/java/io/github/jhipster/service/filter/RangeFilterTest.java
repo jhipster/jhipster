@@ -43,9 +43,9 @@ public class RangeFilterTest {
     public void testConstructor() {
         assertThat(filter.getEquals()).isNull();
         assertThat(filter.getGreaterThan()).isNull();
-        assertThat(filter.getGreaterOrEqualThan()).isNull();
+        assertThat(filter.getGreaterThanOrEqual()).isNull();
         assertThat(filter.getLessThan()).isNull();
-        assertThat(filter.getLessOrEqualThan()).isNull();
+        assertThat(filter.getLessThanOrEqual()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
         assertThat(filter.toString()).isEqualTo("RangeFilter []");
@@ -57,9 +57,9 @@ public class RangeFilterTest {
         assertThat(copy).isNotSameAs(filter);
         assertThat(copy.getEquals()).isNull();
         assertThat(copy.getGreaterThan()).isNull();
-        assertThat(copy.getGreaterOrEqualThan()).isNull();
+        assertThat(copy.getGreaterThanOrEqual()).isNull();
         assertThat(copy.getLessThan()).isNull();
-        assertThat(copy.getLessOrEqualThan()).isNull();
+        assertThat(copy.getLessThanOrEqual()).isNull();
         assertThat(copy.getSpecified()).isNull();
         assertThat(copy.getIn()).isNull();
         assertThat(copy.toString()).isEqualTo("RangeFilter []");
@@ -80,10 +80,10 @@ public class RangeFilterTest {
     }
 
     @Test
-    public void testSetLessOrEqualThan() {
-        Filter<Short> chain = filter.setLessOrEqualThan(value);
+    public void testSetLessThanOrEqual() {
+        Filter<Short> chain = filter.setLessThanOrEqual(value);
         assertThat(chain).isEqualTo(filter);
-        assertThat(filter.getLessOrEqualThan()).isEqualTo(value);
+        assertThat(filter.getLessThanOrEqual()).isEqualTo(value);
     }
 
     @Test
@@ -94,10 +94,10 @@ public class RangeFilterTest {
     }
 
     @Test
-    public void testSetGreaterOrEqualThan() {
-        Filter<Short> chain = filter.setGreaterOrEqualThan(value);
+    public void testSetGreaterThanOrEqual() {
+        Filter<Short> chain = filter.setGreaterThanOrEqual(value);
         assertThat(chain).isEqualTo(filter);
-        assertThat(filter.getGreaterOrEqualThan()).isEqualTo(value);
+        assertThat(filter.getGreaterThanOrEqual()).isEqualTo(value);
     }
 
     @Test
@@ -128,8 +128,8 @@ public class RangeFilterTest {
         filter.setLessThan(value);
         filter2.setLessThan(value);
         assertThat(filter).isEqualTo(filter2);
-        filter.setGreaterOrEqualThan(value);
-        filter2.setGreaterOrEqualThan(value);
+        filter.setGreaterThanOrEqual(value);
+        filter2.setGreaterThanOrEqual(value);
         assertThat(filter).isEqualTo(filter2);
         final Filter<Short> filter3 = new Filter<>();
         filter3.setEquals(value);
@@ -152,8 +152,8 @@ public class RangeFilterTest {
         filter.setLessThan(value);
         filter2.setLessThan(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
-        filter.setGreaterOrEqualThan(value);
-        filter2.setGreaterOrEqualThan(value);
+        filter.setGreaterThanOrEqual(value);
+        filter2.setGreaterThanOrEqual(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
         final Filter<Short> filter3 = new Filter<>();
         filter3.setEquals(value);
@@ -167,13 +167,13 @@ public class RangeFilterTest {
     public void testToString() {
         filter.setEquals(value);
         filter.setLessThan(value);
-        filter.setLessOrEqualThan(value);
+        filter.setLessThanOrEqual(value);
         filter.setGreaterThan(value);
-        filter.setGreaterOrEqualThan(value);
+        filter.setGreaterThanOrEqual(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
         assertThat(filter.toString()).isEqualTo("RangeFilter "
-            + "[greaterThan=42, greaterOrEqualThan=42, lessThan=42, "
-            + "lessOrEqualThan=42, equals=42, specified=true, in=[]]");
+            + "[greaterThan=42, greaterThanOrEqual=42, lessThan=42, "
+            + "lessThanOrEqual=42, equals=42, specified=true, in=[]]");
     }
 }
