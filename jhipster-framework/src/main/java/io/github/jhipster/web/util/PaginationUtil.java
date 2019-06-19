@@ -40,8 +40,8 @@ public final class PaginationUtil {
     }
 
     /**
-     * Generate pagination headers for a Spring Data {@link Page} object.
-     * 
+     * Generate pagination headers for a Spring Data {@link org.springframework.data.domain.Page} object.
+     *
      * @param uriBuilder The URI builder.
      * @param page The page.
      * @param <T> The type of object.

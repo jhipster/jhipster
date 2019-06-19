@@ -68,54 +68,119 @@ public class JHipsterProperties {
 
     private final ClientApp clientApp = new ClientApp();
 
+    /**
+     * <p>Getter for the field <code>async</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Async} object.
+     */
     public Async getAsync() {
         return async;
     }
 
+    /**
+     * <p>Getter for the field <code>http</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Http} object.
+     */
     public Http getHttp() {
         return http;
     }
 
+    /**
+     * <p>Getter for the field <code>cache</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Cache} object.
+     */
     public Cache getCache() {
         return cache;
     }
 
+    /**
+     * <p>Getter for the field <code>mail</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Mail} object.
+     */
     public Mail getMail() {
         return mail;
     }
 
+    /**
+     * <p>Getter for the field <code>registry</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Registry} object.
+     */
     public Registry getRegistry() {
         return registry;
     }
 
+    /**
+     * <p>Getter for the field <code>security</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Security} object.
+     */
     public Security getSecurity() {
         return security;
     }
 
+    /**
+     * <p>Getter for the field <code>swagger</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Swagger} object.
+     */
     public Swagger getSwagger() {
         return swagger;
     }
 
+    /**
+     * <p>Getter for the field <code>metrics</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Metrics} object.
+     */
     public Metrics getMetrics() {
         return metrics;
     }
 
+    /**
+     * <p>Getter for the field <code>logging</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Logging} object.
+     */
     public Logging getLogging() {
         return logging;
     }
 
+    /**
+     * <p>Getter for the field <code>cors</code>.</p>
+     *
+     * @return a {@link org.springframework.web.cors.CorsConfiguration} object.
+     */
     public CorsConfiguration getCors() {
         return cors;
     }
 
+    /**
+     * <p>Getter for the field <code>social</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Social} object.
+     */
     public Social getSocial() {
         return social;
     }
 
+    /**
+     * <p>Getter for the field <code>gateway</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Gateway} object.
+     */
     public Gateway getGateway() {
         return gateway;
     }
 
+    /**
+     * <p>Getter for the field <code>clientApp</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.ClientApp} object.
+     */
     public ClientApp getClientApp() {
         return clientApp;
     }

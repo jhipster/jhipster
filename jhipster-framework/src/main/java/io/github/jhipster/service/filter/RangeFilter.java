@@ -44,6 +44,8 @@ import java.util.Objects;
  * @see LongFilter
  * @see LocalDateFilter
  * @see InstantFilter
+ * @see ShortFilter
+ * @see ZonedDateTimeFilter
  */
 public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> extends Filter<FIELD_TYPE> {
 
@@ -54,9 +56,17 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
     private FIELD_TYPE greaterOrEqualThan;
     private FIELD_TYPE lessOrEqualThan;
 
+    /**
+     * <p>Constructor for RangeFilter.</p>
+     */
     public RangeFilter() {
     }
 
+    /**
+     * <p>Constructor for RangeFilter.</p>
+     *
+     * @param filter a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     */
     public RangeFilter(final RangeFilter<FIELD_TYPE> filter) {
         super(filter);
         this.greaterThan = filter.greaterThan;
@@ -65,46 +75,96 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
         this.lessOrEqualThan = filter.lessOrEqualThan;
     }
 
+    /**
+     * <p>copy.</p>
+     *
+     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     */
     public RangeFilter<FIELD_TYPE> copy() {
         return new RangeFilter<>(this);
     }
 
+    /**
+     * <p>Getter for the field <code>greaterThan</code>.</p>
+     *
+     * @return a FIELD_TYPE object.
+     */
     public FIELD_TYPE getGreaterThan() {
         return greaterThan;
     }
 
+    /**
+     * <p>Setter for the field <code>greaterThan</code>.</p>
+     *
+     * @param greaterThan a FIELD_TYPE object.
+     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     */
     public RangeFilter<FIELD_TYPE> setGreaterThan(FIELD_TYPE greaterThan) {
         this.greaterThan = greaterThan;
         return this;
     }
 
+    /**
+     * <p>Getter for the field <code>greaterOrEqualThan</code>.</p>
+     *
+     * @return a FIELD_TYPE object.
+     */
     public FIELD_TYPE getGreaterOrEqualThan() {
         return greaterOrEqualThan;
     }
 
+    /**
+     * <p>Setter for the field <code>greaterOrEqualThan</code>.</p>
+     *
+     * @param greaterOrEqualThan a FIELD_TYPE object.
+     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     */
     public RangeFilter<FIELD_TYPE> setGreaterOrEqualThan(FIELD_TYPE greaterOrEqualThan) {
         this.greaterOrEqualThan = greaterOrEqualThan;
         return this;
     }
 
+    /**
+     * <p>Getter for the field <code>lessThan</code>.</p>
+     *
+     * @return a FIELD_TYPE object.
+     */
     public FIELD_TYPE getLessThan() {
         return lessThan;
     }
 
+    /**
+     * <p>Setter for the field <code>lessThan</code>.</p>
+     *
+     * @param lessThan a FIELD_TYPE object.
+     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     */
     public RangeFilter<FIELD_TYPE> setLessThan(FIELD_TYPE lessThan) {
         this.lessThan = lessThan;
         return this;
     }
 
+    /**
+     * <p>Getter for the field <code>lessOrEqualThan</code>.</p>
+     *
+     * @return a FIELD_TYPE object.
+     */
     public FIELD_TYPE getLessOrEqualThan() {
         return lessOrEqualThan;
     }
 
+    /**
+     * <p>Setter for the field <code>lessOrEqualThan</code>.</p>
+     *
+     * @param lessOrEqualThan a FIELD_TYPE object.
+     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     */
     public RangeFilter<FIELD_TYPE> setLessOrEqualThan(FIELD_TYPE lessOrEqualThan) {
         this.lessOrEqualThan = lessOrEqualThan;
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -123,11 +183,13 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
             Objects.equals(lessOrEqualThan, that.lessOrEqualThan);
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), greaterThan, lessThan, greaterOrEqualThan, lessOrEqualThan);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return getFilterName() + " ["

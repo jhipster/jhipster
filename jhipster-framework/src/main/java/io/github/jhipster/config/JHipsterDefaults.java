@@ -23,6 +23,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p>JHipsterDefaults interface.</p>
+ */
 public interface JHipsterDefaults {
 
     interface Async {

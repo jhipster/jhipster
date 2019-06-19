@@ -40,14 +40,17 @@ import java.util.TimeZone;
  */
 public class AngularCookieLocaleResolver extends CookieLocaleResolver {
 
+    /** Constant <code>QUOTE="%22"</code> */
     public static final String QUOTE = "%22";
 
+    /** {@inheritDoc} */
     @Override
     public Locale resolveLocale(HttpServletRequest request) {
         parseLocaleCookieIfNecessary(request);
         return (Locale) request.getAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME);
     }
 
+    /** {@inheritDoc} */
     @Override
     public LocaleContext resolveLocaleContext(final HttpServletRequest request) {
         parseLocaleCookieIfNecessary(request);
@@ -64,6 +67,7 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
         };
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addCookie(HttpServletResponse response, String cookieValue) {
         // Mandatory cookie modification for AngularJS to support the locale switching on the server side.

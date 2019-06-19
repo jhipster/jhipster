@@ -34,10 +34,16 @@ public class CachingHttpHeadersFilter implements WebFilter {
 
     private final long cacheTimeToLive;
 
+    /**
+     * <p>Constructor for CachingHttpHeadersFilter.</p>
+     *
+     * @param cacheTimeToLive a {@link java.lang.Long} object.
+     */
     public CachingHttpHeadersFilter(Long cacheTimeToLive) {
         this.cacheTimeToLive = cacheTimeToLive;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         return ServerWebExchangeMatchers.pathMatchers("/i18n/**", "/content/**", "/app/**")

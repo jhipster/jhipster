@@ -82,6 +82,11 @@ public class SwaggerAutoConfiguration {
 
     private final JHipsterProperties.Swagger properties;
 
+    /**
+     * <p>Constructor for SwaggerAutoConfiguration.</p>
+     *
+     * @param jHipsterProperties a {@link io.github.jhipster.config.JHipsterProperties} object.
+     */
     public SwaggerAutoConfiguration(JHipsterProperties jHipsterProperties) {
         this.properties = jHipsterProperties.getSwagger();
     }
@@ -166,6 +171,11 @@ public class SwaggerAutoConfiguration {
             .build();
     }
 
+    /**
+     * <p>createDocket.</p>
+     *
+     * @return a {@link springfox.documentation.spring.web.plugins.Docket} object.
+     */
     protected Docket createDocket() {
         return new Docket(DocumentationType.SWAGGER_2);
     }

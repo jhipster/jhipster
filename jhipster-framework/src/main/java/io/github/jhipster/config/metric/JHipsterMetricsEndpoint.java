@@ -12,6 +12,9 @@ import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * <p>JHipsterMetricsEndpoint class.</p>
+ */
 @WebEndpoint(id = "jhimetrics")
 public class JHipsterMetricsEndpoint {
 
@@ -19,8 +22,14 @@ public class JHipsterMetricsEndpoint {
 
     private final Logger logger = LoggerFactory.getLogger(JHipsterMetricsEndpoint.class);
 
+    /** Constant <code>MISSING_NAME_TAG_MESSAGE="Missing name tag for metric {}"</code> */
     public static final String MISSING_NAME_TAG_MESSAGE = "Missing name tag for metric {}";
 
+    /**
+     * <p>Constructor for JHipsterMetricsEndpoint.</p>
+     *
+     * @param meterRegistry a {@link io.micrometer.core.instrument.MeterRegistry} object.
+     */
     public JHipsterMetricsEndpoint(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
     }
