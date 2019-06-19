@@ -27,6 +27,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 
+/**
+ * <p>UaaAutoConfiguration class.</p>
+ */
 @Configuration
 @ConditionalOnClass({ClientCredentialsResourceDetails.class, LoadBalancerClient.class})
 @ConditionalOnProperty("jhipster.security.client-authorization.client-id")
@@ -34,10 +37,21 @@ public class UaaAutoConfiguration {
 
     private JHipsterProperties jHipsterProperties;
 
+    /**
+     * <p>Constructor for UaaAutoConfiguration.</p>
+     *
+     * @param jHipsterProperties a {@link io.github.jhipster.config.JHipsterProperties} object.
+     */
     public UaaAutoConfiguration(JHipsterProperties jHipsterProperties) {
         this.jHipsterProperties = jHipsterProperties;
     }
 
+    /**
+     * <p>loadBalancedResourceDetails.</p>
+     *
+     * @param loadBalancerClient a {@link org.springframework.cloud.client.loadbalancer.LoadBalancerClient} object.
+     * @return a {@link io.github.jhipster.security.uaa.LoadBalancedResourceDetails} object.
+     */
     @Bean
     public LoadBalancedResourceDetails loadBalancedResourceDetails(LoadBalancerClient loadBalancerClient) {
         LoadBalancedResourceDetails loadBalancedResourceDetails = new LoadBalancedResourceDetails(loadBalancerClient);

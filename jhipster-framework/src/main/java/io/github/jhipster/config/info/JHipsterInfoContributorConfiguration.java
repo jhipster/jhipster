@@ -29,13 +29,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
- * JHipster auto-configuration for custom {@link InfoContributor}s.
+ * JHipster auto-configuration for custom {@link org.springframework.boot.actuate.info.InfoContributor}s.
  */
 @Configuration
 @AutoConfigureAfter(InfoContributorAutoConfiguration.class)
 @ConditionalOnClass(InfoContributor.class)
 public class JHipsterInfoContributorConfiguration {
 
+    /**
+     * <p>activeProfilesInfoContributor.</p>
+     *
+     * @param environment a {@link org.springframework.core.env.ConfigurableEnvironment} object.
+     * @return a {@link io.github.jhipster.config.info.ActiveProfilesInfoContributor} object.
+     */
     @Bean
     @ConditionalOnEnabledInfoContributor("active-profiles")
     public ActiveProfilesInfoContributor activeProfilesInfoContributor(

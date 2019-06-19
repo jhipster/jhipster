@@ -35,7 +35,7 @@ import java.util.HashSet;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
- * A swagger customizer to setup {@link Docket} with JHipster settings.
+ * A swagger customizer to setup {@link springfox.documentation.spring.web.plugins.Docket} with JHipster settings.
  */
 public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 
@@ -48,10 +48,16 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 
     private final JHipsterProperties.Swagger properties;
 
+    /**
+     * <p>Constructor for JHipsterSwaggerCustomizer.</p>
+     *
+     * @param properties a {@link io.github.jhipster.config.JHipsterProperties.Swagger} object.
+     */
     public JHipsterSwaggerCustomizer(JHipsterProperties.Swagger properties) {
         this.properties = properties;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void customize(Docket docket) {
         Contact contact = new Contact(
@@ -84,10 +90,16 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
             .build();
     }
 
+    /**
+     * <p>Setter for the field <code>order</code>.</p>
+     *
+     * @param order a int.
+     */
     public void setOrder(int order) {
         this.order = order;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getOrder() {
         return order;

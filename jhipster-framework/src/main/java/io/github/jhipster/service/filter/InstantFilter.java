@@ -25,7 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import java.time.Instant;
 
 /**
- * Filter class for {@link Instant} type attributes.
+ * Filter class for {@link java.time.Instant} type attributes.
  *
  * @see RangeFilter
  */
@@ -33,17 +33,31 @@ public class InstantFilter extends RangeFilter<Instant> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * <p>Constructor for InstantFilter.</p>
+     */
     public InstantFilter() {
     }
 
+    /**
+     * <p>Constructor for InstantFilter.</p>
+     *
+     * @param filter a {@link io.github.jhipster.service.filter.InstantFilter} object.
+     */
     public InstantFilter(final InstantFilter filter) {
         super(filter);
     }
 
+    /**
+     * <p>copy.</p>
+     *
+     * @return a {@link io.github.jhipster.service.filter.InstantFilter} object.
+     */
     public InstantFilter copy() {
         return new InstantFilter(this);
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setEquals(Instant equals) {
@@ -51,6 +65,7 @@ public class InstantFilter extends RangeFilter<Instant> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setGreaterThan(Instant equals) {
@@ -58,6 +73,7 @@ public class InstantFilter extends RangeFilter<Instant> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setGreaterOrEqualThan(Instant equals) {
@@ -65,6 +81,7 @@ public class InstantFilter extends RangeFilter<Instant> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setLessThan(Instant equals) {
@@ -72,6 +89,7 @@ public class InstantFilter extends RangeFilter<Instant> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setLessOrEqualThan(Instant equals) {

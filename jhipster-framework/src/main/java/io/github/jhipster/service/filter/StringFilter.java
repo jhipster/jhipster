@@ -22,7 +22,7 @@ package io.github.jhipster.service.filter;
 import java.util.Objects;
 
 /**
- * Class for filtering attributes with {@link String} type.
+ * Class for filtering attributes with {@link java.lang.String} type.
  * It can be added to a criteria class as a member, to support the following query parameters:
  * <code>
  * fieldName.equals='something'
@@ -38,27 +38,52 @@ public class StringFilter extends Filter<String> {
 
     private String contains;
 
+    /**
+     * <p>Constructor for StringFilter.</p>
+     */
     public StringFilter() {
     }
 
+    /**
+     * <p>Constructor for StringFilter.</p>
+     *
+     * @param filter a {@link io.github.jhipster.service.filter.StringFilter} object.
+     */
     public StringFilter(final StringFilter filter) {
         super(filter);
         this.contains = filter.contains;
     }
 
+    /**
+     * <p>copy.</p>
+     *
+     * @return a {@link io.github.jhipster.service.filter.StringFilter} object.
+     */
     public StringFilter copy() {
         return new StringFilter(this);
     }
 
+    /**
+     * <p>Getter for the field <code>contains</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getContains() {
         return contains;
     }
 
+    /**
+     * <p>Setter for the field <code>contains</code>.</p>
+     *
+     * @param contains a {@link java.lang.String} object.
+     * @return a {@link io.github.jhipster.service.filter.StringFilter} object.
+     */
     public StringFilter setContains(String contains) {
         this.contains = contains;
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -74,11 +99,13 @@ public class StringFilter extends Filter<String> {
         return Objects.equals(contains, that.contains);
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), contains);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return getFilterName() + " ["

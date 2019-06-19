@@ -40,7 +40,7 @@ public class PersistentTokenCache<T> {
      * Construct a new TokenCache.
      *
      * @param expireMillis Delay until tokens expire, in millis.
-     * @throws IllegalArgumentException if expireMillis is non-positive.
+     * @throws java.lang.IllegalArgumentException if expireMillis is non-positive.
      */
     public PersistentTokenCache(long expireMillis) {
         if (expireMillis <= 0l) {

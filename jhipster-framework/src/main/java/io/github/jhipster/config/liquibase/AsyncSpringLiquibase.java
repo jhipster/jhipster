@@ -44,15 +44,22 @@ import static io.github.jhipster.config.JHipsterConstants.*;
  */
 public class AsyncSpringLiquibase extends SpringLiquibase {
 
+    /** Constant <code>DISABLED_MESSAGE="Liquibase is disabled"</code> */
     public static final String DISABLED_MESSAGE = "Liquibase is disabled";
+    /** Constant <code>STARTING_ASYNC_MESSAGE="Starting Liquibase asynchronously, your"{trunked}</code> */
     public static final String STARTING_ASYNC_MESSAGE =
         "Starting Liquibase asynchronously, your database might not be ready at startup!";
+    /** Constant <code>STARTING_SYNC_MESSAGE="Starting Liquibase synchronously"</code> */
     public static final String STARTING_SYNC_MESSAGE = "Starting Liquibase synchronously";
+    /** Constant <code>STARTED_MESSAGE="Liquibase has updated your database in "{trunked}</code> */
     public static final String STARTED_MESSAGE = "Liquibase has updated your database in {} ms";
+    /** Constant <code>EXCEPTION_MESSAGE="Liquibase could not start correctly, yo"{trunked}</code> */
     public static final String EXCEPTION_MESSAGE = "Liquibase could not start correctly, your database is NOT ready: " +
         "{}";
 
+    /** Constant <code>SLOWNESS_THRESHOLD=5</code> */
     public static final long SLOWNESS_THRESHOLD = 5; // seconds
+    /** Constant <code>SLOWNESS_MESSAGE="Warning, Liquibase took more than {} se"{trunked}</code> */
     public static final String SLOWNESS_MESSAGE = "Warning, Liquibase took more than {} seconds to start up!";
 
     // named "logger" because there is already a field called "log" in "SpringLiquibase"
@@ -62,11 +69,18 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
 
     private final Environment env;
 
+    /**
+     * <p>Constructor for AsyncSpringLiquibase.</p>
+     *
+     * @param executor a {@link java.util.concurrent.Executor} object.
+     * @param env a {@link org.springframework.core.env.Environment} object.
+     */
     public AsyncSpringLiquibase(Executor executor, Environment env) {
         this.executor = executor;
         this.env = env;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void afterPropertiesSet() throws LiquibaseException {
         if (!env.acceptsProfiles(Profiles.of(SPRING_PROFILE_NO_LIQUIBASE))) {
@@ -94,6 +108,11 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
         }
     }
 
+    /**
+     * <p>initDb.</p>
+     *
+     * @throws liquibase.exception.LiquibaseException if any.
+     */
     protected void initDb() throws LiquibaseException {
         StopWatch watch = new StopWatch();
         watch.start();

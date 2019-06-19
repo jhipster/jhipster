@@ -32,6 +32,7 @@ import java.io.IOException;
  */
 public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    /** {@inheritDoc} */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication)

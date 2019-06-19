@@ -23,6 +23,8 @@ package io.github.jhipster.service;
  */
 public interface Criteria {
     /**
+     * <p>copy.</p>
+     *
      * @return a new criteria with copied filters
      */
     Criteria copy();

@@ -24,6 +24,9 @@ import org.springframework.core.convert.converter.Converter;
 import java.time.*;
 import java.util.Date;
 
+/**
+ * <p>JSR310DateConverters class.</p>
+ */
 public final class JSR310DateConverters {
 
     private JSR310DateConverters() {

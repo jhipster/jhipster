@@ -28,6 +28,9 @@ import org.springframework.core.task.AsyncTaskExecutor;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
+/**
+ * <p>ExceptionHandlingAsyncTaskExecutor class.</p>
+ */
 public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
     InitializingBean, DisposableBean {
 
@@ -37,15 +40,22 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
 
     private final AsyncTaskExecutor executor;
 
+    /**
+     * <p>Constructor for ExceptionHandlingAsyncTaskExecutor.</p>
+     *
+     * @param executor a {@link org.springframework.core.task.AsyncTaskExecutor} object.
+     */
     public ExceptionHandlingAsyncTaskExecutor(AsyncTaskExecutor executor) {
         this.executor = executor;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(Runnable task) {
         executor.execute(createWrappedRunnable(task));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(Runnable task, long startTimeout) {
         executor.execute(createWrappedRunnable(task), startTimeout);
@@ -72,20 +82,28 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         };
     }
 
+    /**
+     * <p>handle.</p>
+     *
+     * @param e a {@link java.lang.Exception} object.
+     */
     protected void handle(Exception e) {
         log.error(EXCEPTION_MESSAGE, e);
     }
 
+    /** {@inheritDoc} */
     @Override
     public Future<?> submit(Runnable task) {
         return executor.submit(createWrappedRunnable(task));
     }
 
+    /** {@inheritDoc} */
     @Override
     public <T> Future<T> submit(Callable<T> task) {
         return executor.submit(createCallable(task));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void destroy() throws Exception {
         if (executor instanceof DisposableBean) {
@@ -94,6 +112,7 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void afterPropertiesSet() throws Exception {
         if (executor instanceof InitializingBean) {

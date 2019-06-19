@@ -34,10 +34,23 @@ import java.sql.SQLException;
  */
 public class H2ConfigurationHelper {
 
+    /**
+     * <p>createServer.</p>
+     *
+     * @return a {@link java.lang.Object} object.
+     * @throws java.sql.SQLException if any.
+     */
     public static Object createServer() throws SQLException {
         return createServer("9092");
     }
 
+    /**
+     * <p>createServer.</p>
+     *
+     * @param port a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.sql.SQLException if any.
+     */
     public static Object createServer(String port) throws SQLException {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -63,6 +76,11 @@ public class H2ConfigurationHelper {
         }
     }
 
+    /**
+     * <p>initH2Console.</p>
+     *
+     * @param servletContext a {@link javax.servlet.ServletContext} object.
+     */
     public static void initH2Console(ServletContext servletContext) {
         try {
             // We don't want to include H2 when we are packaging for the "prod" profile and won't
