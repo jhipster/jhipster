@@ -31,8 +31,8 @@ import java.util.Objects;
  *      fieldName.in=43,42
  *      fieldName.greaterThan=41
  *      fieldName.lessThan=44
- *      fieldName.greaterOrEqualThan=42
- *      fieldName.lessOrEqualThan=44
+ *      fieldName.greaterThanOrEqual=42
+ *      fieldName.lessThanOrEqual=44
  * </pre>
  * Due to problems with the type conversions, the descendant classes should be used, where the generic type parameter
  * is materialized.
@@ -53,8 +53,8 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
 
     private FIELD_TYPE greaterThan;
     private FIELD_TYPE lessThan;
-    private FIELD_TYPE greaterOrEqualThan;
-    private FIELD_TYPE lessOrEqualThan;
+    private FIELD_TYPE greaterThanOrEqual;
+    private FIELD_TYPE lessThanOrEqual;
 
     /**
      * <p>Constructor for RangeFilter.</p>
@@ -71,8 +71,8 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
         super(filter);
         this.greaterThan = filter.greaterThan;
         this.lessThan = filter.lessThan;
-        this.greaterOrEqualThan = filter.greaterOrEqualThan;
-        this.lessOrEqualThan = filter.lessOrEqualThan;
+        this.greaterThanOrEqual = filter.greaterThanOrEqual;
+        this.lessThanOrEqual = filter.lessThanOrEqual;
     }
 
     /**
@@ -105,23 +105,36 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
     }
 
     /**
-     * <p>Getter for the field <code>greaterOrEqualThan</code>.</p>
+     * <p>Getter for the field <code>greaterThanOrEqual</code>.</p>
      *
      * @return a FIELD_TYPE object.
      */
-    public FIELD_TYPE getGreaterOrEqualThan() {
-        return greaterOrEqualThan;
+    public FIELD_TYPE getGreaterThanOrEqual() {
+        return greaterThanOrEqual;
     }
 
     /**
-     * <p>Setter for the field <code>greaterOrEqualThan</code>.</p>
+     * <p>Setter for the field <code>greaterThanOrEqual</code>.</p>
      *
-     * @param greaterOrEqualThan a FIELD_TYPE object.
+     * @param greaterThanOrEqual a FIELD_TYPE object.
      * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
      */
-    public RangeFilter<FIELD_TYPE> setGreaterOrEqualThan(FIELD_TYPE greaterOrEqualThan) {
-        this.greaterOrEqualThan = greaterOrEqualThan;
+    public RangeFilter<FIELD_TYPE> setGreaterThanOrEqual(FIELD_TYPE greaterThanOrEqual) {
+        this.greaterThanOrEqual = greaterThanOrEqual;
         return this;
+    }
+
+    /**
+     * <p>Setter for the field <code>greaterThanOrEqual</code>.</p>
+     *
+     * @param greaterThanOrEqual a FIELD_TYPE object.
+     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     * @deprecated Equivalent to {@link #setLessThanOrEqual}
+     */
+    @Deprecated
+    public RangeFilter<FIELD_TYPE> setGreaterOrEqualThan(FIELD_TYPE greaterThanOrEqual) {
+         this.greaterThanOrEqual = greaterThanOrEqual;
+         return this;
     }
 
     /**
@@ -145,23 +158,36 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
     }
 
     /**
-     * <p>Getter for the field <code>lessOrEqualThan</code>.</p>
+     * <p>Getter for the field <code>lessThanOrEqual</code>.</p>
      *
      * @return a FIELD_TYPE object.
      */
-    public FIELD_TYPE getLessOrEqualThan() {
-        return lessOrEqualThan;
+    public FIELD_TYPE getLessThanOrEqual() {
+        return lessThanOrEqual;
     }
 
     /**
-     * <p>Setter for the field <code>lessOrEqualThan</code>.</p>
+     * <p>Setter for the field <code>lessThanOrEqual</code>.</p>
      *
-     * @param lessOrEqualThan a FIELD_TYPE object.
+     * @param lessThanOrEqual a FIELD_TYPE object.
      * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
      */
-    public RangeFilter<FIELD_TYPE> setLessOrEqualThan(FIELD_TYPE lessOrEqualThan) {
-        this.lessOrEqualThan = lessOrEqualThan;
+    public RangeFilter<FIELD_TYPE> setLessThanOrEqual(FIELD_TYPE lessThanOrEqual) {
+        this.lessThanOrEqual = lessThanOrEqual;
         return this;
+    }
+
+    /**
+     * <p>Setter for the field <code>lessThanOrEqual</code>.</p>
+     *
+     * @param lessThanOrEqual a FIELD_TYPE object.
+     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     * @deprecated Equivalent to {@link #setLessThanOrEqual}
+     */
+    @Deprecated
+    public RangeFilter<FIELD_TYPE> setLessOrEqualThan(FIELD_TYPE lessThanOrEqual) {
+         this.lessThanOrEqual = lessThanOrEqual;
+         return this;
     }
 
     /** {@inheritDoc} */
@@ -179,14 +205,14 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
         final RangeFilter<?> that = (RangeFilter<?>) o;
         return Objects.equals(greaterThan, that.greaterThan) &&
             Objects.equals(lessThan, that.lessThan) &&
-            Objects.equals(greaterOrEqualThan, that.greaterOrEqualThan) &&
-            Objects.equals(lessOrEqualThan, that.lessOrEqualThan);
+            Objects.equals(greaterThanOrEqual, that.greaterThanOrEqual) &&
+            Objects.equals(lessThanOrEqual, that.lessThanOrEqual);
     }
 
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), greaterThan, lessThan, greaterOrEqualThan, lessOrEqualThan);
+        return Objects.hash(super.hashCode(), greaterThan, lessThan, greaterThanOrEqual, lessThanOrEqual);
     }
 
     /** {@inheritDoc} */
@@ -194,9 +220,9 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
     public String toString() {
         return getFilterName() + " ["
             + (getGreaterThan() != null ? "greaterThan=" + getGreaterThan() + ", " : "")
-            + (getGreaterOrEqualThan() != null ? "greaterOrEqualThan=" + getGreaterOrEqualThan() + ", " : "")
+            + (getGreaterThanOrEqual() != null ? "greaterThanOrEqual=" + getGreaterThanOrEqual() + ", " : "")
             + (getLessThan() != null ? "lessThan=" + getLessThan() + ", " : "")
-            + (getLessOrEqualThan() != null ? "lessOrEqualThan=" + getLessOrEqualThan() + ", " : "")
+            + (getLessThanOrEqual() != null ? "lessThanOrEqual=" + getLessThanOrEqual() + ", " : "")
             + (getEquals() != null ? "equals=" + getEquals() + ", " : "")
             + (getSpecified() != null ? "specified=" + getSpecified() + ", " : "")
             + (getIn() != null ? "in=" + getIn() : "")
