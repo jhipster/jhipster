@@ -120,8 +120,8 @@ public interface JHipsterDefaults {
 
                 String secret = null;
                 String base64Secret = null;
-                long tokenValidityInSeconds = 1800; // 0.5 hour
-                long tokenValidityInSecondsForRememberMe = 2592000; // 30 hours;
+                long tokenValidityInSeconds = 1800; // 30 minutes
+                long tokenValidityInSecondsForRememberMe = 2592000; // 30 days
             }
         }
 
@@ -172,7 +172,7 @@ public interface JHipsterDefaults {
     interface Logging {
 
         boolean useJsonFormat = false;
-        
+
         interface Logstash {
 
             boolean enabled = false;
