@@ -250,6 +250,8 @@ public class JHipsterProperties {
 
         private final Memcached memcached = new Memcached();
 
+        private final Redis redis = new Redis();
+
         public Hazelcast getHazelcast() {
             return hazelcast;
         }
@@ -264,6 +266,10 @@ public class JHipsterProperties {
 
         public Memcached getMemcached() {
             return memcached;
+        }
+
+        public Redis getRedis() {
+            return redis;
         }
 
         public static class Hazelcast {
@@ -517,6 +523,27 @@ public class JHipsterProperties {
 
             public void setUseBinaryProtocol(boolean useBinaryProtocol) {
                 this.useBinaryProtocol = useBinaryProtocol;
+            }
+        }
+
+        public static class Redis {
+            private String server = JHipsterDefaults.Cache.Redis.server;
+            private int expiration = JHipsterDefaults.Cache.Redis.expiration;
+
+            public String getServer() {
+                return server;
+            }
+
+            public void setServer(String server) {
+                this.server = server;
+            }
+
+            public int getExpiration() {
+                return expiration;
+            }
+
+            public void setExpiration(int expiration) {
+                this.expiration = expiration;
             }
         }
     }
