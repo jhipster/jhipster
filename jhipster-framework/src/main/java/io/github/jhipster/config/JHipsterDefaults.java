@@ -99,7 +99,7 @@ public interface JHipsterDefaults {
 
         interface Redis {
             String server = "redis://localhost:6379";
-            int expiration = 300; // minutes
+            int expiration = 300; // 5 minutes
         }
     }
 
