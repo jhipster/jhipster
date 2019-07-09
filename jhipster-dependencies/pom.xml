@@ -72,6 +72,7 @@
         <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
         <problem-spring-webflux.version>${problem-spring.version}</problem-spring-webflux.version>
         <prometheus-simpleclient.version>0.6.0</prometheus-simpleclient.version>
+        <redisson.version>3.11.1</redisson.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.2.3.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
@@ -81,7 +82,6 @@
         <testcontainers.version>1.11.4</testcontainers.version>
         <xmemcached.version>2.4.6</xmemcached.version>
         <xmemcached-provider.version>4.1.3</xmemcached-provider.version>
-        <redisson.version>3.11.1</redisson.version>
     </properties>
 
     <dependencyManagement>
