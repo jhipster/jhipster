@@ -73,18 +73,11 @@ public final class LoggingUtils {
         logstashAppender.addDestinations(new InetSocketAddress(logstashProperties.getHost(), logstashProperties.getPort()));
         logstashAppender.setContext(context);
         logstashAppender.setEncoder(logstashEncoder(customFields));
-        logstashAppender.setName(LOGSTASH_APPENDER_NAME);
+        logstashAppender.setName(ASYNC_LOGSTASH_APPENDER_NAME);
+        logstashAppender.setQueueSize(logstashProperties.getQueueSize());
         logstashAppender.start();
 
-        // Wrap the appender in an Async appender for performance
-        AsyncAppender asyncLogstashAppender = new AsyncAppender();
-        asyncLogstashAppender.setContext(context);
-        asyncLogstashAppender.setName(ASYNC_LOGSTASH_APPENDER_NAME);
-        asyncLogstashAppender.setQueueSize(logstashProperties.getQueueSize());
-        asyncLogstashAppender.addAppender(logstashAppender);
-        asyncLogstashAppender.start();
-
-        context.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME).addAppender(asyncLogstashAppender);
+        context.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME).addAppender(logstashAppender);
     }
 
     /**
