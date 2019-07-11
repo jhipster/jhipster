@@ -45,7 +45,7 @@
         <couchmove.version>1.0.2</couchmove.version>
         <couchbase-client.version>2.7.7</couchbase-client.version>
         <couchbase-encryption.version>2.0.1</couchbase-encryption.version>
-        <cucumber-jvm.version>4.5.3</cucumber-jvm.version>
+        <cucumber-jvm.version>4.5.4</cucumber-jvm.version>
         <commons-io.version>2.6</commons-io.version>
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
         <dropwizard-metrics.version>4.1.0</dropwizard-metrics.version>
