@@ -41,27 +41,28 @@ public final class SpringLiquibaseUtil {
     }
 
     public static SpringLiquibase createSpringLiquibase(DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties, DataSource dataSource, DataSourceProperties dataSourceProperties) {
-        return createSpringLiquibase(null, null, liquibaseDatasource, liquibaseProperties, dataSource, dataSourceProperties);
-    }
-
-    public static SpringLiquibase createSpringLiquibase(Environment env, Executor executor, DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties, DataSource dataSource, DataSourceProperties dataSourceProperties) {
         SpringLiquibase liquibase;
         DataSource liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
         if (liquibaseDataSource != null) {
-            if (env != null && executor != null) {
-                liquibase = new AsyncSpringLiquibase(executor, env);
-                ((AsyncSpringLiquibase)liquibase).setCloseDataSourceOnceMigrated(false);
-            } else {
-                liquibase = new SpringLiquibase();
-            }
+            liquibase = new SpringLiquibase();
             liquibase.setDataSource(liquibaseDataSource);
             return liquibase;
         }
-        if (env != null && executor != null) {
+        liquibase = new DataSourceClosingSpringLiquibase();
+        liquibase.setDataSource(createNewDataSource(liquibaseProperties, dataSourceProperties));
+        return liquibase;
+    }
+
+    public static SpringLiquibase createAsyncSpringLiquibase(Environment env, Executor executor, DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties, DataSource dataSource, DataSourceProperties dataSourceProperties) {
+        SpringLiquibase liquibase;
+        DataSource liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
+        if (liquibaseDataSource != null) {
             liquibase = new AsyncSpringLiquibase(executor, env);
-        } else {
-            liquibase = new DataSourceClosingSpringLiquibase();
+            ((AsyncSpringLiquibase)liquibase).setCloseDataSourceOnceMigrated(false);
+            liquibase.setDataSource(liquibaseDataSource);
+            return liquibase;
         }
+        liquibase = new AsyncSpringLiquibase(executor, env);
         liquibase.setDataSource(createNewDataSource(liquibaseProperties, dataSourceProperties));
         return liquibase;
     }
