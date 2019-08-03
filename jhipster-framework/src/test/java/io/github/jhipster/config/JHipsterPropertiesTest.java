@@ -309,6 +309,26 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testCacheRedisServer() {
+        JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
+        String val = JHipsterDefaults.Cache.Redis.server;
+        assertThat(obj.getServer()).isEqualTo(val);
+        val = "myserver:1337";
+        obj.setServer(val);
+        assertThat(obj.getServer()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheRedisExpiration() {
+        JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
+        int val = JHipsterDefaults.Cache.Redis.expiration;
+        assertThat(obj.getExpiration()).isEqualTo(val);
+        val++;
+        obj.setExpiration(val);
+        assertThat(obj.getExpiration()).isEqualTo(val);
+    }
+
+    @Test
     public void testMailFrom() {
         JHipsterProperties.Mail obj = properties.getMail();
         String val = JHipsterDefaults.Mail.from;
