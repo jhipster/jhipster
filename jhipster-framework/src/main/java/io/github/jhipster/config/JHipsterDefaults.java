@@ -220,4 +220,8 @@ public interface JHipsterDefaults {
         String name = "jhipsterApp";
     }
 
+    interface AuditEvents {
+
+        int retentionPeriod = 30;
+    }
 }

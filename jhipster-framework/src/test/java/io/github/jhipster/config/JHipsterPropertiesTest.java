@@ -725,4 +725,14 @@ public class JHipsterPropertiesTest {
         obj.setName(val);
         assertThat(obj.getName()).isEqualTo(val);
     }
+
+    @Test
+    public void testAuditEventsRetentionPeriod() {
+        JHipsterProperties.AuditEvents obj = properties.getAuditEvents();
+        int val = JHipsterDefaults.AuditEvents.retentionPeriod;
+        assertThat(obj.getRetentionPeriod()).isEqualTo(val);
+        val++;
+        obj.setRetentionPeriod(val);
+        assertThat(obj.getRetentionPeriod()).isEqualTo(val);
+    }
 }
