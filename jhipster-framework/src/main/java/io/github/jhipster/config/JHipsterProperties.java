@@ -68,6 +68,8 @@ public class JHipsterProperties {
 
     private final ClientApp clientApp = new ClientApp();
 
+    private final AuditEvents auditEvents = new AuditEvents();
+
     /**
      * <p>Getter for the field <code>async</code>.</p>
      *
@@ -184,6 +186,15 @@ public class JHipsterProperties {
     public ClientApp getClientApp() {
         return clientApp;
     }
+
+    /**
+     * <p>Getter for the field <code>auditEvents</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.AuditEvents} object.
+     */
+    public AuditEvents getAuditEvents() {
+        return auditEvents;
+    };
 
     public static class Async {
 
@@ -1029,6 +1040,18 @@ public class JHipsterProperties {
 
         public void setName(String name) {
             this.name = name;
+        }
+    }
+
+    public static class AuditEvents {
+        private int retentionPeriod = JHipsterDefaults.AuditEvents.retentionPeriod;
+
+        public int getRetentionPeriod() {
+            return retentionPeriod;
+        }
+
+        public void setRetentionPeriod(int retentionPeriod) {
+            this.retentionPeriod = retentionPeriod;
         }
     }
 }
