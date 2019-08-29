@@ -64,6 +64,12 @@ public interface JHipsterDefaults {
             long maxEntries = 100;
         }
 
+        interface Ehcache {
+
+            int timeToLiveSeconds = 3600; // 1 hour
+            long maxEntries = 100;
+        }
+
         interface Infinispan {
 
             String configFile = "default-configs/default-jgroups-tcp.xml";

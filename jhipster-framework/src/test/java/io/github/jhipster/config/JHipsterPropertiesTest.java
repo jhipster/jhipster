@@ -179,6 +179,26 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testCacheEhcacheTimeToLiveSeconds() {
+        JHipsterProperties.Cache.Ehcache obj = properties.getCache().getEhcache();
+        int val = JHipsterDefaults.Cache.Ehcache.timeToLiveSeconds;
+        assertThat(obj.getTimeToLiveSeconds()).isEqualTo(val);
+        val++;
+        obj.setTimeToLiveSeconds(val);
+        assertThat(obj.getTimeToLiveSeconds()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheEhcacheMaxEntries() {
+        JHipsterProperties.Cache.Ehcache obj = properties.getCache().getEhcache();
+        long val = JHipsterDefaults.Cache.Ehcache.maxEntries;
+        assertThat(obj.getMaxEntries()).isEqualTo(val);
+        val++;
+        obj.setMaxEntries(val);
+        assertThat(obj.getMaxEntries()).isEqualTo(val);
+    }
+
+    @Test
     public void testCacheInfinispanConfigFile() {
         JHipsterProperties.Cache.Infinispan obj = properties.getCache().getInfinispan();
         String val = JHipsterDefaults.Cache.Infinispan.configFile;

@@ -194,7 +194,7 @@ public class JHipsterProperties {
      */
     public AuditEvents getAuditEvents() {
         return auditEvents;
-    };
+    }
 
     public static class Async {
 
@@ -257,6 +257,8 @@ public class JHipsterProperties {
 
         private final Caffeine caffeine = new Caffeine();
 
+        private final Ehcache ehcache = new Ehcache();
+
         private final Infinispan infinispan = new Infinispan();
 
         private final Memcached memcached = new Memcached();
@@ -269,6 +271,10 @@ public class JHipsterProperties {
 
         public Caffeine getCaffeine() {
             return caffeine;
+        }
+
+        public Ehcache getEhcache() {
+            return ehcache;
         }
 
         public Infinispan getInfinispan() {
@@ -351,6 +357,29 @@ public class JHipsterProperties {
             private int timeToLiveSeconds = JHipsterDefaults.Cache.Caffeine.timeToLiveSeconds;
 
             private long maxEntries = JHipsterDefaults.Cache.Caffeine.maxEntries;
+
+            public int getTimeToLiveSeconds() {
+                return timeToLiveSeconds;
+            }
+
+            public void setTimeToLiveSeconds(int timeToLiveSeconds) {
+                this.timeToLiveSeconds = timeToLiveSeconds;
+            }
+
+            public long getMaxEntries() {
+                return maxEntries;
+            }
+
+            public void setMaxEntries(long maxEntries) {
+                this.maxEntries = maxEntries;
+            }
+        }
+
+        public static class Ehcache {
+
+            private int timeToLiveSeconds = JHipsterDefaults.Cache.Ehcache.timeToLiveSeconds;
+
+            private long maxEntries = JHipsterDefaults.Cache.Ehcache.maxEntries;
 
             public int getTimeToLiveSeconds() {
                 return timeToLiveSeconds;
