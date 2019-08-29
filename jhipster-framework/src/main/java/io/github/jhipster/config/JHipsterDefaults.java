@@ -58,7 +58,7 @@ public interface JHipsterDefaults {
             }
         }
 
-        interface Ehcache {
+        interface Caffeine {
 
             int timeToLiveSeconds = 3600; // 1 hour
             long maxEntries = 100;

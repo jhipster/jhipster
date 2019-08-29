@@ -255,7 +255,7 @@ public class JHipsterProperties {
 
         private final Hazelcast hazelcast = new Hazelcast();
 
-        private final Ehcache ehcache = new Ehcache();
+        private final Caffeine caffeine = new Caffeine();
 
         private final Infinispan infinispan = new Infinispan();
 
@@ -267,8 +267,8 @@ public class JHipsterProperties {
             return hazelcast;
         }
 
-        public Ehcache getEhcache() {
-            return ehcache;
+        public Caffeine getCaffeine() {
+            return caffeine;
         }
 
         public Infinispan getInfinispan() {
@@ -346,11 +346,11 @@ public class JHipsterProperties {
             }
         }
 
-        public static class Ehcache {
+        public static class Caffeine {
 
-            private int timeToLiveSeconds = JHipsterDefaults.Cache.Ehcache.timeToLiveSeconds;
+            private int timeToLiveSeconds = JHipsterDefaults.Cache.Caffeine.timeToLiveSeconds;
 
-            private long maxEntries = JHipsterDefaults.Cache.Ehcache.maxEntries;
+            private long maxEntries = JHipsterDefaults.Cache.Caffeine.maxEntries;
 
             public int getTimeToLiveSeconds() {
                 return timeToLiveSeconds;
@@ -892,7 +892,7 @@ public class JHipsterProperties {
     public static class Logging {
 
         private boolean useJsonFormat = JHipsterDefaults.Logging.useJsonFormat;
-        
+
         private final Logstash logstash = new Logstash();
 
         public boolean isUseJsonFormat() {
