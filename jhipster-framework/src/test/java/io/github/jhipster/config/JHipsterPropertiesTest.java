@@ -159,6 +159,26 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testCacheCaffeineTimeToLiveSeconds() {
+        JHipsterProperties.Cache.Caffeine obj = properties.getCache().getCaffeine();
+        int val = JHipsterDefaults.Cache.Caffeine.timeToLiveSeconds;
+        assertThat(obj.getTimeToLiveSeconds()).isEqualTo(val);
+        val++;
+        obj.setTimeToLiveSeconds(val);
+        assertThat(obj.getTimeToLiveSeconds()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheCaffeineMaxEntries() {
+        JHipsterProperties.Cache.Caffeine obj = properties.getCache().getCaffeine();
+        long val = JHipsterDefaults.Cache.Caffeine.maxEntries;
+        assertThat(obj.getMaxEntries()).isEqualTo(val);
+        val++;
+        obj.setMaxEntries(val);
+        assertThat(obj.getMaxEntries()).isEqualTo(val);
+    }
+
+    @Test
     public void testCacheEhcacheTimeToLiveSeconds() {
         JHipsterProperties.Cache.Ehcache obj = properties.getCache().getEhcache();
         int val = JHipsterDefaults.Cache.Ehcache.timeToLiveSeconds;

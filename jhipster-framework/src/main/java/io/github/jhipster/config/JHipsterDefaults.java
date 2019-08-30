@@ -58,6 +58,12 @@ public interface JHipsterDefaults {
             }
         }
 
+        interface Caffeine {
+
+            int timeToLiveSeconds = 3600; // 1 hour
+            long maxEntries = 100;
+        }
+
         interface Ehcache {
 
             int timeToLiveSeconds = 3600; // 1 hour

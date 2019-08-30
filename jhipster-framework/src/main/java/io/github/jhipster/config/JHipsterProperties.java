@@ -194,7 +194,7 @@ public class JHipsterProperties {
      */
     public AuditEvents getAuditEvents() {
         return auditEvents;
-    };
+    }
 
     public static class Async {
 
@@ -255,6 +255,8 @@ public class JHipsterProperties {
 
         private final Hazelcast hazelcast = new Hazelcast();
 
+        private final Caffeine caffeine = new Caffeine();
+
         private final Ehcache ehcache = new Ehcache();
 
         private final Infinispan infinispan = new Infinispan();
@@ -265,6 +267,10 @@ public class JHipsterProperties {
 
         public Hazelcast getHazelcast() {
             return hazelcast;
+        }
+
+        public Caffeine getCaffeine() {
+            return caffeine;
         }
 
         public Ehcache getEhcache() {
@@ -343,6 +349,29 @@ public class JHipsterProperties {
 
             public void setBackupCount(int backupCount) {
                 this.backupCount = backupCount;
+            }
+        }
+
+        public static class Caffeine {
+
+            private int timeToLiveSeconds = JHipsterDefaults.Cache.Caffeine.timeToLiveSeconds;
+
+            private long maxEntries = JHipsterDefaults.Cache.Caffeine.maxEntries;
+
+            public int getTimeToLiveSeconds() {
+                return timeToLiveSeconds;
+            }
+
+            public void setTimeToLiveSeconds(int timeToLiveSeconds) {
+                this.timeToLiveSeconds = timeToLiveSeconds;
+            }
+
+            public long getMaxEntries() {
+                return maxEntries;
+            }
+
+            public void setMaxEntries(long maxEntries) {
+                this.maxEntries = maxEntries;
             }
         }
 
@@ -892,7 +921,7 @@ public class JHipsterProperties {
     public static class Logging {
 
         private boolean useJsonFormat = JHipsterDefaults.Logging.useJsonFormat;
-        
+
         private final Logstash logstash = new Logstash();
 
         public boolean isUseJsonFormat() {
