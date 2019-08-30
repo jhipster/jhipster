@@ -72,7 +72,7 @@
         <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
         <problem-spring-webflux.version>${problem-spring.version}</problem-spring-webflux.version>
         <prometheus-simpleclient.version>0.6.0</prometheus-simpleclient.version>
-        <redisson.version>3.11.2</redisson.version>
+        <redisson.version>3.11.3</redisson.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.2.3.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
