@@ -75,7 +75,7 @@
         <redisson.version>3.11.3</redisson.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.2.5.RELEASE</spring-data-jest.version>
-        <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.3.6.RELEASE</spring-security-oauth.version>
         <springfox.version>2.9.2</springfox.version>
