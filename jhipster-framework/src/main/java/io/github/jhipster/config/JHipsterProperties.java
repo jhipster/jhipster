@@ -25,6 +25,8 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.web.cors.CorsConfiguration;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -629,6 +631,8 @@ public class JHipsterProperties {
 
         private final RememberMe rememberMe = new RememberMe();
 
+        private final OAuth2 oauth2 = new OAuth2();
+
         public ClientAuthorization getClientAuthorization() {
             return clientAuthorization;
         }
@@ -639,6 +643,10 @@ public class JHipsterProperties {
 
         public RememberMe getRememberMe() {
             return rememberMe;
+        }
+
+        public OAuth2 getOauth2() {
+            return oauth2;
         }
 
         public static class ClientAuthorization {
@@ -749,6 +757,18 @@ public class JHipsterProperties {
 
             public void setKey(String key) {
                 this.key = key;
+            }
+        }
+
+        public static class OAuth2 {
+            private List<String> audience = new ArrayList<>();
+
+            public List<String> getAudience() {
+                return Collections.unmodifiableList(audience);
+            }
+
+            public void setAudience(@NotNull List<String> audience) {
+                this.audience.addAll(audience);
             }
         }
     }
