@@ -66,7 +66,7 @@
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
-        <sonar-maven-plugin.version>3.6.1.1688</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 
         <!-- Sonar properties -->
