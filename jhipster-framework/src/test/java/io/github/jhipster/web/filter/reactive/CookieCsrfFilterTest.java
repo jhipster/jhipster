@@ -42,7 +42,7 @@ public class CookieCsrfFilterTest {
 
     @Test
     public void cookieSetInResponse() {
-        final String token = "test token";
+        final String token = "test_token";
         WebFilterChain filterChain = (filterExchange) -> {
             try {
                 ResponseCookie cookie = filterExchange.getResponse().getCookies().getFirst(CSRF_COOKIE_NAME);
