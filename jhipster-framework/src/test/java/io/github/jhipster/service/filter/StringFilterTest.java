@@ -43,6 +43,7 @@ public class StringFilterTest {
     public void testConstructor() {
         assertThat(filter.getEquals()).isNull();
         assertThat(filter.getContains()).isNull();
+        assertThat(filter.getDoesNotContain()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
         assertThat(filter.toString()).isEqualTo("StringFilter []");
@@ -60,6 +61,13 @@ public class StringFilterTest {
         Filter<String> chain = filter.setContains(value);
         assertThat(chain).isEqualTo(filter);
         assertThat(filter.getContains()).isEqualTo(value);
+    }
+
+    @Test
+    public void testSetDoesNotContain() {
+        Filter<String> chain = filter.setDoesNotContain(value);
+        assertThat(chain).isEqualTo(filter);
+        assertThat(filter.getDoesNotContain()).isEqualTo(value);
     }
 
     @Test
@@ -82,13 +90,20 @@ public class StringFilterTest {
         final StringFilter filter2 = new StringFilter();
         assertThat(filter).isEqualTo(filter2);
         filter.setEquals(value);
+        assertThat(filter2).isNotEqualTo(filter);
         filter2.setEquals(value);
         assertThat(filter).isEqualTo(filter2);
         filter.setIn(Lists.newArrayList(value, value));
+        assertThat(filter2).isNotEqualTo(filter);
         filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter).isEqualTo(filter2);
         filter.setContains(value);
+        assertThat(filter2).isNotEqualTo(filter);
         filter2.setContains(value);
+        assertThat(filter).isEqualTo(filter2);
+        filter.setDoesNotContain(value);
+        assertThat(filter2).isNotEqualTo(filter);
+        filter2.setDoesNotContain(value);
         assertThat(filter).isEqualTo(filter2);
         final StringFilter filter3 = new StringFilter();
         filter3.setEquals(value);
@@ -111,6 +126,9 @@ public class StringFilterTest {
         filter.setContains(value);
         filter2.setContains(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
+        filter.setDoesNotContain(value);
+        filter2.setDoesNotContain(value);
+        assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
         final StringFilter filter3 = new StringFilter();
         filter3.setEquals(value);
         assertThat(filter3.hashCode()).isNotEqualTo(filter.hashCode());
@@ -122,9 +140,11 @@ public class StringFilterTest {
     @Test
     public void testToString() {
         filter.setEquals(value);
+        filter.setNotEquals(value);
         filter.setContains(value);
+        filter.setDoesNotContain(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
-        assertThat(filter.toString()).isEqualTo("StringFilter [contains=foo, equals=foo, specified=true]");
+        assertThat(filter.toString()).isEqualTo("StringFilter [contains=foo, doesNotContain=foo, equals=foo, notEquals=foo, specified=true]");
     }
 }

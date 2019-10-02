@@ -69,6 +69,14 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE)
+    public LocalDateFilter setNotEquals(LocalDate equals) {
+        super.setNotEquals(equals);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE)
     public LocalDateFilter setGreaterThan(LocalDate equals) {
         super.setGreaterThan(equals);
         return this;
