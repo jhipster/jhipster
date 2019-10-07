@@ -20,17 +20,18 @@
 package io.github.jhipster.config.apidoc.customizer;
 
 import io.github.jhipster.config.JHipsterProperties;
+import io.swagger.models.auth.In;
 import org.springframework.core.Ordered;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.service.*;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
@@ -57,7 +58,9 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
         this.properties = properties;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void customize(Docket docket) {
         Contact contact = new Contact(
@@ -77,6 +80,8 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
             new ArrayList<>()
         );
 
+        ApiKey apiKey = new ApiKey("jhi-apiKey", "Authorization", "header");
+
         docket.host(properties.getHost())
             .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
             .apiInfo(apiInfo)
@@ -85,9 +90,25 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
             .directModelSubstitute(ByteBuffer.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)
             .ignoredParameterTypes(Pageable.class)
+            .securitySchemes(Collections.singletonList(apiKey))
+            .securityContexts(Collections.singletonList(securityContext()))
             .select()
             .paths(regex(properties.getDefaultIncludePattern()))
             .build();
+    }
+
+    private SecurityContext securityContext(){
+        return SecurityContext.builder()
+            .securityReferences(defaultAuth())
+            .forPaths(PathSelectors.any())
+            .build();
+    }
+
+    private List<SecurityReference> defaultAuth(){
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Collections.singletonList(new SecurityReference("jhi-apiKey", authorizationScopes));
     }
 
     /**
@@ -99,7 +120,9 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
         this.order = order;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getOrder() {
         return order;

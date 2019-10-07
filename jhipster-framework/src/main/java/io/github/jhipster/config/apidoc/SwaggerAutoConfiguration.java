@@ -38,10 +38,14 @@ import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.schema.AlternateTypeRule;
-import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.Servlet;
@@ -178,6 +182,19 @@ public class SwaggerAutoConfiguration {
      */
     protected Docket createDocket() {
         return new Docket(DocumentationType.SWAGGER_2);
+    }
+
+    @Bean
+    public SecurityConfiguration security(){
+        return SecurityConfigurationBuilder.builder()
+                .clientId(null)
+                .clientSecret(null)
+                .realm(null)
+                .appName("test-app")
+                .scopeSeparator(",")
+                .additionalQueryStringParams(null)
+                .useBasicAuthenticationWithAccessCodeGrant(false)
+                .build();
     }
 
 }
