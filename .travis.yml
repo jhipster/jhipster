@@ -17,21 +17,13 @@
 # limitations under the License.
 #
 
-os:
-  - linux
+dist: bionic
 services:
   - docker
+  - xvfb
 language: node_js
 node_js:
-  - "10.16.3"
-jdk:
-  - openjdk11
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  - '10.16.3'
 cache:
   directories:
     - $HOME/.m2
@@ -41,6 +33,7 @@ env:
     - JHI_PROFILE=dev
     - JHI_RUN_APP=1
     - JHI_PROTRACTOR=0
+    - JHI_JDK=11
     - JHI_ENTITY=sql
     # this version is used for testing with CICD
     - JHI_VERSION=0.0.0-CICD
@@ -78,15 +71,10 @@ env:
 # Install all tools and check configuration
 #----------------------------------------------------------------------
 before_install:
-  - jdk_switcher use oraclejdk8
+  - sudo apt-get install -y google-chrome-stable
   - java -version
   - export TZ=Australia/Canberra
   - date
-  - sudo /etc/init.d/mysql stop
-  - sudo /etc/init.d/postgresql stop
-  # Use this for Protractor
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
   # Upgrade NPM
   - npm install -g npm
   # - $JHI_SCRIPTS/04-git-config.sh

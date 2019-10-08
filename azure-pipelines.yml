@@ -25,6 +25,7 @@ jobs:
       JHI_PROFILE: dev
       JHI_RUN_APP: 1
       JHI_PROTRACTOR: 0
+      JHI_JDK: 11
       JHI_ENTITY: sql
       # this version is used for testing with CICD
       JHI_VERSION: 0.0.0-CICD
@@ -98,26 +99,28 @@ jobs:
         inputs:
           versionSpec: '10.16.3'
         displayName: 'TOOLS: install Node.js'
-        
-      - script: npm install -g npm
-        displayName: 'TOOLS: update NPM'
-
       - script: |
-          set -e
-          sudo add-apt-repository ppa:openjdk-r/ppa
-          sudo apt-get update
-          sudo apt-get install -y openjdk-8-jdk
-          sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
-          java -version
+          if [[ $JHI_JDK = '11' ]]; then
+            echo '*** Using OpenJDK 11'
+            sudo add-apt-repository ppa:openjdk-r/ppa
+            sudo apt-get update
+            sudo apt-get install -y openjdk-11-jdk
+            sudo update-java-alternatives -s java-1.11.0-openjdk-amd64
+            java -version
+          else
+            echo '*** Using OpenJDK 8 by default'
+          fi
         displayName: 'TOOLS: configuring OpenJDK'
-
       - script: |
           wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
           sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
           sudo apt update
           sudo apt install google-chrome-stable
         displayName: 'TOOLS: install google-chrome-stable'
-
+      - script: npm install -g npm
+        displayName: 'TOOLS: update NPM'
+      - script: npm install -g yarn
+        displayName: 'TOOLS: install Yarn'
       - script: |
           git config --global user.name "JHipster Bot"
           git config --global user.email "jhipster-bot@jhipster.tech"
@@ -152,4 +155,3 @@ jobs:
         displayName: 'TESTS: End-to-End'
       - bash: $(JHI_SCRIPTS)/25-sonar-analyze.sh
         displayName: 'TESTS: Sonar analyze'
-
