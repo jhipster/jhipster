@@ -24,10 +24,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class ResponseUtilTest {
 
@@ -56,10 +57,7 @@ public class ResponseUtilTest {
 
     @Test
     public void testNoWithoutHeaders() {
-        ResponseEntity<Integer> response = ResponseUtil.wrapOrNotFound(no);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        assertThat(response.getBody()).isNull();
-        assertThat(response.getHeaders()).isEmpty();
+        assertThatExceptionOfType(ResponseStatusException.class).isThrownBy(() -> ResponseUtil.wrapOrNotFound(no));
     }
 
     @Test
@@ -74,9 +72,6 @@ public class ResponseUtilTest {
 
     @Test
     public void testNoWithHeaders() {
-        ResponseEntity<Integer> response = ResponseUtil.wrapOrNotFound(no, headers);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        assertThat(response.getBody()).isNull();
-        assertThat(response.getHeaders()).isEmpty();
+        assertThatExceptionOfType(ResponseStatusException.class).isThrownBy(() -> ResponseUtil.wrapOrNotFound(no, headers));
     }
 }
