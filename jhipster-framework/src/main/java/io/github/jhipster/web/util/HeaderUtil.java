@@ -4,6 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 /**
  * Utility class for HTTP headers creation.
  */
@@ -25,7 +29,11 @@ public final class HeaderUtil {
     public static HttpHeaders createAlert(String applicationName, String message, String param) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-" + applicationName + "-alert", message);
-        headers.add("X-" + applicationName + "-params", param);
+        try {
+            headers.add("X-" + applicationName + "-params", URLEncoder.encode(param, StandardCharsets.UTF_8.toString()));
+        } catch (UnsupportedEncodingException e) {
+            // StandardCharsets are supported by every Java implementation so this exception will never happen
+        }
         return headers;
     }
 
