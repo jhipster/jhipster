@@ -18,15 +18,16 @@
  */
 package io.github.jhipster.config.liquibase;
 
-import java.util.concurrent.Executor;
-import java.util.function.Supplier;
-import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.core.env.Environment;
+
+import javax.sql.DataSource;
+import java.util.concurrent.Executor;
+import java.util.function.Supplier;
 
 /**
  * Utility class for handling SpringLiquibase.
