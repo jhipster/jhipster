@@ -100,11 +100,36 @@
     </modules>
 
     <profiles>
-		<!-- Deployment profile (required by https://github.com/samuelmeuli/action-maven-publish ) -->
-		<profile>
-			<id>deploy</id>
-		</profile>
-	</profiles>
+        <!-- Deployment profile (required by https://github.com/samuelmeuli/action-maven-publish ) -->
+        <profile>
+            <id>deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Prevent `gpg` from using pinentry programs -->
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
