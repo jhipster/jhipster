@@ -99,6 +99,13 @@
         <module>jhipster-framework</module>
     </modules>
 
+    <profiles>
+		<!-- Deployment profile (required by https://github.com/samuelmeuli/action-maven-publish ) -->
+		<profile>
+			<id>deploy</id>
+		</profile>
+	</profiles>
+
     <build>
         <plugins>
             <plugin>
