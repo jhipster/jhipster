@@ -40,7 +40,7 @@ public final class RandomUtil {
     private RandomUtil() {
     }
 
-    private static String generateRandomAlphanumericString() {
+    public static String generateRandomAlphanumericString() {
         return RandomStringUtils.random(DEF_COUNT, 0, 0, true, true, null, SECURE_RANDOM);
     }
 
