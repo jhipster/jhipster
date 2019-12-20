@@ -41,8 +41,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Run Sonar analysis
-        run: 'mvn -ntp --batch-mode initialize org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.projectKey=jhipster-framework \
-          -Dsonar.organization=jhipster \
-          -Dsonar.login=${{ secrets.SONAR_KEY }}'
+        run: mvn -ntp --batch-mode initialize org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster-framework -Dsonar.organization=jhipster -Dsonar.login=${{ secrets.SONAR_KEY }}
