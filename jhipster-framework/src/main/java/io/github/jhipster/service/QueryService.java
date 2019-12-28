@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -248,7 +248,7 @@ public abstract class QueryService<ENTITY> {
         if (filter.getEquals() != null) {
             return equalsSpecification(functionToEntity.andThen(entityToColumn), filter.getEquals());
         } else if (filter.getSpecified() != null) {
-            // Interestingly, 'functionToEntity' doesn't work, we need the longer lambda formula 
+            // Interestingly, 'functionToEntity' doesn't work, we need the longer lambda formula
             return byFieldSpecified(root -> functionToEntity.apply(root), filter.getSpecified());
         }
         return null;
@@ -318,7 +318,7 @@ public abstract class QueryService<ENTITY> {
         }
         Specification<ENTITY> result = Specification.where(null);
         if (filter.getSpecified() != null) {
-            // Interestingly, 'functionToEntity' doesn't work, we need the longer lambda formula 
+            // Interestingly, 'functionToEntity' doesn't work, we need the longer lambda formula
             result = result.and(byFieldSpecified(root -> functionToEntity.apply(root), filter.getSpecified()));
         }
         if (filter.getNotEquals() != null) {

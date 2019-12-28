@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -37,7 +37,7 @@ public class SpringLiquibaseUtilTest {
         LiquibaseProperties liquibaseProperties = null;
         DataSource normalDataSource = null;
         DataSourceProperties dataSourceProperties = null;
-        
+
         SpringLiquibase liquibase = SpringLiquibaseUtil.createSpringLiquibase(liquibaseDatasource, liquibaseProperties, normalDataSource, dataSourceProperties);
         assertThat(liquibase).isNotInstanceOf(DataSourceClosingSpringLiquibase.class);
         assertThat(liquibase.getDataSource()).isEqualTo(liquibaseDatasource);
@@ -52,7 +52,7 @@ public class SpringLiquibaseUtilTest {
         LiquibaseProperties liquibaseProperties = new LiquibaseProperties();
         DataSource normalDataSource = DataSourceBuilder.create().url("jdbc:h2:mem:normal").username("sa").build();
         DataSourceProperties dataSourceProperties = null;
-        
+
         SpringLiquibase liquibase = SpringLiquibaseUtil.createSpringLiquibase(liquibaseDatasource, liquibaseProperties, normalDataSource, dataSourceProperties);
         assertThat(liquibase).isNotInstanceOf(DataSourceClosingSpringLiquibase.class);
         assertThat(liquibase.getDataSource()).isEqualTo(normalDataSource);
@@ -70,7 +70,7 @@ public class SpringLiquibaseUtilTest {
         DataSource normalDataSource = null;
         DataSourceProperties dataSourceProperties = new DataSourceProperties();
         dataSourceProperties.setPassword("password");
-        
+
         SpringLiquibase liquibase = SpringLiquibaseUtil.createSpringLiquibase(liquibaseDatasource, liquibaseProperties, normalDataSource, dataSourceProperties);
         assertThat(liquibase).isInstanceOf(DataSourceClosingSpringLiquibase.class);
         assertThat(((HikariDataSource) liquibase.getDataSource()).getJdbcUrl()).isEqualTo("jdbc:h2:mem:liquibase");
@@ -84,7 +84,7 @@ public class SpringLiquibaseUtilTest {
         LiquibaseProperties liquibaseProperties = null;
         DataSource normalDataSource = null;
         DataSourceProperties dataSourceProperties = null;
-        
+
         SpringLiquibase liquibase = SpringLiquibaseUtil.createAsyncSpringLiquibase(null, null, liquibaseDatasource, liquibaseProperties, normalDataSource, dataSourceProperties);
         assertThat(liquibase).isInstanceOf(AsyncSpringLiquibase.class);
         assertThat(liquibase.getDataSource()).isEqualTo(liquibaseDatasource);
@@ -99,7 +99,7 @@ public class SpringLiquibaseUtilTest {
         LiquibaseProperties liquibaseProperties = new LiquibaseProperties();
         DataSource normalDataSource = DataSourceBuilder.create().url("jdbc:h2:mem:normal").username("sa").build();
         DataSourceProperties dataSourceProperties = null;
-        
+
         SpringLiquibase liquibase = SpringLiquibaseUtil.createAsyncSpringLiquibase(null, null, liquibaseDatasource, liquibaseProperties, normalDataSource, dataSourceProperties);
         assertThat(liquibase).isInstanceOf(AsyncSpringLiquibase.class);
         assertThat(liquibase.getDataSource()).isEqualTo(normalDataSource);
@@ -117,7 +117,7 @@ public class SpringLiquibaseUtilTest {
         DataSource normalDataSource = null;
         DataSourceProperties dataSourceProperties = new DataSourceProperties();
         dataSourceProperties.setPassword("password");
-        
+
         SpringLiquibase liquibase = SpringLiquibaseUtil.createAsyncSpringLiquibase(null, null, liquibaseDatasource, liquibaseProperties, normalDataSource, dataSourceProperties);
         assertThat(liquibase).isInstanceOf(AsyncSpringLiquibase.class);
         assertThat(((HikariDataSource) liquibase.getDataSource()).getJdbcUrl()).isEqualTo("jdbc:h2:mem:liquibase");
