@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -33,7 +33,7 @@ import java.util.concurrent.Executor;
 import static io.github.jhipster.config.JHipsterConstants.*;
 
 /**
- * Specific liquibase.integration.spring.SpringLiquibase that will update the database asynchronously and close 
+ * Specific liquibase.integration.spring.SpringLiquibase that will update the database asynchronously and close
  * DataSource if necessary. <p> By default, this asynchronous version only works when using the "dev" profile.<p> The standard
  * liquibase.integration.spring.SpringLiquibase starts Liquibase in the current thread: <ul> <li>This is needed if you
  * want to do some database requests at startup</li> <li>This ensure that the database is ready when the application
