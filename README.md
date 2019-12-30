@@ -23,3 +23,14 @@ If the current version is SNAPSHOT then to use this SNAPSHOT version:
 [azure-devops-url-main]: https://dev.azure.com/jhipster/jhipster/_build
 
 [jhipster-url]: https://www.jhipster.tech/
+
+
+## Analysis of the JHipster server-side parent POM project
+
+[![sonar-quality-gate][sonar-quality-gate]][sonar-url] [![sonar-coverage][sonar-coverage]][sonar-url] [![sonar-bugs][sonar-bugs]][sonar-url] [![sonar-vulnerabilities][sonar-vulnerabilities]][sonar-url]
+
+[sonar-url]: https://sonarcloud.io/dashboard?id=jhipster-framework
+[sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=jhipster-framework&metric=alert_status
+[sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=jhipster-framework&metric=coverage
+[sonar-bugs]: https://sonarcloud.io/api/project_badges/measure?project=jhipster-framework&metric=bugs
+[sonar-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=jhipster-framework&metric=vulnerabilities
