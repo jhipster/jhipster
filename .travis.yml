@@ -23,7 +23,7 @@ services:
   - xvfb
 language: node_js
 node_js:
-  - '12.13.1'
+  - '12.14.0'
 cache:
   directories:
     - $HOME/.m2
