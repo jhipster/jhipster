@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -46,14 +46,14 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
     /** {@inheritDoc} */
     @Override
     public Locale resolveLocale(HttpServletRequest request) {
-        parseLocaleCookieIfNecessary(request);
+        parseAngularCookieIfNecessary(request);
         return (Locale) request.getAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME);
     }
 
     /** {@inheritDoc} */
     @Override
     public LocaleContext resolveLocaleContext(final HttpServletRequest request) {
-        parseLocaleCookieIfNecessary(request);
+        parseAngularCookieIfNecessary(request);
         return new TimeZoneAwareLocaleContext() {
             @Override
             public Locale getLocale() {
@@ -74,7 +74,7 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
         super.addCookie(response, quote(cookieValue));
     }
 
-    private void parseLocaleCookieIfNecessary(HttpServletRequest request) {
+    private void parseAngularCookieIfNecessary(HttpServletRequest request) {
         if (request.getAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME) == null) {
             // Retrieve and parse cookie value.
             Cookie cookie = WebUtils.getCookie(request, getCookieName());

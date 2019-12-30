@@ -11,7 +11,7 @@ This project is used by the JHipster generator. This is the Bill of Materials an
 
 If the current version is SNAPSHOT then to use this SNAPSHOT version:
 - clone this project
-- run `mvnw clean install -Dgpg.skip=true`
+- run `./mvnw clean install -Dgpg.skip=true`, on Windows run `.\mvnw.cmd clean install -D"gpg.skip=true"`
 
 [travis-image]: https://travis-ci.org/jhipster/jhipster.svg?branch=master
 [travis-url]: https://travis-ci.org/jhipster/jhipster

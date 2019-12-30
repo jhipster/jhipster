@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -40,7 +40,7 @@ public final class RandomUtil {
     private RandomUtil() {
     }
 
-    private static String generateRandomAlphanumericString() {
+    public static String generateRandomAlphanumericString() {
         return RandomStringUtils.random(DEF_COUNT, 0, 0, true, true, null, SECURE_RANDOM);
     }
 
