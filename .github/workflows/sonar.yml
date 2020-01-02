@@ -43,9 +43,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Test with Maven
-        run: ./mvnw -ntp clean verify -Dgpg.skip=true --batch-mode
-      - name: Run Sonar analysis
+      - name: Test and run Sonar analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./mvnw -ntp --batch-mode initialize sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster-framework -Dsonar.organization=jhipster -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: ./mvnw -ntp clean verify sonar:sonar -Dgpg.skip=true -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} --batch-mode
