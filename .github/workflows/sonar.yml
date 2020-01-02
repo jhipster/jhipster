@@ -20,10 +20,12 @@
 name: Sonar analysis
 
 on:
+  pull_request:
+    branches:
+      - master
   push:
     branches:
       - master
-      - sonar
 
 jobs:
     build-and-analyse:
@@ -42,8 +44,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Test with Maven
-        run: mvn -ntp clean verify -Dgpg.skip=true --batch-mode
+        run: ./mvnw -ntp clean verify -Dgpg.skip=true --batch-mode
       - name: Run Sonar analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn -ntp --batch-mode initialize org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster-framework -Dsonar.organization=jhipster -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: ./mvnw -ntp --batch-mode initialize org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster-framework -Dsonar.organization=jhipster -Dsonar.login=${{ secrets.SONAR_TOKEN }}
