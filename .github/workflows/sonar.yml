@@ -41,7 +41,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Test with Maven
-        run: mvn test --batch-mode
+        run: mvn -ntp clean verify --batch-mode
       - name: Run Sonar analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
