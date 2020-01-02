@@ -23,6 +23,7 @@ on:
   push:
     branches:
       - master
+      - sonar
 
 jobs:
     build-and-analyse:
