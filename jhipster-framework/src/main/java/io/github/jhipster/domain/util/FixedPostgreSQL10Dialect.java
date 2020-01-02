@@ -28,6 +28,7 @@ import java.sql.Types;
 /**
  * <p>FixedPostgreSQL10Dialect class.</p>
  */
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class FixedPostgreSQL10Dialect extends PostgreSQL10Dialect {
 
     /**
