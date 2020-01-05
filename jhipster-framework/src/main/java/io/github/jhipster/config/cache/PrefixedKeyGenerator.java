@@ -9,6 +9,7 @@ import org.springframework.cache.interceptor.KeyGenerator;
 import java.lang.reflect.Method;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class PrefixedKeyGenerator implements KeyGenerator {
 
@@ -16,16 +17,28 @@ public class PrefixedKeyGenerator implements KeyGenerator {
 
     public PrefixedKeyGenerator(GitProperties gitProperties, BuildProperties buildProperties) {
 
-        String shortCommitId = gitProperties.getShortCommitId();
-        Instant time = buildProperties.getTime();
-        String version = buildProperties.getVersion();
-        Object prefixObject = ObjectUtils.firstNonNull(shortCommitId, time, version, RandomStringUtils.randomAlphanumeric(12));
+        this.prefix = generatePrefix(gitProperties, buildProperties);
+    }
 
-        if (prefixObject instanceof  Instant) {
-            this.prefix = DateTimeFormatter.ISO_INSTANT.format((Instant) prefixObject);
-        } else {
-            this.prefix = prefixObject.toString();
+    private String generatePrefix(GitProperties gitProperties, BuildProperties buildProperties) {
+
+        String shortCommitId = null;
+        if (Objects.nonNull(gitProperties)) {
+            shortCommitId = gitProperties.getShortCommitId();
         }
+
+        Instant time = null;
+        String version = null;
+        if (Objects.nonNull(buildProperties)) {
+            time = buildProperties.getTime();
+            version = buildProperties.getVersion();
+        }
+        Object p = ObjectUtils.firstNonNull(shortCommitId, time, version, RandomStringUtils.randomAlphanumeric(12));
+
+        if (p instanceof Instant) {
+            return DateTimeFormatter.ISO_INSTANT.format((Instant) p);
+        }
+        return p.toString();
     }
 
 
