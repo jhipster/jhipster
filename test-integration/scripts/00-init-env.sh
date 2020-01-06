@@ -6,6 +6,8 @@ init_var() {
         result=$1
     elif [[ $2 != "" ]]; then
         result=$2
+    elif [[ $3 != "" ]]; then
+        result=$3
     fi
     echo $result
 }
