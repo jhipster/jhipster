@@ -137,7 +137,7 @@ jobs:
             # Install JHipster and generate project+entities
             #----------------------------------------------------------------------
             - name: 'GENERATION: install JHipster'
-              run: $TRAVIS_BUILD_DIR/test-integration/scripts/10-install-jhipster-lib.sh
+              run: ./test-integration/scripts/10-install-jhipster-lib.sh
             - name: 'GENERATION: entities'
               run: $JHI_SCRIPTS/11-generate-entities.sh
             - name: 'GENERATION: project'
