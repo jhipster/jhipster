@@ -19,19 +19,37 @@ JHI_REPO=$(init_var "$BUILD_REPOSITORY_URI" "$TRAVIS_REPO_SLUG" "$GITHUB_WORKSPA
 JHI_CLONED=$(init_var "$BUILD_REPOSITORY_LOCALPATH" "$TRAVIS_BUILD_DIR" "$GITHUB_WORKSPACE")
 
 # folder where the generator-jhipster is cloned
-JHI_HOME="$HOME"/generator-jhipster
+JHI_HOME="$JHI_CLONED"/generator-jhipster
 
 # folder for test-integration
 JHI_INTEG="$JHI_HOME"/test-integration
 
+# folder for test-integration
+if [[ "$JHI_INTEG" == "" ]]; then
+    JHI_INTEG="$JHI_HOME"/test-integration
+fi
+
 # folder for samples
-JHI_SAMPLES="$JHI_INTEG"/samples
+if [[ "$JHI_SAMPLES" == "" ]]; then
+    JHI_SAMPLES="$JHI_INTEG"/samples
+fi
 
 # folder for scripts
-JHI_SCRIPTS="$JHI_INTEG"/scripts
+if [[ "$JHI_SCRIPTS" == "" ]]; then
+    JHI_SCRIPTS="$JHI_INTEG"/scripts
+fi
 
-# folder for app
-JHI_FOLDER_APP="$HOME"/app
+# folder for app
+if [[ "$JHI_FOLDER_APP" == "" ]]; then
+    JHI_FOLDER_APP="$HOME"/app
+fi
 
-# folder for uaa app
-JHI_FOLDER_UAA="$HOME"/uaa
+# folder for uaa app
+if [[ "$JHI_FOLDER_UAA" == "" ]]; then
+    JHI_FOLDER_UAA="$HOME"/uaa
+fi
+
+# set correct OpenJDK version
+if [[ "$JHI_JDK" == "11" && "$JHI_GITHUB_CI" != "true" ]]; then
+    JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+fi
