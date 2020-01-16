@@ -32,7 +32,7 @@ env:
     SPRING_JPA_SHOW_SQL: false
     JHI_DISABLE_WEBPACK_LOGS: true
     JHI_E2E_HEADLESS: true
-    JHI_SCRIPTS: $HOME/generator-jhipster/test-integration/scripts
+    JHI_SCRIPTS: /home/runner/generator-jhipster/test-integration/scripts
     NG_CLI_ANALYTICS: 'false'
     JHI_GITHUB_CI: true
 jobs:
@@ -116,17 +116,19 @@ jobs:
             - uses: actions/setup-node@v1
               with:
                   node-version: ${{ matrix.node_version }}
-            - uses: actions/setup-java@v1
-              with:
-                  java-version: '11.x'
             - name: Download latest chrome binary
               run: |
                   sudo apt update
                   sudo apt install google-chrome-stable
-            #- name: 'TOOLS: configure tools installed by the system'
-            #  run: $JHI_SCRIPTS/03-system.sh
-            #- name: 'TOOLS: configure git'
-            #  run: $JHI_SCRIPTS/04-git-config.sh
+            - uses: actions/setup-java@v1
+              with:
+                  java-version: '11.x'
+            - name: 'TOOLS: display configuration'
+              run: ./test-integration/scripts/01-display-configuration.sh
+            - name: 'TOOLS: configure tools installed by the system'
+              run: ./test-integration/scripts/03-system.sh
+            - name: 'TOOLS: configure git'
+              run: ./test-integration/scripts/04-git-config.sh
             #----------------------------------------------------------------------
             # Install JHipster and generate project+entities
             #----------------------------------------------------------------------
