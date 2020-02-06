@@ -59,7 +59,7 @@
         <infinispan-spring-boot-starter-embedded.version>2.1.7.Final</infinispan-spring-boot-starter-embedded.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <jaxb-impl.version>2.3.2</jaxb-impl.version>
-        <jjwt.version>0.10.7</jjwt.version>
+        <jjwt.version>0.11.0</jjwt.version>
         <kafka-clients.version>2.4.0</kafka-clients.version>
         <liquibase-mssql.version>1.6.4</liquibase-mssql.version>
         <logstash-logback-encoder.version>6.3</logstash-logback-encoder.version>
