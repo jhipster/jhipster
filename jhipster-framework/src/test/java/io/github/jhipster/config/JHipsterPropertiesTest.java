@@ -331,9 +331,9 @@ public class JHipsterPropertiesTest {
     @Test
     public void testCacheRedisServer() {
         JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
-        String val = JHipsterDefaults.Cache.Redis.server;
+        String[] val = JHipsterDefaults.Cache.Redis.server;
         assertThat(obj.getServer()).isEqualTo(val);
-        val = "myserver:1337";
+        val = new String[]{"myserver:1337"};
         obj.setServer(val);
         assertThat(obj.getServer()).isEqualTo(val);
     }
@@ -346,6 +346,16 @@ public class JHipsterPropertiesTest {
         val++;
         obj.setExpiration(val);
         assertThat(obj.getExpiration()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheRedisCluster() {
+        JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
+        boolean val = JHipsterDefaults.Cache.Redis.cluster;
+        assertThat(obj.isCluster()).isEqualTo(val);
+        val = !val;
+        obj.setCluster(val);
+        assertThat(obj.isCluster()).isEqualTo(val);
     }
 
     @Test
