@@ -39,7 +39,7 @@
 
     <properties>
         <!-- Dependency versions -->
-        <aws-java-sdk-bom.version>1.11.718</aws-java-sdk-bom.version>
+        <aws-java-sdk-bom.version>1.11.719</aws-java-sdk-bom.version>
         <azure-spring-cloud-client.version>2.2.0</azure-spring-cloud-client.version>
         <bucket4j.version>4.8.0</bucket4j.version>
         <cassandra-unit-spring.version>2.2.2.1</cassandra-unit-spring.version>
