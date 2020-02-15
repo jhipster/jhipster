@@ -18,140 +18,148 @@
 #
 
 jobs:
-  - job: Test
-    pool:
-      vmImage: 'ubuntu-18.04'
-    variables:
-      JHI_PROFILE: dev,webpack
-      JHI_RUN_APP: 1
-      JHI_PROTRACTOR: 0
-      JHI_JDK: 11
-      JHI_ENTITY: sql
-      # this version is used for testing with CICD
-      JHI_VERSION: 0.0.0-CICD
-      # if JHI_LIB_BRANCH value is release, use the release from Maven
-      JHI_LIB_REPO: https://github.com/jhipster/jhipster.git
-      JHI_LIB_BRANCH: master
-      # if JHI_GEN_BRANCH value is release, use the release from NPM
-      JHI_GEN_REPO: https://github.com/jhipster/generator-jhipster.git
-      JHI_GEN_BRANCH: master
-      # specific config
-      SPRING_OUTPUT_ANSI_ENABLED: ALWAYS
-      SPRING_JPA_SHOW_SQL: false
-      JHI_DISABLE_WEBPACK_LOGS: true
-      JHI_E2E_HEADLESS: true
-      JHI_SCRIPTS: $HOME/generator-jhipster/test-integration/scripts
-      NG_CLI_ANALYTICS: false
+    - job: Test
+      pool:
+          vmImage: 'ubuntu-18.04'
+      variables:
+          JHI_PROFILE: dev,webpack
+          JHI_RUN_APP: 1
+          JHI_PROTRACTOR: 0
+          JHI_JDK: 11
+          # this version is used for testing with CICD
+          JHI_VERSION: 0.0.0-CICD
+          # if JHI_LIB_BRANCH value is release, use the release from Maven
+          JHI_LIB_REPO: https://github.com/jhipster/jhipster.git
+          JHI_LIB_BRANCH: master
+          # if JHI_GEN_BRANCH value is release, use the release from NPM
+          JHI_GEN_REPO: https://github.com/jhipster/generator-jhipster.git
+          JHI_GEN_BRANCH: master
+          # specific config
+          SPRING_OUTPUT_ANSI_ENABLED: NEVER
+          SPRING_JPA_SHOW_SQL: false
+          JHI_DISABLE_WEBPACK_LOGS: true
+          JHI_E2E_HEADLESS: true
+          JHI_SCRIPTS: $HOME/generator-jhipster/test-integration/scripts
+          NG_CLI_ANALYTICS: false
 
-    strategy:
-      matrix:
-        ngx-default:
-          JHI_APP: ngx-default
-          JHI_PROFILE: prod
-          JHI_PROTRACTOR: 1
-        ngx-psql-es-noi18n-mapsid:
-          JHI_APP: ngx-psql-es-noi18n-mapsid
-          JHI_PROFILE: prod
-          JHI_PROTRACTOR: 1
-        ngx-gradle-fr:
-          JHI_APP: ngx-gradle-fr
-          JHI_PROFILE: prod
-          JHI_PROTRACTOR: 1
-        ngx-mariadb-oauth2-sass-infinispan:
-          JHI_APP: ngx-mariadb-oauth2-sass-infinispan
-          JHI_PROTRACTOR: 1
-        ngx-h2mem-ws-nol2:
-          JHI_APP: ngx-h2mem-ws-nol2
-        ngx-mongodb-kafka-cucumber:
-          JHI_APP: ngx-mongodb-kafka-cucumber
-          JHI_ENTITY: mongodb
-        ngx-session-cassandra-fr:
-          JHI_APP: ngx-session-cassandra-fr
-          JHI_ENTITY: cassandra
-        ngx-couchbase:
-          JHI_APP: ngx-couchbase
-          JHI_ENTITY: couchbase
-        ms-ngx-gateway-eureka:
-          JHI_APP: ms-ngx-gateway-eureka
-        ms-ngx-gateway-consul:
-          JHI_APP: ms-ngx-gateway-consul
-        ms-ngx-gateway-uaa:
-          JHI_APP: ms-ngx-gateway-uaa
-          JHI_ENTITY: uaa
-        ms-micro-eureka:
-          JHI_APP: ms-micro-eureka
-          JHI_ENTITY: micro
-        ms-micro-consul:
-          JHI_APP: ms-micro-consul
-          JHI_ENTITY: micro
-        react-default:
-          JHI_APP: react-default
+      strategy:
+          matrix:
+              ms-ngx-gateway-eureka-jwt:
+                  JHI_APP: ms-ngx-gateway-eureka-jwt
+                  JHI_ENTITY: sqllight
+                  JHI_PROFILE: prod
+                  JHI_PROTRACTOR: 1
+              ms-ngx-gateway-eureka-oauth2:
+                  JHI_APP: ms-ngx-gateway-eureka-oauth2
+                  JHI_ENTITY: sqllight
+                  JHI_PROFILE: prod
+                  JHI_PROTRACTOR: 1
+              ms-ngx-gateway-eureka-uaa:
+                  JHI_APP: ms-ngx-gateway-eureka-uaa
+                  JHI_ENTITY: uaa
+              ms-micro-eureka-jwt:
+                  JHI_APP: ms-micro-eureka-jwt
+                  JHI_ENTITY: micro
+              ms-react-gateway-consul-jwt:
+                  JHI_APP: ms-react-gateway-consul-jwt
+                  JHI_ENTITY: sqllight
+                  JHI_PROFILE: prod
+                  JHI_PROTRACTOR: 1
+              ms-react-gateway-consul-oauth2:
+                  JHI_APP: ms-react-gateway-consul-oauth2
+                  JHI_ENTITY: sqllight
+                  JHI_PROFILE: prod
+                  JHI_PROTRACTOR: 1
+              jdl-default:
+                  JHI_APP: jdl-default
+                  JHI_ENTITY: jdl
+                  JHI_PROFILE: prod
+                  JHI_PROTRACTOR: 1
+              webflux-mongodb:
+                  JHI_APP: webflux-mongodb
+                  JHI_ENTITY: none
+                  JHI_PROTRACTOR: 1
+              webflux-mongodb-session:
+                  JHI_APP: webflux-mongodb-session
+                  JHI_ENTITY: none
+                  JHI_PROTRACTOR: 1
+              webflux-mongodb-oauth2:
+                  JHI_APP: webflux-mongodb-oauth2
+                  JHI_ENTITY: none
+                  JHI_PROTRACTOR: 1
+      steps:
+          #----------------------------------------------------------------------
+          # Install all tools and check configuration
+          #----------------------------------------------------------------------
+          - bash: exit 0
+            condition: or(contains(variables['Build.SourceVersionMessage'], '[skip ci]'), contains(variables['Build.SourceVersionMessage'], '[ci skip]'))
+            displayName: 'CHECK: check if commit contains CI skip'
+          - task: NodeTool@0
+            inputs:
+                versionSpec: '12.14.0'
+            displayName: 'TOOLS: install Node.js'
+          - script: |
+                if [[ $JHI_JDK = '11' ]]; then
+                    echo '*** Using OpenJDK 11'
+                    sudo add-apt-repository ppa:openjdk-r/ppa
+                    sudo apt-get update
+                    sudo apt-get install -y openjdk-11-jdk
+                    sudo update-java-alternatives -s java-1.11.0-openjdk-amd64
+                    java -version
+                else
+                    echo '*** Using OpenJDK 8 by default'
+                fi
+            displayName: 'TOOLS: configuring OpenJDK'
+          - script: |
+                wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                sudo apt update
+                sudo apt install google-chrome-stable
+            displayName: 'TOOLS: install google-chrome-stable'
+          - script: npm install -g npm
+            displayName: 'TOOLS: update NPM'
+          - script: npm install -g yarn
+            displayName: 'TOOLS: install Yarn'
+          - script: |
+              git config --global user.name "JHipster Bot"
+              git config --global user.email "jhipster-bot@jhipster.tech"
+            displayName: 'TOOLS: configure git'
 
-    steps:
-      - script: |
-          sudo /etc/init.d/mysql stop
-        displayName: 'Before Install'
+          #----------------------------------------------------------------------
+          # Install JHipster and generate project+entities
+          #----------------------------------------------------------------------
+          - bash: $(Build.Repository.LocalPath)/test-integration/scripts/10-install-jhipster-lib.sh
+            displayName: 'GENERATION: install JHipster library'
+          - bash: $(JHI_SCRIPTS)/11-generate-entities.sh
+            displayName: 'GENERATION: entities'
+          - bash: $(JHI_SCRIPTS)/12-generate-project.sh
+            displayName: 'GENERATION: project'
+          - bash: $(JHI_SCRIPTS)/13-replace-version-generated-project.sh
+            displayName: 'GENERATION: replace version in generated project'
+          - bash: $(JHI_SCRIPTS)/14-jhipster-info.sh
+            displayName: 'GENERATION: jhipster info'
 
-      #----------------------------------------------------------------------
-      # Install all tools and check configuration
-      #----------------------------------------------------------------------
-      - task: NodeTool@0
-        inputs:
-          versionSpec: '12.14.0'
-        displayName: 'TOOLS: install Node.js'
-      - script: |
-          if [[ $JHI_JDK = '11' ]]; then
-            echo '*** Using OpenJDK 11'
-            sudo add-apt-repository ppa:openjdk-r/ppa
-            sudo apt-get update
-            sudo apt-get install -y openjdk-11-jdk
-            sudo update-java-alternatives -s java-1.11.0-openjdk-amd64
-            java -version
-          else
-            echo '*** Using OpenJDK 8 by default'
-          fi
-        displayName: 'TOOLS: configuring OpenJDK'
-      - script: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-          sudo apt update
-          sudo apt install google-chrome-stable
-        displayName: 'TOOLS: install google-chrome-stable'
-      - script: npm install -g npm
-        displayName: 'TOOLS: update NPM'
-      - script: npm install -g yarn
-        displayName: 'TOOLS: install Yarn'
-      - script: |
-          git config --global user.name "JHipster Bot"
-          git config --global user.email "jhipster-bot@jhipster.tech"
-        displayName: 'TOOLS: configure git'
+          #----------------------------------------------------------------------
+          # Bugs fix
+          #----------------------------------------------------------------------
+          - bash: $(JHI_SCRIPTS)/20-no-memory-limit-elasticsearch.sh
+            displayName: 'BUGS-FIX: no memory limit for Elasticsearch'
 
-      #----------------------------------------------------------------------
-      # Install JHipster and generate project+entities
-      #----------------------------------------------------------------------
-      - bash: $(Build.Repository.LocalPath)/test-integration/scripts/10-install-jhipster-lib.sh
-        displayName: 'GENERATION: install JHipster library'
-      - bash: $(JHI_SCRIPTS)/11-generate-entities.sh
-        displayName: 'GENERATION: entities'
-      - bash: $(JHI_SCRIPTS)/12-generate-project.sh
-        displayName: 'GENERATION: project'
-      - bash: $(JHI_SCRIPTS)/13-replace-version-generated-project.sh
-        displayName: 'GENERATION: replace version in generated project'
-      - bash: $(JHI_SCRIPTS)/14-jhipster-info.sh
-        displayName: 'GENERATION: jhipster info'
-
-      #----------------------------------------------------------------------
-      # Launch tests
-      #----------------------------------------------------------------------
-      - bash: $(JHI_SCRIPTS)/20-docker-compose.sh
-        displayName: 'TESTS: Start docker-compose containers'
-      - bash: $(JHI_SCRIPTS)/21-tests-backend.sh
-        displayName: 'TESTS: backend'
-      - bash: $(JHI_SCRIPTS)/22-tests-frontend.sh
-        displayName: 'TESTS: frontend'
-      - bash: $(JHI_SCRIPTS)/23-package.sh
-        displayName: 'TESTS: packaging'
-      - bash: $(JHI_SCRIPTS)/24-tests-e2e.sh
-        displayName: 'TESTS: End-to-End'
-      - bash: $(JHI_SCRIPTS)/25-sonar-analyze.sh
-        displayName: 'TESTS: Sonar analyze'
+          #----------------------------------------------------------------------
+          # Launch tests
+          #----------------------------------------------------------------------
+          - bash: $(JHI_SCRIPTS)/20-docker-compose.sh
+            displayName: 'TESTS: Start docker-compose containers'
+          - bash: $(JHI_SCRIPTS)/21-tests-backend.sh
+            displayName: 'TESTS: backend'
+          - bash: $(JHI_SCRIPTS)/22-tests-frontend.sh
+            displayName: 'TESTS: frontend'
+          - bash: $(JHI_SCRIPTS)/23-package.sh
+            displayName: 'TESTS: packaging'
+          - bash: $(JHI_SCRIPTS)/24-tests-e2e.sh
+            displayName: 'TESTS: End-to-End'
+          #----------------------------------------------------------------------
+          # Launch Sonar
+          #----------------------------------------------------------------------
+          - bash: $(JHI_SCRIPTS)/25-sonar-analyze.sh
+            displayName: 'TESTS: Sonar analyze'
