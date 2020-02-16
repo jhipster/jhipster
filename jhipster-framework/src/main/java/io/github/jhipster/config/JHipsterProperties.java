@@ -569,14 +569,15 @@ public class JHipsterProperties {
         }
 
         public static class Redis {
-            private String server = JHipsterDefaults.Cache.Redis.server;
+            private String[] server = JHipsterDefaults.Cache.Redis.server;
             private int expiration = JHipsterDefaults.Cache.Redis.expiration;
+            private boolean cluster = JHipsterDefaults.Cache.Redis.cluster;
 
-            public String getServer() {
+            public String[] getServer() {
                 return server;
             }
 
-            public void setServer(String server) {
+            public void setServer(String[] server) {
                 this.server = server;
             }
 
@@ -586,6 +587,14 @@ public class JHipsterProperties {
 
             public void setExpiration(int expiration) {
                 this.expiration = expiration;
+            }
+
+            public boolean isCluster() {
+                return cluster;
+            }
+
+            public void setCluster(boolean cluster) {
+                this.cluster = cluster;
             }
         }
     }
