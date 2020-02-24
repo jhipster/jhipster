@@ -39,7 +39,7 @@ jobs:
     applications:
         name: ${{ matrix.app-type }}
         runs-on: ${{ matrix.os }}
-        if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.pull_request.title, '[skip ci]') && !contains(github.pull_request.title, '[ci skip]')"
+        if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.pull_request.title, '[ci skip]')"
         timeout-minutes: 40
         strategy:
             fail-fast: false
@@ -112,7 +112,7 @@ jobs:
             #----------------------------------------------------------------------
             # Install all tools and check configuration
             #----------------------------------------------------------------------
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v2
             - uses: actions/setup-node@v1
               with:
                   node-version: ${{ matrix.node_version }}
