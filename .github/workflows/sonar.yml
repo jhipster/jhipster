@@ -19,10 +19,8 @@
 
 name: Sonar analysis
 
-on:
-  push:
-    branches:
-      - master
+on: [push, pull_request]
+
 
 jobs:
     build-and-analyse:
@@ -45,4 +43,4 @@ jobs:
       - name: Run Sonar analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn -ntp --batch-mode initialize org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster-framework -Dsonar.organization=jhipster -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: mvn -ntp --batch-mode initialize org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey= -Dsonar.organization=seraphinandrieux -Dsonar.login=3640342b4cf42e756ae948bcb5d86436638cee9f
