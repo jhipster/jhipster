@@ -25,6 +25,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -35,34 +36,38 @@ public class ResponseUtilTest {
     private static final String HEADER_NAME = "X-Test";
     private static final String HEADER_VALUE = "FooBar";
 
-    private Optional<Integer> yes;
-    private Optional<Integer> no;
+    private Optional<Integer> optionalYes;
+    private Optional<Integer> optionalNo;
+    private Mono<Integer> monoYes;
+    private Mono<Integer> monoNo;
     private HttpHeaders headers;
 
     @BeforeEach
     public void setup() {
-        yes = Optional.of(42);
-        no = Optional.empty();
+        optionalYes = Optional.of(42);
+        optionalNo = Optional.empty();
+        monoYes = Mono.just(42);
+        monoNo = Mono.empty();
         headers = new HttpHeaders();
         headers.add(HEADER_NAME, HEADER_VALUE);
     }
 
     @Test
-    public void testYesWithoutHeaders() {
-        ResponseEntity<Integer> response = ResponseUtil.wrapOrNotFound(yes);
+    public void testOptionalYesWithoutHeaders() {
+        ResponseEntity<Integer> response = ResponseUtil.wrapOrNotFound(optionalYes);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo(42);
         assertThat(response.getHeaders()).isEmpty();
     }
 
     @Test
-    public void testNoWithoutHeaders() {
-        assertThatExceptionOfType(ResponseStatusException.class).isThrownBy(() -> ResponseUtil.wrapOrNotFound(no));
+    public void testOptionalNoWithoutHeaders() {
+        assertThatExceptionOfType(ResponseStatusException.class).isThrownBy(() -> ResponseUtil.wrapOrNotFound(optionalNo));
     }
 
     @Test
-    public void testYesWithHeaders() {
-        ResponseEntity<Integer> response = ResponseUtil.wrapOrNotFound(yes, headers);
+    public void testOptionalYesWithHeaders() {
+        ResponseEntity<Integer> response = ResponseUtil.wrapOrNotFound(optionalYes, headers);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo(42);
         assertThat(response.getHeaders()).hasSize(1);
@@ -71,7 +76,37 @@ public class ResponseUtilTest {
     }
 
     @Test
-    public void testNoWithHeaders() {
-        assertThatExceptionOfType(ResponseStatusException.class).isThrownBy(() -> ResponseUtil.wrapOrNotFound(no, headers));
+    public void testOptionalNoWithHeaders() {
+        assertThatExceptionOfType(ResponseStatusException.class).isThrownBy(() -> ResponseUtil.wrapOrNotFound(optionalNo, headers));
+    }
+
+    @Test
+    public void testMonoYesWithoutHeaders() {
+        ResponseEntity<Integer> response = ResponseUtil.wrapOrNotFound(monoYes).block();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isEqualTo(42);
+        assertThat(response.getHeaders()).isEmpty();
+    }
+
+    @Test
+    public void testMonoNoWithoutHeaders() {
+        Mono<ResponseEntity<Integer>> response = ResponseUtil.wrapOrNotFound(monoNo);
+        assertThatExceptionOfType(ResponseStatusException.class).isThrownBy(response::block);
+    }
+
+    @Test
+    public void testMonoYesWithHeaders() {
+        ResponseEntity<Integer> response = ResponseUtil.wrapOrNotFound(monoYes, headers).block();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isEqualTo(42);
+        assertThat(response.getHeaders()).hasSize(1);
+        assertThat(response.getHeaders().get(HEADER_NAME)).hasSize(1);
+        assertThat(response.getHeaders().get(HEADER_NAME).get(0)).isEqualTo(HEADER_VALUE);
+    }
+
+    @Test
+    public void testMonoNoWithHeaders() {
+        Mono<ResponseEntity<Integer>> response = ResponseUtil.wrapOrNotFound(monoNo, headers);
+        assertThatExceptionOfType(ResponseStatusException.class).isThrownBy(response::block);
     }
 }
