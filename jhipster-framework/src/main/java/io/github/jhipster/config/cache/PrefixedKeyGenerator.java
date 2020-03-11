@@ -20,6 +20,10 @@ public class PrefixedKeyGenerator implements KeyGenerator {
         this.prefix = generatePrefix(gitProperties, buildProperties);
     }
 
+    String getPrefix() {
+        return this.prefix;
+    }
+
     private String generatePrefix(GitProperties gitProperties, BuildProperties buildProperties) {
 
         String shortCommitId = null;
