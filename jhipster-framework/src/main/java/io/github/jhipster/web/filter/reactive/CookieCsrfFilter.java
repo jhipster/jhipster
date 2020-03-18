@@ -25,14 +25,10 @@ public class CookieCsrfFilter implements WebFilter {
         if (exchange.getRequest().getCookies().get(CSRF_COOKIE_NAME) != null) {
             return chain.filter(exchange);
         }
-        Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
-        if (csrfToken == null) {
-            return chain.filter(exchange);
-        }
-
-        return csrfToken
+        return Mono.just(exchange)
             .publishOn(Schedulers.boundedElastic())
-            .doOnSuccess(token -> {
+            .flatMap(it -> it.getAttributeOrDefault(CsrfToken.class.getName(), Mono.<CsrfToken>empty()))
+            .doOnNext(token -> {
                 ResponseCookie cookie = ResponseCookie.from(CSRF_COOKIE_NAME, token.getToken())
                     .maxAge(-1)
                     .httpOnly(false)
