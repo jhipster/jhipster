@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -25,6 +25,8 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.web.cors.CorsConfiguration;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +69,8 @@ public class JHipsterProperties {
     private final Registry registry = new Registry();
 
     private final ClientApp clientApp = new ClientApp();
+
+    private final AuditEvents auditEvents = new AuditEvents();
 
     /**
      * <p>Getter for the field <code>async</code>.</p>
@@ -185,6 +189,15 @@ public class JHipsterProperties {
         return clientApp;
     }
 
+    /**
+     * <p>Getter for the field <code>auditEvents</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.AuditEvents} object.
+     */
+    public AuditEvents getAuditEvents() {
+        return auditEvents;
+    }
+
     public static class Async {
 
         private int corePoolSize = JHipsterDefaults.Async.corePoolSize;
@@ -244,6 +257,8 @@ public class JHipsterProperties {
 
         private final Hazelcast hazelcast = new Hazelcast();
 
+        private final Caffeine caffeine = new Caffeine();
+
         private final Ehcache ehcache = new Ehcache();
 
         private final Infinispan infinispan = new Infinispan();
@@ -254,6 +269,10 @@ public class JHipsterProperties {
 
         public Hazelcast getHazelcast() {
             return hazelcast;
+        }
+
+        public Caffeine getCaffeine() {
+            return caffeine;
         }
 
         public Ehcache getEhcache() {
@@ -332,6 +351,29 @@ public class JHipsterProperties {
 
             public void setBackupCount(int backupCount) {
                 this.backupCount = backupCount;
+            }
+        }
+
+        public static class Caffeine {
+
+            private int timeToLiveSeconds = JHipsterDefaults.Cache.Caffeine.timeToLiveSeconds;
+
+            private long maxEntries = JHipsterDefaults.Cache.Caffeine.maxEntries;
+
+            public int getTimeToLiveSeconds() {
+                return timeToLiveSeconds;
+            }
+
+            public void setTimeToLiveSeconds(int timeToLiveSeconds) {
+                this.timeToLiveSeconds = timeToLiveSeconds;
+            }
+
+            public long getMaxEntries() {
+                return maxEntries;
+            }
+
+            public void setMaxEntries(long maxEntries) {
+                this.maxEntries = maxEntries;
             }
         }
 
@@ -527,14 +569,15 @@ public class JHipsterProperties {
         }
 
         public static class Redis {
-            private String server = JHipsterDefaults.Cache.Redis.server;
+            private String[] server = JHipsterDefaults.Cache.Redis.server;
             private int expiration = JHipsterDefaults.Cache.Redis.expiration;
+            private boolean cluster = JHipsterDefaults.Cache.Redis.cluster;
 
-            public String getServer() {
+            public String[] getServer() {
                 return server;
             }
 
-            public void setServer(String server) {
+            public void setServer(String[] server) {
                 this.server = server;
             }
 
@@ -544,6 +587,14 @@ public class JHipsterProperties {
 
             public void setExpiration(int expiration) {
                 this.expiration = expiration;
+            }
+
+            public boolean isCluster() {
+                return cluster;
+            }
+
+            public void setCluster(boolean cluster) {
+                this.cluster = cluster;
             }
         }
     }
@@ -589,6 +640,8 @@ public class JHipsterProperties {
 
         private final RememberMe rememberMe = new RememberMe();
 
+        private final OAuth2 oauth2 = new OAuth2();
+
         public ClientAuthorization getClientAuthorization() {
             return clientAuthorization;
         }
@@ -599,6 +652,10 @@ public class JHipsterProperties {
 
         public RememberMe getRememberMe() {
             return rememberMe;
+        }
+
+        public OAuth2 getOauth2() {
+            return oauth2;
         }
 
         public static class ClientAuthorization {
@@ -709,6 +766,18 @@ public class JHipsterProperties {
 
             public void setKey(String key) {
                 this.key = key;
+            }
+        }
+
+        public static class OAuth2 {
+            private List<String> audience = new ArrayList<>();
+
+            public List<String> getAudience() {
+                return Collections.unmodifiableList(audience);
+            }
+
+            public void setAudience(@NotNull List<String> audience) {
+                this.audience.addAll(audience);
             }
         }
     }
@@ -881,7 +950,7 @@ public class JHipsterProperties {
     public static class Logging {
 
         private boolean useJsonFormat = JHipsterDefaults.Logging.useJsonFormat;
-        
+
         private final Logstash logstash = new Logstash();
 
         public boolean isUseJsonFormat() {
@@ -1029,6 +1098,18 @@ public class JHipsterProperties {
 
         public void setName(String name) {
             this.name = name;
+        }
+    }
+
+    public static class AuditEvents {
+        private int retentionPeriod = JHipsterDefaults.AuditEvents.retentionPeriod;
+
+        public int getRetentionPeriod() {
+            return retentionPeriod;
+        }
+
+        public void setRetentionPeriod(int retentionPeriod) {
+            this.retentionPeriod = retentionPeriod;
         }
     }
 }

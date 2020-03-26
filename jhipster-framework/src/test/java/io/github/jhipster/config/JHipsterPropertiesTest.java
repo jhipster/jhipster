@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -43,7 +43,7 @@ public class JHipsterPropertiesTest {
         Set<String> set = new LinkedHashSet<>(64, 1F);
         reflect(properties, set, "test");
         for (String name : set) {
-            this.getClass().getDeclaredMethod(name);
+            assertThat(this.getClass().getDeclaredMethod(name)).isNotNull();
         }
     }
 
@@ -156,6 +156,26 @@ public class JHipsterPropertiesTest {
         val = "http://localhost:8080";
         obj.setUrl(val);
         assertThat(obj.getUrl()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheCaffeineTimeToLiveSeconds() {
+        JHipsterProperties.Cache.Caffeine obj = properties.getCache().getCaffeine();
+        int val = JHipsterDefaults.Cache.Caffeine.timeToLiveSeconds;
+        assertThat(obj.getTimeToLiveSeconds()).isEqualTo(val);
+        val++;
+        obj.setTimeToLiveSeconds(val);
+        assertThat(obj.getTimeToLiveSeconds()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheCaffeineMaxEntries() {
+        JHipsterProperties.Cache.Caffeine obj = properties.getCache().getCaffeine();
+        long val = JHipsterDefaults.Cache.Caffeine.maxEntries;
+        assertThat(obj.getMaxEntries()).isEqualTo(val);
+        val++;
+        obj.setMaxEntries(val);
+        assertThat(obj.getMaxEntries()).isEqualTo(val);
     }
 
     @Test
@@ -311,9 +331,9 @@ public class JHipsterPropertiesTest {
     @Test
     public void testCacheRedisServer() {
         JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
-        String val = JHipsterDefaults.Cache.Redis.server;
+        String[] val = JHipsterDefaults.Cache.Redis.server;
         assertThat(obj.getServer()).isEqualTo(val);
-        val = "myserver:1337";
+        val = new String[]{"myserver:1337"};
         obj.setServer(val);
         assertThat(obj.getServer()).isEqualTo(val);
     }
@@ -326,6 +346,16 @@ public class JHipsterPropertiesTest {
         val++;
         obj.setExpiration(val);
         assertThat(obj.getExpiration()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheRedisCluster() {
+        JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
+        boolean val = JHipsterDefaults.Cache.Redis.cluster;
+        assertThat(obj.isCluster()).isEqualTo(val);
+        val = !val;
+        obj.setCluster(val);
+        assertThat(obj.isCluster()).isEqualTo(val);
     }
 
     @Test
@@ -446,6 +476,17 @@ public class JHipsterPropertiesTest {
         val = "1" + val;
         obj.setKey(val);
         assertThat(obj.getKey()).isEqualTo(val);
+    }
+
+    @Test
+    public void testSecurityOauth2Audience() {
+        JHipsterProperties.Security.OAuth2 obj = properties.getSecurity().getOauth2();
+        assertThat(obj).isNotNull();
+        assertThat(obj.getAudience()).isNotNull().isEmpty();
+
+        obj.setAudience(Arrays.asList("default", "account"));
+        assertThat(obj.getAudience()).isNotEmpty().size().isEqualTo(2);
+        assertThat(obj.getAudience()).contains("default", "account");
     }
 
     @Test
@@ -724,5 +765,15 @@ public class JHipsterPropertiesTest {
         val = "1" + val;
         obj.setName(val);
         assertThat(obj.getName()).isEqualTo(val);
+    }
+
+    @Test
+    public void testAuditEventsRetentionPeriod() {
+        JHipsterProperties.AuditEvents obj = properties.getAuditEvents();
+        int val = JHipsterDefaults.AuditEvents.retentionPeriod;
+        assertThat(obj.getRetentionPeriod()).isEqualTo(val);
+        val++;
+        obj.setRetentionPeriod(val);
+        assertThat(obj.getRetentionPeriod()).isEqualTo(val);
     }
 }

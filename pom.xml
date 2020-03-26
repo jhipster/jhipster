@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.1.7.RELEASE</version>
+        <version>2.2.5.RELEASE</version>
         <relativePath />
     </parent>
 
     <groupId>io.github.jhipster</groupId>
     <artifactId>jhipster-parent</artifactId>
-    <version>3.0.5-SNAPSHOT</version>
+    <version>3.7.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JHipster server-side parent POM</name>
     <url>https://github.com/jhipster/jhipster/</url>
@@ -40,9 +40,9 @@
 
     <properties>
         <!-- The jhipster-framework version should be the same as the artifact version above -->
-        <jhipster-framework.version>3.0.5-SNAPSHOT</jhipster-framework.version>
+        <jhipster-framework.version>3.7.0-SNAPSHOT</jhipster-framework.version>
         <!-- The spring-boot version should be the same as the parent version above -->
-        <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
+        <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
 
         <!-- Build properties -->
         <java.version>1.8</java.version>
@@ -55,25 +55,21 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- Plugin versions -->
-        <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
-        <!-- We can't go to 3.0.0-M2 as it has a regression. See https://issues.apache.org/jira/browse/MENFORCER-306 -->
-        <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
-        <maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M4</maven-failsafe-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
-        <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 
         <!-- Sonar properties -->
-        <jacoco.reportFolder>${project.build.directory}/jacoco</jacoco.reportFolder>
-        <jacoco.utReportFile>${jacoco.reportFolder}/test.exec</jacoco.utReportFile>
-        <jacoco.itReportFile>${jacoco.reportFolder}/integrationTest.exec</jacoco.itReportFile>
         <junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
         <junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
     </properties>
@@ -99,6 +95,38 @@
         <module>jhipster-framework</module>
     </modules>
 
+    <profiles>
+        <!-- Deployment profile (required by https://github.com/samuelmeuli/action-maven-publish ) -->
+        <profile>
+            <id>deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Prevent `gpg` from using pinentry programs -->
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -122,47 +150,36 @@
                     <version>${jacoco-maven-plugin.version}</version>
                     <executions>
                         <execution>
-                            <id>pre-unit-tests</id>
+                            <id>default-prepare-agent</id>
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>
-                            <configuration>
-                                <!-- Sets the path to the file which contains the execution data. -->
-                                <destFile>${jacoco.utReportFile}</destFile>
-                            </configuration>
                         </execution>
-                        <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run -->
                         <execution>
-                            <id>post-unit-test</id>
+                            <id>default-report</id>
                             <phase>test</phase>
                             <goals>
                                 <goal>report</goal>
                             </goals>
-                            <configuration>
-                                <dataFile>${jacoco.utReportFile}</dataFile>
-                                <outputDirectory>${jacoco.reportFolder}</outputDirectory>
-                            </configuration>
                         </execution>
                         <execution>
-                            <id>pre-integration-tests</id>
+                            <id>default-check</id>
                             <goals>
-                                <goal>prepare-agent-integration</goal>
+                                <goal>check</goal>
                             </goals>
                             <configuration>
-                                <!-- Sets the path to the file which contains the execution data. -->
-                                <destFile>${jacoco.itReportFile}</destFile>
-                            </configuration>
-                        </execution>
-                        <!-- Ensures that the code coverage report for integration tests is created after integration tests have been run -->
-                        <execution>
-                            <id>post-integration-tests</id>
-                            <phase>post-integration-test</phase>
-                            <goals>
-                                <goal>report-integration</goal>
-                            </goals>
-                            <configuration>
-                                <dataFile>${jacoco.itReportFile}</dataFile>
-                                <outputDirectory>${jacoco.reportFolder}</outputDirectory>
+                                <rules>
+                                    <rule>
+                                        <element>BUNDLE</element>
+                                        <limits>
+                                            <limit>
+                                                <counter>COMPLEXITY</counter>
+                                                <value>COVEREDRATIO</value>
+                                                <minimum>0.62</minimum>
+                                            </limit>
+                                        </limits>
+                                    </rule>
+                                </rules>
                             </configuration>
                         </execution>
                     </executions>
@@ -172,8 +189,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
                         <showDeprecation>true</showDeprecation>
                         <showWarnings>true</showWarnings>
                     </configuration>
@@ -243,7 +260,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
-                      <source>8</source>
+                      <source>${maven.compiler.source}</source>
                     </configuration>
                     <executions>
                         <execution>

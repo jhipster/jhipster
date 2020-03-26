@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -63,6 +63,14 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
     @DateTimeFormat(iso = ISO.DATE)
     public LocalDateFilter setEquals(LocalDate equals) {
         super.setEquals(equals);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE)
+    public LocalDateFilter setNotEquals(LocalDate equals) {
+        super.setNotEquals(equals);
         return this;
     }
 

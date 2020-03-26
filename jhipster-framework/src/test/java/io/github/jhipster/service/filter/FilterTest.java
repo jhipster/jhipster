@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -47,6 +47,7 @@ public class FilterTest {
     @Test
     public void testConstructor() {
         assertThat(filter.getEquals()).isNull();
+        assertThat(filter.getNotEquals()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
         assertThat(filter.toString()).isEqualTo("Filter []");
@@ -57,6 +58,7 @@ public class FilterTest {
         final Filter<Object> copy = filter.copy();
         assertThat(copy).isNotSameAs(filter);
         assertThat(copy.getEquals()).isNull();
+        assertThat(copy.getNotEquals()).isNull();
         assertThat(copy.getSpecified()).isNull();
         assertThat(copy.getIn()).isNull();
         assertThat(copy.toString()).isEqualTo("Filter []");
@@ -67,6 +69,13 @@ public class FilterTest {
         Filter<Object> chain = filter.setEquals(value);
         assertThat(chain).isEqualTo(filter);
         assertThat(filter.getEquals()).isEqualTo(value);
+    }
+
+    @Test
+    public void testSetNotEquals() {
+        Filter<Object> chain = filter.setNotEquals(value);
+        assertThat(chain).isEqualTo(filter);
+        assertThat(filter.getNotEquals()).isEqualTo(value);
     }
 
     @Test
@@ -89,9 +98,15 @@ public class FilterTest {
         final Filter<Object> filter2 = new Filter<>();
         assertThat(filter).isEqualTo(filter2);
         filter.setEquals(value);
+        assertThat(filter2).isNotEqualTo(filter);
         filter2.setEquals(value);
         assertThat(filter).isEqualTo(filter2);
+        filter.setNotEquals(value);
+        assertThat(filter2).isNotEqualTo(filter);
+        filter2.setNotEquals(value);
+        assertThat(filter).isEqualTo(filter2);
         filter.setIn(Lists.newArrayList(value, value));
+        assertThat(filter2).isNotEqualTo(filter);
         filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter).isEqualTo(filter2);
         final Filter<Object> filter3 = new Filter<>();
@@ -109,6 +124,9 @@ public class FilterTest {
         filter.setEquals(value);
         filter2.setEquals(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
+        filter.setNotEquals(value);
+        filter2.setNotEquals(value);
+        assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
         filter.setIn(Lists.newArrayList(value, value));
         filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
@@ -123,8 +141,9 @@ public class FilterTest {
     @Test
     public void testToString() {
         filter.setEquals(value);
+        filter.setNotEquals(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
-        assertThat(filter.toString()).isEqualTo("Filter [equals={}, in=[], specified=true]");
+        assertThat(filter.toString()).isEqualTo("Filter [equals={}, notEquals={}, in=[], specified=true]");
     }
 }

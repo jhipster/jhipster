@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -62,6 +62,14 @@ public class InstantFilter extends RangeFilter<Instant> {
     @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setEquals(Instant equals) {
         super.setEquals(equals);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE_TIME)
+    public InstantFilter setNotEquals(Instant equals) {
+        super.setNotEquals(equals);
         return this;
     }
 

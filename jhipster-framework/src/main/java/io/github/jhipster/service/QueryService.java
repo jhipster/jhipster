@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -71,6 +71,8 @@ public abstract class QueryService<ENTITY> {
             return equalsSpecification(metaclassFunction, filter.getEquals());
         } else if (filter.getIn() != null) {
             return valueIn(metaclassFunction, filter.getIn());
+        } else if (filter.getNotEquals() != null) {
+            return notEqualsSpecification(metaclassFunction, filter.getNotEquals());
         } else if (filter.getSpecified() != null) {
             return byFieldSpecified(metaclassFunction, filter.getSpecified());
         }
@@ -105,6 +107,10 @@ public abstract class QueryService<ENTITY> {
             return valueIn(metaclassFunction, filter.getIn());
         } else if (filter.getContains() != null) {
             return likeUpperSpecification(metaclassFunction, filter.getContains());
+        } else if (filter.getDoesNotContain() != null) {
+            return doesNotContainSpecification(metaclassFunction, filter.getDoesNotContain());
+        } else if (filter.getNotEquals() != null) {
+            return notEqualsSpecification(metaclassFunction, filter.getNotEquals());
         } else if (filter.getSpecified() != null) {
             return byFieldSpecified(metaclassFunction, filter.getSpecified());
         }
@@ -147,6 +153,9 @@ public abstract class QueryService<ENTITY> {
         Specification<ENTITY> result = Specification.where(null);
         if (filter.getSpecified() != null) {
             result = result.and(byFieldSpecified(metaclassFunction, filter.getSpecified()));
+        }
+        if (filter.getNotEquals() != null) {
+            result = result.and(notEqualsSpecification(metaclassFunction, filter.getNotEquals()));
         }
         if (filter.getGreaterThan() != null) {
             result = result.and(greaterThan(metaclassFunction, filter.getGreaterThan()));
@@ -239,7 +248,7 @@ public abstract class QueryService<ENTITY> {
         if (filter.getEquals() != null) {
             return equalsSpecification(functionToEntity.andThen(entityToColumn), filter.getEquals());
         } else if (filter.getSpecified() != null) {
-            // Interestingly, 'functionToEntity' doesn't work, we need the longer lambda formula 
+            // Interestingly, 'functionToEntity' doesn't work, we need the longer lambda formula
             return byFieldSpecified(root -> functionToEntity.apply(root), filter.getSpecified());
         }
         return null;
@@ -247,9 +256,9 @@ public abstract class QueryService<ENTITY> {
 
     /**
      * Helper function to return a specification for filtering on one-to-many or many-to-many reference.Where equality, less
- than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
- supported. Usage:
- <pre>
+     * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
+     * supported. Usage:
+     * <pre>
      *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(criteria.getEmployeId(),
      * Project_.employees, Employee_.id);
      *   Specification&lt;Employee&gt; specByEmployeeName = buildReferringEntitySpecification(criteria.getEmployeName(),
@@ -309,8 +318,11 @@ public abstract class QueryService<ENTITY> {
         }
         Specification<ENTITY> result = Specification.where(null);
         if (filter.getSpecified() != null) {
-            // Interestingly, 'functionToEntity' doesn't work, we need the longer lambda formula 
+            // Interestingly, 'functionToEntity' doesn't work, we need the longer lambda formula
             result = result.and(byFieldSpecified(root -> functionToEntity.apply(root), filter.getSpecified()));
+        }
+        if (filter.getNotEquals() != null) {
+            result = result.and(notEqualsSpecification(fused, filter.getNotEquals()));
         }
         if (filter.getGreaterThan() != null) {
             result = result.and(greaterThan(fused, filter.getGreaterThan()));
@@ -340,6 +352,18 @@ public abstract class QueryService<ENTITY> {
     }
 
     /**
+     * Generic method, which based on a Root&lt;ENTITY&gt; returns an Expression which type is the same as the given 'value' type.
+     *
+     * @param metaclassFunction function which returns the column which is used for filtering.
+     * @param value             the actual value to exclude for.
+     * @param <X>              The type of the attribute which is filtered.
+     * @return a Specification.
+     */
+    protected <X> Specification<ENTITY> notEqualsSpecification(Function<Root<ENTITY>, Expression<X>> metaclassFunction, final X value) {
+        return (root, query, builder) -> builder.not(builder.equal(metaclassFunction.apply(root), value));
+    }
+
+    /**
      * <p>likeUpperSpecification.</p>
      *
      * @param metaclassFunction a {@link java.util.function.Function} object.
@@ -349,6 +373,18 @@ public abstract class QueryService<ENTITY> {
     protected Specification<ENTITY> likeUpperSpecification(Function<Root<ENTITY>, Expression<String>> metaclassFunction,
                                                            final String value) {
         return (root, query, builder) -> builder.like(builder.upper(metaclassFunction.apply(root)), wrapLikeQuery(value));
+    }
+
+    /**
+     * <p>doesNotContainSpecification.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param value a {@link java.lang.String} object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
+    protected Specification<ENTITY> doesNotContainSpecification(Function<Root<ENTITY>, Expression<String>> metaclassFunction,
+                                                           final String value) {
+        return (root, query, builder) -> builder.not(builder.like(builder.upper(metaclassFunction.apply(root)), wrapLikeQuery(value)));
     }
 
     /**

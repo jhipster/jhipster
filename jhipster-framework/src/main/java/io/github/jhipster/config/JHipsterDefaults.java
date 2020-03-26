@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -58,6 +58,12 @@ public interface JHipsterDefaults {
             }
         }
 
+        interface Caffeine {
+
+            int timeToLiveSeconds = 3600; // 1 hour
+            long maxEntries = 100;
+        }
+
         interface Ehcache {
 
             int timeToLiveSeconds = 3600; // 1 hour
@@ -98,8 +104,9 @@ public interface JHipsterDefaults {
         }
 
         interface Redis {
-            String server = "redis://localhost:6379";
+            String[] server = {"redis://localhost:6379"};
             int expiration = 300; // 5 minutes
+            boolean cluster = false;
         }
     }
 
@@ -220,4 +227,8 @@ public interface JHipsterDefaults {
         String name = "jhipsterApp";
     }
 
+    interface AuditEvents {
+
+        int retentionPeriod = 30;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -31,6 +31,7 @@ import java.util.Objects;
  *      fieldName.equals='something'
  *      fieldName.specified=true
  *      fieldName.specified=false
+ *      fieldName.notEquals='somethingElse'
  *      fieldName.in='something','other'
  * </pre>
  */
@@ -38,6 +39,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private FIELD_TYPE equals;
+    private FIELD_TYPE notEquals;
     private Boolean specified;
     private List<FIELD_TYPE> in;
 
@@ -54,6 +56,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
      */
     public Filter(Filter<FIELD_TYPE> filter) {
         this.equals = filter.equals;
+        this.notEquals = filter.notEquals;
         this.specified = filter.specified;
         this.in = filter.in == null ? null : new ArrayList<>(filter.in);
     }
@@ -84,6 +87,26 @@ public class Filter<FIELD_TYPE> implements Serializable {
      */
     public Filter<FIELD_TYPE> setEquals(FIELD_TYPE equals) {
         this.equals = equals;
+        return this;
+    }
+
+    /**
+     * <p>Getter for the field <code>notEquals</code>.</p>
+     *
+     * @return a FIELD_TYPE object.
+     */
+    public FIELD_TYPE getNotEquals() {
+        return notEquals;
+    }
+
+    /**
+     * <p>Setter for the field <code>notEquals</code>.</p>
+     *
+     * @param notEquals a FIELD_TYPE object.
+     * @return a {@link io.github.jhipster.service.filter.Filter} object.
+     */
+    public Filter<FIELD_TYPE> setNotEquals(FIELD_TYPE notEquals) {
+        this.notEquals = notEquals;
         return this;
     }
 
@@ -138,6 +161,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
         }
         final Filter<?> filter = (Filter<?>) o;
         return Objects.equals(equals, filter.equals) &&
+            Objects.equals(notEquals, filter.notEquals) &&
             Objects.equals(specified, filter.specified) &&
             Objects.equals(in, filter.in);
     }
@@ -145,7 +169,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return Objects.hash(equals, specified, in);
+        return Objects.hash(equals, notEquals, specified, in);
     }
 
     /** {@inheritDoc} */
@@ -153,6 +177,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
     public String toString() {
         return getFilterName() + " ["
             + (getEquals() != null ? "equals=" + getEquals() + ", " : "")
+            + (getNotEquals() != null ? "notEquals=" + getNotEquals() + ", " : "")
             + (getIn() != null ? "in=" + getIn() + ", " : "")
             + (getSpecified() != null ? "specified=" + getSpecified() : "")
             + "]";

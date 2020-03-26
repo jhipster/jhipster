@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors from the JHipster project.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -18,15 +18,16 @@
  */
 package io.github.jhipster.config.liquibase;
 
-import java.util.concurrent.Executor;
-import java.util.function.Supplier;
-import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.core.env.Environment;
+
+import javax.sql.DataSource;
+import java.util.concurrent.Executor;
+import java.util.function.Supplier;
 
 /**
  * Utility class for handling SpringLiquibase.

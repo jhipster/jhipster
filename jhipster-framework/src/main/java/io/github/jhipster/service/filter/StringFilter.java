@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors.
+ * Copyright 2016-2020 the original author or authors from the JHipster project.
  *
  * This file is part of the JHipster project, see https://www.jhipster.tech/
  * for more information.
@@ -37,6 +37,7 @@ public class StringFilter extends Filter<String> {
     private static final long serialVersionUID = 1L;
 
     private String contains;
+    private String doesNotContain;
 
     /**
      * <p>Constructor for StringFilter.</p>
@@ -52,6 +53,7 @@ public class StringFilter extends Filter<String> {
     public StringFilter(final StringFilter filter) {
         super(filter);
         this.contains = filter.contains;
+        this.doesNotContain = filter.doesNotContain;
     }
 
     /**
@@ -61,6 +63,26 @@ public class StringFilter extends Filter<String> {
      */
     public StringFilter copy() {
         return new StringFilter(this);
+    }
+
+    /**
+     * <p>Getter for the field <code>doesNotContain</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getDoesNotContain() {
+        return doesNotContain;
+    }
+
+    /**
+     * <p>Setter for the field <code>doesNotContain</code>.</p>
+     *
+     * @param doesNotContain a {@link java.lang.String} object.
+     * @return a {@link io.github.jhipster.service.filter.StringFilter} object.
+     */
+    public StringFilter setDoesNotContain(String doesNotContain) {
+        this.doesNotContain = doesNotContain;
+        return this;
     }
 
     /**
@@ -96,13 +118,14 @@ public class StringFilter extends Filter<String> {
             return false;
         }
         final StringFilter that = (StringFilter) o;
-        return Objects.equals(contains, that.contains);
+        return Objects.equals(contains, that.contains) &&
+            Objects.equals(doesNotContain, that.doesNotContain);
     }
 
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), contains);
+        return Objects.hash(super.hashCode(), contains, doesNotContain);
     }
 
     /** {@inheritDoc} */
@@ -110,7 +133,9 @@ public class StringFilter extends Filter<String> {
     public String toString() {
         return getFilterName() + " ["
             + (getContains() != null ? "contains=" + getContains() + ", " : "")
+            + (getDoesNotContain() != null ? "doesNotContain=" + getDoesNotContain() + ", " : "")
             + (getEquals() != null ? "equals=" + getEquals() + ", " : "")
+            + (getNotEquals() != null ? "notEquals=" + getNotEquals() + ", " : "")
             + (getSpecified() != null ? "specified=" + getSpecified() : "")
             + "]";
     }
