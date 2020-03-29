@@ -84,6 +84,7 @@
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.3.1.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
+        <spring-cloud-connectors.version>2.0.7.RELEASE</spring-cloud-connectors.version>
         <spring-data-neo4j-rx.version>1.0.1</spring-data-neo4j-rx.version>
         <spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.4.1.RELEASE</spring-security-oauth.version>
@@ -446,9 +447,19 @@
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-cloud-connectors</artifactId>
-                <version>${spring-boot.version}</version>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-spring-service-connector</artifactId>
+                <version>${spring-cloud-connectors.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-heroku-connector</artifactId>
+                <version>${spring-cloud-connectors.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-localconfig-connector</artifactId>
+                <version>${spring-cloud-connectors.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
