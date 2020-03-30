@@ -166,6 +166,7 @@ public class RangeFilterTest {
     @Test
     public void testToString() {
         filter.setEquals(value);
+        filter.setNotEquals(value);
         filter.setLessThan(value);
         filter.setLessThanOrEqual(value);
         filter.setGreaterThan(value);
@@ -174,6 +175,6 @@ public class RangeFilterTest {
         filter.setIn(new LinkedList<>());
         assertThat(filter.toString()).isEqualTo("RangeFilter "
             + "[greaterThan=42, greaterThanOrEqual=42, lessThan=42, "
-            + "lessThanOrEqual=42, equals=42, specified=true, in=[]]");
+            + "lessThanOrEqual=42, equals=42, notEquals=42, specified=true, in=[]]");
     }
 }
