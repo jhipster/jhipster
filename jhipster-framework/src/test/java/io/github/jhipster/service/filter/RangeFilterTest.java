@@ -42,6 +42,7 @@ public class RangeFilterTest {
     @Test
     public void testConstructor() {
         assertThat(filter.getEquals()).isNull();
+        assertThat(filter.getNotEquals()).isNull();
         assertThat(filter.getGreaterThan()).isNull();
         assertThat(filter.getGreaterThanOrEqual()).isNull();
         assertThat(filter.getLessThan()).isNull();
@@ -56,6 +57,7 @@ public class RangeFilterTest {
         final RangeFilter<Short> copy = filter.copy();
         assertThat(copy).isNotSameAs(filter);
         assertThat(copy.getEquals()).isNull();
+        assertThat(copy.getNotEquals()).isNull();
         assertThat(copy.getGreaterThan()).isNull();
         assertThat(copy.getGreaterThanOrEqual()).isNull();
         assertThat(copy.getLessThan()).isNull();
@@ -70,6 +72,13 @@ public class RangeFilterTest {
         Filter<Short> chain = filter.setEquals(value);
         assertThat(chain).isEqualTo(filter);
         assertThat(filter.getEquals()).isEqualTo(value);
+    }
+
+    @Test
+    public void testSetNotEquals() {
+        Filter<Short> chain = filter.setNotEquals(value);
+        assertThat(chain).isEqualTo(filter);
+        assertThat(filter.getNotEquals()).isEqualTo(value);
     }
 
     @Test
@@ -122,6 +131,9 @@ public class RangeFilterTest {
         filter.setEquals(value);
         filter2.setEquals(value);
         assertThat(filter).isEqualTo(filter2);
+        filter.setNotEquals(value);
+        filter2.setNotEquals(value);
+        assertThat(filter).isEqualTo(filter2);
         filter.setIn(Lists.newArrayList(value, value));
         filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter).isEqualTo(filter2);
@@ -131,12 +143,6 @@ public class RangeFilterTest {
         filter.setGreaterThanOrEqual(value);
         filter2.setGreaterThanOrEqual(value);
         assertThat(filter).isEqualTo(filter2);
-        final Filter<Short> filter3 = new Filter<>();
-        filter3.setEquals(value);
-        assertThat(filter3).isNotEqualTo(filter);
-        assertThat(filter3).isNotEqualTo(filter2);
-
-        assertThat(filter).isEqualTo(filter);
     }
 
     @Test
@@ -146,6 +152,9 @@ public class RangeFilterTest {
         filter.setEquals(value);
         filter2.setEquals(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
+        filter.setNotEquals(value);
+        filter2.setNotEquals(value);
+        assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
         filter.setIn(Lists.newArrayList(value, value));
         filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
@@ -155,12 +164,6 @@ public class RangeFilterTest {
         filter.setGreaterThanOrEqual(value);
         filter2.setGreaterThanOrEqual(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
-        final Filter<Short> filter3 = new Filter<>();
-        filter3.setEquals(value);
-        assertThat(filter3.hashCode()).isNotEqualTo(filter.hashCode());
-        assertThat(filter3.hashCode()).isNotEqualTo(filter2.hashCode());
-
-        assertThat(filter.hashCode()).isEqualTo(filter.hashCode());
     }
 
     @Test

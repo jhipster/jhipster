@@ -26,6 +26,7 @@ import java.util.Objects;
  * added to a criteria class as a member, to support the following query parameters:
  * <pre>
  *      fieldName.equals=42
+ *      fieldName.notEquals=42
  *      fieldName.specified=true
  *      fieldName.specified=false
  *      fieldName.in=43,42
