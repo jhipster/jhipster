@@ -1,7 +1,7 @@
 JHipster BOM and server-side library
 ----------------------------
 
-[![Angular Build Status][github-actions-angular-image]][github-actions-url] [![React Build Status][github-actions-react-image]][github-actions-url] [![Azure DevOps Build Status][azure-devops-image]][azure-devops-url-main] [![Maven Central][maven-image]][maven-url]
+[![Angular Build Status][github-actions-angular-image]][github-actions-url] [![React Build Status][github-actions-react-image]][github-actions-url] [![Webflux Build Status][github-actions-webflux-image]][github-actions-url] [![Azure DevOps Build Status][azure-devops-image]][azure-devops-url-main] [![Maven Central][maven-image]][maven-url]
 
 Full documentation and information is available on our website at [https://www.jhipster.tech/][jhipster-url]
 
