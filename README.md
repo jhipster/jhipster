@@ -20,6 +20,7 @@ If the current version is SNAPSHOT then to use this SNAPSHOT version:
 [azure-devops-url-main]: https://dev.azure.com/jhipster/jhipster/_build
 [github-actions-angular-image]: https://github.com/jhipster/jhipster/workflows/Angular/badge.svg
 [github-actions-react-image]: https://github.com/jhipster/jhipster/workflows/React/badge.svg
+[github-actions-webflux-image]: https://github.com/jhipster/jhipster/workflows/Webflux/badge.svg
 [github-actions-url]: https://github.com/jhipster/jhipster/actions
 
 [jhipster-url]: https://www.jhipster.tech/
