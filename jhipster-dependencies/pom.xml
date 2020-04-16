@@ -83,7 +83,7 @@
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.3.1.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
-        <spring-data-neo4j-rx.version>1.0.0-rc01</spring-data-neo4j-rx.version>
+        <spring-data-neo4j-rx.version>1.0.0</spring-data-neo4j-rx.version>
         <spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.4.0.RELEASE</spring-security-oauth.version>
         <springfox.version>2.9.2</springfox.version>
