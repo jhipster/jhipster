@@ -80,7 +80,7 @@
         <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
         <problem-spring-webflux.version>${problem-spring.version}</problem-spring-webflux.version>
         <prometheus-simpleclient.version>0.8.1</prometheus-simpleclient.version>
-        <redisson.version>3.12.4</redisson.version>
+        <redisson.version>3.12.5</redisson.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.3.1.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
