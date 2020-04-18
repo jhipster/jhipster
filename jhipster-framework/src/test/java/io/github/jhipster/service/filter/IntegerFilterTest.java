@@ -47,6 +47,7 @@ public class IntegerFilterTest {
         assertThat(filter.getLessThanOrEqual()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
+        assertThat(filter.getNotIn()).isNull();
         assertThat(filter.toString()).isEqualTo("IntegerFilter []");
     }
 
@@ -101,6 +102,14 @@ public class IntegerFilterTest {
     }
 
     @Test
+    public void testSetNotIn() {
+        List<Integer> list = new LinkedList<>();
+        Filter<Integer> chain = filter.setNotIn(list);
+        assertThat(chain).isEqualTo(filter);
+        assertThat(filter.getNotIn()).isEqualTo(list);
+    }
+
+    @Test
     public void testToString() {
         filter.setEquals(value);
         filter.setLessThan(value);
@@ -109,9 +118,10 @@ public class IntegerFilterTest {
         filter.setGreaterThanOrEqual(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
+        filter.setNotIn(new LinkedList<>());
         String str = value.toString();
         assertThat(filter.toString()).isEqualTo("IntegerFilter "
             + "[greaterThan=" + str + ", greaterThanOrEqual=" + str + ", lessThan=" + str + ", "
-            + "lessThanOrEqual=" + str + ", equals=" + str + ", specified=true, in=[]]");
+            + "lessThanOrEqual=" + str + ", equals=" + str + ", specified=true, in=[], notIn=[]]");
     }
 }

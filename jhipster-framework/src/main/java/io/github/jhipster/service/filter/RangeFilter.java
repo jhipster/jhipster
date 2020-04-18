@@ -30,6 +30,7 @@ import java.util.Objects;
  *      fieldName.specified=true
  *      fieldName.specified=false
  *      fieldName.in=43,42
+ *      fieldName.notIn=43,42
  *      fieldName.greaterThan=41
  *      fieldName.lessThan=44
  *      fieldName.greaterThanOrEqual=42
@@ -228,6 +229,7 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
             + (getNotEquals() != null ? "notEquals=" + getNotEquals() + ", " : "")
             + (getSpecified() != null ? "specified=" + getSpecified() + ", " : "")
             + (getIn() != null ? "in=" + getIn() : "")
+            + (getNotIn() != null ? "notIn=" + getNotIn() : "")
             + "]";
     }
 

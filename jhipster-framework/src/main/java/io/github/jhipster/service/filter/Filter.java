@@ -33,6 +33,7 @@ import java.util.Objects;
  *      fieldName.specified=false
  *      fieldName.notEquals='somethingElse'
  *      fieldName.in='something','other'
+ *      fieldName.notIn='something','other'
  * </pre>
  */
 public class Filter<FIELD_TYPE> implements Serializable {
@@ -42,6 +43,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
     private FIELD_TYPE notEquals;
     private Boolean specified;
     private List<FIELD_TYPE> in;
+    private List<FIELD_TYPE> notIn;
 
     /**
      * <p>Constructor for Filter.</p>
@@ -59,6 +61,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
         this.notEquals = filter.notEquals;
         this.specified = filter.specified;
         this.in = filter.in == null ? null : new ArrayList<>(filter.in);
+        this.notIn = filter.notIn == null ? null : new ArrayList<>(filter.notIn);
     }
 
     /**
@@ -150,7 +153,29 @@ public class Filter<FIELD_TYPE> implements Serializable {
         return this;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * <p>Getter for the field <code>notIn</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<FIELD_TYPE> getNotIn() {
+        return notIn;
+    }
+
+    /**
+     * <p>Setter for the field <code>notIn</code>.</p>
+     *
+     * @param notIn a {@link java.util.List} object.
+     * @return a {@link io.github.jhipster.service.filter.Filter} object.
+     */
+    public Filter<FIELD_TYPE> setNotIn(List<FIELD_TYPE> notIn) {
+        this.notIn = notIn;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -161,26 +186,32 @@ public class Filter<FIELD_TYPE> implements Serializable {
         }
         final Filter<?> filter = (Filter<?>) o;
         return Objects.equals(equals, filter.equals) &&
-            Objects.equals(notEquals, filter.notEquals) &&
-            Objects.equals(specified, filter.specified) &&
-            Objects.equals(in, filter.in);
+                Objects.equals(notEquals, filter.notEquals) &&
+                Objects.equals(specified, filter.specified) &&
+                Objects.equals(in, filter.in) &&
+                Objects.equals(notIn, filter.notIn);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(equals, notEquals, specified, in);
+        return Objects.hash(equals, notEquals, specified, in, notIn);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return getFilterName() + " ["
-            + (getEquals() != null ? "equals=" + getEquals() + ", " : "")
-            + (getNotEquals() != null ? "notEquals=" + getNotEquals() + ", " : "")
-            + (getIn() != null ? "in=" + getIn() + ", " : "")
-            + (getSpecified() != null ? "specified=" + getSpecified() : "")
-            + "]";
+                + (getEquals() != null ? "equals=" + getEquals() + ", " : "")
+                + (getNotEquals() != null ? "notEquals=" + getNotEquals() + ", " : "")
+                + (getIn() != null ? "in=" + getIn() + ", " : "")
+                + (getNotIn() != null ? "notIn=" + getNotIn() + ", " : "")
+                + (getSpecified() != null ? "specified=" + getSpecified() : "")
+                + "]";
     }
 
     /**

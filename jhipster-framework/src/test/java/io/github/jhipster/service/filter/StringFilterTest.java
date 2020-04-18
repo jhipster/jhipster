@@ -46,6 +46,7 @@ public class StringFilterTest {
         assertThat(filter.getDoesNotContain()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
+        assertThat(filter.getNotIn()).isNull();
         assertThat(filter.toString()).isEqualTo("StringFilter []");
     }
 
@@ -86,6 +87,14 @@ public class StringFilterTest {
     }
 
     @Test
+    public void testSetNotIn() {
+        List<String> list = new LinkedList<>();
+        Filter<String> chain = filter.setNotIn(list);
+        assertThat(chain).isEqualTo(filter);
+        assertThat(filter.getNotIn()).isEqualTo(list);
+    }
+
+    @Test
     public void testEquals() {
         final StringFilter filter2 = new StringFilter();
         assertThat(filter).isEqualTo(filter2);
@@ -96,6 +105,10 @@ public class StringFilterTest {
         filter.setIn(Lists.newArrayList(value, value));
         assertThat(filter2).isNotEqualTo(filter);
         filter2.setIn(Lists.newArrayList(value, value));
+        assertThat(filter).isEqualTo(filter2);
+        filter.setNotIn(Lists.newArrayList(value, value));
+        assertThat(filter2).isNotEqualTo(filter);
+        filter2.setNotIn(Lists.newArrayList(value, value));
         assertThat(filter).isEqualTo(filter2);
         filter.setContains(value);
         assertThat(filter2).isNotEqualTo(filter);
@@ -123,6 +136,9 @@ public class StringFilterTest {
         filter.setIn(Lists.newArrayList(value, value));
         filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
+        filter.setNotIn(Lists.newArrayList(value, value));
+        filter2.setNotIn(Lists.newArrayList(value, value));
+        assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
         filter.setContains(value);
         filter2.setContains(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
@@ -145,6 +161,7 @@ public class StringFilterTest {
         filter.setDoesNotContain(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
+        filter.setNotIn(new LinkedList<>());
         assertThat(filter.toString()).isEqualTo("StringFilter [contains=foo, doesNotContain=foo, equals=foo, notEquals=foo, specified=true]");
     }
 }
