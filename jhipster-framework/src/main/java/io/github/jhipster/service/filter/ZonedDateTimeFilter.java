@@ -131,4 +131,12 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         super.setIn(in);
         return this;
     }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE_TIME)
+    public ZonedDateTimeFilter setNotIn(List<ZonedDateTime> notIn) {
+        super.setNotIn(notIn);
+        return this;
+    }
 }

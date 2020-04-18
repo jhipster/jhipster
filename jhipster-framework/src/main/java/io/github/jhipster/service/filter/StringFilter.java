@@ -29,6 +29,7 @@ import java.util.Objects;
  * fieldName.specified=true
  * fieldName.specified=false
  * fieldName.in='something','other'
+ * fieldName.notIn='something','other'
  * fieldName.contains='thing'
  * </code>
  */

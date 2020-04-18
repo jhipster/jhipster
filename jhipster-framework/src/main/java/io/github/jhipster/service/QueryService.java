@@ -71,6 +71,8 @@ public abstract class QueryService<ENTITY> {
             return equalsSpecification(metaclassFunction, filter.getEquals());
         } else if (filter.getIn() != null) {
             return valueIn(metaclassFunction, filter.getIn());
+        } else if (filter.getNotIn() != null) {
+            return valueNotIn(metaclassFunction, filter.getNotIn());
         } else if (filter.getNotEquals() != null) {
             return notEqualsSpecification(metaclassFunction, filter.getNotEquals());
         } else if (filter.getSpecified() != null) {
@@ -105,6 +107,8 @@ public abstract class QueryService<ENTITY> {
             return equalsSpecification(metaclassFunction, filter.getEquals());
         } else if (filter.getIn() != null) {
             return valueIn(metaclassFunction, filter.getIn());
+        } else if (filter.getNotIn() != null) {
+            return valueNotIn(metaclassFunction, filter.getNotIn());
         } else if (filter.getContains() != null) {
             return likeUpperSpecification(metaclassFunction, filter.getContains());
         } else if (filter.getDoesNotContain() != null) {
@@ -156,6 +160,9 @@ public abstract class QueryService<ENTITY> {
         }
         if (filter.getNotEquals() != null) {
             result = result.and(notEqualsSpecification(metaclassFunction, filter.getNotEquals()));
+        }
+        if (filter.getNotIn() != null) {
+            result = result.and(valueNotIn(metaclassFunction, filter.getNotIn()));
         }
         if (filter.getGreaterThan() != null) {
             result = result.and(greaterThan(metaclassFunction, filter.getGreaterThan()));
@@ -324,6 +331,9 @@ public abstract class QueryService<ENTITY> {
         if (filter.getNotEquals() != null) {
             result = result.and(notEqualsSpecification(fused, filter.getNotEquals()));
         }
+        if (filter.getNotIn() != null) {
+            result = result.and(valueNotIn(fused, filter.getNotIn()));
+        }
         if (filter.getGreaterThan() != null) {
             result = result.and(greaterThan(fused, filter.getGreaterThan()));
         }
@@ -433,6 +443,25 @@ public abstract class QueryService<ENTITY> {
                 in = in.value(value);
             }
             return in;
+        };
+    }
+
+    /**
+     * <p>valueNotIn.</p>
+     *
+     * @param metaclassFunction a {@link java.util.function.Function} object.
+     * @param values a {@link java.util.Collection} object.
+     * @param <X> a X object.
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object.
+     */
+    protected <X> Specification<ENTITY> valueNotIn(Function<Root<ENTITY>, Expression<X>> metaclassFunction,
+                                                   final Collection<X> values) {
+        return (root, query, builder) -> {
+            In<X> in = builder.in(metaclassFunction.apply(root));
+            for (X value : values) {
+                in = in.value(value);
+            }
+            return builder.not(in);
         };
     }
 

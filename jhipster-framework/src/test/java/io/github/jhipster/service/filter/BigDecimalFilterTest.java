@@ -48,6 +48,7 @@ public class BigDecimalFilterTest {
         assertThat(filter.getLessThanOrEqual()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
+        assertThat(filter.getNotIn()).isNull();
         assertThat(filter.toString()).isEqualTo("BigDecimalFilter []");
     }
 
@@ -102,6 +103,14 @@ public class BigDecimalFilterTest {
     }
 
     @Test
+    public void testSetNotIn() {
+        List<BigDecimal> list = new LinkedList<>();
+        Filter<BigDecimal> chain = filter.setNotIn(list);
+        assertThat(chain).isEqualTo(filter);
+        assertThat(filter.getNotIn()).isEqualTo(list);
+    }
+
+    @Test
     public void testToString() {
         filter.setEquals(value);
         filter.setLessThan(value);
@@ -110,9 +119,10 @@ public class BigDecimalFilterTest {
         filter.setGreaterThanOrEqual(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
+        filter.setNotIn(new LinkedList<>());
         String str = value.toString();
         assertThat(filter.toString()).isEqualTo("BigDecimalFilter "
             + "[greaterThan=" + str + ", greaterThanOrEqual=" + str + ", lessThan=" + str + ", "
-            + "lessThanOrEqual=" + str + ", equals=" + str + ", specified=true, in=[]]");
+            + "lessThanOrEqual=" + str + ", equals=" + str + ", specified=true, in=[], notIn=[]]");
     }
 }
