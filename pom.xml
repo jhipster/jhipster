@@ -125,6 +125,23 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <!-- Deployment to GitHub Packages -->
+            <id>deploy-github</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>github</id>
+                    <name>GitHub Packages</name>
+                    <url>https://maven.pkg.github.com/jhipster/jhipster</url>
+                    <uniqueVersion>true</uniqueVersion>
+                </snapshotRepository>
+                <repository>
+                    <id>github-releases</id>
+                    <name>GitHub Packages</name>
+                    <url>https://maven.pkg.github.com/jhipster/jhipster</url>
+                </repository>
+            </distributionManagement>
+        </profile>
     </profiles>
 
     <build>
