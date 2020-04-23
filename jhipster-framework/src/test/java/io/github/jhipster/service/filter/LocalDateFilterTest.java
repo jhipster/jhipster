@@ -48,6 +48,7 @@ public class LocalDateFilterTest {
         assertThat(filter.getLessThanOrEqual()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
+        assertThat(filter.getNotIn()).isNull();
         assertThat(filter.toString()).isEqualTo("LocalDateFilter []");
     }
 
@@ -102,6 +103,14 @@ public class LocalDateFilterTest {
     }
 
     @Test
+    public void testSetNotIn() {
+        List<LocalDate> list = new LinkedList<>();
+        Filter<LocalDate> chain = filter.setNotIn(list);
+        assertThat(chain).isEqualTo(filter);
+        assertThat(filter.getNotIn()).isEqualTo(list);
+    }
+
+    @Test
     public void testToString() {
         filter.setEquals(value);
         filter.setLessThan(value);
@@ -110,9 +119,10 @@ public class LocalDateFilterTest {
         filter.setGreaterThanOrEqual(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
+        filter.setNotIn(new LinkedList<>());
         String str = value.toString();
         assertThat(filter.toString()).isEqualTo("LocalDateFilter "
             + "[greaterThan=" + str + ", greaterThanOrEqual=" + str + ", lessThan=" + str + ", "
-            + "lessThanOrEqual=" + str + ", equals=" + str + ", specified=true, in=[]]");
+            + "lessThanOrEqual=" + str + ", equals=" + str + ", specified=true, in=[], notIn=[]]");
     }
 }

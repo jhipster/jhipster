@@ -44,6 +44,7 @@ public class UUIDFilterTest {
         assertThat(filter.getEquals()).isNull();
         assertThat(filter.getSpecified()).isNull();
         assertThat(filter.getIn()).isNull();
+        assertThat(filter.getNotIn()).isNull();
         assertThat(filter.toString()).isEqualTo("UUIDFilter []");
     }
 
@@ -70,10 +71,19 @@ public class UUIDFilterTest {
     }
 
     @Test
+    public void testSetNotIn() {
+        List<UUID> list = new LinkedList<>();
+        Filter<UUID> chain = filter.setNotIn(list);
+        assertThat(chain).isEqualTo(filter);
+        assertThat(filter.getNotIn()).isEqualTo(list);
+    }
+
+    @Test
     public void testToString() {
         filter.setEquals(value);
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
-        assertThat(filter.toString()).isEqualTo("UUIDFilter [equals=dbc36987-d354-4ddf-9b53-38ca19b5a409, in=[], specified=true]");
+        filter.setNotIn(new LinkedList<>());
+        assertThat(filter.toString()).isEqualTo("UUIDFilter [equals=dbc36987-d354-4ddf-9b53-38ca19b5a409, in=[], notIn=[], specified=true]");
     }
 }
