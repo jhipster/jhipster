@@ -82,6 +82,7 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
      *
      * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
      */
+    @Override
     public RangeFilter<FIELD_TYPE> copy() {
         return new RangeFilter<>(this);
     }
@@ -103,6 +104,26 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
      */
     public RangeFilter<FIELD_TYPE> setGreaterThan(FIELD_TYPE greaterThan) {
         this.greaterThan = greaterThan;
+        return this;
+    }
+
+    /**
+     * <p>Getter for the field <code>lessThan</code>.</p>
+     *
+     * @return a FIELD_TYPE object.
+     */
+    public FIELD_TYPE getLessThan() {
+        return lessThan;
+    }
+
+    /**
+     * <p>Setter for the field <code>lessThan</code>.</p>
+     *
+     * @param lessThan a FIELD_TYPE object.
+     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
+     */
+    public RangeFilter<FIELD_TYPE> setLessThan(FIELD_TYPE lessThan) {
+        this.lessThan = lessThan;
         return this;
     }
 
@@ -135,28 +156,8 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
      */
     @Deprecated
     public RangeFilter<FIELD_TYPE> setGreaterOrEqualThan(FIELD_TYPE greaterThanOrEqual) {
-         this.greaterThanOrEqual = greaterThanOrEqual;
+         this.setGreaterThanOrEqual(greaterThanOrEqual);
          return this;
-    }
-
-    /**
-     * <p>Getter for the field <code>lessThan</code>.</p>
-     *
-     * @return a FIELD_TYPE object.
-     */
-    public FIELD_TYPE getLessThan() {
-        return lessThan;
-    }
-
-    /**
-     * <p>Setter for the field <code>lessThan</code>.</p>
-     *
-     * @param lessThan a FIELD_TYPE object.
-     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
-     */
-    public RangeFilter<FIELD_TYPE> setLessThan(FIELD_TYPE lessThan) {
-        this.lessThan = lessThan;
-        return this;
     }
 
     /**
@@ -188,7 +189,7 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
      */
     @Deprecated
     public RangeFilter<FIELD_TYPE> setLessOrEqualThan(FIELD_TYPE lessThanOrEqual) {
-         this.lessThanOrEqual = lessThanOrEqual;
+         this.setLessThanOrEqual(lessThanOrEqual);
          return this;
     }
 
@@ -221,15 +222,15 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
     @Override
     public String toString() {
         return getFilterName() + " ["
-            + (getGreaterThan() != null ? "greaterThan=" + getGreaterThan() + ", " : "")
-            + (getGreaterThanOrEqual() != null ? "greaterThanOrEqual=" + getGreaterThanOrEqual() + ", " : "")
-            + (getLessThan() != null ? "lessThan=" + getLessThan() + ", " : "")
-            + (getLessThanOrEqual() != null ? "lessThanOrEqual=" + getLessThanOrEqual() + ", " : "")
             + (getEquals() != null ? "equals=" + getEquals() + ", " : "")
             + (getNotEquals() != null ? "notEquals=" + getNotEquals() + ", " : "")
             + (getSpecified() != null ? "specified=" + getSpecified() + ", " : "")
             + (getIn() != null ? "in=" + getIn() + ", " : "")
-            + (getNotIn() != null ? "notIn=" + getNotIn() : "")
+            + (getNotIn() != null ? "notIn=" + getNotIn() + ", " : "")
+            + (getGreaterThan() != null ? "greaterThan=" + getGreaterThan() + ", " : "")
+            + (getLessThan() != null ? "lessThan=" + getLessThan() + ", " : "")
+            + (getGreaterThanOrEqual() != null ? "greaterThanOrEqual=" + getGreaterThanOrEqual() + ", " : "")
+            + (getLessThanOrEqual() != null ? "lessThanOrEqual=" + getLessThanOrEqual() : "")
             + "]";
     }
 
