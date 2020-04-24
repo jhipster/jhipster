@@ -54,6 +54,7 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
      *
      * @return a {@link io.github.jhipster.service.filter.LocalDateFilter} object.
      */
+    @Override
     public LocalDateFilter copy() {
         return new LocalDateFilter(this);
     }
@@ -77,8 +78,32 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE)
+    public LocalDateFilter setIn(List<LocalDate> in) {
+        super.setIn(in);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE)
+    public LocalDateFilter setNotIn(List<LocalDate> notIn) {
+        super.setNotIn(notIn);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE)
     public LocalDateFilter setGreaterThan(LocalDate equals) {
         super.setGreaterThan(equals);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE)
+    public LocalDateFilter setLessThan(LocalDate equals) {
+        super.setLessThan(equals);
         return this;
     }
 
@@ -102,14 +127,6 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE)
-    public LocalDateFilter setLessThan(LocalDate equals) {
-        super.setLessThan(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE)
     public LocalDateFilter setLessThanOrEqual(LocalDate equals) {
         super.setLessThanOrEqual(equals);
         return this;
@@ -121,22 +138,6 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
     @Deprecated
     public LocalDateFilter setLessOrEqualThan(LocalDate equals) {
         super.setLessOrEqualThan(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE)
-    public LocalDateFilter setIn(List<LocalDate> in) {
-        super.setIn(in);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE)
-    public LocalDateFilter setNotIn(List<LocalDate> notIn) {
-        super.setNotIn(notIn);
         return this;
     }
 

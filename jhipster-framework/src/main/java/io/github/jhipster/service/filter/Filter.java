@@ -29,9 +29,9 @@ import java.util.Objects;
  * following query parameters:
  * <pre>
  *      fieldName.equals='something'
+ *      fieldName.notEquals='somethingElse'
  *      fieldName.specified=true
  *      fieldName.specified=false
- *      fieldName.notEquals='somethingElse'
  *      fieldName.in='something','other'
  *      fieldName.notIn='something','other'
  * </pre>
@@ -208,9 +208,9 @@ public class Filter<FIELD_TYPE> implements Serializable {
         return getFilterName() + " ["
                 + (getEquals() != null ? "equals=" + getEquals() + ", " : "")
                 + (getNotEquals() != null ? "notEquals=" + getNotEquals() + ", " : "")
+                + (getSpecified() != null ? "specified=" + getSpecified() + ", " : "")
                 + (getIn() != null ? "in=" + getIn() + ", " : "")
-                + (getNotIn() != null ? "notIn=" + getNotIn() + ", " : "")
-                + (getSpecified() != null ? "specified=" + getSpecified() : "")
+                + (getNotIn() != null ? "notIn=" + getNotIn() : "")
                 + "]";
     }
 

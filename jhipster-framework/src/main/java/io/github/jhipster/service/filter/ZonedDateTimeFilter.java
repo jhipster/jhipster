@@ -54,6 +54,7 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
      *
      * @return a {@link io.github.jhipster.service.filter.ZonedDateTimeFilter} object.
      */
+    @Override
     public ZonedDateTimeFilter copy() {
         return new ZonedDateTimeFilter(this);
     }
@@ -77,8 +78,32 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
+    public ZonedDateTimeFilter setIn(List<ZonedDateTime> in) {
+        super.setIn(in);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE_TIME)
+    public ZonedDateTimeFilter setNotIn(List<ZonedDateTime> notIn) {
+        super.setNotIn(notIn);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setGreaterThan(ZonedDateTime equals) {
         super.setGreaterThan(equals);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE_TIME)
+    public ZonedDateTimeFilter setLessThan(ZonedDateTime equals) {
+        super.setLessThan(equals);
         return this;
     }
 
@@ -102,14 +127,6 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
-    public ZonedDateTimeFilter setLessThan(ZonedDateTime equals) {
-        super.setLessThan(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setLessThanOrEqual(ZonedDateTime equals) {
         super.setLessThanOrEqual(equals);
         return this;
@@ -124,19 +141,4 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         return this;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    public ZonedDateTimeFilter setIn(List<ZonedDateTime> in) {
-        super.setIn(in);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    public ZonedDateTimeFilter setNotIn(List<ZonedDateTime> notIn) {
-        super.setNotIn(notIn);
-        return this;
-    }
 }
