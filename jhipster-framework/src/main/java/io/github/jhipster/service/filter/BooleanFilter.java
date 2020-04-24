@@ -23,9 +23,11 @@ package io.github.jhipster.service.filter;
  * the following query parameters:
  * <pre>
  *      fieldName.equals=true
+ *      fieldName.notEquals=true
  *      fieldName.specified=true
  *      fieldName.specified=false
  *      fieldName.in=true,false
+ *      fieldName.notIn=true,false
  * </pre>
  */
 public class BooleanFilter extends Filter<Boolean> {
@@ -52,6 +54,7 @@ public class BooleanFilter extends Filter<Boolean> {
      *
      * @return a {@link io.github.jhipster.service.filter.BooleanFilter} object.
      */
+    @Override
     public BooleanFilter copy() {
         return new BooleanFilter(this);
     }

@@ -26,11 +26,13 @@ import java.util.Objects;
  * It can be added to a criteria class as a member, to support the following query parameters:
  * <code>
  * fieldName.equals='something'
+ * fieldName.notEquals='something'
  * fieldName.specified=true
  * fieldName.specified=false
  * fieldName.in='something','other'
  * fieldName.notIn='something','other'
  * fieldName.contains='thing'
+ * fieldName.doesNotContain='thing'
  * </code>
  */
 public class StringFilter extends Filter<String> {
@@ -62,28 +64,9 @@ public class StringFilter extends Filter<String> {
      *
      * @return a {@link io.github.jhipster.service.filter.StringFilter} object.
      */
+    @Override
     public StringFilter copy() {
         return new StringFilter(this);
-    }
-
-    /**
-     * <p>Getter for the field <code>doesNotContain</code>.</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getDoesNotContain() {
-        return doesNotContain;
-    }
-
-    /**
-     * <p>Setter for the field <code>doesNotContain</code>.</p>
-     *
-     * @param doesNotContain a {@link java.lang.String} object.
-     * @return a {@link io.github.jhipster.service.filter.StringFilter} object.
-     */
-    public StringFilter setDoesNotContain(String doesNotContain) {
-        this.doesNotContain = doesNotContain;
-        return this;
     }
 
     /**
@@ -103,6 +86,26 @@ public class StringFilter extends Filter<String> {
      */
     public StringFilter setContains(String contains) {
         this.contains = contains;
+        return this;
+    }
+
+    /**
+     * <p>Getter for the field <code>doesNotContain</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getDoesNotContain() {
+        return doesNotContain;
+    }
+
+    /**
+     * <p>Setter for the field <code>doesNotContain</code>.</p>
+     *
+     * @param doesNotContain a {@link java.lang.String} object.
+     * @return a {@link io.github.jhipster.service.filter.StringFilter} object.
+     */
+    public StringFilter setDoesNotContain(String doesNotContain) {
+        this.doesNotContain = doesNotContain;
         return this;
     }
 
@@ -133,11 +136,13 @@ public class StringFilter extends Filter<String> {
     @Override
     public String toString() {
         return getFilterName() + " ["
-            + (getContains() != null ? "contains=" + getContains() + ", " : "")
-            + (getDoesNotContain() != null ? "doesNotContain=" + getDoesNotContain() + ", " : "")
             + (getEquals() != null ? "equals=" + getEquals() + ", " : "")
             + (getNotEquals() != null ? "notEquals=" + getNotEquals() + ", " : "")
-            + (getSpecified() != null ? "specified=" + getSpecified() : "")
+            + (getSpecified() != null ? "specified=" + getSpecified() + ", " : "")
+            + (getIn() != null ? "in=" + getIn() + ", " : "")
+            + (getNotIn() != null ? "notIn=" + getNotIn() + ", " : "")
+            + (getContains() != null ? "contains=" + getContains() + ", " : "")
+            + (getDoesNotContain() != null ? "doesNotContain=" + getDoesNotContain() : "")
             + "]";
     }
 

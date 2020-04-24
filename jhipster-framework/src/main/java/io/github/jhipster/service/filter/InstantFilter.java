@@ -23,6 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
  * Filter class for {@link java.time.Instant} type attributes.
@@ -53,6 +54,7 @@ public class InstantFilter extends RangeFilter<Instant> {
      *
      * @return a {@link io.github.jhipster.service.filter.InstantFilter} object.
      */
+    @Override
     public InstantFilter copy() {
         return new InstantFilter(this);
     }
@@ -76,8 +78,32 @@ public class InstantFilter extends RangeFilter<Instant> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
+    public InstantFilter setIn(List<Instant> in) {
+        super.setIn(in);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE_TIME)
+    public InstantFilter setNotIn(List<Instant> notIn) {
+        super.setNotIn(notIn);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setGreaterThan(Instant equals) {
         super.setGreaterThan(equals);
+        return this;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @DateTimeFormat(iso = ISO.DATE_TIME)
+    public InstantFilter setLessThan(Instant equals) {
+        super.setLessThan(equals);
         return this;
     }
 
@@ -95,14 +121,6 @@ public class InstantFilter extends RangeFilter<Instant> {
     @Deprecated
     public InstantFilter setGreaterOrEqualThan(Instant equals) {
         super.setGreaterOrEqualThan(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    public InstantFilter setLessThan(Instant equals) {
-        super.setLessThan(equals);
         return this;
     }
 

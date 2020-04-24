@@ -41,7 +41,7 @@ public class FilterTest {
 
     @BeforeEach
     public void setup() {
-        filter = new Filter<Object>();
+        filter = new Filter<>();
     }
 
     @Test
@@ -115,6 +115,10 @@ public class FilterTest {
         assertThat(filter2).isNotEqualTo(filter);
         filter2.setNotEquals(value);
         assertThat(filter).isEqualTo(filter2);
+        filter.setSpecified(false);
+        assertThat(filter2).isNotEqualTo(filter);
+        filter2.setSpecified(false);
+        assertThat(filter).isEqualTo(filter2);
         filter.setIn(Lists.newArrayList(value, value));
         assertThat(filter2).isNotEqualTo(filter);
         filter2.setIn(Lists.newArrayList(value, value));
@@ -127,8 +131,6 @@ public class FilterTest {
         filter3.setEquals(value);
         assertThat(filter3).isNotEqualTo(filter);
         assertThat(filter3).isNotEqualTo(filter2);
-
-        assertThat(filter).isEqualTo(filter);
     }
 
     @Test
@@ -141,6 +143,9 @@ public class FilterTest {
         filter.setNotEquals(value);
         filter2.setNotEquals(value);
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
+        filter.setSpecified(false);
+        filter2.setSpecified(false);
+        assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
         filter.setIn(Lists.newArrayList(value, value));
         filter2.setIn(Lists.newArrayList(value, value));
         assertThat(filter.hashCode()).isEqualTo(filter2.hashCode());
@@ -151,8 +156,6 @@ public class FilterTest {
         filter3.setEquals(value);
         assertThat(filter3.hashCode()).isNotEqualTo(filter.hashCode());
         assertThat(filter3.hashCode()).isNotEqualTo(filter2.hashCode());
-
-        assertThat(filter.hashCode()).isEqualTo(filter.hashCode());
     }
 
     @Test
@@ -162,6 +165,6 @@ public class FilterTest {
         filter.setSpecified(true);
         filter.setIn(new LinkedList<>());
         filter.setNotIn(new LinkedList<>());
-        assertThat(filter.toString()).isEqualTo("Filter [equals={}, notEquals={}, in=[], notIn=[], specified=true]");
+        assertThat(filter.toString()).isEqualTo("Filter [equals={}, notEquals={}, specified=true, in=[], notIn=[]]");
     }
 }
