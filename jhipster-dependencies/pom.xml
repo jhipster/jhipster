@@ -39,7 +39,7 @@
 
     <properties>
         <!-- Dependency versions -->
-        <aws-java-sdk-bom.version>1.11.767</aws-java-sdk-bom.version>
+        <aws-java-sdk-bom.version>1.11.768</aws-java-sdk-bom.version>
         <azure-spring-cloud-client.version>2.2.0</azure-spring-cloud-client.version>
         <azure-applicationinsights-spring-boot-starter.version>2.6.0</azure-applicationinsights-spring-boot-starter.version>
         <bucket4j.version>4.10.0</bucket4j.version>
@@ -60,7 +60,7 @@
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.4.12.Final</hibernate.version>
-        <infinispan.version>10.1.5.Final</infinispan.version>
+        <infinispan.version>10.1.6.Final</infinispan.version>
         <infinispan-spring-boot-starter-embedded.version>2.2.3.Final</infinispan-spring-boot-starter-embedded.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <jaxb-impl.version>2.3.2</jaxb-impl.version>
@@ -70,7 +70,7 @@
         <logstash-logback-encoder.version>6.3</logstash-logback-encoder.version>
         <lz4-java.version>1.7.1</lz4-java.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
-        <micrometer.version>1.4.1</micrometer.version>
+        <micrometer.version>1.4.2</micrometer.version>
         <mongobee.version>0.13</mongobee.version>
         <mssql-jdbc.version>8.2.2.jre8</mssql-jdbc.version>
         <neo4j-migrations.version>0.0.10</neo4j-migrations.version>
@@ -83,12 +83,12 @@
         <redisson.version>3.12.5</redisson.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.3.1.RELEASE</spring-data-jest.version>
-        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
         <spring-data-neo4j-rx.version>1.0.0</spring-data-neo4j-rx.version>
         <spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.4.1.RELEASE</spring-security-oauth.version>
         <springfox.version>2.9.2</springfox.version>
-        <testcontainers.version>1.14.0</testcontainers.version>
+        <testcontainers.version>1.14.1</testcontainers.version>
         <xmemcached.version>2.4.6</xmemcached.version>
         <xmemcached-provider.version>4.1.3</xmemcached-provider.version>
     </properties>
