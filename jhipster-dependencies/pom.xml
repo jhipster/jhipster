@@ -45,7 +45,7 @@
         <bucket4j.version>4.10.0</bucket4j.version>
         <!-- see https://github.com/jhipster/generator-jhipster/issues/11169 -->
         <cassandra-unit-spring.version>2.2.2.1</cassandra-unit-spring.version>
-        <couchmove.version>2.0</couchmove.version>
+        <couchmove.version>1.1</couchmove.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11491 -->
         <couchbase-client.version>2.7.13</couchbase-client.version>
         <couchbase-encryption.version>2.0.1</couchbase-encryption.version>
