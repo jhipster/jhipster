@@ -43,10 +43,10 @@
         <azure-spring-cloud-client.version>2.2.0</azure-spring-cloud-client.version>
         <azure-applicationinsights-spring-boot-starter.version>2.6.0</azure-applicationinsights-spring-boot-starter.version>
         <bucket4j.version>4.10.0</bucket4j.version>
-        <!-- see https://github.com/jhipster/generator-jhipster/issues/11169 -->
+        <!-- see https://github.com/jhipster/generator-jhipster/issues/11681 -->
         <cassandra-unit-spring.version>2.2.2.1</cassandra-unit-spring.version>
         <couchmove.version>2.0</couchmove.version>
-        <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11491 -->
+        <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11681 -->
         <couchbase-client.version>2.7.14</couchbase-client.version>
         <couchbase-encryption.version>2.0.1</couchbase-encryption.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11136 -->
@@ -60,7 +60,7 @@
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.4.12.Final</hibernate.version>
-        <infinispan.version>10.1.6.Final</infinispan.version>
+        <infinispan.version>10.1.7.Final</infinispan.version>
         <infinispan-spring-boot-starter-embedded.version>2.2.3.Final</infinispan-spring-boot-starter-embedded.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <jaxb-impl.version>2.3.2</jaxb-impl.version>
