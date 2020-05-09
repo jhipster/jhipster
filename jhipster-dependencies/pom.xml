@@ -111,11 +111,6 @@
                 <version>${bucket4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.datastax.cassandra</groupId>
-                <artifactId>cassandra-driver-extras</artifactId>
-                <version>${cassandra-driver.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.cassandraunit</groupId>
                 <artifactId>cassandra-unit-spring</artifactId>
                 <version>${cassandra-unit-spring.version}</version>
