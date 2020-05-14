@@ -69,7 +69,7 @@
         <logstash-logback-encoder.version>6.3</logstash-logback-encoder.version>
         <lz4-java.version>1.7.1</lz4-java.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
-        <mongobee.version>0.13</mongobee.version>
+        <mongock.version>4.0.2.alpha</mongock.version>
         <mssql-jdbc.version>8.2.2.jre8</mssql-jdbc.version>
         <neo4j-migrations.version>0.0.10</neo4j-migrations.version>
         <mysql-jdbc.version>8.0.19</mysql-jdbc.version>
@@ -225,11 +225,6 @@
                 <groupId>org.lz4</groupId>
                 <artifactId>lz4-java</artifactId>
                 <version>${lz4-java.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mongobee</groupId>
-                <artifactId>mongobee</artifactId>
-                <version>${mongobee.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.flapdoodle.embed</groupId>
@@ -761,6 +756,14 @@
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers-bom</artifactId>
                 <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.cloudyrock.mongock</groupId>
+                <artifactId>mongock-bom</artifactId>
+                <version>${mongock.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
