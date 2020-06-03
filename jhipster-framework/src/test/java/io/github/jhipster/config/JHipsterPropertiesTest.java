@@ -329,6 +329,32 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testCacheMemcachedAuthenticationEnabled() {
+        JHipsterProperties.Cache.Memcached.Authentication obj = properties.getCache().getMemcached().getAuthentication();
+        boolean val = JHipsterDefaults.Cache.Memcached.Authentication.enabled;
+        assertThat(obj.isEnabled()).isEqualTo(val);
+        val = false;
+        obj.setEnabled(val);
+        assertThat(obj.isEnabled()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheMemcachedAuthenticationPassword() {
+        JHipsterProperties.Cache.Memcached.Authentication obj = properties.getCache().getMemcached().getAuthentication();
+        assertThat(obj.getPassword()).isEqualTo(null);
+        obj.setPassword("MEMCACHEPASSWORD");
+        assertThat(obj.getPassword()).isEqualTo("MEMCACHEPASSWORD");
+    }
+
+    @Test
+    public void testCacheMemcachedAuthenticationUsername() {
+        JHipsterProperties.Cache.Memcached.Authentication obj = properties.getCache().getMemcached().getAuthentication();
+        assertThat(obj.getUsername()).isEqualTo(null);
+        obj.setUsername("MEMCACHEUSER");
+        assertThat(obj.getUsername()).isEqualTo("MEMCACHEUSER");
+    }
+
+    @Test
     public void testCacheRedisServer() {
         JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
         String[] val = JHipsterDefaults.Cache.Redis.server;
@@ -356,6 +382,47 @@ public class JHipsterPropertiesTest {
         val = !val;
         obj.setCluster(val);
         assertThat(obj.isCluster()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheRedisConnectionMinimumIdleSize() {
+        JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
+        int val = JHipsterDefaults.Cache.Redis.connectionMinimumIdleSize;
+        assertThat(obj.getConnectionMinimumIdleSize()).isEqualTo(val);
+        val++;
+        obj.setConnectionMinimumIdleSize(val);
+        assertThat(obj.getConnectionMinimumIdleSize()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheRedisConnectionPoolSize() {
+        JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
+        int val = JHipsterDefaults.Cache.Redis.connectionPoolSize;
+        assertThat(obj.getConnectionPoolSize()).isEqualTo(val);
+        val++;
+        obj.setConnectionPoolSize(val);
+        assertThat(obj.getConnectionPoolSize()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheRedisSubscriptionConnectionMinimumIdleSize() {
+        JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
+        int val = JHipsterDefaults.Cache.Redis.subscriptionConnectionMinimumIdleSize;
+        assertThat(obj.getSubscriptionConnectionMinimumIdleSize()).isEqualTo(val);
+        val++;
+        obj.setSubscriptionConnectionMinimumIdleSize(val);
+        assertThat(obj.getSubscriptionConnectionMinimumIdleSize()).isEqualTo(val);
+    }
+
+    @Test
+    public void testCacheRedisSubscriptionConnectionPoolSize() {
+        JHipsterProperties.Cache.Redis obj = properties.getCache().getRedis();
+        int val = JHipsterDefaults.Cache.Redis.subscriptionConnectionPoolSize;
+        assertThat(obj.getSubscriptionConnectionPoolSize()).isEqualTo(val);
+        val++;
+        obj.setSubscriptionConnectionPoolSize(val);
+        assertThat(obj.getSubscriptionConnectionPoolSize()).isEqualTo(val);
+
     }
 
     @Test
