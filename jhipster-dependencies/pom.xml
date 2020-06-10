@@ -51,7 +51,6 @@
         <couchbase-encryption.version>2.0.1</couchbase-encryption.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11136 -->
         <cucumber-jvm.version>4.8.1</cucumber-jvm.version>
-        <commons-io.version>2.6</commons-io.version>
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
         <dropwizard-metrics.version>4.1.9</dropwizard-metrics.version>
         <guava.version>29.0-jre</guava.version>
@@ -129,11 +128,6 @@
                         <artifactId>slf4j-log4j12</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.cucumber</groupId>
