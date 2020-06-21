@@ -299,10 +299,26 @@ public class JHipsterProperties {
 
             private final ManagementCenter managementCenter = new ManagementCenter();
 
+            /**
+             * In the Hazelcast v4.x, the cluster node doesn't expose
+             * configurations to connect to the management center. Setting up
+             * of this property doesn't provide any behavior and has been
+             * retained for the backward compatibility, and should be
+             * removed in the next major release of the JHipster
+             */
+            @Deprecated
             public ManagementCenter getManagementCenter() {
                 return managementCenter;
             }
 
+            /**
+             * In the Hazelcast v4.x, the cluster node doesn't expose
+             * configurations to connect to the management center. Setting up
+             * of this class properties don't provide any behavior and has
+             * been retained for the backward compatibility, and should be
+             * removed in the next major release of the JHipster
+             */
+            @Deprecated
             public static class ManagementCenter {
 
                 private boolean enabled = JHipsterDefaults.Cache.Hazelcast.ManagementCenter.enabled;
