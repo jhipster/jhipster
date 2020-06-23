@@ -44,10 +44,7 @@
         <azure-applicationinsights-spring-boot-starter.version>2.6.0</azure-applicationinsights-spring-boot-starter.version>
         <bucket4j.version>4.10.0</bucket4j.version>
         <cassandra-unit-spring.version>4.3.1.0</cassandra-unit-spring.version>
-        <couchmove.version>2.0</couchmove.version>
-        <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11681 -->
-        <couchbase-client.version>2.7.14</couchbase-client.version>
-        <couchbase-encryption.version>2.0.1</couchbase-encryption.version>
+        <couchmove.version>3.0-SNAPSHOT</couchmove.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11136 -->
         <cucumber-jvm.version>4.8.1</cucumber-jvm.version>
         <commons-io.version>2.6</commons-io.version>
@@ -235,16 +232,6 @@
                 <groupId>com.github.differentway</groupId>
                 <artifactId>couchmove</artifactId>
                 <version>${couchmove.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.couchbase.client</groupId>
-                <artifactId>java-client</artifactId>
-                <version>${couchbase-client.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.couchbase.client</groupId>
-                <artifactId>encryption</artifactId>
-                <version>${couchbase-encryption.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.microsoft.azure</groupId>
