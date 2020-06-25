@@ -48,6 +48,8 @@ public class JHipsterProperties {
 
     private final Http http = new Http();
 
+    private final Database database = new Database();
+
     private final Cache cache = new Cache();
 
     private final Mail mail = new Mail();
@@ -88,6 +90,15 @@ public class JHipsterProperties {
      */
     public Http getHttp() {
         return http;
+    }
+
+    /**
+     * <p>Getter for the field <code>database</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Database} object.
+     */
+    public Database getDatabase() {
+        return database;
     }
 
     /**
@@ -249,6 +260,29 @@ public class JHipsterProperties {
 
             public void setTimeToLiveInDays(int timeToLiveInDays) {
                 this.timeToLiveInDays = timeToLiveInDays;
+            }
+        }
+    }
+
+    public static class Database {
+
+        private final Couchbase couchbase = new Couchbase();
+
+        public Couchbase getCouchbase() {
+            return couchbase;
+        }
+
+        public static class Couchbase {
+
+            private String bucketName;
+
+            public String getBucketName() {
+                return bucketName;
+            }
+
+            public Couchbase setBucketName(String bucketName) {
+                this.bucketName = bucketName;
+                return this;
             }
         }
     }
