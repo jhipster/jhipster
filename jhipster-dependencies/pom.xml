@@ -47,7 +47,7 @@
         <cassandra-unit-spring.version>2.2.2.1</cassandra-unit-spring.version>
         <couchmove.version>2.0</couchmove.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11681 -->
-        <couchbase-client.version>2.7.15</couchbase-client.version>
+        <couchbase-client.version>3.0.5</couchbase-client.version>
         <couchbase-encryption.version>2.0.1</couchbase-encryption.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11136 -->
         <cucumber-jvm.version>4.8.1</cucumber-jvm.version>
