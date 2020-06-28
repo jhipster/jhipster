@@ -11,7 +11,7 @@
 
     <groupId>io.github.jhipster</groupId>
     <artifactId>jhipster-parent</artifactId>
-    <version>3.9.0-SNAPSHOT</version>
+    <version>3.10.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JHipster server-side parent POM</name>
     <url>https://github.com/jhipster/jhipster/</url>
@@ -40,7 +40,7 @@
 
     <properties>
         <!-- The jhipster-framework version should be the same as the artifact version above -->
-        <jhipster-framework.version>3.9.0-SNAPSHOT</jhipster-framework.version>
+        <jhipster-framework.version>3.10.0-SNAPSHOT</jhipster-framework.version>
         <!-- The spring-boot version should be the same as the parent version above -->
         <spring-boot.version>2.2.7.RELEASE</spring-boot.version>
 

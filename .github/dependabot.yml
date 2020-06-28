@@ -1,0 +1,15 @@
+version: 2
+updates:
+    # Dependencies for jhipster-dependencies
+    - package-ecosystem: 'maven'
+      directory: '/jhipster-dependencies'
+      schedule:
+          interval: weekly
+      open-pull-requests-limit: 10
+
+    # Dependencies for jhipster-framework
+    - package-ecosystem: 'maven'
+      directory: '/jhipster-framework'
+      schedule:
+          interval: weekly
+      open-pull-requests-limit: 10

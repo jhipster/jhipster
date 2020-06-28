@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.github.jhipster</groupId>
         <artifactId>jhipster-parent</artifactId>
-        <version>3.9.0-SNAPSHOT</version>
+        <version>3.10.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -39,7 +39,7 @@
 
     <properties>
         <!-- Dependency versions -->
-        <aws-java-sdk-bom.version>1.11.792</aws-java-sdk-bom.version>
+        <aws-java-sdk-bom.version>1.11.812</aws-java-sdk-bom.version>
         <azure-spring-cloud-client.version>2.2.0</azure-spring-cloud-client.version>
         <azure-applicationinsights-spring-boot-starter.version>2.6.0</azure-applicationinsights-spring-boot-starter.version>
         <bucket4j.version>4.10.0</bucket4j.version>
@@ -51,7 +51,7 @@
         <couchbase-encryption.version>2.0.1</couchbase-encryption.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11136 -->
         <cucumber-jvm.version>4.8.1</cucumber-jvm.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
         <dropwizard-metrics.version>4.1.9</dropwizard-metrics.version>
         <guava.version>29.0-jre</guava.version>
@@ -82,7 +82,7 @@
         <redisson.version>3.13.0</redisson.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.3.1.RELEASE</spring-data-jest.version>
-        <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <spring-data-neo4j-rx.version>1.1.1</spring-data-neo4j-rx.version>
         <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.5.0.RELEASE</spring-security-oauth.version>
