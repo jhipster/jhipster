@@ -72,7 +72,7 @@
         <micrometer.version>1.4.2</micrometer.version>
         <mongobee.version>0.13</mongobee.version>
         <mssql-jdbc.version>8.2.2.jre8</mssql-jdbc.version>
-        <neo4j-migrations.version>0.0.11</neo4j-migrations.version>
+        <neo4j-migrations.version>0.0.12</neo4j-migrations.version>
         <mysql-jdbc.version>8.0.19</mysql-jdbc.version>
         <oracle-jdbc.version>19.6.0.0</oracle-jdbc.version>
         <problem-spring.version>0.25.2</problem-spring.version>
@@ -83,7 +83,7 @@
         <reflections.version>0.9.11</reflections.version>
         <spring-data-jest.version>3.3.1.RELEASE</spring-data-jest.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
-        <spring-data-neo4j-rx.version>1.1.0</spring-data-neo4j-rx.version>
+        <spring-data-neo4j-rx.version>1.1.1</spring-data-neo4j-rx.version>
         <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
         <spring-security-oauth.version>2.5.0.RELEASE</spring-security-oauth.version>
         <springfox.version>2.9.2</springfox.version>
