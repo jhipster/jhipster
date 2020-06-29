@@ -44,7 +44,7 @@
         <azure-applicationinsights-spring-boot-starter.version>2.6.0</azure-applicationinsights-spring-boot-starter.version>
         <bucket4j.version>4.10.0</bucket4j.version>
         <!-- see https://github.com/jhipster/generator-jhipster/issues/11681 -->
-        <cassandra-unit-spring.version>2.2.2.1</cassandra-unit-spring.version>
+        <cassandra-unit-spring.version>4.3.1.0</cassandra-unit-spring.version>
         <couchmove.version>2.0</couchmove.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11681 -->
         <couchbase-client.version>2.7.15</couchbase-client.version>
