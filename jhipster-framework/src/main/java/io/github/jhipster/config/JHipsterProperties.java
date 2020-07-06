@@ -585,6 +585,8 @@ public class JHipsterProperties {
 
             private boolean useBinaryProtocol = JHipsterDefaults.Cache.Memcached.useBinaryProtocol;
 
+            private Authentication authentication = new Authentication();
+
             public boolean isEnabled() {
                 return enabled;
             }
@@ -616,12 +618,54 @@ public class JHipsterProperties {
             public void setUseBinaryProtocol(boolean useBinaryProtocol) {
                 this.useBinaryProtocol = useBinaryProtocol;
             }
+
+            public Authentication getAuthentication() {
+                return authentication;
+            }
+
+            public static class Authentication {
+
+                private boolean enabled = JHipsterDefaults.Cache.Memcached.Authentication.enabled;
+                private String username;
+                private String password;
+
+                public boolean isEnabled() {
+                    return enabled;
+                }
+
+                public Authentication setEnabled(boolean enabled) {
+                    this.enabled = enabled;
+                    return this;
+                }
+
+                public String getUsername() {
+                    return username;
+                }
+
+                public Authentication setUsername(String username) {
+                    this.username = username;
+                    return this;
+                }
+
+                public String getPassword() {
+                    return password;
+                }
+
+                public Authentication setPassword(String password) {
+                    this.password = password;
+                    return this;
+                }
+            }
         }
 
         public static class Redis {
             private String[] server = JHipsterDefaults.Cache.Redis.server;
             private int expiration = JHipsterDefaults.Cache.Redis.expiration;
             private boolean cluster = JHipsterDefaults.Cache.Redis.cluster;
+            private int connectionPoolSize = JHipsterDefaults.Cache.Redis.connectionPoolSize;
+            private int connectionMinimumIdleSize = JHipsterDefaults.Cache.Redis.connectionMinimumIdleSize;
+            private int subscriptionConnectionPoolSize = JHipsterDefaults.Cache.Redis.subscriptionConnectionPoolSize;
+            private int subscriptionConnectionMinimumIdleSize = JHipsterDefaults.Cache.Redis.subscriptionConnectionMinimumIdleSize;
 
             public String[] getServer() {
                 return server;
@@ -645,6 +689,42 @@ public class JHipsterProperties {
 
             public void setCluster(boolean cluster) {
                 this.cluster = cluster;
+            }
+
+            public int getConnectionPoolSize() {
+                return connectionPoolSize;
+            }
+
+            public Redis setConnectionPoolSize(int connectionPoolSize) {
+                this.connectionPoolSize = connectionPoolSize;
+                return this;
+            }
+
+            public int getConnectionMinimumIdleSize() {
+                return connectionMinimumIdleSize;
+            }
+
+            public Redis setConnectionMinimumIdleSize(int connectionMinimumIdleSize) {
+                this.connectionMinimumIdleSize = connectionMinimumIdleSize;
+                return this;
+            }
+
+            public int getSubscriptionConnectionPoolSize() {
+                return subscriptionConnectionPoolSize;
+            }
+
+            public Redis setSubscriptionConnectionPoolSize(int subscriptionConnectionPoolSize) {
+                this.subscriptionConnectionPoolSize = subscriptionConnectionPoolSize;
+                return this;
+            }
+
+            public int getSubscriptionConnectionMinimumIdleSize() {
+                return subscriptionConnectionMinimumIdleSize;
+            }
+
+            public Redis setSubscriptionConnectionMinimumIdleSize(int subscriptionConnectionMinimumIdleSize) {
+                this.subscriptionConnectionMinimumIdleSize = subscriptionConnectionMinimumIdleSize;
+                return this;
             }
         }
     }

@@ -26,6 +26,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
+import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
@@ -54,17 +55,15 @@ public final class SpringLiquibaseUtil {
         return liquibase;
     }
 
-    public static SpringLiquibase createAsyncSpringLiquibase(Environment env, Executor executor, DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties, DataSource dataSource, DataSourceProperties dataSourceProperties) {
-        SpringLiquibase liquibase;
+    public static AsyncSpringLiquibase createAsyncSpringLiquibase(Environment env, Executor executor, DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties, DataSource dataSource, DataSourceProperties dataSourceProperties) {
+        AsyncSpringLiquibase liquibase = new AsyncSpringLiquibase(executor, env);
         DataSource liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
         if (liquibaseDataSource != null) {
-            liquibase = new AsyncSpringLiquibase(executor, env);
-            ((AsyncSpringLiquibase)liquibase).setCloseDataSourceOnceMigrated(false);
+            liquibase.setCloseDataSourceOnceMigrated(false);
             liquibase.setDataSource(liquibaseDataSource);
-            return liquibase;
+        } else {
+            liquibase.setDataSource(createNewDataSource(liquibaseProperties, dataSourceProperties));
         }
-        liquibase = new AsyncSpringLiquibase(executor, env);
-        liquibase.setDataSource(createNewDataSource(liquibaseProperties, dataSourceProperties));
         return liquibase;
     }
 
@@ -86,8 +85,7 @@ public final class SpringLiquibaseUtil {
     }
 
     private static String getProperty(Supplier<String> property, Supplier<String> defaultValue) {
-        String value = property.get();
-        return (value != null) ? value : defaultValue.get();
+        return Optional.of(property).map(Supplier::get).orElseGet(defaultValue);
     }
 
 }
