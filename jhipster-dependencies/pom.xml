@@ -41,7 +41,7 @@
         <!-- Dependency versions -->
         <aws-java-sdk-bom.version>1.11.812</aws-java-sdk-bom.version>
         <azure-spring-cloud-client.version>2.2.0</azure-spring-cloud-client.version>
-        <azure-applicationinsights-spring-boot-starter.version>2.6.0</azure-applicationinsights-spring-boot-starter.version>
+        <azure-applicationinsights-spring-boot-starter.version>2.6.1</azure-applicationinsights-spring-boot-starter.version>
         <bucket4j.version>4.10.0</bucket4j.version>
         <!-- see https://github.com/jhipster/generator-jhipster/issues/11681 -->
         <cassandra-unit-spring.version>2.2.2.1</cassandra-unit-spring.version>
