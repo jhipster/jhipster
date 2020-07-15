@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-name: Webflux
+name: Vue
 on:
     push:
         branches-ignore:
@@ -60,53 +60,65 @@ jobs:
                 node_version: [12.16.1]
                 os: [ubuntu-latest]
                 app-type:
-                    - webflux-mongodb
-                    - webflux-mongodb-es-session
-                    - webflux-mongodb-oauth2
-                    - webflux-gateway-jwt
-                    - webflux-gateway-oauth2
-                    - webflux-couchbase
-                    - webflux-couchbase-es-oauth2
-                    - webflux-psql
+                    - vue-default
+                    - vue-noi18n
+                    - vue-fulli18n-es
+                    - vue-gateway
+                    - vue-gradle-session
+                    - vue-ws-theme
+                    - vue-oauth2
+                    - vue-couchbase
+                    - vue-mongodb-kafka-cucumber
+                    - vue-session-cassandra-fr
                 include:
-                    - app-type: webflux-mongodb
-                      entity: mongodb
+                    - app-type: vue-default
+                      entity: sql
                       profile: prod
                       war: 0
                       protractor: 1
-                    - app-type: webflux-mongodb-es-session
-                      entity: mongodb
+                    - app-type: vue-noi18n
+                      entity: sql
                       profile: prod
                       war: 0
                       protractor: 1
-                    - app-type: webflux-mongodb-oauth2
-                      entity: mongodb
+                    - app-type: vue-fulli18n-es
+                      entity: sql
                       profile: prod
                       war: 0
                       protractor: 1
-                    - app-type: webflux-gateway-jwt
-                      entity: none
+                    - app-type: vue-gateway
+                      entity: sql
+                      profile: dev,webpack
+                      war: 0
+                      protractor: 1
+                    - app-type: vue-gradle-session
+                      entity: sql
+                      profile: dev,webpack
+                      war: 0
+                      protractor: 1
+                    - app-type: vue-ws-theme
+                      entity: sql
+                      profile: dev,webpack
+                      war: 0
+                      protractor: 1
+                    - app-type: vue-oauth2
+                      entity: sql
                       profile: prod
                       war: 0
                       protractor: 1
-                    - app-type: webflux-gateway-oauth2
-                      entity: none
-                      profile: prod
-                      war: 0
-                      protractor: 1
-                    - app-type: webflux-couchbase
+                    - app-type: vue-couchbase
                       entity: couchbase
-                      profile: prod
+                      profile: dev,webpack
                       war: 0
                       protractor: 1
-                    - app-type: webflux-couchbase-es-oauth2
-                      entity: couchbase
-                      profile: prod
+                    - app-type: vue-mongodb-kafka-cucumber
+                      entity: mongodb
+                      profile: dev,webpack
                       war: 0
                       protractor: 1
-                    - app-type: webflux-psql
-                      entity: none
-                      profile: prod
+                    - app-type: vue-session-cassandra-fr
+                      entity: cassandra
+                      profile: dev,webpack
                       war: 0
                       protractor: 1
         env:

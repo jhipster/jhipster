@@ -17,8 +17,13 @@
 # limitations under the License.
 #
 
+trigger:
+    branches:
+        exclude:
+            - dependabot/*
 jobs:
     - job: Test
+      condition: not(contains(variables['System.PullRequest.SourceBranch'], 'dependabot'))
       pool:
           vmImage: 'ubuntu-18.04'
       variables:
@@ -80,6 +85,13 @@ jobs:
                   JHI_PROTRACTOR: 1
                   JHI_TESTCONTAINERS: 1
       steps:
+          #----------------------------------------------------------------------
+          # Set checkout path.
+          # Yeoman uses the package name to calculate namespaces.
+          # Otherwise the namespace will be the path instead of jhispter:*.
+          #----------------------------------------------------------------------
+          - checkout: self
+            path: generator-jhipster
           #----------------------------------------------------------------------
           # Install all tools and check configuration
           #----------------------------------------------------------------------
