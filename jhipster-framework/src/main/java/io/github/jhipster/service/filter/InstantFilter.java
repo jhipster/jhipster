@@ -118,26 +118,8 @@ public class InstantFilter extends RangeFilter<Instant> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
-    @Deprecated
-    public InstantFilter setGreaterOrEqualThan(Instant equals) {
-        super.setGreaterOrEqualThan(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
     public InstantFilter setLessThanOrEqual(Instant equals) {
         super.setLessThanOrEqual(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    @Deprecated
-    public InstantFilter setLessOrEqualThan(Instant equals) {
-        super.setLessOrEqualThan(equals);
         return this;
     }
 
