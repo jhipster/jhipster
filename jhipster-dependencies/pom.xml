@@ -44,7 +44,7 @@
         <azure-applicationinsights-spring-boot-starter.version>2.6.0</azure-applicationinsights-spring-boot-starter.version>
         <bucket4j.version>4.10.0</bucket4j.version>
         <cassandra-unit-spring.version>4.3.1.0</cassandra-unit-spring.version>
-        <couchmove.version>3.0-SNAPSHOT</couchmove.version>
+        <couchmove.version>3.0</couchmove.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11136 -->
         <cucumber-jvm.version>4.8.1</cucumber-jvm.version>
         <commons-io.version>2.7</commons-io.version>
