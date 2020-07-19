@@ -34,7 +34,7 @@ jobs:
         with:
           java-version: 11
       - name: Cache Maven archetypes
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
