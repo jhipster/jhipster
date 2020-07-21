@@ -54,7 +54,7 @@ public class JHipsterProperties {
 
     private final Security security = new Security();
 
-    private final Swagger swagger = new Swagger();
+    private final ApiDocs apiDocs = new ApiDocs();
 
     private final Metrics metrics = new Metrics();
 
@@ -127,12 +127,12 @@ public class JHipsterProperties {
     }
 
     /**
-     * <p>Getter for the field <code>swagger</code>.</p>
+     * <p>Getter for the field <code>api-docs</code>.</p>
      *
-     * @return a {@link io.github.jhipster.config.JHipsterProperties.Swagger} object.
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.ApiDocs} object.
      */
-    public Swagger getSwagger() {
-        return swagger;
+    public ApiDocs getApiDocs() {
+        return apiDocs;
     }
 
     /**
@@ -862,33 +862,35 @@ public class JHipsterProperties {
         }
     }
 
-    public static class Swagger {
+    public static class ApiDocs {
 
-        private String title = JHipsterDefaults.Swagger.title;
+        private String title = JHipsterDefaults.ApiDocs.title;
 
-        private String description = JHipsterDefaults.Swagger.description;
+        private String description = JHipsterDefaults.ApiDocs.description;
 
-        private String version = JHipsterDefaults.Swagger.version;
+        private String version = JHipsterDefaults.ApiDocs.version;
 
-        private String termsOfServiceUrl = JHipsterDefaults.Swagger.termsOfServiceUrl;
+        private String termsOfServiceUrl = JHipsterDefaults.ApiDocs.termsOfServiceUrl;
 
-        private String contactName = JHipsterDefaults.Swagger.contactName;
+        private String contactName = JHipsterDefaults.ApiDocs.contactName;
 
-        private String contactUrl = JHipsterDefaults.Swagger.contactUrl;
+        private String contactUrl = JHipsterDefaults.ApiDocs.contactUrl;
 
-        private String contactEmail = JHipsterDefaults.Swagger.contactEmail;
+        private String contactEmail = JHipsterDefaults.ApiDocs.contactEmail;
 
-        private String license = JHipsterDefaults.Swagger.license;
+        private String license = JHipsterDefaults.ApiDocs.license;
 
-        private String licenseUrl = JHipsterDefaults.Swagger.licenseUrl;
+        private String licenseUrl = JHipsterDefaults.ApiDocs.licenseUrl;
 
-        private String defaultIncludePattern = JHipsterDefaults.Swagger.defaultIncludePattern;
+        private String defaultIncludePattern = JHipsterDefaults.ApiDocs.defaultIncludePattern;
 
-        private String host = JHipsterDefaults.Swagger.host;
+        private String host = JHipsterDefaults.ApiDocs.host;
 
-        private String[] protocols = JHipsterDefaults.Swagger.protocols;
+        private String[] protocols = JHipsterDefaults.ApiDocs.protocols;
 
-        private boolean useDefaultResponseMessages = JHipsterDefaults.Swagger.useDefaultResponseMessages;
+        private Server[] servers = {};
+
+        private boolean useDefaultResponseMessages = JHipsterDefaults.ApiDocs.useDefaultResponseMessages;
 
         public String getTitle() {
             return title;
@@ -986,12 +988,50 @@ public class JHipsterProperties {
             this.protocols = protocols;
         }
 
+        public Server[] getServers() {
+            return servers;
+        }
+
+        public void setServers(final Server[] servers) {
+            this.servers = servers;
+        }
+
         public boolean isUseDefaultResponseMessages() {
             return useDefaultResponseMessages;
         }
 
         public void setUseDefaultResponseMessages(final boolean useDefaultResponseMessages) {
             this.useDefaultResponseMessages = useDefaultResponseMessages;
+        }
+
+        public static class Server {
+            private String name;
+            private String url;
+            private String description;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+
+            public void setDescription(String description) {
+                this.description = description;
+            }
         }
     }
 

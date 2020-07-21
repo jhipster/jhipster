@@ -1,6 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.github.jhipster.config.apidoc.SwaggerAutoConfiguration,\
-  io.github.jhipster.config.apidoc.SwaggerPluginsAutoConfiguration,\
+  io.github.jhipster.config.apidoc.SpringfoxAutoConfiguration,\
+  io.github.jhipster.config.apidoc.SpringfoxPluginsAutoConfiguration,\
   io.github.jhipster.config.JHipsterProperties,\
   io.github.jhipster.security.uaa.UaaAutoConfiguration,\
   io.github.jhipster.config.info.JHipsterInfoContributorConfiguration,\
