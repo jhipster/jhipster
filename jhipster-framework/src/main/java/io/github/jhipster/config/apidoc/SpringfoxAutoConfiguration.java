@@ -20,7 +20,7 @@
 package io.github.jhipster.config.apidoc;
 
 import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.config.apidoc.customizer.JHipsteSpringfoxCustomizer;
+import io.github.jhipster.config.apidoc.customizer.JHipsterSpringfoxCustomizer;
 import io.github.jhipster.config.apidoc.customizer.SpringfoxCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,8 +127,8 @@ public class SpringfoxAutoConfiguration {
      * @return the Sringfox Customizer of JHipster
      */
     @Bean
-    public JHipsteSpringfoxCustomizer jHipsterSpringfoxCustomizer() {
-        return new JHipsteSpringfoxCustomizer(properties);
+    public JHipsterSpringfoxCustomizer jHipsterSpringfoxCustomizer() {
+        return new JHipsterSpringfoxCustomizer(properties);
     }
 
     /**

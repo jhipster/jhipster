@@ -39,7 +39,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 /**
  * A Springfox customizer to setup {@link springfox.documentation.spring.web.plugins.Docket} with JHipster settings.
  */
-public class JHipsteSpringfoxCustomizer implements SpringfoxCustomizer, Ordered {
+public class JHipsterSpringfoxCustomizer implements SpringfoxCustomizer, Ordered {
 
     /**
      * The default order for the customizer.
@@ -51,11 +51,11 @@ public class JHipsteSpringfoxCustomizer implements SpringfoxCustomizer, Ordered 
     private final JHipsterProperties.ApiDocs properties;
 
     /**
-     * <p>Constructor for JHipsteSpringfoxCustomizer.</p>
+     * <p>Constructor for JHipsterSpringfoxCustomizer.</p>
      *
      * @param properties a {@link JHipsterProperties.ApiDocs} object.
      */
-    public JHipsteSpringfoxCustomizer(JHipsterProperties.ApiDocs properties) {
+    public JHipsterSpringfoxCustomizer(JHipsterProperties.ApiDocs properties) {
         this.properties = properties;
     }
 
