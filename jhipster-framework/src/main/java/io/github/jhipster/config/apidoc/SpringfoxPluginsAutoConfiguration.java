@@ -28,7 +28,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Pageable;
-import springfox.documentation.schema.TypeNameExtractor;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
@@ -37,8 +36,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 @ConditionalOnWebApplication
 @ConditionalOnBean(Docket.class)
-@AutoConfigureAfter(SwaggerAutoConfiguration.class)
-public class SwaggerPluginsAutoConfiguration {
+@AutoConfigureAfter(SpringfoxAutoConfiguration.class)
+public class SpringfoxPluginsAutoConfiguration {
 
     @Configuration
     @ConditionalOnClass(Pageable.class)
@@ -46,9 +45,8 @@ public class SwaggerPluginsAutoConfiguration {
 
         @Bean
         @ConditionalOnMissingBean
-        public PageableParameterBuilderPlugin pageableParameterBuilderPlugin(TypeNameExtractor typeNameExtractor,
-                                                                             TypeResolver typeResolver) {
-            return new PageableParameterBuilderPlugin(typeNameExtractor, typeResolver);
+        public PageableParameterBuilderPlugin pageableParameterBuilderPlugin(TypeResolver typeResolver) {
+            return new PageableParameterBuilderPlugin(typeResolver);
         }
     }
 }

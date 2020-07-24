@@ -1,4 +1,4 @@
 /**
- * Springfox configuraiton to generate Swagger documentation.
+ * Springfox configuraiton to generate ApiDocs documentation.
  */
 package io.github.jhipster.config.apidoc;

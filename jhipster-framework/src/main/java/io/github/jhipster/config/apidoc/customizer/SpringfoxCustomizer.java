@@ -26,7 +26,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * {@link springfox.documentation.spring.web.plugins.Docket} in Springfox.
  */
 @FunctionalInterface
-public interface SwaggerCustomizer {
+public interface SpringfoxCustomizer {
 
     /**
      * Customize the Springfox Docket.

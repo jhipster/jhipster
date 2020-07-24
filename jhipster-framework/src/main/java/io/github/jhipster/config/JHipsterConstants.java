@@ -43,9 +43,9 @@ public interface JHipsterConstants {
     /** Spring profile used when deploying to Microsoft Azure
      Constant <code>SPRING_PROFILE_AZURE="azure"</code> */
     String SPRING_PROFILE_AZURE = "azure";
-    /** Spring profile used to enable swagger
-        Constant <code>SPRING_PROFILE_SWAGGER="swagger"</code> */
-    String SPRING_PROFILE_SWAGGER = "swagger";
+    /** Spring profile used to enable OpenAPI doc generation
+        Constant <code>SPRING_PROFILE_API_DOCS="api-docs"</code> */
+    String SPRING_PROFILE_API_DOCS = "api-docs";
     /** Spring profile used to disable running liquibase
         Constant <code>SPRING_PROFILE_NO_LIQUIBASE="no-liquibase"</code> */
     String SPRING_PROFILE_NO_LIQUIBASE = "no-liquibase";
