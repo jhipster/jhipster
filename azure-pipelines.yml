@@ -121,17 +121,17 @@ jobs:
             displayName: 'TOOLS: update NPM'
           - script: npm install -g yarn
             displayName: 'TOOLS: install Yarn'
-          - bash: $(JHI_SCRIPTS)/01-display-configuration.sh
+          - bash: ./test-integration/scripts/01-display-configuration.sh
             displayName: 'TOOLS: display configuration'
-          - bash: $(JHI_SCRIPTS)/03-system.sh
+          - bash: ./test-integration/scripts/03-system.sh
             displayName: 'TOOLS: configure tools installed by the system'
-          - bash: $(JHI_SCRIPTS)/04-git-config.sh
+          - bash: ./test-integration/scripts/04-git-config.sh
             displayName: 'TOOLS: configure git'
 
           #----------------------------------------------------------------------
           # Install JHipster and generate project+entities
           #----------------------------------------------------------------------
-          - bash: $(Build.Repository.LocalPath)/test-integration/scripts/10-install-jhipster-lib.sh
+          - bash: ./test-integration/scripts/10-install-jhipster-lib.sh
             displayName: 'GENERATION: install JHipster library'
           - bash: $(JHI_SCRIPTS)/11-generate-entities.sh
             displayName: 'GENERATION: entities'
