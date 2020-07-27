@@ -1,5 +1,5 @@
 #
-# Copyright 2016-2020 the original author or authors from the JHipster project.
+# Copyright 2013-2020 the original author or authors from the JHipster project.
 #
 # This file is part of the JHipster project, see https://www.jhipster.tech/
 # for more information.
@@ -95,12 +95,6 @@ jobs:
           #----------------------------------------------------------------------
           # Install all tools and check configuration
           #----------------------------------------------------------------------
-          - bash: exit 0
-            condition: or(contains(variables['Build.SourceVersionMessage'], '[skip ci]'), contains(variables['Build.SourceVersionMessage'], '[ci skip]'))
-            displayName: 'CHECK: check if commit contains CI skip'
-          - script: |
-                sudo /etc/init.d/mysql stop
-            displayName: 'Before Install'
           - task: NodeTool@0
             inputs:
                 versionSpec: '12.16.1'
@@ -127,9 +121,11 @@ jobs:
             displayName: 'TOOLS: update NPM'
           - script: npm install -g yarn
             displayName: 'TOOLS: install Yarn'
-          - script: |
-              git config --global user.name "JHipster Bot"
-              git config --global user.email "jhipster-bot@jhipster.tech"
+          - bash: $(JHI_SCRIPTS)/01-display-configuration.sh
+            displayName: 'TOOLS: display configuration'
+          - bash: $(JHI_SCRIPTS)/03-system.sh
+            displayName: 'TOOLS: configure tools installed by the system'
+          - bash: $(JHI_SCRIPTS)/04-git-config.sh
             displayName: 'TOOLS: configure git'
 
           #----------------------------------------------------------------------
