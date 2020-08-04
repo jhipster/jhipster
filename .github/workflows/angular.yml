@@ -47,10 +47,6 @@ jobs:
         name: ${{ matrix.app-type }}
         runs-on: ${{ matrix.os }}
         if: >-
-            !contains(github.event.head_commit.message, '[react]') &&
-            !contains(github.event.head_commit.message, '[vue]') &&
-            !contains(github.event.pull_request.title, '[react]') &&
-            !contains(github.event.pull_request.title, '[vue]') &&
             !contains(github.event.head_commit.message, '[ci skip]') &&
             !contains(github.event.head_commit.message, '[skip ci]') &&
             !contains(github.event.pull_request.title, '[skip ci]') &&
@@ -73,7 +69,7 @@ jobs:
                     - ngx-gradle-psql-es-noi18n-mapsid
                     - ngx-gradle-mariadb-oauth2-infinispan
                     - ngx-gradle-mongodb-kafka-cucumber
-                    - ngx-gradle-yarn-h2disk-ws-nocache
+                    - ngx-gradle-h2disk-ws-nocache
                 include:
                     - app-type: ngx-default
                       entity: sql
@@ -129,7 +125,7 @@ jobs:
                       war: 0
                       protractor: 1
                       testcontainers: 0
-                    - app-type: ngx-gradle-yarn-h2disk-ws-nocache
+                    - app-type: ngx-gradle-h2disk-ws-nocache
                       entity: sql
                       profile: dev,webpack
                       war: 1

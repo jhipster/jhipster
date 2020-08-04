@@ -119,8 +119,6 @@ jobs:
             displayName: 'TOOLS: install google-chrome-stable'
           - script: npm install -g npm
             displayName: 'TOOLS: update NPM'
-          - script: npm install -g yarn
-            displayName: 'TOOLS: install Yarn'
           - bash: ./test-integration/scripts/01-display-configuration.sh
             displayName: 'TOOLS: display configuration'
           - bash: ./test-integration/scripts/03-system.sh
