@@ -125,7 +125,7 @@ jobs:
                       war: 0
                       protractor: 1
                       testcontainers: 0
-                    - app-type: ngx-gradle-yarn-h2disk-ws-nocache
+                    - app-type: ngx-gradle-h2disk-ws-nocache
                       entity: sql
                       profile: dev,webpack
                       war: 1
