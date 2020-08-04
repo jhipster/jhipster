@@ -69,7 +69,7 @@ jobs:
                     - ngx-gradle-psql-es-noi18n-mapsid
                     - ngx-gradle-mariadb-oauth2-infinispan
                     - ngx-gradle-mongodb-kafka-cucumber
-                    - ngx-gradle-yarn-h2disk-ws-nocache
+                    - ngx-gradle-h2disk-ws-nocache
                 include:
                     - app-type: ngx-default
                       entity: sql
