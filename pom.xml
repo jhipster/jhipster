@@ -57,6 +57,7 @@
         <!-- Plugin versions -->
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
@@ -79,23 +80,49 @@
         <url>https://github.com/jhipster/jhipster/</url>
     </scm>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <modules>
         <module>jhipster-dependencies</module>
         <module>jhipster-framework</module>
     </modules>
 
     <profiles>
+        <profile>
+            <id>deploy-github</id>
+            <activation>
+                <property>
+                    <name>github</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/jhipster/jhipster/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/jhipster/jhipster/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>deploy-central</id>
+            <activation>
+                <property>
+                    <name>!github</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
         <!-- Deployment profile (required by https://github.com/samuelmeuli/action-maven-publish ) -->
         <profile>
             <id>deploy</id>
@@ -131,6 +158,10 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
             <plugin>
@@ -144,6 +175,11 @@
         </plugins>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
@@ -260,7 +296,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
-                      <source>${maven.compiler.source}</source>
+                        <source>${maven.compiler.source}</source>
                     </configuration>
                     <executions>
                         <execution>
