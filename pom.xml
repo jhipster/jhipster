@@ -176,6 +176,15 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <prefix>jhipster-lib.git</prefix>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>^jhipster-lib.git.build.(time|version)$</includeOnlyProperty>
+                        <includeOnlyProperty>^jhipster-lib.git.commit.id.(abbrev|full|time)$</includeOnlyProperty>
+                        <includeOnlyProperty>^jhipster-lib.git.branch$</includeOnlyProperty>
+                        <includeOnlyProperty>^jhipster-lib.git.remote.origin.url$</includeOnlyProperty>
+                    </includeOnlyProperties>
+                </configuration>
             </plugin>
         </plugins>
         <pluginManagement>
