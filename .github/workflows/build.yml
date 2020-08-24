@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-name: Sonar analysis
+name: Test, Sonar and deploy.
 
 on:
   push:
@@ -26,6 +26,7 @@ on:
 
 jobs:
     build-and-analyse:
+      if: github.repository == 'jhipster/jhipster'
       runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@v2
@@ -34,7 +35,7 @@ jobs:
         with:
           java-version: 11
       - name: Cache Maven archetypes
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -46,3 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mvn -ntp --batch-mode initialize org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster-framework -Dsonar.organization=jhipster -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: Deploy to github packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn deploy -Dgpg.skip -Dgithub

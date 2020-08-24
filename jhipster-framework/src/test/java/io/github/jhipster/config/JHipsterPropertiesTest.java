@@ -27,6 +27,7 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.util.Lists.newArrayList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JHipsterPropertiesTest {
 
@@ -565,9 +566,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerTitle() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.title;
+    public void testApiDocsTitle() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.title;
         assertThat(obj.getTitle()).isEqualTo(val);
         val = "1" + val;
         obj.setTitle(val);
@@ -575,9 +576,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerDescription() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.description;
+    public void testApiDocsDescription() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.description;
         assertThat(obj.getDescription()).isEqualTo(val);
         val = "1" + val;
         obj.setDescription(val);
@@ -585,9 +586,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerVersion() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.version;
+    public void testApiDocsVersion() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.version;
         assertThat(obj.getVersion()).isEqualTo(val);
         val = "1" + val;
         obj.setVersion(val);
@@ -595,9 +596,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerTermsOfServiceUrl() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.termsOfServiceUrl;
+    public void testApiDocsTermsOfServiceUrl() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.termsOfServiceUrl;
         assertThat(obj.getTermsOfServiceUrl()).isEqualTo(val);
         val = "1" + val;
         obj.setTermsOfServiceUrl(val);
@@ -605,9 +606,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerContactName() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.contactName;
+    public void testApiDocsContactName() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.contactName;
         assertThat(obj.getContactName()).isEqualTo(val);
         val = "1" + val;
         obj.setContactName(val);
@@ -615,9 +616,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerContactUrl() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.contactUrl;
+    public void testApiDocsContactUrl() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.contactUrl;
         assertThat(obj.getContactUrl()).isEqualTo(val);
         val = "1" + val;
         obj.setContactUrl(val);
@@ -625,9 +626,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerContactEmail() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.contactEmail;
+    public void testApiDocsContactEmail() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.contactEmail;
         assertThat(obj.getContactEmail()).isEqualTo(val);
         val = "1" + val;
         obj.setContactEmail(val);
@@ -635,9 +636,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerLicense() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.license;
+    public void testApiDocsLicense() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.license;
         assertThat(obj.getLicense()).isEqualTo(val);
         val = "1" + val;
         obj.setLicense(val);
@@ -645,9 +646,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerLicenseUrl() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.licenseUrl;
+    public void testApiDocsLicenseUrl() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.licenseUrl;
         assertThat(obj.getLicenseUrl()).isEqualTo(val);
         val = "1" + val;
         obj.setLicenseUrl(val);
@@ -655,9 +656,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerDefaultIncludePattern() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.defaultIncludePattern;
+    public void testApiDocsDefaultIncludePattern() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.defaultIncludePattern;
         assertThat(obj.getDefaultIncludePattern()).isEqualTo(val);
         val = "1" + val;
         obj.setDefaultIncludePattern(val);
@@ -665,9 +666,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerHost() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String val = JHipsterDefaults.Swagger.host;
+    public void testApiDocsHost() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.host;
         assertThat(obj.getHost()).isEqualTo(val);
         val = "1" + val;
         obj.setHost(val);
@@ -675,9 +676,9 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerProtocols() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        String[] def = JHipsterDefaults.Swagger.protocols;
+    public void testApiDocsProtocols() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String[] def = JHipsterDefaults.ApiDocs.protocols;
         ArrayList<String> val;
         if (def != null) {
             val = newArrayList(def);
@@ -693,9 +694,27 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
-    public void testSwaggerUseDefaultResponseMessages() {
-        JHipsterProperties.Swagger obj = properties.getSwagger();
-        boolean val = JHipsterDefaults.Swagger.useDefaultResponseMessages;
+    public void testApiDocsServers() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        assertThat(obj.getServers().length).isEqualTo(0);
+        JHipsterProperties.ApiDocs.Server server = new JHipsterProperties.ApiDocs.Server();
+        server.setUrl("url");
+        server.setDescription("description");
+        server.setName("name");
+
+        JHipsterProperties.ApiDocs.Server[] val = new JHipsterProperties.ApiDocs.Server[]{server};
+
+        obj.setServers(val);
+        assertThat(obj.getServers().length).isEqualTo(1);
+        assertThat(obj.getServers()[0].getName()).isEqualTo(server.getName());
+        assertThat(obj.getServers()[0].getUrl()).isEqualTo(server.getUrl());
+        assertThat(obj.getServers()[0].getDescription()).isEqualTo(server.getDescription());
+    }
+
+    @Test
+    public void testApiDocsUseDefaultResponseMessages() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        boolean val = JHipsterDefaults.ApiDocs.useDefaultResponseMessages;
         assertThat(obj.isUseDefaultResponseMessages()).isEqualTo(val);
         val = false;
         obj.setUseDefaultResponseMessages(val);

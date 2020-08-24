@@ -151,7 +151,7 @@ public interface JHipsterDefaults {
         }
     }
 
-    interface Swagger {
+    interface ApiDocs {
 
         String title = "Application API";
         String description = "API documentation";

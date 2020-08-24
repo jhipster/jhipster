@@ -25,19 +25,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Server;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
- * A swagger customizer to setup {@link springfox.documentation.spring.web.plugins.Docket} with JHipster settings.
+ * A Springfox customizer to setup {@link springfox.documentation.spring.web.plugins.Docket} with JHipster settings.
  */
-public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
+public class JHipsterSpringfoxCustomizer implements SpringfoxCustomizer, Ordered {
 
     /**
      * The default order for the customizer.
@@ -46,14 +48,14 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 
     private int order = DEFAULT_ORDER;
 
-    private final JHipsterProperties.Swagger properties;
+    private final JHipsterProperties.ApiDocs properties;
 
     /**
-     * <p>Constructor for JHipsterSwaggerCustomizer.</p>
+     * <p>Constructor for JHipsterSpringfoxCustomizer.</p>
      *
-     * @param properties a {@link io.github.jhipster.config.JHipsterProperties.Swagger} object.
+     * @param properties a {@link JHipsterProperties.ApiDocs} object.
      */
-    public JHipsterSwaggerCustomizer(JHipsterProperties.Swagger properties) {
+    public JHipsterSpringfoxCustomizer(JHipsterProperties.ApiDocs properties) {
         this.properties = properties;
     }
 
@@ -76,6 +78,11 @@ public class JHipsterSwaggerCustomizer implements SwaggerCustomizer, Ordered {
             properties.getLicenseUrl(),
             new ArrayList<>()
         );
+
+        for (JHipsterProperties.ApiDocs.Server server : properties.getServers()) {
+            docket.servers(new Server(server.getName(), server.getUrl(), server.getDescription(),
+                Collections.emptyList(), Collections.emptyList()));
+        }
 
         docket.host(properties.getHost())
             .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
