@@ -56,7 +56,7 @@
         <dropwizard-metrics.version>4.1.12.1</dropwizard-metrics.version>
         <guava.version>29.0-jre</guava.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11244 -->
-        <hazelcast-hibernate53.version>1.3.2</hazelcast-hibernate53.version>
+        <hazelcast-hibernate53.version>2.1.1</hazelcast-hibernate53.version>
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.4.18.Final</hibernate.version>
