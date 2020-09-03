@@ -4,19 +4,19 @@ updates:
     - package-ecosystem: 'maven'
       directory: '/jhipster-dependencies'
       schedule:
-          interval: weekly
+          interval: 'daily'
       open-pull-requests-limit: 10
 
     # Dependencies for jhipster-framework
     - package-ecosystem: 'maven'
       directory: '/jhipster-framework'
       schedule:
-          interval: weekly
+          interval: 'daily'
       open-pull-requests-limit: 10
 
     # Dependencies for GitHub Actions
     - package-ecosystem: 'github-actions'
       directory: '/'
       schedule:
-          interval: 'weekly'
+          interval: 'daily'
       open-pull-requests-limit: 10
