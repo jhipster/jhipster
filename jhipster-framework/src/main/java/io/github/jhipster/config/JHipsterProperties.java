@@ -48,6 +48,8 @@ public class JHipsterProperties {
 
     private final Http http = new Http();
 
+    private final Database database = new Database();
+
     private final Cache cache = new Cache();
 
     private final Mail mail = new Mail();
@@ -88,6 +90,15 @@ public class JHipsterProperties {
      */
     public Http getHttp() {
         return http;
+    }
+
+    /**
+     * <p>Getter for the field <code>database</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Database} object.
+     */
+    public Database getDatabase() {
+        return database;
     }
 
     /**
@@ -253,6 +264,29 @@ public class JHipsterProperties {
         }
     }
 
+    public static class Database {
+
+        private final Couchbase couchbase = new Couchbase();
+
+        public Couchbase getCouchbase() {
+            return couchbase;
+        }
+
+        public static class Couchbase {
+
+            private String bucketName;
+
+            public String getBucketName() {
+                return bucketName;
+            }
+
+            public Couchbase setBucketName(String bucketName) {
+                this.bucketName = bucketName;
+                return this;
+            }
+        }
+    }
+
     public static class Cache {
 
         private final Hazelcast hazelcast = new Hazelcast();
@@ -299,10 +333,26 @@ public class JHipsterProperties {
 
             private final ManagementCenter managementCenter = new ManagementCenter();
 
+            /**
+             * In the Hazelcast v4.x, the cluster node doesn't expose
+             * configurations to connect to the management center. Setting up
+             * of this property doesn't provide any behavior and has been
+             * retained for the backward compatibility, and should be
+             * removed in the next major release of the JHipster
+             */
+            @Deprecated
             public ManagementCenter getManagementCenter() {
                 return managementCenter;
             }
 
+            /**
+             * In the Hazelcast v4.x, the cluster node doesn't expose
+             * configurations to connect to the management center. Setting up
+             * of this class properties don't provide any behavior and has
+             * been retained for the backward compatibility, and should be
+             * removed in the next major release of the JHipster
+             */
+            @Deprecated
             public static class ManagementCenter {
 
                 private boolean enabled = JHipsterDefaults.Cache.Hazelcast.ManagementCenter.enabled;

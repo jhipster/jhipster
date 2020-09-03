@@ -104,6 +104,14 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testDatabaseCouchbaseBucketName() {
+        JHipsterProperties.Database.Couchbase obj = properties.getDatabase().getCouchbase();
+        assertThat(obj.getBucketName()).isEqualTo(null);
+        obj.setBucketName("bucketName");
+        assertThat(obj.getBucketName()).isEqualTo("bucketName");
+    }
+
+    @Test
     public void testCacheHazelcastTimeToLiveSeconds() {
         JHipsterProperties.Cache.Hazelcast obj = properties.getCache().getHazelcast();
         int val = JHipsterDefaults.Cache.Hazelcast.timeToLiveSeconds;

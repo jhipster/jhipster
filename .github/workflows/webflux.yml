@@ -65,8 +65,8 @@ jobs:
                     - webflux-mongodb-oauth2
                     - webflux-gateway-jwt
                     - webflux-gateway-oauth2
-                    - webflux-couchbase
-                    - webflux-couchbase-es-oauth2
+#                    - webflux-couchbase
+#                    - webflux-couchbase-es-oauth2
                     - webflux-psql
                 include:
                     - app-type: webflux-mongodb
@@ -94,16 +94,16 @@ jobs:
                       profile: prod
                       war: 0
                       e2e: 1
-                    - app-type: webflux-couchbase
-                      entity: couchbase
-                      profile: prod
-                      war: 0
-                      e2e: 1
-                    - app-type: webflux-couchbase-es-oauth2
-                      entity: couchbase
-                      profile: prod
-                      war: 0
-                      e2e: 1
+#                    - app-type: webflux-couchbase
+#                      entity: couchbase
+#                      profile: prod
+#                      war: 0
+#                      e2e: 1
+#                    - app-type: webflux-couchbase-es-oauth2
+#                      entity: couchbase
+#                      profile: prod
+#                      war: 0
+#                      e2e: 1
                     - app-type: webflux-psql
                       entity: none
                       profile: prod
