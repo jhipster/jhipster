@@ -45,6 +45,7 @@ jobs:
           JHI_DISABLE_WEBPACK_LOGS: true
           JHI_E2E_HEADLESS: true
           JHI_SCRIPTS: $HOME/generator-jhipster/test-integration/scripts
+          JHI_LIB_SCRIPTS: ./test-integration/scripts
           NG_CLI_ANALYTICS: false
 
       strategy:
@@ -119,18 +120,18 @@ jobs:
             displayName: 'TOOLS: install google-chrome-stable'
           - script: npm install -g npm
             displayName: 'TOOLS: update NPM'
-          - bash: ./test-integration/scripts/01-display-configuration.sh
+          - bash: $(JHI_LIB_SCRIPTS)/01-display-configuration.sh
             displayName: 'TOOLS: display configuration'
-          - bash: ./test-integration/scripts/03-system.sh
+          - bash: $(JHI_LIB_SCRIPTS)/03-system.sh
             displayName: 'TOOLS: configure tools installed by the system'
-          - bash: ./test-integration/scripts/04-git-config.sh
+          - bash: $(JHI_LIB_SCRIPTS)/04-git-config.sh
             displayName: 'TOOLS: configure git'
 
           #----------------------------------------------------------------------
           # Install JHipster and generate project+entities
           #----------------------------------------------------------------------
-          - bash: ./test-integration/scripts/10-install-jhipster-lib.sh
-            displayName: 'GENERATION: install JHipster library'
+          - bash: $(JHI_LIB_SCRIPTS)/10-install-jhipster-lib.sh
+            displayName: 'GENERATION: install JHipster'
           - bash: $(JHI_SCRIPTS)/11-generate-entities.sh
             displayName: 'GENERATION: entities'
           - bash: $(JHI_SCRIPTS)/12-generate-project.sh
