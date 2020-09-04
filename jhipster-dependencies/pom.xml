@@ -51,7 +51,7 @@
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
         <dropwizard-metrics.version>4.1.12.1</dropwizard-metrics.version>
         <guava.version>29.0-jre</guava.version>
-        <hazelcast.version>4.0.1</hazelcast.version>
+        <hazelcast.version>4.0.2</hazelcast.version>
         <hazelcast-hibernate5.version>2.1.1</hazelcast-hibernate5.version>
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
