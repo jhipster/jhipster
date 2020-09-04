@@ -189,6 +189,7 @@ jobs:
             - name: 'E2E: Synchronize chromedriver version'
               if: matrix.e2e == 1
               run: npm run e2e:update-webdriver -- --versions.chrome ${{ steps.chromedriver-version.outputs.version }}
+              working-directory: /home/runner/app
             - name: 'E2E: Run'
               id: e2e
               run: $JHI_SCRIPTS/24-tests-e2e.sh
@@ -197,7 +198,7 @@ jobs:
               if: always() && steps.e2e.outcome == 'failure'
               with:
                   name: screenshots-${{ matrix.app-type }}
-                  path: /home/runner/target/cypress/screenshots
+                  path: /home/runner/app/target/cypress/screenshots
             - name: 'ANALYSIS: Sonar analysis'
               run: $JHI_SCRIPTS/25-sonar-analyze.sh
               env:
