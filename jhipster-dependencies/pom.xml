@@ -46,7 +46,7 @@
         <cassandra-unit-spring.version>4.3.1.0</cassandra-unit-spring.version>
         <couchmove.version>3.0</couchmove.version>
         <!-- waiting for https://github.com/jhipster/generator-jhipster/issues/11136 -->
-        <cucumber-jvm.version>4.8.1</cucumber-jvm.version>
+        <cucumber-jvm.version>6.6.1</cucumber-jvm.version>
         <commons-io.version>2.7</commons-io.version>
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
         <dropwizard-metrics.version>4.1.12.1</dropwizard-metrics.version>
