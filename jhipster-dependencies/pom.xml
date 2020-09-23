@@ -41,7 +41,7 @@
         <!-- Dependency versions -->
         <aws-java-sdk-bom.version>1.11.866</aws-java-sdk-bom.version>
         <azure-spring-cloud-client.version>2.3.0</azure-spring-cloud-client.version>
-        <azure-applicationinsights-spring-boot-starter.version>2.6.1</azure-applicationinsights-spring-boot-starter.version>
+        <azure-applicationinsights-spring-boot-starter.version>2.6.2</azure-applicationinsights-spring-boot-starter.version>
         <bucket4j.version>4.10.0</bucket4j.version>
         <cassandra-unit-spring.version>4.3.1.0</cassandra-unit-spring.version>
         <couchmove.version>3.0.1</couchmove.version>
