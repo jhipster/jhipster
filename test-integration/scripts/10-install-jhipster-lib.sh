@@ -15,7 +15,7 @@ if [[ "$JHI_REPO" == *"/jhipster" ]]; then
 
     test-integration/scripts/10-replace-version-jhipster.sh
 
-    ./mvnw clean install -Dgpg.skip=true
+    ./mvnw -ntp clean install -Dgpg.skip=true --batch-mode
     ls -al ~/.m2/repository/io/github/jhipster/jhipster-framework/
     ls -al ~/.m2/repository/io/github/jhipster/jhipster-dependencies/
     ls -al ~/.m2/repository/io/github/jhipster/jhipster-parent/
@@ -37,7 +37,7 @@ else
 
     test-integration/scripts/10-replace-version-jhipster.sh
 
-    ./mvnw clean install -Dgpg.skip=true
+    ./mvnw -ntp clean install -Dgpg.skip=true --batch-mode
     ls -al ~/.m2/repository/io/github/jhipster/jhipster-framework/
     ls -al ~/.m2/repository/io/github/jhipster/jhipster-dependencies/
     ls -al ~/.m2/repository/io/github/jhipster/jhipster-parent/
