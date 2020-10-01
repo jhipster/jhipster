@@ -54,7 +54,7 @@
         <hazelcast-hibernate5.version>2.1.1</hazelcast-hibernate5.version>
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
-        <hibernate.version>5.4.21.Final</hibernate.version>
+        <hibernate.version>5.4.22.Final</hibernate.version>
         <infinispan.version>10.1.8.Final</infinispan.version>
         <infinispan-spring-boot-starter-embedded.version>2.2.4.Final</infinispan-spring-boot-starter-embedded.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
