@@ -84,6 +84,11 @@
         <testcontainers.version>1.14.3</testcontainers.version>
         <xmemcached.version>2.4.6</xmemcached.version>
         <xmemcached-provider.version>4.1.3</xmemcached-provider.version>
+        <wildfly-client-config.version>1.0.1.Final</wildfly-client-config.version>
+        <archaius-core.version>0.7.6</archaius-core.version>
+        <eureka-client.version>1.9.25</eureka-client.version>
+        <hystrix-core.version>1.5.18</hystrix-core.version>
+        <faux-pas.version>0.8.0</faux-pas.version>
     </properties>
 
     <dependencyManagement>
@@ -357,6 +362,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-loader-tools</artifactId>
                 <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-compress</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -718,6 +729,62 @@
                 <groupId>com.hazelcast</groupId>
                 <artifactId>hazelcast-hibernate53</artifactId>
                 <version>${hazelcast-hibernate5.version}</version>
+            </dependency>
+            <!-- Dependencies below are only exclusions to avoid warnings -->
+            <dependency>
+                <groupId>org.wildfly.client</groupId>
+                <artifactId>wildfly-client-config</artifactId>
+                <version>${wildfly-client-config.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.wildfly.common</groupId>
+                        <artifactId>wildfly-common</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.archaius</groupId>
+                <artifactId>archaius-core</artifactId>
+                <version>${archaius-core.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.eureka</groupId>
+                <artifactId>eureka-client</artifactId>
+                <version>${eureka-client.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-configuration</groupId>
+                        <artifactId>commons-configuration</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.hystrix</groupId>
+                <artifactId>hystrix-core</artifactId>
+                <version>${hystrix-core.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hdrhistogram</groupId>
+                        <artifactId>HdrHistogram</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.zalando</groupId>
+                <artifactId>faux-pas</artifactId>
+                <version>${faux-pas.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apiguardian</groupId>
+                        <artifactId>apiguardian-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- BOM imports last so we (could) selectively override dependencies above -->
