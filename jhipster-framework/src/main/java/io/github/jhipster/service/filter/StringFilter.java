@@ -59,11 +59,7 @@ public class StringFilter extends Filter<String> {
         this.doesNotContain = filter.doesNotContain;
     }
 
-    /**
-     * <p>copy.</p>
-     *
-     * @return a {@link io.github.jhipster.service.filter.StringFilter} object.
-     */
+    /** {@inheritDoc} */
     @Override
     public StringFilter copy() {
         return new StringFilter(this);

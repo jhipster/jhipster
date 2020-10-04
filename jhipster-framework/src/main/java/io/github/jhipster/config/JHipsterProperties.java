@@ -339,6 +339,8 @@ public class JHipsterProperties {
              * of this property doesn't provide any behavior and has been
              * retained for the backward compatibility, and should be
              * removed in the next major release of the JHipster
+             *
+             * @return a {@link io.github.jhipster.config.JHipsterProperties.Cache.Hazelcast.ManagementCenter} object.
              */
             @Deprecated
             public ManagementCenter getManagementCenter() {

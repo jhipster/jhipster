@@ -289,9 +289,9 @@ public abstract class QueryService<ENTITY> {
 
     /**
      * Helper function to return a specification for filtering on one-to-many or many-to-many reference.Where equality, less
- than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
- supported. Usage:
- <pre><code>
+     * than, greater than and less-than-or-equal-to and greater-than-or-equal-to and null/non-null conditions are
+     * supported. Usage:
+     * <pre><code>
      *   Specification&lt;Employee&gt; specByEmployeeId = buildReferringEntitySpecification(
      *          criteria.getEmployeId(),
      *          root -&gt; root.get(Project_.company).join(Company_.employees),

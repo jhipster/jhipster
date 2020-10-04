@@ -49,11 +49,7 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
         super(filter);
     }
 
-    /**
-     * <p>copy.</p>
-     *
-     * @return a {@link io.github.jhipster.service.filter.LocalDateFilter} object.
-     */
+    /** {@inheritDoc} */
     @Override
     public LocalDateFilter copy() {
         return new LocalDateFilter(this);

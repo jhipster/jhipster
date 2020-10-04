@@ -11,10 +11,19 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+/**
+ * <p>PrefixedKeyGenerator class.</p>
+ */
 public class PrefixedKeyGenerator implements KeyGenerator {
 
     private final String prefix;
 
+    /**
+     * <p>Constructor for PrefixedKeyGenerator.</p>
+     *
+     * @param gitProperties a {@link org.springframework.boot.info.GitProperties} object.
+     * @param buildProperties a {@link org.springframework.boot.info.BuildProperties} object.
+     */
     public PrefixedKeyGenerator(GitProperties gitProperties, BuildProperties buildProperties) {
 
         this.prefix = generatePrefix(gitProperties, buildProperties);
@@ -46,6 +55,7 @@ public class PrefixedKeyGenerator implements KeyGenerator {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public Object generate(Object target, Method method, Object... params) {
         return new PrefixedSimpleKey(prefix, method.getName(), params);

@@ -49,11 +49,7 @@ public class BooleanFilter extends Filter<Boolean> {
         super(filter);
     }
 
-    /**
-     * <p>copy.</p>
-     *
-     * @return a {@link io.github.jhipster.service.filter.BooleanFilter} object.
-     */
+    /** {@inheritDoc} */
     @Override
     public BooleanFilter copy() {
         return new BooleanFilter(this);

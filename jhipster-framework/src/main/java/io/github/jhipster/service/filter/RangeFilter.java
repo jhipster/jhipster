@@ -77,11 +77,7 @@ public class RangeFilter<FIELD_TYPE extends Comparable<? super FIELD_TYPE>> exte
         this.lessThanOrEqual = filter.lessThanOrEqual;
     }
 
-    /**
-     * <p>copy.</p>
-     *
-     * @return a {@link io.github.jhipster.service.filter.RangeFilter} object.
-     */
+    /** {@inheritDoc} */
     @Override
     public RangeFilter<FIELD_TYPE> copy() {
         return new RangeFilter<>(this);

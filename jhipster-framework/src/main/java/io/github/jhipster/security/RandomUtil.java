@@ -40,6 +40,11 @@ public final class RandomUtil {
     private RandomUtil() {
     }
 
+    /**
+     * <p>generateRandomAlphanumericString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public static String generateRandomAlphanumericString() {
         return RandomStringUtils.random(DEF_COUNT, 0, 0, true, true, null, SECURE_RANDOM);
     }

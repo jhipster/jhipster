@@ -49,11 +49,7 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         super(filter);
     }
 
-    /**
-     * <p>copy.</p>
-     *
-     * @return a {@link io.github.jhipster.service.filter.ZonedDateTimeFilter} object.
-     */
+    /** {@inheritDoc} */
     @Override
     public ZonedDateTimeFilter copy() {
         return new ZonedDateTimeFilter(this);

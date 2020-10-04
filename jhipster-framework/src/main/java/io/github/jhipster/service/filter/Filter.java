@@ -173,9 +173,7 @@ public class Filter<FIELD_TYPE> implements Serializable {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -192,17 +190,13 @@ public class Filter<FIELD_TYPE> implements Serializable {
                 Objects.equals(notIn, filter.notIn);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return Objects.hash(equals, notEquals, specified, in, notIn);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return getFilterName() + " ["

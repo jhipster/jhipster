@@ -16,20 +16,20 @@ public interface ResponseUtil {
      *
      * @param <X>           type of the response
      * @param maybeResponse response to return if present
-     * @return response containing {@code maybeResponse} if present or {@link HttpStatus#NOT_FOUND}
+     * @return response containing {@code maybeResponse} if present or {@link org.springframework.http.HttpStatus#NOT_FOUND}
      */
     static <X> Mono<ResponseEntity<X>> wrapOrNotFound(Mono<X> maybeResponse) {
         return wrapOrNotFound(maybeResponse, null);
     }
 
     /**
-     * Wrap the mono into a {@link ResponseEntity} with an {@link HttpStatus#OK} status with the headers, or if it's
-     * empty, throws a {@link org.springframework.web.server.ResponseStatusException} with status {@link HttpStatus#NOT_FOUND}.
+     * Wrap the mono into a {@link org.springframework.http.ResponseEntity} with an {@link org.springframework.http.HttpStatus#OK} status with the headers, or if it's
+     * empty, throws a {@link org.springframework.web.server.ResponseStatusException} with status {@link org.springframework.http.HttpStatus#NOT_FOUND}.
      *
      * @param <X>           type of the response
      * @param maybeResponse response to return if present
      * @param headers        headers to be added to the response
-     * @return response containing {@code maybeResponse} if present or {@link HttpStatus#NOT_FOUND}
+     * @return response containing {@code maybeResponse} if present or {@link org.springframework.http.HttpStatus#NOT_FOUND}
      */
     static <X> Mono<ResponseEntity<X>> wrapOrNotFound(Mono<X> maybeResponse, HttpHeaders headers) {
         return maybeResponse

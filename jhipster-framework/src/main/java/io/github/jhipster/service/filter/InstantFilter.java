@@ -49,11 +49,7 @@ public class InstantFilter extends RangeFilter<Instant> {
         super(filter);
     }
 
-    /**
-     * <p>copy.</p>
-     *
-     * @return a {@link io.github.jhipster.service.filter.InstantFilter} object.
-     */
+    /** {@inheritDoc} */
     @Override
     public InstantFilter copy() {
         return new InstantFilter(this);

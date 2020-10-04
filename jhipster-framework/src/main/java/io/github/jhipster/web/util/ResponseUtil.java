@@ -51,7 +51,6 @@ public interface ResponseUtil {
      * @param maybeResponse response to return if present
      * @param header        headers to be added to the response
      * @return response containing {@code maybeResponse} if present
-     * @throws ResponseStatusException {@code 404 (Not found)} if {@code maybeResponse} is empty
      */
     static <X> ResponseEntity<X> wrapOrNotFound(Optional<X> maybeResponse, HttpHeaders header) {
         return maybeResponse.map(response -> ResponseEntity.ok().headers(header).body(response))

@@ -53,7 +53,7 @@ public class JHipsterSpringfoxCustomizer implements SpringfoxCustomizer, Ordered
     /**
      * <p>Constructor for JHipsterSpringfoxCustomizer.</p>
      *
-     * @param properties a {@link JHipsterProperties.ApiDocs} object.
+     * @param properties a {@link io.github.jhipster.config.JHipsterProperties.ApiDocs} object.
      */
     public JHipsterSpringfoxCustomizer(JHipsterProperties.ApiDocs properties) {
         this.properties = properties;

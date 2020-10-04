@@ -42,6 +42,15 @@ public final class SpringLiquibaseUtil {
     private SpringLiquibaseUtil() {
     }
 
+    /**
+     * <p>createSpringLiquibase.</p>
+     *
+     * @param liquibaseDatasource a {@link javax.sql.DataSource} object.
+     * @param liquibaseProperties a {@link org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties} object.
+     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSourceProperties a {@link org.springframework.boot.autoconfigure.jdbc.DataSourceProperties} object.
+     * @return a {@link liquibase.integration.spring.SpringLiquibase} object.
+     */
     public static SpringLiquibase createSpringLiquibase(DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties, DataSource dataSource, DataSourceProperties dataSourceProperties) {
         SpringLiquibase liquibase;
         DataSource liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
@@ -55,6 +64,17 @@ public final class SpringLiquibaseUtil {
         return liquibase;
     }
 
+    /**
+     * <p>createAsyncSpringLiquibase.</p>
+     *
+     * @param env a {@link org.springframework.core.env.Environment} object.
+     * @param executor a {@link java.util.concurrent.Executor} object.
+     * @param liquibaseDatasource a {@link javax.sql.DataSource} object.
+     * @param liquibaseProperties a {@link org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties} object.
+     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSourceProperties a {@link org.springframework.boot.autoconfigure.jdbc.DataSourceProperties} object.
+     * @return a {@link io.github.jhipster.config.liquibase.AsyncSpringLiquibase} object.
+     */
     public static AsyncSpringLiquibase createAsyncSpringLiquibase(Environment env, Executor executor, DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties, DataSource dataSource, DataSourceProperties dataSourceProperties) {
         AsyncSpringLiquibase liquibase = new AsyncSpringLiquibase(executor, env);
         DataSource liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
