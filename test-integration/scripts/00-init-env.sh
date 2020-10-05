@@ -6,17 +6,15 @@ init_var() {
         result=$1
     elif [[ $2 != "" ]]; then
         result=$2
-    elif [[ $3 != "" ]]; then
-        result=$3
     fi
     echo $result
 }
 
 # uri of repo
-JHI_REPO=$(init_var "$BUILD_REPOSITORY_URI" "$TRAVIS_REPO_SLUG" "$GITHUB_WORKSPACE")
+JHI_REPO=$(init_var "$BUILD_REPOSITORY_URI" "$GITHUB_WORKSPACE")
 
 # folder where the repo is cloned
-JHI_CLONED=$(init_var "$BUILD_REPOSITORY_LOCALPATH" "$TRAVIS_BUILD_DIR" "$GITHUB_WORKSPACE")
+JHI_CLONED=$(init_var "$BUILD_REPOSITORY_LOCALPATH" "$GITHUB_WORKSPACE")
 
 # folder where the generator-jhipster is cloned
 JHI_HOME="$HOME"/generator-jhipster
