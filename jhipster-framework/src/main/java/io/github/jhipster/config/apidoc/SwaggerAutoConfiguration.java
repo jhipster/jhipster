@@ -31,7 +31,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import javax.servlet.Servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
@@ -50,12 +49,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.DispatcherServlet;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration;
 
 /**
  * Springfox Swagger configuration.
@@ -68,13 +67,14 @@ import springfox.documentation.spring.web.plugins.Docket;
 @ConditionalOnClass({
     ApiInfo.class,
     BeanValidatorPluginsConfiguration.class,
-    Servlet.class,
-    DispatcherServlet.class,
     Docket.class
 })
 @Profile(SPRING_PROFILE_SWAGGER)
 @AutoConfigureAfter(JHipsterProperties.class)
-@Import(BeanValidatorPluginsConfiguration.class)
+@Import({
+    Swagger2DocumentationConfiguration.class,
+    BeanValidatorPluginsConfiguration.class
+})
 public class SwaggerAutoConfiguration {
 
     static final String STARTING_MESSAGE = "Starting Swagger";

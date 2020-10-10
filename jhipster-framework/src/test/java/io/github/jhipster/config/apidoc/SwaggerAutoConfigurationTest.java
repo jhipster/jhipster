@@ -19,197 +19,95 @@
 
 package io.github.jhipster.config.apidoc;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
-import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.config.JHipsterProperties.Swagger;
-import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
-import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
-import io.github.jhipster.test.LogbackRecorder;
-import io.github.jhipster.test.LogbackRecorder.Event;
+import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_SWAGGER;
+import static org.hamcrest.Matchers.hasItems;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
-import springfox.documentation.spring.web.plugins.Docket;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.annotation.Nullable;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+@SpringBootTest(
+    classes = SwaggerAutoConfigurationTest.TestApp.class,
+    properties = {
+        "spring.liquibase.enabled=false",
+        "security.basic.enabled=false",
+        "jhipster.swagger.default-include-pattern=/scanned/.*",
+        "jhipster.swagger.host=test.jhipster.com",
+        "jhipster.swagger.protocols=http,https",
+        "jhipster.swagger.title=test title",
+        "jhipster.swagger.description=test description",
+        "jhipster.swagger.version=test version",
+        "jhipster.swagger.terms-of-service-url=test tos url",
+        "jhipster.swagger.contact-name=test contact name",
+        "jhipster.swagger.contact-email=test contact email",
+        "jhipster.swagger.contact-url=test contact url",
+        "jhipster.swagger.license=test license name",
+        "jhipster.swagger.license-url=test license url",
+        "management.endpoints.web.base-path=/management",
+        "spring.application.name=testApp"
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-
+    })
+@ActiveProfiles(SPRING_PROFILE_SWAGGER)
+@AutoConfigureMockMvc
 public class SwaggerAutoConfigurationTest {
 
-    private Swagger properties;
-    private SwaggerAutoConfiguration config;
-    private ApiSelectorBuilder builder;
-    private LogbackRecorder recorder;
+    @Autowired
+    private MockMvc mockMvc;
 
-    @Captor
-    private ArgumentCaptor<ApiInfo> infoCaptor;
-
-    @Captor
-    private ArgumentCaptor<Predicate<String>> pathsCaptor;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-
-        final JHipsterProperties jHipsterProperties = new JHipsterProperties();
-        properties = jHipsterProperties.getSwagger();
-        properties.setHost("test.host.org");
-        properties.setProtocols(new String[]{"http", "https"});
-        properties.setTitle("test title");
-        properties.setDescription("test description");
-        properties.setVersion("6.6.6");
-        properties.setTermsOfServiceUrl("http://test.host.org/terms");
-        properties.setContactName("test contact");
-        properties.setContactEmail("test@host.org");
-        properties.setContactUrl("http://test.host.org/contact");
-        properties.setLicense("free as in beer");
-        properties.setLicenseUrl("http://test.host.org/license");
-        properties.setUseDefaultResponseMessages(false);
-
-        config = new SwaggerAutoConfiguration(jHipsterProperties) {
-            @Override
-            protected Docket createDocket() {
-                Docket docket = spy(super.createDocket());
-                when(docket.select()).thenReturn(builder = spy(new ApiSelectorBuilder(docket)));
-                return docket;
-            }
-        };
-
-        recorder = LogbackRecorder.forClass(SwaggerAutoConfiguration.class).reset().capture("ALL");
-    }
-
-    @AfterEach
-    public void teardown() {
-        recorder.release();
+    @Test
+    void generatesSwaggerV2() throws Exception {
+        mockMvc.perform(get("/v2/api-docs"))
+            .andExpect((status().isOk()))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.paths./scanned/test").exists())
+            .andExpect(jsonPath("$.host").value("test.jhipster.com"))
+            .andExpect(jsonPath("$.schemes").value(hasItems("http", "https")));
     }
 
     @Test
-    public void testSwaggerSpringfoxApiDocket() {
-        List<SwaggerCustomizer> customizers = Lists.newArrayList(new JHipsterSwaggerCustomizer(properties));
-        Docket docket = config.swaggerSpringfoxApiDocket(customizers, new NullProvider<>());
+    void generatesManagementSwaggerV2() throws Exception {
+        mockMvc.perform(get("/v2/api-docs?group=management"))
+            .andExpect((status().isOk()))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.paths./management/health").exists())
+            .andExpect(jsonPath("$.host").value("test.jhipster.com"))
+            .andExpect(jsonPath("$.schemes").value(hasItems("http", "https")));    }
 
-        verify(docket, never()).groupName(anyString());
-        verify(docket).host(properties.getHost());
-        verify(docket).protocols(new HashSet<>(Arrays.asList(properties.getProtocols())));
-
-        verify(docket).apiInfo(infoCaptor.capture());
-        ApiInfo info = infoCaptor.getValue();
-        assertThat(info.getTitle()).isEqualTo(properties.getTitle());
-        assertThat(info.getDescription()).isEqualTo(properties.getDescription());
-        assertThat(info.getVersion()).isEqualTo(properties.getVersion());
-        assertThat(info.getTermsOfServiceUrl()).isEqualTo(properties.getTermsOfServiceUrl());
-        assertThat(info.getContact().getName()).isEqualTo(properties.getContactName());
-        assertThat(info.getContact().getEmail()).isEqualTo(properties.getContactEmail());
-        assertThat(info.getContact().getUrl()).isEqualTo(properties.getContactUrl());
-        assertThat(info.getLicense()).isEqualTo(properties.getLicense());
-        assertThat(info.getLicenseUrl()).isEqualTo(properties.getLicenseUrl());
-        assertThat(info.getVendorExtensions()).isEmpty();
-
-        verify(docket).useDefaultResponseMessages(properties.isUseDefaultResponseMessages());
-        verify(docket).forCodeGeneration(true);
-        verify(docket).directModelSubstitute(ByteBuffer.class, String.class);
-        verify(docket).genericModelSubstitutes(ResponseEntity.class);
-
-        verify(docket).select();
-        verify(builder).paths(pathsCaptor.capture());
-        Predicate<String> paths = pathsCaptor.getValue();
-        assertThat(paths.apply("/api/foo")).isEqualTo(true);
-        assertThat(paths.apply("/foo/api")).isEqualTo(false);
-
-        verify(builder).build();
-
-        List<Event> events = recorder.play();
-        assertThat(events).hasSize(2);
-
-        Event event0 = events.get(0);
-        assertThat(event0.getLevel()).isEqualTo("DEBUG");
-        assertThat(event0.getMessage()).isEqualTo(SwaggerAutoConfiguration.STARTING_MESSAGE);
-        assertThat(event0.getThrown()).isNull();
-
-        Event event1 = events.get(1);
-        assertThat(event1.getLevel()).isEqualTo("DEBUG");
-        assertThat(event1.getMessage()).isEqualTo(SwaggerAutoConfiguration.STARTED_MESSAGE);
-        assertThat(event1.getThrown()).isNull();
-    }
-
-    @Test
-    public void testSwaggerSpringfoxManagementDocket() {
-        Docket docket = config.swaggerSpringfoxManagementDocket(properties.getTitle(), "/foo/");
-
-        verify(docket).groupName(SwaggerAutoConfiguration.MANAGEMENT_GROUP_NAME);
-        verify(docket).host(properties.getHost());
-        verify(docket).protocols(new HashSet<>(Arrays.asList(properties.getProtocols())));
-
-        verify(docket).apiInfo(infoCaptor.capture());
-        ApiInfo info = infoCaptor.getValue();
-        assertThat(info.getTitle()).isEqualTo(StringUtils.capitalize(properties.getTitle()) + " " +
-            SwaggerAutoConfiguration.MANAGEMENT_TITLE_SUFFIX);
-        assertThat(info.getDescription()).isEqualTo(SwaggerAutoConfiguration.MANAGEMENT_DESCRIPTION);
-        assertThat(info.getVersion()).isEqualTo(properties.getVersion());
-        assertThat(info.getTermsOfServiceUrl()).isEqualTo("");
-        assertThat(info.getContact().getName()).isEqualTo(ApiInfo.DEFAULT_CONTACT.getName());
-        assertThat(info.getContact().getEmail()).isEqualTo(ApiInfo.DEFAULT_CONTACT.getEmail());
-        assertThat(info.getContact().getUrl()).isEqualTo(ApiInfo.DEFAULT_CONTACT.getUrl());
-        assertThat(info.getLicense()).isEqualTo("");
-        assertThat(info.getLicenseUrl()).isEqualTo("");
-        assertThat(info.getVendorExtensions()).isEmpty();
-
-        verify(docket).useDefaultResponseMessages(properties.isUseDefaultResponseMessages());
-        verify(docket).forCodeGeneration(true);
-        verify(docket).directModelSubstitute(ByteBuffer.class, String.class);
-        verify(docket).genericModelSubstitutes(ResponseEntity.class);
-
-        verify(docket).select();
-        verify(builder).paths(pathsCaptor.capture());
-        Predicate<String> paths = pathsCaptor.getValue();
-        assertThat(paths.apply("/api/foo")).isEqualTo(false);
-        assertThat(paths.apply("/foo/api")).isEqualTo(true);
-
-        verify(builder).build();
-    }
-
-    static class NullProvider<T> implements ObjectProvider<T> {
-
-        @Nullable
-        @Override
-        public T getObject(Object... args) throws BeansException {
-            return null;
+    @SpringBootApplication(
+        scanBasePackages = "io.github.jhipster.config.apidoc",
+        exclude = {
+            SecurityAutoConfiguration.class,
+            ManagementWebSecurityAutoConfiguration.class,
+            DataSourceAutoConfiguration.class,
+            DataSourceTransactionManagerAutoConfiguration.class,
+            HibernateJpaAutoConfiguration.class
+        })
+    @Controller
+    static class TestApp {
+        @GetMapping("/scanned/test")
+        public void scanned(Pageable pageable) {
         }
 
-        @Nullable
-        @Override
-        public T getIfAvailable() throws BeansException {
-            return null;
-        }
-
-        @Nullable
-        @Override
-        public T getIfUnique() throws BeansException {
-            return null;
-        }
-
-        @Nullable
-        @Override
-        public T getObject() throws BeansException {
-            return null;
+        @GetMapping("/not-scanned/test")
+        public void notscanned(Pageable pageable) {
         }
     }
+
 }
