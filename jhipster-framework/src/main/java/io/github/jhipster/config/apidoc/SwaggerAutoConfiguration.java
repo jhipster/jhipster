@@ -19,15 +19,29 @@
 
 package io.github.jhipster.config.apidoc;
 
+import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_SWAGGER;
+import static springfox.documentation.builders.PathSelectors.regex;
+
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.apidoc.customizer.JHipsterSwaggerCustomizer;
 import io.github.jhipster.config.apidoc.customizer.SwaggerCustomizer;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import javax.servlet.Servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.*;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -42,14 +56,6 @@ import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import javax.servlet.Servlet;
-import java.nio.ByteBuffer;
-import java.util.*;
-
-import static io.github.jhipster.config.JHipsterConstants.SPRING_PROFILE_SWAGGER;
-import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * Springfox Swagger configuration.
@@ -68,7 +74,6 @@ import static springfox.documentation.builders.PathSelectors.regex;
 })
 @Profile(SPRING_PROFILE_SWAGGER)
 @AutoConfigureAfter(JHipsterProperties.class)
-@EnableSwagger2
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerAutoConfiguration {
 
