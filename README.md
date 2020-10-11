@@ -16,7 +16,7 @@ If the current version is SNAPSHOT then to use this SNAPSHOT version:
 [maven-image]: https://maven-badges.herokuapp.com/maven-central/io.github.jhipster/jhipster-parent/badge.svg
 [maven-url]: https://maven-badges.herokuapp.com/maven-central/io.github.jhipster/jhipster-parent
 
-[azure-devops-image]: https://dev.azure.com/jhipster/jhipster/_apis/build/status/jhipster.jhipster?branchName=master
+[azure-devops-image]: https://dev.azure.com/jhipster/jhipster/_apis/build/status/jhipster.jhipster?branchName=main
 [azure-devops-url-main]: https://dev.azure.com/jhipster/jhipster/_build
 [github-actions-angular-image]: https://github.com/jhipster/jhipster/workflows/Angular/badge.svg
 [github-actions-react-image]: https://github.com/jhipster/jhipster/workflows/React/badge.svg

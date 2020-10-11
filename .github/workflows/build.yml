@@ -22,7 +22,7 @@ name: Test, Sonar and deploy.
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
     build-and-analyse:
