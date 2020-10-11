@@ -48,7 +48,7 @@
         <cucumber-jvm.version>6.8.1</cucumber-jvm.version>
         <commons-io.version>2.8.0</commons-io.version>
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
-        <dropwizard-metrics.version>4.1.12.1</dropwizard-metrics.version>
+        <dropwizard-metrics.version>4.1.13</dropwizard-metrics.version>
         <guava.version>29.0-jre</guava.version>
         <hazelcast.version>4.0.3</hazelcast.version>
         <hazelcast-hibernate5.version>2.1.1</hazelcast-hibernate5.version>
