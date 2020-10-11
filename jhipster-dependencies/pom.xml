@@ -63,7 +63,7 @@
         <liquibase-mssql.version>1.6.4</liquibase-mssql.version>
         <logstash-logback-encoder.version>6.4</logstash-logback-encoder.version>
         <lz4-java.version>1.7.1</lz4-java.version>
-        <mapstruct.version>1.4.0.Final</mapstruct.version>
+        <mapstruct.version>1.4.1.Final</mapstruct.version>
         <mongock.version>4.1.17</mongock.version>
         <mssql-jdbc.version>8.4.1.jre8</mssql-jdbc.version>
         <neo4j-migrations.version>0.0.13</neo4j-migrations.version>
