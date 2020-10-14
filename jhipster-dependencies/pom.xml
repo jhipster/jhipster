@@ -73,7 +73,7 @@
         <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
         <problem-spring-webflux.version>${problem-spring.version}</problem-spring-webflux.version>
         <prometheus-simpleclient.version>0.9.0</prometheus-simpleclient.version>
-        <redisson.version>3.13.5</redisson.version>
+        <redisson.version>3.13.6</redisson.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-cloud-connectors.version>2.0.7.RELEASE</spring-cloud-connectors.version>
