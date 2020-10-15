@@ -13,6 +13,18 @@ import java.util.Objects;
 
 /**
  * <p>PrefixedKeyGenerator class.</p>
+ * <p>
+ * This class is responsible for generating cache keys that are specific to a version of the application 
+ * by prefixing them with git commit hash.
+ * </p>
+ * <p>
+ * This allows multiple versions of an application to "share" the same distributed cache even when the structure 
+ * of the values has changed between those versions of the software.
+ * </p>
+ * <p>
+ * This case typically occurs in production to ensure zero-downtime updates across a cluster
+ * requiring that two different versions of the application have to run concurrently for some time.
+ * </p>
  */
 public class PrefixedKeyGenerator implements KeyGenerator {
 
