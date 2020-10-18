@@ -67,7 +67,7 @@
         <mongock.version>4.1.17</mongock.version>
         <mssql-jdbc.version>8.4.1.jre8</mssql-jdbc.version>
         <neo4j-migrations.version>0.0.13</neo4j-migrations.version>
-        <mysql-jdbc.version>8.0.19</mysql-jdbc.version>
+        <mysql-jdbc.version>8.0.22</mysql-jdbc.version>
         <oracle-jdbc.version>19.7.0.0</oracle-jdbc.version>
         <problem-spring.version>0.26.2</problem-spring.version>
         <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
