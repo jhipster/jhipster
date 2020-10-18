@@ -139,12 +139,6 @@ jobs:
             - uses: actions/setup-java@v1
               with:
                   java-version: '11.x'
-            - name: 'SETUP: Get chrome/chromedriver version'
-              id: chromedriver-version
-              run: |
-                  CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1) \
-                  && CHROMEDRIVER_VERSION=$(curl --location --fail --retry 3 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}) \
-                  && echo "::set-output name=version::$CHROMEDRIVER_VERSION"
             - name: 'ENV: display variables'
               run: $JHI_LIB_SCRIPTS/01-display-configuration.sh
             - name: 'TOOLS: configure tools installed by the system'
@@ -175,10 +169,6 @@ jobs:
               run: $JHI_SCRIPTS/22-tests-frontend.sh
             - name: 'TESTS: packaging'
               run: $JHI_SCRIPTS/23-package.sh
-            - name: 'E2E: Synchronize chromedriver version'
-              if: matrix.e2e == 1
-              run: npm run e2e:update-webdriver -- --versions.chrome ${{ steps.chromedriver-version.outputs.version }}
-              working-directory: /home/runner/app
             - name: 'E2E: Run'
               id: e2e
               run: $JHI_SCRIPTS/24-tests-e2e.sh
