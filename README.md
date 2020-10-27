@@ -1,4 +1,4 @@
-JHipster BOM and server-side library
+JHipster BOM and server-side library - ***DEPRECATED***
 ----------------------------
 
 [![Angular Build Status][github-actions-angular-image]][github-actions-url] [![React Build Status][github-actions-react-image]][github-actions-url] [![Vue Build Status][github-actions-vue-image]][github-actions-url] [![Webflux Build Status][github-actions-webflux-image]][github-actions-url] [![Azure DevOps Build Status][azure-devops-image]][azure-devops-url-main] [![Maven Central][maven-image]][maven-url]
