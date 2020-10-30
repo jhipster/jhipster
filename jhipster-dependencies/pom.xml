@@ -45,7 +45,7 @@
         <bucket4j.version>4.10.0</bucket4j.version>
         <cassandra-unit-spring.version>4.3.1.0</cassandra-unit-spring.version>
         <couchmove.version>3.1</couchmove.version>
-        <cucumber-jvm.version>6.8.1</cucumber-jvm.version>
+        <cucumber-jvm.version>6.8.2</cucumber-jvm.version>
         <commons-io.version>2.8.0</commons-io.version>
         <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
         <dropwizard-metrics.version>4.1.14</dropwizard-metrics.version>
