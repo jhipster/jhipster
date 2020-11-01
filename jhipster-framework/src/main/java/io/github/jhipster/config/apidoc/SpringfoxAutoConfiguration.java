@@ -140,11 +140,9 @@ public class SpringfoxAutoConfiguration {
      */
     @Bean
     @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties")
-    @ConditionalOnProperty("management.endpoints.web.base-path")
     @ConditionalOnExpression("'${management.endpoints.web.base-path}'.length() > 0")
     @ConditionalOnMissingBean(name = "openAPISpringfoxManagementDocket")
-    public Docket openAPISpringfoxManagementDocket(@Value("${spring.application.name:application}") String appName,
-                                                   @Value("${management.endpoints.web.base-path}") String managementContextPath) {
+    public Docket openAPISpringfoxManagementDocket(@Value("${spring.application.name:application}") String appName) {
 
         ApiInfo apiInfo = new ApiInfo(
             StringUtils.capitalize(appName) + " " + MANAGEMENT_TITLE_SUFFIX,
@@ -175,7 +173,7 @@ public class SpringfoxAutoConfiguration {
             .genericModelSubstitutes(ResponseEntity.class)
             .ignoredParameterTypes(Pageable.class)
             .select()
-            .paths(regex(managementContextPath + ".*"))
+            .paths(regex(properties.getManagementIncludePattern()))
             .build();
     }
 

@@ -163,6 +163,7 @@ public interface JHipsterDefaults {
         String license = null;
         String licenseUrl = null;
         String defaultIncludePattern = "/api/.*";
+        String managementIncludePattern = "/management/.*";
         String host = null;
         String[] protocols = {};
         boolean useDefaultResponseMessages = true;

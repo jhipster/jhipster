@@ -666,6 +666,16 @@ public class JHipsterPropertiesTest {
     }
 
     @Test
+    public void testApiDocsManagementIncludePattern() {
+        JHipsterProperties.ApiDocs obj = properties.getApiDocs();
+        String val = JHipsterDefaults.ApiDocs.managementIncludePattern;
+        assertThat(obj.getManagementIncludePattern()).isEqualTo(val);
+        val = "1" + val;
+        obj.setManagementIncludePattern(val);
+        assertThat(obj.getManagementIncludePattern()).isEqualTo(val);
+    }
+
+    @Test
     public void testApiDocsHost() {
         JHipsterProperties.ApiDocs obj = properties.getApiDocs();
         String val = JHipsterDefaults.ApiDocs.host;
