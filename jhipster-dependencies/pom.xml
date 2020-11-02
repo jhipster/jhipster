@@ -88,6 +88,8 @@
         <spring-security-oauth.version>2.5.0.RELEASE</spring-security-oauth.version>
         <springfox.version>2.9.2</springfox.version>
         <testcontainers.version>1.14.3</testcontainers.version>
+        <!-- Fixing https://nvd.nist.gov/vuln/detail/CVE-2020-10687 for Spring Boot 2.2 -->
+        <undertow.version>2.2.2.Final</undertow.version>
         <xmemcached.version>2.4.6</xmemcached.version>
         <xmemcached-provider.version>4.1.3</xmemcached-provider.version>
     </properties>
@@ -724,6 +726,24 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
+            <!-- Fixing https://nvd.nist.gov/vuln/detail/CVE-2020-10687 for Spring Boot 2.2 -->
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-core</artifactId>
+                <version>${undertow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-servlet</artifactId>
+                <version>${undertow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-websockets-jsr</artifactId>
+                <version>${undertow.version}</version>
+            </dependency>
+
 
             <!-- BOM imports last so we (could) selectively override dependencies above -->
             <dependency>
